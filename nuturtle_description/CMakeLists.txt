@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.9)
 project(nuturtle_description)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
