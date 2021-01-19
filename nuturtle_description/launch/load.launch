@@ -5,18 +5,20 @@
 
    <rosparam command="load" file="$(find nuturtle_description)/config/diff_params.yaml" />
 
-   <!-- <include file="$(find turtlebot3)/turtlebot3_bringup/turtlebot3_remote.launch" />
-   <arg name="model" default="$(env TURTLEBOT_MODEL)" doc="model type [burger, waffle, waffle_pi]"/> -->
+   <include file="$(find turtlebot3)/turtlebot3_bringup/turtlebot3_remote.launch" />
+   <arg name="model" default="$(env TURTLEBOT_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
 
-   <group if="$(arg rqt_plot)">
+   <!-- <group if="$(arg rqt_plot)">
         <node name="roaming_turtle" pkg="turtlesim" type="turtlesim_node" />
         <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" args="/point/Point/x_d:y_d" />
    </group>
+
    <group if="$(arg Gazebo)">
         <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch" />
-   </group>
+   </group> -->
+
    <group if="$(arg use_rviz)">
-        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find homework2)/config/turtle_view.rviz" />
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nuturtle_description)/config/turtle_view.rviz" />
         <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" >
            <remap from="joint_state" to="different_joint_states" />
         </node>
