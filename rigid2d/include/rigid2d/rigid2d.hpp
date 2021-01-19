@@ -91,6 +91,10 @@ namespace rigid2d
     /// \brief a rigid body transformation in 2 dimensions
     class Transform2D
     {
+    private:
+        Vector2D trans_vector;
+        double trans_angle;
+
     public:
         /// \brief Create an identity transformation
         Transform2D();
