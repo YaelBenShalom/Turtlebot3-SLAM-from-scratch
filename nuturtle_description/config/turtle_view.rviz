@@ -8,6 +8,7 @@ Panels:
         - /Status1
         - /Path1
         - /RobotModel1
+        - /RobotModel1/Status1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz/Selection
@@ -85,9 +86,13 @@ Visualization Manager:
         All Enabled: true
         base_footprint:
           Value: true
-        odom:
+        base_link:
           Value: true
-        world:
+        base_scan:
+          Value: true
+        caster_back_link:
+          Value: true
+        imu_link:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -96,9 +101,13 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        world:
-          odom:
-            base_footprint:
+        base_footprint:
+          base_link:
+            base_scan:
+              {}
+            caster_back_link:
+              {}
+            imu_link:
               {}
       Update Interval: 0
       Value: true
@@ -155,7 +164,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: world
+    Fixed Frame: base_footprint
     Frame Rate: 30
   Name: root
   Tools:
@@ -216,4 +225,4 @@ Window Geometry:
     collapsed: false
   Width: 1200
   X: 517
-  Y: 138
+  Y: 101

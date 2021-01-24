@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<robot name="turtlebot3_burger" xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:include filename="$(find nuturtle_description)/urdf/common_properties.xacro"/>
-  <xacro:include filename="$(find nuturtle_description)/urdf/turtlebot3_burger.gazebo.xacro"/>
+<robot name="my_turtlebot3" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find nuturtle_description)/urdf/macro.xacro"/>
+  <!-- <xacro:include filename="$(find nuturtle_description)/urdf/my_turtlebot3.gazebo.xacro"/> -->
 
   <xacro:property name="diff_params" value="$(find nuturtle_description)/config/diff_params.yaml"/>
   <xacro:property name="dictionary" value="${load_yaml(diff_params)}"/>
@@ -44,7 +44,7 @@
   <joint name="wheel_left_joint" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_left_link"/>
-    <origin xyz="0.0 ${wheel_base} 0.023" rpy="-1.57 0 0"/>
+    <origin xyz="0.0 ${wheel_base/2} 0.023" rpy="-1.57 0 0"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -76,7 +76,7 @@
   <joint name="wheel_right_joint" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_right_link"/>
-    <origin xyz="0.0 ${-wheel_base} 0.023" rpy="-1.57 0 0"/>
+    <origin xyz="0.0 ${-wheel_base/2} 0.023" rpy="-1.57 0 0"/>
     <axis xyz="0 0 1"/>
   </joint>
 
