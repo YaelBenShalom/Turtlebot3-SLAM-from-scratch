@@ -102,7 +102,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
+catkin_package( 
 #  INCLUDE_DIRS include
 #  LIBRARIES nuturtle_description
 CATKIN_DEPENDS roscpp urdf xacro
@@ -179,18 +179,19 @@ include_directories(
 # )
 
 ## Mark cpp header files for installation
-install(DIRECTORY meshes urdf
-   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+## install(DIRECTORY
+##   DESTINATION
 #   FILES_MATCHING PATTERN "*.h"
 #   PATTERN ".svn" EXCLUDE
-)
+#  )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
+install(DIRECTORY meshes urdf
+# FILES
 #   # myfile1
 #   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 #############
 ## Testing ##

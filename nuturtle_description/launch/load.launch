@@ -1,12 +1,13 @@
 <launch>
-   <!-- <arg name="rqt_plot" default="False" />
-   <arg name="Gazebo" default="False" /> -->
-   <arg name="use_rviz" default="True" />
+   <!-- <arg name="rqt_plot" default="False" /> -->
+   <!-- <arg name="Gazebo" default="True" /> -->
+   <arg name="use_rviz" default="True" doc="The use_rviz parameter controls whether rviz and the joint_state_publisher are launched (default true)"/>
 
    <rosparam command="load" file="$(find nuturtle_description)/config/diff_params.yaml" />
+   <param name="robot_description" command="$(find xacro)/xacro.py $(find nuturtle_description)/urdf/turtlebot3_burger.urdf.xacro" />
 
-   <include file="$(find turtlebot3)/turtlebot3_bringup/turtlebot3_remote.launch" />
-   <arg name="model" default="$(env TURTLEBOT_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+   <!-- <include file="$(find turtlebot3)/turtlebot3_bringup/turtlebot3_remote.launch" />
+   <arg name="model" default="$(env TURTLEBOT_MODEL)" doc="model type [burger, waffle, waffle_pi]"/> -->
 
    <!-- <group if="$(arg rqt_plot)">
         <node name="roaming_turtle" pkg="turtlesim" type="turtlesim_node" />
@@ -20,7 +21,15 @@
    <group if="$(arg use_rviz)">
         <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nuturtle_description)/config/turtle_view.rviz" />
         <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" >
-           <remap from="joint_state" to="different_joint_states" />
-        </node>
+           <remap from="joint_state" to="different_joint_states" /> 
+          </node>
    </group>
+
+   <!-- <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model ddrive -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+
+   <group if="$(arg Gazebo)">
+        <include file="$(find gazebo_ros)/launch/empty_world.launch" >
+        </include>
+   </group> -->
+
 </launch>
