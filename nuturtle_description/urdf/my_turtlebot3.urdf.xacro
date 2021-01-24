@@ -111,7 +111,16 @@
     <origin xyz="-0.081 0 -0.004" rpy="-1.57 0 0"/>
   </joint>
 
+
   <link name="caster_back_link">
+    <visual>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.005 0.010"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
     <collision>
       <origin xyz="0 0.001 0" rpy="0 0 0"/>
       <geometry>

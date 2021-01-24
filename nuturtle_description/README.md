@@ -4,5 +4,5 @@
 
 
 # Nuturtle Description
-URDF files for Nuturtle Turtlebot3.
-* `roslaunch nuturtle_description load.launch` to see the robot in rviz.
+URDF files for my_turtlebot3 - a differential drive robot, based on the tutlebot3_burger model.
+* run `roslaunch nuturtle_description load.launch` to see my_turtlebot3 in rviz.
