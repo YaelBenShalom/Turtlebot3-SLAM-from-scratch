@@ -1,13 +1,12 @@
 <launch>
 
-   <!-- Visualize my_turtlebot3 Diferential Drive Robot in Rviz -->
+   <!-- Launch file for visualizing my_turtlebot3 differential drive robot in Rviz -->
 
    <!-- Define Default Arguments -->
    <arg name="use_rviz" default="True" doc="The use_rviz parameter controls whether rviz and the joint_state_publisher are launched (default true)"/>
 
    <!-- Load Model Parameters -->
    <rosparam command="load" file="$(find nuturtle_description)/config/diff_params.yaml" />
-   <!-- <param name="robot_description" command="$(find xacro)/xacro $(find nuturtle_description)/urdf/my_turtlebot3.urdf.xacro"/> -->
    <param name="robot_description" command="$(find xacro)/xacro '$(find nuturtle_description)/urdf/my_turtlebot3.urdf.xacro'"/>
 
    <!-- Define Robot & Joint State Publishers -->
