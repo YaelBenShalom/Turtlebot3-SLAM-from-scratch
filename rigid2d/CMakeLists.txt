@@ -8,11 +8,11 @@ target_compile_features(rigid2d PUBLIC cxx_std_17) # enable C++ 17
 target_compile_options(rigid2d PUBLIC -Wall -Wextra)
 
 # create the executable  and link it with the rigid2d library
-add_executable(rigid2d_main rigid2d.cpp)
+add_executable(rigid2d_main src/main.cpp)
 target_link_libraries(rigid2d_main rigid2d)
 
 enable_testing()
-add_executable(rigid_test tests.cpp)
+add_executable(rigid_test tests/tests.cpp)
 add_test(NAME Test_of_Rigid2d COMMAND rigid_test)
 
 find_package(Doxygen)

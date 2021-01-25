@@ -7,6 +7,7 @@
 A library for handling transformations in SE(2).
 * Run `g++ src/rigid2d.cpp -I include/rigid2d -o rigid2d` to compile rigid2d.cpp (include rigid2d.hpp).
 * Run `g++ -Wall -Wextra -g -std=c++17 -o rigid2d src/main.cpp src/rigid2d.cpp -I include/rigid2d` to compile main.cpp (include rigid2d.cpp, rigid2d.hpp).
+* Run `g++ tests/tests.cpp -I include/rigid2d -o test` to compile test.cpp (include rigid2d.cpp, rigid2d.hpp, catch.hpp), and then run `./test` to run it.
 
 
 # Conceptual Questions

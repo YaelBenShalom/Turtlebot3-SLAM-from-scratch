@@ -1,6 +1,7 @@
+#include "../include/rigid2d/rigid2d.hpp"
+
 #include <cmath>
 #include <iostream>
-#include "rigid2d.hpp"
 
 using namespace rigid2d;
 
@@ -102,7 +103,7 @@ Transform2D Transform2D::inv() const {
     Vector2D inv_trans;
     inv_trans.x = -trans_vector.x * cos(trans_angle) - trans_vector.y * sin(trans_angle);
     inv_trans.y = trans_vector.x * sin(trans_angle) - trans_vector.y * cos(trans_angle);
-    Transform2D new_trans = Transform2D(inv_trans, -trans_angle);
+    Transform2D new_trans = Transform2D(inv_trans, trans_angle);
     return new_trans;
 }
 
@@ -156,7 +157,9 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Vector2D & v) {
 
 /// Should print a human readable version of the twist
 std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Twist2D & twist) {
-    os << "thetadot (rad/s): " << twist.thetadot << "\t xdot (m/s): " << twist.xdot << "\t ydot (m/s): " << twist.ydot << std::endl;
+    os << "thetadot (rad/s): " << twist.thetadot
+       << "\t xdot (m/s): " << twist.xdot
+       << "\t ydot (m/s): " << twist.ydot << std::endl;
     return os;
 }
 
@@ -179,7 +182,9 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Twist2D & twist) 
 
 /// Should print a human readable version of the transform
 std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Transform2D & tf) {
-    os << "dtheta (degrees): " << rad2deg(tf.trans_angle) << "\t dx: " << tf.trans_vector.x << "\t dy: " << tf.trans_vector.y << std::endl;
+    os << "dtheta (degrees): " << rad2deg(tf.trans_angle)
+       << "\t dx: " << tf.trans_vector.x
+       << "\t dy: " << tf.trans_vector.y << std::endl;
     return os;
 }
 
