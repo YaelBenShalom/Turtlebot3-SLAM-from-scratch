@@ -83,13 +83,10 @@ std::istream & operator>>(std::istream & is, Vector2D & v){
     is >> v.y;
 
     // is >> std::noskipws;
-
     // double c1 = is.peek();
     // double c2 = is.get();
     // double c3 = is.get();
-
     // is >> c1 >> std::ws >> c3;
-
     // std::cout << "The coordinates entered: " << c1 << ", " << c3 << "\n" << std::endl;
     return is;
 }
@@ -97,15 +94,15 @@ std::istream & operator>>(std::istream & is, Vector2D & v){
 
 /********** Outside of Class **********/
 
-// /// \brief should print a human readable version of the transform:
-// /// An example output:
-// /// dtheta (degrees): 90 dx: 3 dy: 5
-// /// \param os - an output stream
-// /// \param tf - the transform to print
-// std::ostream & operator<<(std::ostream & os, const Transform2D & tf){
-//     os << "dtheta (degrees): " << tf.trans_vector.x << ", dx: " << tf.trans_vector.y << ", dy: " << tf.trans_angle << "\n";
-//     return os;
-// }
+/// \brief should print a human readable version of the transform:
+/// An example output:
+/// dtheta (degrees): 90 dx: 3 dy: 5
+/// \param os - an output stream
+/// \param tf - the transform to print
+std::ostream & operator<<(std::ostream & os, const Transform2D & tf){
+    os << "dtheta (degrees): " << tf.trans_vector.x << ", dx: " << tf.trans_vector.y << ", dy: " << tf.trans_angle << "\n";
+    return os;
+}
 
 // /// \brief Read a transformation from stdin
 // /// Should be able to read input either as output by operator<< or

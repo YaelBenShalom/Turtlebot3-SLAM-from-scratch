@@ -1,3 +1,0 @@
-To run the rigid2d.cpp file, run:
-    g++ src/rigid2d.cpp -I include/rigid2d -o rigid2d
-
