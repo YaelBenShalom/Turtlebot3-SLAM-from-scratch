@@ -22,9 +22,9 @@ namespace rigid2d
     constexpr bool almost_equal(double d1, double d2, double epsilon=1.0e-12)
     {
         if (fabs(d1 - d2) < epsilon) {
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 
     /// \brief convert degrees to radians
@@ -69,24 +69,53 @@ namespace rigid2d
     /// \brief A 2-Dimensional Vector
     struct Vector2D
     {
-        double x = 0.0;
-        double y = 0.0;
+        double x;
+        double y;
+        double x_normalized;
+        double y_normalized;
+
+        /// \brief create zero-vector
+        Vector2D();
+
+        /// \brief create a vector with x,y inputs
+        /// \param x_input - x input of the vector
+        /// \param y_input - y input of the vector
+        explicit Vector2D(double x_input, double y_input);
+
+        /// \brief function to normalize vector
+        void normalize();
     };
 
-    /// \brief output a 2 dimensional vector as [xcomponent ycomponent]
-    /// os - stream to output to
-    /// v - the vector to print
-    std::ostream & operator<<(std::ostream & os, const Vector2D & v);
 
-    /// \brief input a 2 dimensional vector
-    ///   You should be able to read vectors entered as two numbers
-    ///   separated by a newline or a space, or entered as [xcomponent, ycomponent]
-    /// is - stream from which to read
-    /// v [out] - output vector
-    /// Hint: The following may be useful:
-    /// https://en.cppreference.com/w/cpp/io/basic_istream/peek
-    /// https://en.cppreference.com/w/cpp/io/basic_istream/get
-    std::istream & operator>>(std::istream & is, Vector2D & v);
+    /// \brief A 2-Dimensional twist
+    class Twist2D
+    {
+    friend class Transform2D;
+
+    private:
+        double thetadot;
+        double xdot;
+        double ydot;
+
+    public:
+        /// \brief create a zero-Twist
+        Twist2D();
+
+        /// \brief create a twist with x,y inputs
+        /// \param thetadot_input - thetadot input of the vector
+        /// \param xdot_input - xdot input of the vector
+        /// \param ydot_input - ydot input of the vector
+        explicit Twist2D(double thetadot_input, double xdot_input, double ydot_input);
+
+        /// \brief \see operator<<(...) (declared outside this class)
+        /// for a description.
+        friend std::ostream & operator<<(std::ostream & os, const Twist2D & twist);
+
+        /// \brief \see operator>>(...) (declared outside this class)
+        /// for a description.
+        friend std::istream & operator>>(std::istream & is, Twist2D & twist);
+    };
+
 
     /// \brief a rigid body transformation in 2 dimensions
     class Transform2D
@@ -118,6 +147,11 @@ namespace rigid2d
         /// \return a vector in the new coordinate system
         Vector2D operator()(Vector2D v) const;
 
+        /// \brief apply a transformation to a Twist2D
+        /// \param twist - the twist to transform
+        /// \return a twist in the new coordinate system
+        Twist2D operator()(Twist2D twist) const;
+
         /// \brief invert the transformation
         /// \return the inverse transformation. 
         Transform2D inv() const;
@@ -131,8 +165,38 @@ namespace rigid2d
         /// \brief \see operator<<(...) (declared outside this class)
         /// for a description
         friend std::ostream & operator<<(std::ostream & os, const Transform2D & tf);
+
+        /// \brief \see operator>>(...) (declared outside this class)
+        /// for a description.
+        friend std::istream & operator>>(std::istream & is, Transform2D & tf);
     };
 
+    /// \brief output a 2 dimensional vector as [xcomponent ycomponent]
+    /// \param os - stream to output to
+    /// \param v - the vector to print
+    std::ostream & operator<<(std::ostream & os, const Vector2D & v);
+
+    /// \brief input a 2 dimensional vector
+    ///   You should be able to read vectors entered as two numbers
+    ///   separated by a newline or a space, or entered as [xcomponent, ycomponent]
+    /// \param is - stream from which to read
+    /// \param v [out] - output vector
+    /// Hint: The following may be useful:
+    /// https://en.cppreference.com/w/cpp/io/basic_istream/peek
+    /// https://en.cppreference.com/w/cpp/io/basic_istream/get
+    std::istream & operator>>(std::istream & is, Vector2D & v);
+
+    /// \brief should print a human readable version of the twist:
+    /// An example output:
+    /// dtheta (degrees): 90 dx: 3 dy: 5
+    /// \param os - an output stream
+    /// \param twist - the twist to print
+    std::ostream & operator<<(std::ostream & os, const Twist2D & twist);
+
+    /// \brief Read a twist from stdin
+    /// Should be able to read input either as output by operator<< or
+    /// as 3 numbers (w, xdot, ydot) separated by spaces or newlines
+    std::istream & operator>>(std::istream & is, Twist2D & twist);
 
     /// \brief should print a human readable version of the transform:
     /// An example output:

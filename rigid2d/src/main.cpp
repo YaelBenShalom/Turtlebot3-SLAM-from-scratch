@@ -9,7 +9,7 @@ using namespace rigid2d;
 int main(){
     char frame;
     Vector2D v, v_a, v_b, v_c;
-    // Twist2D twist, twist_a, twist_b, twist_c;
+    Twist2D twist, twist_a, twist_b, twist_c;
     Transform2D Tab, Tbc, Tba, Tcb, Tac, Tca, I;
 
     // Prompt the user to enter transforms Tab and Tbc:
@@ -42,8 +42,8 @@ int main(){
     std::cout << "Enter Vector: " << std::endl;
     std::cin >> v;
 
-	// std::cout << "Enter Twist: " << std::endl;
-	// std::cin >> twist;
+	std::cout << "Enter Twist: " << std::endl;
+	std::cin >> twist;
 
 	std::cout << "Enter the frame in which the Vector and Twist are defined (a, b, or c):" << std::endl;
 	std::cin >> frame;
@@ -60,13 +60,13 @@ int main(){
         std::cout << "The Vector in frame c: " << v_c << std::endl;
 
 
-        // std::cout << "The Twist in frame a: " << twist << std::endl;
+        std::cout << "The Twist in frame a: " << twist << std::endl;
 
-		// twist_b = twist.convert(Tba);
-        // std::cout << "The Twist in frame b: " << twist_b << std::endl;
+		twist_b = Tba(twist);
+        std::cout << "The Twist in frame b: " << twist_b << std::endl;
 
-        // twist_c = twist.convert(Tca);
-        // std::cout << "The Twist in frame c: " << twist_c << std::endl;
+        twist_c = Tca(twist);
+        std::cout << "The Twist in frame c: " << twist_c << std::endl;
 	}
 
     else if (frame == 'b'){
@@ -79,13 +79,13 @@ int main(){
         std::cout << "The Vector in frame c: " << v_c << std::endl;
 
 
-        // twist_a = twist.convert(Tab);
-        // std::cout << "The Twist in frame a: " << twist_a << std::endl;
+        twist_a = Tab(twist);
+        std::cout << "The Twist in frame a: " << twist_a << std::endl;
 
-        // std::cout << "The Twist in frame b: " << twist << std::endl;
+        std::cout << "The Twist in frame b: " << twist << std::endl;
 
-        // twist_c = twist.convert(Tcb);
-        // std::cout << "The Twist in frame c: " << twist_c << std::endl;
+        twist_c = Tcb(twist);
+        std::cout << "The Twist in frame c: " << twist_c << std::endl;
     }
     
     else {
@@ -98,13 +98,13 @@ int main(){
         std::cout << "The Vector in frame c: " << v << std::endl;
 
 
-        // twist_a = twist.convert(Tac);
-        // std::cout << "The Twist in frame a: " << twist_a << std::endl;
+        twist_a = Tac(twist);
+        std::cout << "The Twist in frame a: " << twist_a << std::endl;
 
-        // twist_b = twist.convert(Tbc);
-        // std::cout << "The Twist in frame b: " << twist_b << std::endl;
+        twist_b = Tbc(twist);
+        std::cout << "The Twist in frame b: " << twist_b << std::endl;
 
-        // std::cout << "The Twist in frame c: " << twist << std::endl;
+        std::cout << "The Twist in frame c: " << twist << std::endl;
 	}
 
     return 0;
