@@ -5,9 +5,6 @@
 
 # Package List
 This repository consists of several ROS packages
-- nuturtle_description - This package adapts the model in the turtlebot3_description for our needs.
-
-
-# Nuturtle Description
-URDF files for Nuturtle Turtlebot3.
-* `roslaunch nuturtle_description load.launch` to see the robot in rviz.
+- nuturtle_description - A package that adapts the tutlebot3_burger, a differential drive robot, for our needs.
+- rigid2d - A library for handling transformations in SE(2).
+- trect - A package that causes the turtlesim turtle to follow a rectanglep path.
