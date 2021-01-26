@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>trect</name>
+  <version>0.0.1</version>
+  <description>Making a turtle in the turtle simulator move in a rectangular trajectory</description>
+
+  <!-- Package maintainer and author-->
+  <maintainer email="yaelbshalom@gmail.com">Yael Ben Shalom</maintainer>
+  <author email="yaelbshalom@gmail.com">Yael Ben Shalom</author>
+
+  <!-- Package license -->
+  <license>Apache License 2.0</license>
+
+  <!-- Package dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>turtlesim</build_depend>
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>std_srvs</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>turtlesim</build_export_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>rqt_plot</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>turtlesim</exec_depend>
+  <depend>roscpp</depend>
+
+</package>

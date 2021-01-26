@@ -4,17 +4,14 @@
   <version>0.0.1</version>
   <description>Differential drive robot my_turtlebot3, based on turtlebot3_burger</description>
 
-  <!-- One maintainer tag required, multiple allowed, one aperson per tag -->
+  <!-- Package maintainer and author-->
   <maintainer email="yaelbshalom@gmail.com">Yael Ben Shalom</maintainer>
+  <author email="yaelbshalom@gmail.com">Yael Ben Shalom</author>
 
-
-  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Package license -->
   <license>Apache License 2.0</license>
 
-
-  <!-- The *depend tags are used to specify dependencies -->
-  <!-- Dependencies can be catkin packages or system dependencies -->
-
+  <!-- Package dependencies -->
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>joint_state_publisher</exec_depend>
@@ -22,6 +19,5 @@
   <depend>roscpp</depend>
   <depend>urdf</depend>
   <depend>xacro</depend>
-
 
 </package>

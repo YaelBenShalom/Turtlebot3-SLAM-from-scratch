@@ -1,0 +1,9 @@
+max_xdot: 2.0           # The linear velocity of the turtle
+max_wdot: 1.0           # The angular velocity of the turtle
+frequency: 100          # The turtle's motion frequency
+
+x_0: 2                  # The starting x coordinate of the turtle
+y_0: 3                  # The starting y coordinate of the turtle
+
+width: 4                # The rectangle's width
+height: 5               # The rectangle's height
