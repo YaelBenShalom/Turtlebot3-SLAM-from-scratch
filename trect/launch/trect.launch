@@ -3,22 +3,22 @@
    <!-- Launch file for making a turtle in the turtle simulator move in a rectangular trajectory -->
 
    <!-- Define Default Arguments -->
-  <arg name="plot_gui" default="false" doc="option to use rqt_plot to show pose error"/>
+  <!-- <arg name="plot_gui" default="false" doc="option to use rqt_plot to show pose error"/> -->
 
    <!-- Load Turtle Parameters -->
   <rosparam command="load" file="$(find trect)/config/turtle_params.yaml" />
 
    <!-- Load Turtlesim -->
-  <node name="roaming_turtle" pkg="turtlesim" type="turtlesim_node" />
+  <!-- <node name="roaming_turtle" pkg="turtlesim" type="turtlesim_node" /> -->
 
    <!-- Load Turtle_rect.cpp Node -->
-  <node name="turtle_rect" pkg="trect" type="turtle_rect" output="screen" >
-    <remap from="cmd_vel" to="turtle1/cmd_vel" />
-  </node>
+  <!-- <node name="turtle_rect" pkg="trect" type="turtle_rect" output="screen" > -->
+    <!-- <remap from="cmd_vel" to="turtle1/cmd_vel" /> -->
+  <!-- </node> -->
 
    <!-- Load Turtle in rqt_plot -->
-  <group if="$(arg plot_gui)">
+  <!-- <group if="$(arg plot_gui)">
     <node name="position_plot" pkg="rqt_plot" type="rqt_plot" args="pose_error/x_error pose_error/y_error pose_error/theta_error" />
-  </group>
+  </group> -->
 
 </launch>

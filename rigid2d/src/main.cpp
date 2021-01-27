@@ -5,13 +5,12 @@
 #include <string>
 #include <cmath>
 
-using namespace rigid2d;
 
 int main(){
     char frame;
-    Vector2D v, v_a, v_b, v_c;
-    Twist2D twist, twist_a, twist_b, twist_c;
-    Transform2D Tab, Tbc, Tba, Tcb, Tac, Tca;
+    rigid2d::Vector2D v, v_a, v_b, v_c;
+    rigid2d::Twist2D twist, twist_a, twist_b, twist_c;
+    rigid2d::Transform2D Tab, Tbc, Tba, Tcb, Tac, Tca;
 
     // Prompt the user to enter transforms Tab and Tbc:
     std::cout << "Enter transform Tab: " << std::endl;

@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yael/Documents/MSR_Courses/Winter_2021/ME495-Sensing_Navigation_and_ML_for_Robotics/ME495ws/src/assignment-git/rigid2d/include/rigid2d/rigid2d.hpp
+iosfwd
+-
+cmath
+-
+
+/home/yael/Documents/MSR_Courses/Winter_2021/ME495-Sensing_Navigation_and_ML_for_Robotics/ME495ws/src/assignment-git/rigid2d/src/main.cpp
+../include/rigid2d/rigid2d.hpp
+/home/yael/Documents/MSR_Courses/Winter_2021/ME495-Sensing_Navigation_and_ML_for_Robotics/ME495ws/src/assignment-git/rigid2d/include/rigid2d/rigid2d.hpp
+iostream
+-
+vector
+-
+string
+-
+cmath
+-
+

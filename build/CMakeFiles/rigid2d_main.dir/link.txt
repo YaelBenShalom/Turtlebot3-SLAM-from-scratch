@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/rigid2d_main.dir/src/main.cpp.o  -o rigid2d_main  librigid2d.a 

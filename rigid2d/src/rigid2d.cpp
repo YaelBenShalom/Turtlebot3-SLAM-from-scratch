@@ -103,7 +103,7 @@ Transform2D Transform2D::inv() const {
     Vector2D inv_trans;
     inv_trans.x = -trans_vector.x * cos(trans_angle) - trans_vector.y * sin(trans_angle);
     inv_trans.y = trans_vector.x * sin(trans_angle) - trans_vector.y * cos(trans_angle);
-    Transform2D new_trans = Transform2D(inv_trans, trans_angle);
+    Transform2D new_trans = Transform2D(inv_trans, -trans_angle);
     return new_trans;
 }
 
@@ -141,12 +141,21 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Vector2D & v) {
     std::cout << "Enter y coordinates (m)" << std::endl;
     is >> v.y;
     
-    // is >> std::noskipws;
-    // double c1 = is.peek();
+    // std::cout << "Enter [x, y] coordinates (m)" << std::endl;
+    // // is >> std::noskipws;
+    // // char c1 = is.peek();
+    // // std::cout << "c1 is: " << c1 << "\n" << std::endl;
+    // // double c2;
+    // if (is.peek() == '[') {
+    //     is.get();
+    // }
+
+    // double c1 = is.get();
     // double c2 = is.get();
-    // double c3 = is.get();
-    // is >> c1 >> std::ws >> c3;
-    // std::cout << "The coordinates entered: " << c1 << ", " << c3 << "\n" << std::endl;
+    // std::cout << c1 << ", " << c2 << ", " << "\n" << std::endl;
+
+    // is >> c1 >> c2;
+    // std::cout << "The coordinates entered: " << c1 << ", " << c2 << "\n" << std::endl;
     
     v.normalize();
     return is;

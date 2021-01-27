@@ -1,0 +1,2 @@
+/usr/bin/ar qc librigid2d.a  CMakeFiles/rigid2d.dir/src/rigid2d.cpp.o
+/usr/bin/ranlib librigid2d.a

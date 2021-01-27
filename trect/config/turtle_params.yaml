@@ -1,6 +1,6 @@
-max_xdot: 2.0           # The linear velocity of the turtle
-max_wdot: 1.0           # The angular velocity of the turtle
-frequency: 100          # The turtle's motion frequency
+max_xdot: 2.0           # The maximum translational velocity of the robot
+max_wdot: 1.0           # The maximum rotational velocity of the robot
+frequency: 100          # The frequency of the control loop
 
 x_0: 2                  # The starting x coordinate of the turtle
 y_0: 3                  # The starting y coordinate of the turtle
