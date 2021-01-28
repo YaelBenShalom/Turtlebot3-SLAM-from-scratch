@@ -14,16 +14,16 @@
 #include <string>
 #include <cmath>
 
+enum class State {STOP, TURN, FORWARD};
+
 class TurtleRect
 {
     public:
         TurtleRect(){
-            // nh{},
-            // pub(nh.advertise<sensor_msgs::JointState>("js", 5)),
-            // sub(nh.subscribe("topic", 1000, &TurtleRect::callback, this)),
-            // timer(nh.createTimer(ros::Duration(0.1), &TurtleRect::main_loop, this))
-        
-            ROS_INFO("x_0 is: ");
+            ROS_INFO("Initialize the variables");
+
+            state = State::STOP;
+
             load_parameter();
 
             vel_pub = nh.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 5);
@@ -60,7 +60,7 @@ class TurtleRect
         }
         
         void pose_callback(const turtlesim::PoseConstPtr & msg) {
-            ROS_INFO("Getting pose from subscriber");
+            // ROS_INFO("Getting pose from subscriber");
             pose_x = msg->x;
             pose_y = msg->y;
             pose_theta = msg->theta;
@@ -70,8 +70,8 @@ class TurtleRect
             ROS_INFO("start turtle");
             res.my_msg = "Lets start!";
 
-            twist.linear.x = 0;
-            twist.angular.z = 0;
+            state = State::STOP;
+            point_num = 1;
 
             x_0 = req.x;
             y_0 = req.y;
@@ -101,6 +101,12 @@ class TurtleRect
             teleport_msg.request.y = y_0;
             teleport.call(teleport_msg);
 
+            teleport_msg.request.x = x_0;
+            teleport_msg.request.y = y_0;
+            teleport.call(teleport_msg);
+            
+            state = State::FORWARD;
+
             // set_pen.call();
             return true;
         }
@@ -109,18 +115,60 @@ class TurtleRect
             ROS_INFO("Entering the loop");
             ros::Rate loop_rate(frequency);
             while(ros::ok()) {
+                switch(state) {   
+                    case State::STOP:
+                        twist.linear.x = 0;
+                        twist.angular.z = 0;         
+                        vel_pub.publish(twist);
+                        break;
 
-                twist.linear.x = 1;
-                twist.angular.z = 2;         
-                vel_pub.publish(twist);
+                    case State::TURN:
+                        twist.linear.x = 0;
+                        twist.angular.z = max_wdot/3;         
+                        vel_pub.publish(twist);
+                        ROS_INFO("dTheta is: %f", fabs(pose_theta - current_angle));
+                        if (fabs(pose_theta - current_angle) >= PI/2) {
+                            state = State::FORWARD;
+                        }
+                        break;
+
+                    case State::FORWARD:
+                        twist.linear.x = max_xdot/3;
+                        twist.angular.z = 0;         
+                        vel_pub.publish(twist);
+
+                        // if ((pose_x >= x_0 + width)  || (pose_x <= x_0) ||
+                        //     (pose_y >= y_0 + height) || (pose_y <= y_0)) {
+                        //     current_angle = pose_theta;
+                        //     state = State::TURN;
+                        ROS_INFO("X and Y are: %f, %f", pose_x, pose_y);
+                        if (((point_num == 1) && (pose_x >= x_0 + width))  ||
+                            ((point_num == 2) && (pose_y >= y_0 + height)) ||
+                            ((point_num == 3) && (pose_x <= x_0)) ||
+                            ((point_num == 0) && (pose_y <= y_0))) {
+                            point_num += 1;
+                            if (point_num == 4) {
+                                point_num = 0;
+                            }
+                            current_angle = pose_theta;
+                            state = State::TURN;
+                        }
+                        break;
+
+                    default:
+                    // should never get here
+                        throw std::logic_error("Invalid State");
+            }
+
                 loop_rate.sleep();
                 ros::spinOnce();
             }
         }
 
     private:
-        int frequency, x_0, y_0, width, height;
-        float max_xdot, max_wdot, pose_x, pose_y, pose_theta;
+        double PI = 3.14159265358979323846;
+        int frequency, x_0, y_0, width, height, point_num;
+        float max_xdot, max_wdot, pose_x, pose_y, pose_theta, current_angle;
         ros::NodeHandle nh;
         ros::Publisher vel_pub;
         ros::Subscriber pose_sub;
@@ -133,6 +181,8 @@ class TurtleRect
         turtlesim::TeleportAbsolute teleport_msg;
         geometry_msgs::Twist twist;
         std_srvs::Empty empty_msg;
+        State state;
+        
         
 };
 
