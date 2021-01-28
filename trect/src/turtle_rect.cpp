@@ -1,3 +1,13 @@
+/// \file   turtle_rect.cpp
+/// \brief  Causes the turtlesim turtle to follow a rectangle path.
+///
+/// PUBLISHES:
+///     cmd_vel (Twist): publishes the turtle's linear and angular velocity as a twist massege.
+/// SUBSCRIBES:
+///     turtlesim/Pose (Pose): Subsriber to the turtle's position.
+/// SERVICES:
+///     turtle_start (TurtleStart): Starts the turtle motion and restart it when called again.
+
 #include "ros/ros.h"
 #include "sensor_msgs/JointState.h"
 // #include "../include/trect/turtle_rect.hpp"
@@ -38,9 +48,10 @@ class TurtleRect
             ros::service::waitForService("/start", -1);
             main_loop();
          }
-         
+
+        /// \brief Load the parameters from the parameter server
+        /// \returns void
         void load_parameter() {
-            // Load the parameters from the parameter server
             nh.getParam("max_xdot", max_xdot);         // The maximum translational velocity of the robot
             nh.getParam("max_wdot", max_wdot);         // The maximum rotational velocity of the robot
             nh.getParam("frequency", frequency);       // The frequency of the control loop
@@ -59,13 +70,19 @@ class TurtleRect
             // ROS_INFO("height is: %d", height);
         }
         
+        /// \brief Subscribes to the turtle position
+        /// \param msg - constant pointer to turtle Pose
+        /// \returns void
         void pose_callback(const turtlesim::PoseConstPtr & msg) {
-            // ROS_INFO("Getting pose from subscriber");
             pose_x = msg->x;
             pose_y = msg->y;
             pose_theta = msg->theta;
         }
 
+        /// \brief Clear the screen, draw a rectangle and starts the turtle motion.
+        /// \param request - TurtleStart request.
+        /// \param response - TurtleStart response.
+        /// \returns bool
         bool turtle_start(trect::TurtleStart::Request &req, trect::TurtleStart::Response &res) {
             ROS_INFO("start turtle");
             res.my_msg = "Lets start!";
@@ -110,6 +127,8 @@ class TurtleRect
             return true;
         }
 
+        /// \brief Main loop for the turtle's motion
+        /// \returns void
         void main_loop() {
             ROS_INFO("Entering the loop");
             ros::Rate loop_rate(frequency);
