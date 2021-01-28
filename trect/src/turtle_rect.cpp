@@ -107,7 +107,6 @@ class TurtleRect
             
             state = State::FORWARD;
 
-            // set_pen.call();
             return true;
         }
 
@@ -124,7 +123,7 @@ class TurtleRect
 
                     case State::TURN:
                         twist.linear.x = 0;
-                        twist.angular.z = max_wdot/3;         
+                        twist.angular.z = max_wdot/2;         
                         vel_pub.publish(twist);
                         ROS_INFO("dTheta is: %f", fabs(pose_theta - current_angle));
                         if (fabs(pose_theta - current_angle) >= PI/2) {
@@ -133,14 +132,10 @@ class TurtleRect
                         break;
 
                     case State::FORWARD:
-                        twist.linear.x = max_xdot/3;
+                        twist.linear.x = max_xdot/2;
                         twist.angular.z = 0;         
                         vel_pub.publish(twist);
 
-                        // if ((pose_x >= x_0 + width)  || (pose_x <= x_0) ||
-                        //     (pose_y >= y_0 + height) || (pose_y <= y_0)) {
-                        //     current_angle = pose_theta;
-                        //     state = State::TURN;
                         ROS_INFO("X and Y are: %f, %f", pose_x, pose_y);
                         if (((point_num == 1) && (pose_x >= x_0 + width))  ||
                             ((point_num == 2) && (pose_y >= y_0 + height)) ||

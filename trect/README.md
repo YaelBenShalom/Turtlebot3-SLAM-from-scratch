@@ -10,6 +10,9 @@
 # Example Usage
 ```
 roslaunch trect trect.launch
-rosservice call start <ARGUMENTS_USED_IN_DEMO_HERE>
+rosservice call /start "x: 2.0
+y: 3.0
+width: 4.0
+height: 5.0"
 ```
 ![Demonstration](<PATH_TO_GIF_ANIMATION_OF_ROBOT_COMPLETING_RECTANGLE>)
