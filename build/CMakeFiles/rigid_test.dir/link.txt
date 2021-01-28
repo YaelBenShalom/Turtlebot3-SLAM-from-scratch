@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/rigid_test.dir/tests/tests.cpp.o  -o rigid_test 
