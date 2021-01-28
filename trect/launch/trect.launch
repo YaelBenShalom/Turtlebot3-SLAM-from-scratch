@@ -9,12 +9,12 @@
   <rosparam command="load" file="$(find trect)/config/turtle_params.yaml" />
 
    <!-- Load Turtlesim -->
-  <!-- <node name="roaming_turtle" pkg="turtlesim" type="turtlesim_node" /> -->
+  <node name="turtlesim" pkg="turtlesim" type="turtlesim_node" output="screen" />
 
    <!-- Load Turtle_rect.cpp Node -->
-  <!-- <node name="turtle_rect" pkg="trect" type="turtle_rect" output="screen" > -->
-    <!-- <remap from="cmd_vel" to="turtle1/cmd_vel" /> -->
-  <!-- </node> -->
+  <node name="turtle_rect" pkg="trect" type="trect_node" output="screen" >
+    <remap from="cmd_vel" to="turtle1/cmd_vel" />
+  </node>
 
    <!-- Load Turtle in rqt_plot -->
   <!-- <group if="$(arg plot_gui)">

@@ -2,6 +2,8 @@
 #include "sensor_msgs/JointState.h"
 // #include "../include/trect/turtle_rect.hpp"
 
+#include <geometry_msgs/Twist.h>
+#include <turtlesim/Pose.h>
 #include <iostream>
 #include <vector> 
 #include <string>
@@ -10,13 +12,19 @@
 class TurtleRect
 {
     public:
-        TurtleRect():
-            nh{},
-            pub(nh.advertise<sensor_msgs::JointState>("js", 5)),
-            sub(nh.subscribe("topic", 1000, &TurtleRect::callback, this)),
-            timer(nh.createTimer(ros::Duration(0.1), &TurtleRect::main_loop, this))
-         {
-            void load_parameter();
+        TurtleRect(){
+            // nh{},
+            // pub(nh.advertise<sensor_msgs::JointState>("js", 5)),
+            // sub(nh.subscribe("topic", 1000, &TurtleRect::callback, this)),
+            // timer(nh.createTimer(ros::Duration(0.1), &TurtleRect::main_loop, this))
+        
+            ROS_INFO("x_0 is: ");
+            load_parameter();
+            // ros::Rate loop_rate(frequency);
+            vel_pub = nh.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 5);
+            // pose_sub = nh.subscribe("turtle1/pose", 10, &TurtleRect::poseCallback, this);
+            main_loop();
+
          }
          
         void load_parameter() {
@@ -40,30 +48,41 @@ class TurtleRect
             ROS_INFO("height is: %d", height);
         }
         
-         void callback(const sensor_msgs::JointState & js) const
-         {
-         }
+        void pose_callback(const turtlesim::Pose & msg) {
 
-         void main_loop(const ros::TimerEvent &) const
-         {
-            // implement the state machine here
-            //  load_parameter();
-             pub.publish(sensor_msgs::JointState{});
-         }
+        }
+
+        void main_loop() {
+            ros::Rate loop_rate(frequency);
+            while(ros::ok()){
+                ROS_INFO("fcyvgubhinj");
+
+                twist.linear.x = 1;
+                twist.angular.z = 2;            
+                vel_pub.publish(twist);
+                loop_rate.sleep();
+            ros::spinOnce();
+            }
+        }
 
     private:
         int frequency, x_0, y_0, width, height;
         float max_xdot, max_wdot;
         ros::NodeHandle nh;
-        ros::Publisher pub;
+        ros::Publisher vel_pub;
         ros::Subscriber sub;
         ros::Timer timer;
+        geometry_msgs::Twist twist;
+        
+
 };
 
 int main(int argc, char * argv[])
 {
     ros::init(argc, argv, "turtle_rect");
+    
     TurtleRect node;
+        node.main_loop();
     ros::spin();
     return 0;
 }
