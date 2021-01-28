@@ -2,8 +2,8 @@ max_xdot: 2.0           # The maximum translational velocity of the robot
 max_wdot: 1.0           # The maximum rotational velocity of the robot
 frequency: 100          # The frequency of the control loop
 
-x_0: 2                  # The starting x coordinate of the turtle
-y_0: 3                  # The starting y coordinate of the turtle
+# x_0: 2                  # The starting x coordinate of the turtle
+# y_0: 3                  # The starting y coordinate of the turtle
 
-width: 4                # The rectangle's width
-height: 5               # The rectangle's height
+# width: 4                # The rectangle's width
+# height: 5               # The rectangle's height

@@ -15,6 +15,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>geometry_msgs</build_depend>
   <build_depend>message_generation</build_depend>
+  <build_depend>genmsg</build_depend>
   <build_depend>std_srvs</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>turtlesim</build_depend>
