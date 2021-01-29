@@ -5,9 +5,9 @@
 
 # Rigid 2D transformation Library
 A library for handling transformations in SE(2).
-* Run `g++ src/rigid2d.cpp -I include/rigid2d -o rigid2d` to compile rigid2d.cpp (include rigid2d.hpp).
-* Run `g++ -Wall -Wextra -g -std=c++17 -o rigid2d src/main.cpp src/rigid2d.cpp -I include/rigid2d` to compile main.cpp (include rigid2d.cpp, rigid2d.hpp), and then run `./rigid2d` to run it.
-* Run `g++ tests/tests.cpp -o test src/rigid2d.cpp -I include/rigid2d` to compile test.cpp (include rigid2d.cpp, rigid2d.hpp, catch.hpp), and then run `./test` to run it.
+* Run `g++ src/rigid2d.cpp -o rigid2d` to compile rigid2d.cpp.
+* Run `g++ -Wall -Wextra -g -std=c++17 -o rigid2d src/main.cpp src/rigid2d.cpp` to compile main.cpp, and then run `./rigid2d` to run it.
+* Run `g++ tests/tests.cpp -o test src/rigid2d.cpp` to compile test.cpp, and then run `./test` to run it.
 
 
 # Conceptual Questions
