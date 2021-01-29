@@ -134,28 +134,16 @@ std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Vector2D & 
 }
 
 /// Input a 2 dimensional vector
-std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Vector2D & v) {
-    std::cout << "Enter x coordinates (m)" << std::endl;
-    is >> v.x;
+std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Vector2D & v) {    
+    std::cout << "Enter [x y] coordinates (m)" << std::endl;
+    char c1 = is.peek();
 
-    std::cout << "Enter y coordinates (m)" << std::endl;
-    is >> v.y;
-    
-    // std::cout << "Enter [x, y] coordinates (m)" << std::endl;
-    // // is >> std::noskipws;
-    // // char c1 = is.peek();
-    // // std::cout << "c1 is: " << c1 << "\n" << std::endl;
-    // // double c2;
-    // if (is.peek() == '[') {
-    //     is.get();
-    // }
+    if (c1 == '[') {
+        is.get();
+    }
 
-    // double c1 = is.get();
-    // double c2 = is.get();
-    // std::cout << c1 << ", " << c2 << ", " << "\n" << std::endl;
-
-    // is >> c1 >> c2;
-    // std::cout << "The coordinates entered: " << c1 << ", " << c2 << "\n" << std::endl;
+    is >> v.x >> v.y;
+    std::cout << v.x << ", " << v.y << "\n" << std::endl;
     
     v.normalize();
     return is;
