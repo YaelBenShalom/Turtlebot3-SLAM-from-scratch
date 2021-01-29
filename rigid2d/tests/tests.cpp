@@ -39,8 +39,6 @@ TEST_CASE( "Test functions deg2rad(deg) and rad2deg(rad)" ) {
 
 TEST_CASE( "Test Transform2D function inv()" ) {
 
-    std::stringstream string_out1, string_out2;
-
     double angle = rigid2d::PI;
     rigid2d::Vector2D v;
     v.x = 1;
@@ -49,10 +47,23 @@ TEST_CASE( "Test Transform2D function inv()" ) {
     rigid2d::Transform2D T(v, angle);
     rigid2d::Transform2D T_inv = T.inv();
 
-    REQUIRE(string_out1.str() == string_out2.str());
     REQUIRE( rigid2d::almost_equal((T * T_inv).x(), T_ident.x()));
     REQUIRE( rigid2d::almost_equal((T * T_inv).y(), T_ident.y()));
     REQUIRE( rigid2d::almost_equal((T * T_inv).theta(), T_ident.theta()));
+}
+
+TEST_CASE( "Test Transform2D function Transform2D(v, angle)" ) {
+
+    double angle = 0.0;
+    rigid2d::Vector2D v;
+    v.x = 0.0;
+    v.y = 0.0;
+    rigid2d::Transform2D T_ident;
+    rigid2d::Transform2D T(v, angle);
+
+    REQUIRE( rigid2d::almost_equal(T.x(), T_ident.x()));
+    REQUIRE( rigid2d::almost_equal(T.y(), T_ident.y()));
+    REQUIRE( rigid2d::almost_equal(T.theta(), T_ident.theta()));
 }
 
 
