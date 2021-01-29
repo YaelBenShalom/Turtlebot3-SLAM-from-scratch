@@ -17,8 +17,7 @@ A library for handling transformations in SE(2).
 
 2. Why is Vector2D a struct and Transform2D Class (refer to at least 2 specific C++ core guidelines in your answer)?
 
-   In a struct, the members can vary independently, and they are public. For example, the variables x and y in the Vector2D are independent and public, so we can define and refer to them from outshde the struct. On the other hand, the members in Transform2D are private, so we can change them only when specificly refering to the class.
-   Another reason is that in struct we can only define members variables - x and y, and in class we can also define logic operations and functions.
+   In a struct, the members can vary independently, and they are public. For example, the variables x and y in the Vector2D are independent and public, so we can define and refer to them from outshde the struct, and we can change them independently of each other. On the other hand, the members in Transform2D are private, so we can't refer or change them from outside the class. in order to refer them, I defined x, y, and theta function to output the veriables values.
 
 3. Why are some of the constructors in Transform2D explicit (refer to a specific C++ core guideline in your answer)?
 
