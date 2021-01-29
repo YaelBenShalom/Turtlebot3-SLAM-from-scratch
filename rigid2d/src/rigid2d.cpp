@@ -109,19 +109,40 @@ Transform2D Transform2D::inv() const {
 
 /// Compose this transform with another and store the result 
 Transform2D & Transform2D::operator*=(const Transform2D & rhs) {
-double rhs_x = rhs.trans_vector.x;
-double rhs_y = rhs.trans_vector.y;
-double rhs_angle = rhs.trans_angle;
+    double rhs_x = rhs.trans_vector.x;
+    double rhs_y = rhs.trans_vector.y;
+    double rhs_angle = rhs.trans_angle;
 
-double lhs_x = trans_vector.x;
-double lhs_y = trans_vector.y;
-double lhs_angle = trans_angle;
+    double lhs_x = trans_vector.x;
+    double lhs_y = trans_vector.y;
+    double lhs_angle = trans_angle;
 
-trans_vector.x = lhs_x + rhs_x * cos(lhs_angle) - rhs_y * sin(lhs_angle);
-trans_vector.y = lhs_y + rhs_x * sin(lhs_angle) + rhs_y * cos(lhs_angle);
-trans_angle = lhs_angle + rhs_angle;
+    trans_vector.x = lhs_x + rhs_x * cos(lhs_angle) - rhs_y * sin(lhs_angle);
+    trans_vector.y = lhs_y + rhs_x * sin(lhs_angle) + rhs_y * cos(lhs_angle);
+    trans_angle = lhs_angle + rhs_angle;
 
-return *this;
+    return *this;
+}
+
+/// Get the x displacement of the  transformation
+double Transform2D::x() const {
+    double x = trans_vector.x;
+
+    return x;
+}
+
+/// Get the y displacement of the  transformation
+double Transform2D::y() const {
+    double y = trans_vector.y;
+    
+    return y;
+}
+
+/// Get the angular displacement of the transform
+double Transform2D::theta() const {
+    double theta = trans_angle;
+    
+    return theta;
 }
 
 
@@ -155,8 +176,8 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Vector2D & v) {
 /// Should print a human readable version of the twist
 std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Twist2D & twist) {
     os << "thetadot (rad/s): " << twist.thetadot
-       << "\t xdot (m/s): " << twist.xdot
-       << "\t ydot (m/s): " << twist.ydot << std::endl;
+       << " xdot (m/s): " << twist.xdot
+       << " ydot (m/s): " << twist.ydot << std::endl;
     return os;
 }
 
@@ -180,8 +201,8 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Twist2D & twist) 
 /// Should print a human readable version of the transform
 std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Transform2D & tf) {
     os << "dtheta (degrees): " << rad2deg(tf.trans_angle)
-       << "\t dx: " << tf.trans_vector.x
-       << "\t dy: " << tf.trans_vector.y << std::endl;
+       << " dx: " << tf.trans_vector.x
+       << " dy: " << tf.trans_vector.y << std::endl;
     return os;
 }
 
@@ -207,6 +228,6 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Transform2D & tf)
 }
 
 /// Multiply two transforms together, returning their composition
-rigid2d::Transform2D rigid2d::operator*(rigid2d::Transform2D lhs, const rigid2d::Transform2D & rhs) {
+rigid2d::Transform2D rigid2d::operator*(Transform2D lhs, const rigid2d::Transform2D & rhs) {
     return lhs *= rhs;
-  }
+}
