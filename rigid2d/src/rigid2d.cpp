@@ -34,6 +34,15 @@ void Vector2D::normalize() {
     }
 }
 
+/// Compute the magnitude of the vector
+double Vector2D::magnitude(const Vector2D & v) {
+    return std::sqrt(std::pow(v.x, 2) + std::pow(v.y, 2));
+}
+
+/// Compute the angle of the vector
+double Vector2D::angle(const Vector2D & v) {
+    return std::acos(v.x / Vector2D::magnitude(v));
+}
 /// Add this vector with another and store the result in this object
 Vector2D & Vector2D::operator+=(const Vector2D &v) {
     x += v.x;
@@ -148,13 +157,13 @@ Transform2D & Transform2D::operator*=(const Transform2D & rhs) {
     return *this;
 }
 
-/// Get the x displacement of the  transformation
+/// Get the x displacement of the transformation
 double Transform2D::x() const {
     double x = trans_vector.x;
     return x;
 }
 
-/// Get the y displacement of the  transformation
+/// Get the y displacement of the transformation
 double Transform2D::y() const {
     double y = trans_vector.y;
     return y;
@@ -166,17 +175,52 @@ double Transform2D::theta() const {
     return theta;
 }
 
+/// Compute the transformation corresponding to a rigid body following a
+/// constant twist (in its original body frame) for one time unit
+Transform2D Transform2D::integrateTwist(const Twist2D & twist) const {
+    double angle;
+    Vector2D v;
+
+    if (twist.thetadot == 0.0) {
+        v.x = twist.xdot;
+        v.y = twist.ydot;
+        Transform2D transform(v, 0);
+        return transform;
+    }
+    else {
+        angle = twist.thetadot;
+        v.x = std::sin(twist.thetadot) * twist.xdot / twist.thetadot + (std::cos(twist.thetadot) - 1) * twist.ydot/ twist.thetadot;
+        v.y = (1 - std::cos(twist.thetadot)) * twist.xdot / twist.thetadot + std::sin(twist.thetadot) * twist.ydot / twist.thetadot;
+        Transform2D transform(v, angle);
+        return transform;
+    }
+}
+
 
 /********** Outside of Class - Vector2D related functions **********/
 
-/// Compute the magnitude of the vector
-double rigid2d::magnitude(const Vector2D & v) {
-    return std::sqrt(std::pow(v.x, 2) + std::pow(v.y, 2));
+/// Add this vector with another and store the result in this object
+rigid2d::Vector2D & operator+(rigid2d::Vector2D v1, const rigid2d::Vector2D & v2) {
+    v1 += v2;
+    return v1;
 }
 
-/// Compute the angle of the vector
-double rigid2d::angle(const Vector2D & v) {
-    return std::acos(v.x / rigid2d::magnitude(v));
+/// Subtract another vector from this vector and store the result in this object
+rigid2d::Vector2D & operator-(rigid2d::Vector2D v1, const rigid2d::Vector2D & v2) {
+    v1 -= v2;
+    return v1;
+}
+
+/// Multiply this vector with a scalar and store the result in this object
+rigid2d::Vector2D & operator*(rigid2d::Vector2D v1, const double & scalar) {
+    v1 *= scalar;
+    return v1;
+}
+
+/// Multiply a scalar with a vector and store the result in this object
+rigid2d::Vector2D & operator*(const double & scalar, rigid2d::Vector2D v1) {
+    v1 *= scalar;
+    return v1;
 }
 
 /// Output a 2 dimensional vector as [xcomponent, ycomponent]

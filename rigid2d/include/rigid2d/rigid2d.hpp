@@ -86,6 +86,16 @@ namespace rigid2d
         /// \brief function to normalize vector
         void normalize();
 
+        /// \brief compute the magnitude of the vector
+        /// \param v - the vector
+        /// \return the magnitude of the vector
+        double magnitude(const Vector2D & v);
+
+        /// \brief compute the angle of the vector
+        /// \param v - the vector
+        /// \return the angle of the vector
+        double angle(const Vector2D & v);
+
         /// \brief add this vector with another and store the result
         /// in this object
         /// \param v - components to add
@@ -107,16 +117,14 @@ namespace rigid2d
 
 
     /// \brief A 2-Dimensional twist
-    class Twist2D
+    struct Twist2D
     {
-    friend class Transform2D;
+        // friend class Transform2D;
 
-    private:
         double thetadot;
         double xdot;
         double ydot;
 
-    public:
         /// \brief create a zero-Twist
         Twist2D();
 
@@ -192,6 +200,12 @@ namespace rigid2d
         /// \brief get the angular displacement of the transform
         /// \return the angular displacement
         double theta() const;
+
+        /// \brief compute the transformation corresponding to a rigid body
+        /// following a constant twist (in its original body frame) for one
+        /// time unit
+        /// \return transformation correspond to a twist for one time step
+        Transform2D integrateTwist(const Twist2D & twist) const;
         
         /// \brief \see operator<<(...) (declared outside this class)
         /// for a description
@@ -202,16 +216,31 @@ namespace rigid2d
         friend std::istream & operator>>(std::istream & is, Transform2D & tf);
     };
 
-    /// \brief compute the magnitude of the vector
-    /// \param v - the vector
-    /// \return the magnitude of the vector
-    double magnitude(const Vector2D & v);
 
-    /// \brief compute the angle of the vector
-    /// \param v - the vector
-    /// \return the angle of the vector
-    double angle(const Vector2D & v);
+    /// \brief add this vector with another and store the result
+    /// in this object
+    /// \param v - components to add
+    /// \returns a reference to the newly transformed vector
+    Vector2D & operator+(Vector2D v1, const Vector2D & v2);
 
+    /// \brief subtract another vector from this vector and store the result
+    /// in this object
+    /// \param v - components to subtract
+    /// \returns a reference to the newly transformed vector
+    Vector2D & operator-(Vector2D v1, const Vector2D & v2);
+
+    /// \brief multiply this vector with a scalar and store the result
+    /// in this object
+    /// \param v - scalar to multiply
+    /// \returns a reference to the newly transformed vector
+    Vector2D & operator*(Vector2D v1, const double scalar);
+
+    /// \brief multiply a scalar with a vector and store the result
+    /// in this object
+    /// \param v - scalar to multiply
+    /// \returns a reference to the newly transformed vector
+    Vector2D & operator*(const double scalar, Vector2D v1);
+    
     /// \brief output a 2 dimensional vector as [xcomponent ycomponent]
     /// \param os - stream to output to
     /// \param v - the vector to print
