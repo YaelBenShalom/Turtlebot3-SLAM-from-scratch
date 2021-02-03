@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rigid2d</name>
+  <version>0.0.1</version>
+  <description>Performs 2D rigid body transformations</description>
+
+  <!-- Package maintainer and author-->
+  <maintainer email="yaelbshalom@gmail.com">Yael Ben Shalom</maintainer>
+  <author email="yaelbshalom@gmail.com">Yael Ben Shalom</author>
+
+  <!-- Package license -->
+  <license>Apache License 2.0</license>
+
+  <!-- Package dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <build_depend>catch_ros</build_depend>
+
+
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
