@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 
+
 using namespace rigid2d;
 
 /********** Vector2D struct member functions **********/
@@ -11,14 +12,14 @@ using namespace rigid2d;
 Vector2D::Vector2D() {
     x = 0.0;
     y = 0.0;
-    Vector2D::normalize();
+    // Vector2D::normalize();
 }
 
 /// Create a zero-vector
 Vector2D::Vector2D(double x_input, double y_input) {
     x = x_input;
     y = y_input;
-    Vector2D::normalize();
+    // Vector2D::normalize();
 }
 
 /// Normalize a vector
@@ -31,6 +32,30 @@ void Vector2D::normalize() {
         x_normalized = x / sqrt(pow(x, 2) + pow(y, 2));
         y_normalized = y / sqrt(pow(x, 2) + pow(y, 2));
     }
+}
+
+/// Add this vector with another and store the result in this object
+Vector2D & Vector2D::operator+=(const Vector2D &v) {
+    x += v.x;
+    y += v.y;
+    // Vector2D::normalize();
+    return *this;
+}
+
+/// Subtract another vector from this vector and store the result in this object
+Vector2D & Vector2D::operator-=(const Vector2D &v) {
+    x -= v.x;
+    y -= v.y;
+    // Vector2D::normalize();
+    return *this;
+}
+
+/// Multiply this vector with a scalar and store the result in this object
+Vector2D & Vector2D::operator*=(const double scalar){
+    x *= scalar;
+    y *= scalar;
+    // Vector2D::normalize();
+    return *this;
 }
 
 
@@ -107,7 +132,7 @@ Transform2D Transform2D::inv() const {
     return new_trans;
 }
 
-/// Compose this transform with another and store the result 
+/// Compose this transform with another and store the result in this object
 Transform2D & Transform2D::operator*=(const Transform2D & rhs) {
     double rhs_x = rhs.trans_vector.x;
     double rhs_y = rhs.trans_vector.y;
@@ -147,6 +172,16 @@ double Transform2D::theta() const {
 
 
 /********** Outside of Class - Vector2D related functions **********/
+
+/// Compute the magnitude of the vector
+double magnitude(const Vector2D & v) {
+    
+}
+
+/// Compute the angle of the vector
+double angle(const Vector2D & v){
+
+}
 
 /// Output a 2 dimensional vector as [xcomponent, ycomponent]
 std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Vector2D & v) {

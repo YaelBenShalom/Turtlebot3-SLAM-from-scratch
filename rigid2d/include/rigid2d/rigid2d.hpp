@@ -3,8 +3,9 @@
 /// \file
 /// \brief Library for two-dimensional rigid body transformations.
 
-#include<iosfwd> // contains forward definitions for iostream objects
+#include <iosfwd> // contains forward definitions for iostream objects
 #include <cmath>
+
 
 namespace rigid2d
 {
@@ -84,6 +85,24 @@ namespace rigid2d
 
         /// \brief function to normalize vector
         void normalize();
+
+        /// \brief add this vector with another and store the result
+        /// in this object
+        /// \param v - components to add
+        /// \returns a reference to the newly transformed vector
+        Vector2D & operator+=(const Vector2D & v);
+
+        /// \brief subtract another vector from this vector and store the result
+        /// in this object
+        /// \param v - components to subtract
+        /// \returns a reference to the newly transformed vector
+        Vector2D & operator-=(const Vector2D & v);
+
+        /// \brief multiply this vector with a scalar and store the result
+        /// in this object
+        /// \param v - scalar to multiply
+        /// \returns a reference to the newly transformed vector
+        Vector2D & operator*=(const double scalar);
     };
 
 
@@ -182,6 +201,16 @@ namespace rigid2d
         /// for a description.
         friend std::istream & operator>>(std::istream & is, Transform2D & tf);
     };
+
+    /// \brief compute the magnitude of the vector
+    /// \param v - the vector
+    /// \return the magnitude of the vector
+    double magnitude(const Vector2D & v);
+
+    /// \brief compute the angle of the vector
+    /// \param v - the vector
+    /// \return the angle of the vector
+    double angle(const Vector2D & v);
 
     /// \brief output a 2 dimensional vector as [xcomponent ycomponent]
     /// \param os - stream to output to
