@@ -1,0 +1,46 @@
+Git
+    - Good number of small commits
+    - Meaningful commit messages
+    - No compilation products in git
+      [rigid2d has produced binaries in git]
+catkin
+    - compiles cleanly
+Check
+
+
+Task A.000
+    - passes catkin_lint
+    - package.xml filled out appropriately
+
+Task A.001
+    - load.launch works
+    - load.launch launch arguments documented
+
+Task A.002
+    - diff_params has correct parameter values
+    - turtlebot3 urdf loads the diff parameters
+    - launchfile loads the diff parameters
+Task A.003
+    - README.md is filled in
+
+Task A: Check+
+
+Task B
+    - Everything is implemented
+    - Everything compiles with cmake
+        [The tests do not compile due to undefined references.] 0
+        [include with rigid2d/rigid2d.hpp rather than ../include]  
+    - Tests are implemented and pass
+    - Doxygen documentation is built and everything is commented
+        - added include/ to doxygen line to build documentation for header
+Task B.002 (comments are inline) in that file
+
+Task B: Check
+
+Task C:
+    - catkin_lint passes
+    - start service implemented
+    - turtle follows the square
+Check+
+
+Final Grade: 10/12

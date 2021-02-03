@@ -13,8 +13,9 @@ target_link_libraries(rigid2d_main rigid2d)
 
 enable_testing()
 add_executable(rigid_test tests/tests.cpp)
+target_link_libraries(rigid_test rigid2d)
 add_test(NAME Test_of_Rigid2d COMMAND rigid_test)
 
 find_package(Doxygen)
 set(DOXYGEN_USE_MDFILE_AS_MAINPAGE README.md) # Use the readme in your doxygen docs
-doxygen_add_docs(doxygen src/ README.md ALL)
+doxygen_add_docs(doxygen include/ src/ README.md ALL)
