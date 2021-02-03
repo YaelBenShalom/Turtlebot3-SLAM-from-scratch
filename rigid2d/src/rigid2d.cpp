@@ -11,7 +11,7 @@ using namespace rigid2d;
 /// Create a 2-Dimensional Vector
 Vector2D::Vector2D() {
     x = 0.0;
-    y = 0.0;
+    y = 0.0;\
     // Vector2D::normalize();
 }
 
@@ -145,28 +145,24 @@ Transform2D & Transform2D::operator*=(const Transform2D & rhs) {
     trans_vector.x = lhs_x + rhs_x * cos(lhs_angle) - rhs_y * sin(lhs_angle);
     trans_vector.y = lhs_y + rhs_x * sin(lhs_angle) + rhs_y * cos(lhs_angle);
     trans_angle = lhs_angle + rhs_angle;
-
     return *this;
 }
 
 /// Get the x displacement of the  transformation
 double Transform2D::x() const {
     double x = trans_vector.x;
-
     return x;
 }
 
 /// Get the y displacement of the  transformation
 double Transform2D::y() const {
     double y = trans_vector.y;
-    
     return y;
 }
 
 /// Get the angular displacement of the transform
 double Transform2D::theta() const {
     double theta = trans_angle;
-    
     return theta;
 }
 
@@ -174,13 +170,13 @@ double Transform2D::theta() const {
 /********** Outside of Class - Vector2D related functions **********/
 
 /// Compute the magnitude of the vector
-double magnitude(const Vector2D & v) {
-    
+double rigid2d::magnitude(const Vector2D & v) {
+    return std::sqrt(std::pow(v.x, 2) + std::pow(v.y, 2));
 }
 
 /// Compute the angle of the vector
-double angle(const Vector2D & v){
-
+double rigid2d::angle(const Vector2D & v) {
+    return std::acos(v.x / rigid2d::magnitude(v));
 }
 
 /// Output a 2 dimensional vector as [xcomponent, ycomponent]
@@ -193,15 +189,14 @@ std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Vector2D & 
 std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Vector2D & v) {    
     std::cout << "Enter [x y] coordinates (m)" << std::endl;
     char c1 = is.peek();
-
     if (c1 == '[') {
         is.get();
     }
 
     is >> v.x >> v.y;
     std::cout << v.x << ", " << v.y << "\n" << std::endl;
-    
-    v.normalize();
+
+    // v.normalize();
     return is;
 }
 
@@ -220,13 +215,10 @@ std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Twist2D & t
 std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Twist2D & twist) {
     std::cout << "Enter thetadot velocity (rad/s):" << std::endl;
 	is >> twist.thetadot;
-
 	std::cout << "Enter xdot velocity (m/s):" << std::endl;
 	is >> twist.xdot;
-
 	std::cout << "Enter ydot velocity (m/s):" << std::endl;
 	is >> twist.ydot;
-
 	return is;
 }
 
@@ -248,17 +240,14 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Transform2D & tf)
 
     std::cout << "Enter theta transform (degrees)" << std::endl;
     is >> theta;
-
     std::cout << "Enter x transform (m)" << std::endl;
     is >> v.x;
-
     std::cout << "Enter y transform (m)" << std::endl;
     is >> v.y;
 
     tf.trans_angle = deg2rad(theta);
     tf.trans_vector.x = v.x;
     tf.trans_vector.y = v.y;
-
     return is;
 }
 
