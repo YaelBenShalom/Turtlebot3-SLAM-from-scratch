@@ -10,7 +10,7 @@
 namespace rigid2d
 {
     /// \brief PI.  Not in C++ standard until C++20.
-    constexpr double PI=3.14159265358979323846;
+    constexpr double PI = 3.14159265358979323846;
 
     /// \brief approximately compare two floating-point numbers using
     ///        an absolute comparison
@@ -47,6 +47,19 @@ namespace rigid2d
     {
         double deg = (rad/(2*PI))*360.0;
         return deg;
+    }
+
+    /// \brief turns any angle into the equivalent one between -PI and PI
+    /// \param rad - angle in radians
+    /// \returns the equivalent angle between -PI and PI
+    constexpr double normalize_angle(double rad)
+    {
+        double deree = fmod(rad, 2*PI);
+
+        if (deree > PI) {
+            deree -= 2*PI;
+        }
+        return deree;
     }
 
     /// static_assertions test compile time assumptions.
