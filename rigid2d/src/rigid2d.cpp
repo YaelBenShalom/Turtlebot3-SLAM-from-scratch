@@ -201,26 +201,22 @@ Transform2D Transform2D::integrateTwist(const Twist2D & twist) const {
 
 /// Add this vector with another and store the result in this object
 rigid2d::Vector2D & operator+(rigid2d::Vector2D v1, const rigid2d::Vector2D & v2) {
-    v1 += v2;
-    return v1;
+    return v1 += v2;
 }
 
 /// Subtract another vector from this vector and store the result in this object
 rigid2d::Vector2D & operator-(rigid2d::Vector2D v1, const rigid2d::Vector2D & v2) {
-    v1 -= v2;
-    return v1;
+    return v1 -= v2;
 }
 
 /// Multiply this vector with a scalar and store the result in this object
 rigid2d::Vector2D & operator*(rigid2d::Vector2D v1, const double & scalar) {
-    v1 *= scalar;
-    return v1;
+    return v1 *= scalar;
 }
 
 /// Multiply a scalar with a vector and store the result in this object
 rigid2d::Vector2D & operator*(const double & scalar, rigid2d::Vector2D v1) {
-    v1 *= scalar;
-    return v1;
+    return v1 *= scalar;
 }
 
 /// Output a 2 dimensional vector as [xcomponent, ycomponent]

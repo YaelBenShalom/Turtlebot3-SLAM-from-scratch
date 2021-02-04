@@ -66,48 +66,42 @@ TEST_CASE( "Test Transform2D function Transform2D(v, angle)" ) {
     REQUIRE( rigid2d::almost_equal(T.theta(), T_ident.theta()));
 }
 
-
-
-
-
 TEST_CASE( "Test Transform2D function integrateTwist(twist)" ) {
 
-    double angle = 0.0;
-    rigid2d::Vector2D v;
-    v.x = 0.0;
-    v.y = 0.0;
-    rigid2d::Transform2D T_ident;
-    rigid2d::Transform2D T(v, angle);
+    rigid2d::Transform2D T, T_twisted;
+    rigid2d::Twist2D twist;
 
-    REQUIRE( rigid2d::almost_equal(T.x(), T_ident.x()));
-    REQUIRE( rigid2d::almost_equal(T.y(), T_ident.y()));
-    REQUIRE( rigid2d::almost_equal(T.theta(), T_ident.theta()));
+    SECTION( "test pure translation" ) {
+        twist.thetadot = 0;
+        twist.xdot = 1;
+        twist.ydot = 1;
+
+        T_twisted = T.integrateTwist(twist);
+
+        REQUIRE( rigid2d::almost_equal(T_twisted.x(), T.x() + 1));
+        REQUIRE( rigid2d::almost_equal(T_twisted.y(), T.y() + 1));
+        REQUIRE( rigid2d::almost_equal(T_twisted.theta(), T.theta()));
+    }
+    SECTION( "test pure rotation" ) {
+        twist.thetadot = rigid2d::PI;
+        twist.xdot = 0;
+        twist.ydot = 0;
+
+        T_twisted = T.integrateTwist(twist);
+
+        REQUIRE( rigid2d::almost_equal(T_twisted.x(), T.x()));
+        REQUIRE( rigid2d::almost_equal(T_twisted.y(), T.y()));
+        REQUIRE( rigid2d::almost_equal(T_twisted.theta(), T.theta() + rigid2d::PI));
+    }
+    SECTION( "test simultaneous translation and rotation" ) {
+        twist.thetadot = rigid2d::PI;
+        twist.xdot = 1;
+        twist.ydot = 1;
+
+        T_twisted = T.integrateTwist(twist);
+
+        REQUIRE( rigid2d::almost_equal(T_twisted.x(), T.x() - 0.63662, 1.0e-4));
+        REQUIRE( rigid2d::almost_equal(T_twisted.y(), T.y() + 0.63662, 1.0e-4));
+        REQUIRE( rigid2d::almost_equal(T_twisted.theta(), T.theta() + rigid2d::PI));
+    }
 }
-
-
-// TEST_CASE( "Test Transform2D function integrateTwist(twist)" ) {
-
-//     std::vector<int> v( 5 );
-
-//     REQUIRE( v.size() == 5 );
-//     REQUIRE( v.capacity() >= 5 );
-
-//     SECTION( "test pure translation" ) {
-//         v.resize( 10 );
-
-//         REQUIRE( v.size() == 10 );
-//         REQUIRE( v.capacity() >= 10 );
-//     }
-//     SECTION( "test pure rotation" ) {
-//         v.resize( 0 );
-
-//         REQUIRE( v.size() == 0 );
-//         REQUIRE( v.capacity() >= 5 );
-//     }
-//     SECTION( "test simultaneous translation and rotation" ) {
-//         v.reserve( 10 );
-
-//         REQUIRE( v.size() == 5 );
-//         REQUIRE( v.capacity() >= 10 );
-//     }
-// }
