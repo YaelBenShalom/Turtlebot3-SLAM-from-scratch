@@ -125,8 +125,8 @@ include
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
-  src/rigid2d.cpp
-  src/diff_drive.cpp
+src/diff_drive.cpp
+src/rigid2d.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC include/)
@@ -223,5 +223,5 @@ install(DIRECTORY include/${PROJECT_NAME}/
 #add_executable(${PROJECT_NAME}_test tests/tests.cpp)
 #add_test(NAME Test_of_Rigid2d COMMAND rigid_test)
 
-catch_add_test(${PROJECT_NAME}_test tests/rigid2d_test.cpp tests/diff_drive_test.cpp)
+catch_add_test(${PROJECT_NAME}_test tests/${PROJECT_NAME}_test.cpp tests/diff_drive_test.cpp)
 target_link_libraries(${PROJECT_NAME}_test ${catkin_LIBRARIES} ${PROJECT_NAME})
