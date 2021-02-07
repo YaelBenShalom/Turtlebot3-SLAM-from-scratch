@@ -102,24 +102,24 @@ namespace rigid2d
         /// \brief compute the magnitude of the vector
         /// \param v - the vector
         /// \return the magnitude of the vector
-        double magnitude(const Vector2D & v);
+        double magnitude(const Vector2D &v);
 
         /// \brief compute the angle of the vector
         /// \param v - the vector
         /// \return the angle of the vector
-        double angle(const Vector2D & v);
+        double angle(const Vector2D &v);
 
         /// \brief add this vector with another and store the result
         /// in this object
         /// \param v - components to add
         /// \returns a reference to the newly transformed vector
-        Vector2D & operator+=(const Vector2D & v);
+        Vector2D & operator+=(const Vector2D &v);
 
         /// \brief subtract another vector from this vector and store the result
         /// in this object
         /// \param v - components to subtract
         /// \returns a reference to the newly transformed vector
-        Vector2D & operator-=(const Vector2D & v);
+        Vector2D & operator-=(const Vector2D &v);
 
         /// \brief multiply this vector with a scalar and store the result
         /// in this object
@@ -132,8 +132,6 @@ namespace rigid2d
     /// \brief A 2-Dimensional twist
     struct Twist2D
     {
-        // friend class Transform2D;
-
         double thetadot;
         double xdot;
         double ydot;
@@ -149,11 +147,11 @@ namespace rigid2d
 
         /// \brief \see operator<<(...) (declared outside this class)
         /// for a description.
-        friend std::ostream & operator<<(std::ostream & os, const Twist2D & twist);
+        friend std::ostream & operator<<(std::ostream &os, const Twist2D &twist);
 
         /// \brief \see operator>>(...) (declared outside this class)
         /// for a description.
-        friend std::istream & operator>>(std::istream & is, Twist2D & twist);
+        friend std::istream & operator>>(std::istream &is, Twist2D &twist);
     };
 
 
@@ -170,7 +168,7 @@ namespace rigid2d
 
         /// \brief create a transformation that is a pure translation
         /// \param trans - the vector by which to translate
-        explicit Transform2D(const Vector2D & trans);
+        explicit Transform2D(const Vector2D &trans);
 
         /// \brief create a pure rotation
         /// \param radians - angle of the rotation, in radians
@@ -180,7 +178,7 @@ namespace rigid2d
         /// component
         /// \param trans - the translation
         /// \param rot - the rotation, in radians
-        Transform2D(const Vector2D & trans, double radians);
+        Transform2D(const Vector2D &trans, double radians);
 
         /// \brief apply a transformation to a Vector2D
         /// \param v - the vector to transform
@@ -200,7 +198,7 @@ namespace rigid2d
         /// in this object
         /// \param rhs - the first transform to apply
         /// \returns a reference to the newly transformed operator
-        Transform2D & operator*=(const Transform2D & rhs);
+        Transform2D & operator*=(const Transform2D &rhs);
 
         /// \brief get the x displacement of the  transformation
         /// \return the x displacement
@@ -218,15 +216,15 @@ namespace rigid2d
         /// following a constant twist (in its original body frame) for one
         /// time unit
         /// \return transformation correspond to a twist for one time step
-        Transform2D integrateTwist(const Twist2D & twist) const;
+        Transform2D integrateTwist(const Twist2D &twist) const;
         
         /// \brief \see operator<<(...) (declared outside this class)
         /// for a description
-        friend std::ostream & operator<<(std::ostream & os, const Transform2D & tf);
+        friend std::ostream & operator<<(std::ostream &os, const Transform2D & tf);
 
         /// \brief \see operator>>(...) (declared outside this class)
         /// for a description.
-        friend std::istream & operator>>(std::istream & is, Transform2D & tf);
+        friend std::istream & operator>>(std::istream &is, Transform2D & tf);
     };
 
 
@@ -234,13 +232,13 @@ namespace rigid2d
     /// in this object
     /// \param v - components to add
     /// \returns a reference to the newly transformed vector
-    Vector2D & operator+(Vector2D v1, const Vector2D & v2);
+    Vector2D & operator+(Vector2D v1, const Vector2D &v2);
 
     /// \brief subtract another vector from this vector and store the result
     /// in this object
     /// \param v - components to subtract
     /// \returns a reference to the newly transformed vector
-    Vector2D & operator-(Vector2D v1, const Vector2D & v2);
+    Vector2D & operator-(Vector2D v1, const Vector2D &v2);
 
     /// \brief multiply this vector with a scalar and store the result
     /// in this object
@@ -257,7 +255,7 @@ namespace rigid2d
     /// \brief output a 2 dimensional vector as [xcomponent ycomponent]
     /// \param os - stream to output to
     /// \param v - the vector to print
-    std::ostream & operator<<(std::ostream & os, const Vector2D & v);
+    std::ostream & operator<<(std::ostream &os, const Vector2D &v);
 
     /// \brief input a 2 dimensional vector
     ///   You should be able to read vectors entered as two numbers
@@ -267,38 +265,38 @@ namespace rigid2d
     /// Hint: The following may be useful:
     /// https://en.cppreference.com/w/cpp/io/basic_istream/peek
     /// https://en.cppreference.com/w/cpp/io/basic_istream/get
-    std::istream & operator>>(std::istream & is, Vector2D & v);
+    std::istream & operator>>(std::istream &is, Vector2D &v);
 
     /// \brief should print a human readable version of the twist:
     /// An example output:
     /// dtheta (degrees): 90 dx: 3 dy: 5
     /// \param os - an output stream
     /// \param twist - the twist to print
-    std::ostream & operator<<(std::ostream & os, const Twist2D & twist);
+    std::ostream & operator<<(std::ostream &os, const Twist2D &twist);
 
     /// \brief Read a twist from stdin
     /// Should be able to read input either as output by operator<< or
     /// as 3 numbers (w, xdot, ydot) separated by spaces or newlines
-    std::istream & operator>>(std::istream & is, Twist2D & twist);
+    std::istream & operator>>(std::istream &is, Twist2D &twist);
 
     /// \brief should print a human readable version of the transform:
     /// An example output:
     /// dtheta (degrees): 90 dx: 3 dy: 5
     /// \param os - an output stream
     /// \param tf - the transform to print
-    std::ostream & operator<<(std::ostream & os, const Transform2D & tf);
+    std::ostream & operator<<(std::ostream &os, const Transform2D &tf);
 
     /// \brief Read a transformation from stdin
     /// Should be able to read input either as output by operator<< or
     /// as 3 numbers (degrees, dx, dy) separated by spaces or newlines
-    std::istream & operator>>(std::istream & is, Transform2D & tf);
+    std::istream & operator>>(std::istream &is, Transform2D &tf);
 
     /// \brief multiply two transforms together, returning their composition
     /// \param lhs - the left hand operand
     /// \param rhs - the right hand operand
     /// \return the composition of the two transforms
     /// HINT: This function should be implemented in terms of *=
-    Transform2D operator*(Transform2D lhs, const Transform2D & rhs);
+    Transform2D operator*(Transform2D lhs, const Transform2D &rhs);
 }
 
 #endif

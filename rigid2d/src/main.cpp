@@ -12,12 +12,11 @@ int main(){
     rigid2d::Twist2D twist, twist_a, twist_b, twist_c;
     rigid2d::Transform2D Tab, Tbc, Tba, Tcb, Tac, Tca;
 
-
-    double angle_in, angle_out;
-    std::cout << "Enter angle: " << std::endl;
-    std::cin >> angle_in;
-    angle_out = rigid2d::normalize_angle(angle_in);
-    std::cout << "The engle is: " << angle_out << std::endl;
+    // double angle_in, angle_out;
+    // std::cout << "Enter angle: " << std::endl;
+    // std::cin >> angle_in;
+    // angle_out = rigid2d::normalize_angle(angle_in);
+    // std::cout << "The engle is: " << angle_out << std::endl;
 
     // Prompt the user to enter transforms Tab and Tbc:
     std::cout << "Enter transform Tab: " << std::endl;

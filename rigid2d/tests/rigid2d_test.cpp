@@ -105,3 +105,20 @@ TEST_CASE( "Test Transform2D function integrateTwist(twist)" ) {
         REQUIRE( rigid2d::almost_equal(T_twisted.theta(), T.theta() + rigid2d::PI));
     }
 }
+
+TEST_CASE( "Test function normalize_angle(rad)" ) {
+
+    double angle1 = rigid2d::PI * 4;
+    double angle2 = 0;
+    double angle3 = rigid2d::PI * 5;
+    double angle4 = rigid2d::PI;
+    double angle5 = rigid2d::PI * 4.5;
+    double angle6 = rigid2d::PI/2;
+    double angle7 = rigid2d::PI * 5.5;
+    double angle8 = -rigid2d::PI/2;
+    
+    REQUIRE( rigid2d::almost_equal(rigid2d::normalize_angle(angle1), angle2));
+    REQUIRE( rigid2d::almost_equal(rigid2d::normalize_angle(angle3), angle4));
+    REQUIRE( rigid2d::almost_equal(rigid2d::normalize_angle(angle5), angle6));
+    REQUIRE( rigid2d::almost_equal(rigid2d::normalize_angle(angle7), angle8));
+}

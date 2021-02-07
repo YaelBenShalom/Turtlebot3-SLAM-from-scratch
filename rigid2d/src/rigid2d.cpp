@@ -35,12 +35,12 @@ void Vector2D::normalize() {
 }
 
 /// Compute the magnitude of the vector
-double Vector2D::magnitude(const Vector2D & v) {
+double Vector2D::magnitude(const Vector2D &v) {
     return std::sqrt(std::pow(v.x, 2) + std::pow(v.y, 2));
 }
 
 /// Compute the angle of the vector
-double Vector2D::angle(const Vector2D & v) {
+double Vector2D::angle(const Vector2D &v) {
     return std::acos(v.x / Vector2D::magnitude(v));
 }
 /// Add this vector with another and store the result in this object
@@ -95,7 +95,7 @@ Transform2D::Transform2D() {
 }
 
 /// Create a transformation that is a pure translation
-Transform2D::Transform2D(const Vector2D & trans) {
+Transform2D::Transform2D(const Vector2D &trans) {
     trans_angle = 0.0;
     trans_vector.x = trans.x;
     trans_vector.y = trans.y;
@@ -109,7 +109,7 @@ Transform2D::Transform2D(double radians) {
 }
 
 /// Create a transformation with a translational and rotational component
-Transform2D::Transform2D(const Vector2D & trans, double radians) {
+Transform2D::Transform2D(const Vector2D &trans, double radians) {
     trans_angle = radians;
     trans_vector.x = trans.x;
     trans_vector.y = trans.y;
@@ -142,7 +142,7 @@ Transform2D Transform2D::inv() const {
 }
 
 /// Compose this transform with another and store the result in this object
-Transform2D & Transform2D::operator*=(const Transform2D & rhs) {
+Transform2D & Transform2D::operator*=(const Transform2D &rhs) {
     double rhs_x = rhs.trans_vector.x;
     double rhs_y = rhs.trans_vector.y;
     double rhs_angle = rhs.trans_angle;
@@ -177,7 +177,7 @@ double Transform2D::theta() const {
 
 /// Compute the transformation corresponding to a rigid body following a
 /// constant twist (in its original body frame) for one time unit
-Transform2D Transform2D::integrateTwist(const Twist2D & twist) const {
+Transform2D Transform2D::integrateTwist(const Twist2D &twist) const {
     double angle;
     Vector2D v;
 
@@ -200,33 +200,33 @@ Transform2D Transform2D::integrateTwist(const Twist2D & twist) const {
 /********** Outside of Class - Vector2D related functions **********/
 
 /// Add this vector with another and store the result in this object
-rigid2d::Vector2D & operator+(rigid2d::Vector2D v1, const rigid2d::Vector2D & v2) {
+rigid2d::Vector2D & operator+(rigid2d::Vector2D v1, const rigid2d::Vector2D &v2) {
     return v1 += v2;
 }
 
 /// Subtract another vector from this vector and store the result in this object
-rigid2d::Vector2D & operator-(rigid2d::Vector2D v1, const rigid2d::Vector2D & v2) {
+rigid2d::Vector2D & operator-(rigid2d::Vector2D v1, const rigid2d::Vector2D &v2) {
     return v1 -= v2;
 }
 
 /// Multiply this vector with a scalar and store the result in this object
-rigid2d::Vector2D & operator*(rigid2d::Vector2D v1, const double & scalar) {
+rigid2d::Vector2D & operator*(rigid2d::Vector2D v1, const double scalar) {
     return v1 *= scalar;
 }
 
 /// Multiply a scalar with a vector and store the result in this object
-rigid2d::Vector2D & operator*(const double & scalar, rigid2d::Vector2D v1) {
+rigid2d::Vector2D & operator*(const double scalar, rigid2d::Vector2D v1) {
     return v1 *= scalar;
 }
 
 /// Output a 2 dimensional vector as [xcomponent, ycomponent]
-std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Vector2D & v) {
+std::ostream & rigid2d::operator<<(std::ostream &os, const rigid2d::Vector2D &v) {
     os << "[" << v.x << ", " << v.y << "]\n";
     return os;
 }
 
 /// Input a 2 dimensional vector
-std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Vector2D & v) {    
+std::istream & rigid2d::operator>>(std::istream &is, rigid2d::Vector2D &v) {    
     std::cout << "Enter [x y] coordinates (m)" << std::endl;
     char c1 = is.peek();
     if (c1 == '[') {
@@ -244,7 +244,7 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Vector2D & v) {
 /********** Outside of Class - Twist2D related functions **********/
 
 /// Should print a human readable version of the twist
-std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Twist2D & twist) {
+std::ostream & rigid2d::operator<<(std::ostream &os, const rigid2d::Twist2D &twist) {
     os << "thetadot (rad/s): " << twist.thetadot
        << " xdot (m/s): " << twist.xdot
        << " ydot (m/s): " << twist.ydot << std::endl;
@@ -252,7 +252,7 @@ std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Twist2D & t
 }
 
 /// Read a twist from stdin
-std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Twist2D & twist) {
+std::istream & rigid2d::operator>>(std::istream &is, rigid2d::Twist2D &twist) {
     std::cout << "Enter thetadot velocity (rad/s):" << std::endl;
 	is >> twist.thetadot;
 	std::cout << "Enter xdot velocity (m/s):" << std::endl;
@@ -266,7 +266,7 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Twist2D & twist) 
 /********** Outside of Class - Transform2D related functions **********/
 
 /// Should print a human readable version of the transform
-std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Transform2D & tf) {
+std::ostream & rigid2d::operator<<(std::ostream &os, const rigid2d::Transform2D &tf) {
     os << "dtheta (degrees): " << rad2deg(tf.trans_angle)
        << " dx: " << tf.trans_vector.x
        << " dy: " << tf.trans_vector.y << std::endl;
@@ -274,7 +274,7 @@ std::ostream & rigid2d::operator<<(std::ostream & os, const rigid2d::Transform2D
 }
 
 /// Read a transformation from stdin
-std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Transform2D & tf) {
+std::istream & rigid2d::operator>>(std::istream &is, rigid2d::Transform2D &tf) {
     Vector2D v;
     double theta;
 
@@ -292,6 +292,6 @@ std::istream & rigid2d::operator>>(std::istream & is, rigid2d::Transform2D & tf)
 }
 
 /// Multiply two transforms together, returning their composition
-rigid2d::Transform2D rigid2d::operator*(Transform2D lhs, const rigid2d::Transform2D & rhs) {
+rigid2d::Transform2D rigid2d::operator*(Transform2D lhs, const rigid2d::Transform2D &rhs) {
     return lhs *= rhs;
 }
