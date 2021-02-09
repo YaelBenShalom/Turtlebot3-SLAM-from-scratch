@@ -1,4 +1,4 @@
-/// \file   odometer.cpp
+/// \file   odometer_node.cpp
 /// \brief  Causes the turtlesim turtle to follow a rectangle path.
 ///
 /// PUBLISHES:
@@ -42,7 +42,6 @@ class Odometer
             odom_pub = nh.advertise<nav_msgs::Odometry>("odom", 5);
             joint_states_sub = nh.subscribe("/joint_states", 10, &Odometer::joint_state_callback, this);
             set_pose_srv = nh.advertiseService("/set_pose", &Odometer::set_pose_callback, this);
-            // main_loop();
          }
 
         /// \brief Load the parameters from the parameter server
@@ -54,22 +53,17 @@ class Odometer
             nh.getParam("body_frame_id", body_frame_id);            // The name of the body tf frame
             nh.getParam("left_wheel_joint", left_wheel_joint);      // The name of the left wheel joint
             nh.getParam("right_wheel_joint", right_wheel_joint);    // The name of the right wheel joint
-
-            // // Log the parameters as ROS_INFO messages
-            // ROS_INFO("wheel_base is: %f\n", wheel_base);
-            // ROS_INFO("wheel_radius is: %f\n", wheel_radius);
-            // ROS_INFO("odom_frame_id is: %s\n", odom_frame_id);
-            // ROS_INFO("body_frame_id is: %s\n", body_frame_id);
-            // ROS_INFO("left_wheel_joint is: %s\n", left_wheel_joint);
-            // ROS_INFO("right_wheel_joint is: %s\n", right_wheel_joint);
         }
         
         /// \brief Subscribes to the robot's joint_states.
         /// \param joint_state - constant pointer to joint_states
         /// \returns void
-        void joint_state_callback(const sensor_msgs::JointState::ConstPtr & joint_state) {
+        void joint_state_callback(const sensor_msgs::JointState::ConstPtr &joint_state) {
             right_wheel_angle = joint_state->position.at(0);
             left_wheel_angle = joint_state->position.at(1);
+
+            wheel_vel = diff_drive.updateOdometry(right_wheel_angle, left_wheel_angle);
+            twist = diff_drive.wheels2Twist(wheel_vel);
         }
 
         /// \brief Restarts the location of the odometry, so that the robot thinks
@@ -82,7 +76,6 @@ class Odometer
             reset_pose.x = req.x;
             reset_pose.y = req.y;
             reset_pose.theta = req.theta;
-
             res.result = true;
 
             return true;
@@ -151,11 +144,13 @@ class Odometer
 
         rigid2d::Config2D pose, reset_pose;
         rigid2d::Twist2D twist;
+        rigid2d::DiffDrive diff_drive;
+        rigid2d::WheelVelocity wheel_vel;
 };
 
 int main(int argc, char * argv[])
 {
-    ros::init(argc, argv, "odometer");
+    ros::init(argc, argv, "odometer_node");
     
     Odometer node;
     node.main_loop();

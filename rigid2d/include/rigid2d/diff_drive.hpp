@@ -50,8 +50,9 @@ namespace rigid2d
     class DiffDrive
     {
     private:
-        double wheel_angle, wheel_base, wheel_radius;
+        double right_wheel_angle, left_wheel_angle, wheel_base, wheel_radius;
         Config2D config;
+        WheelVelocity wheel_vel;
 
     public:
 
@@ -65,15 +66,22 @@ namespace rigid2d
         /// \brief convert a desired twist to the equivalent wheel velocities
         /// required to achieve that twist
         /// \param twist - the robot's twist
-        WheelVelocity twist2wheels(const Twist2D &twist);
+        WheelVelocity twist2Wheels(const Twist2D &twist);
 
-        /// \brief get the current configuration of the robot
-        // Config2D config();
+        /// \brief convert a desired wheel velocities to the equivalent twist
+        /// required to achieve those wheel velocities
+        /// \param twist - the robot's twist
+        Twist2D wheels2Twist(WheelVelocity vel);
 
-        // /// \brief update the configuration of the robot, given updated wheel
-        // /// angles (assuming constant wheel velocity in-between updates)
-        // /// \param twist - the robot's twist
-        // Config2D update_config(wheel_angle);
+        /// \brief convert a wheels angles to the equivalent wheel velocities
+        /// \param right_wheel_angle - the right wheel angle (phi1)
+        /// \param left_wheel_angle - the left wheel angle (phi2)
+        WheelVelocity wheelAngle2WheelVel(double right_wheel_angle_, double left_wheel_angle_);
+
+        /// \brief updates the odometry
+        /// \param right_wheel_angle - the right wheel angle (phi1)
+        /// \param left_wheel_angle - the left wheel angle (phi2)
+        WheelVelocity updateOdometry(double right_wheel_angle_, double left_wheel_angle_);
     };
 
 

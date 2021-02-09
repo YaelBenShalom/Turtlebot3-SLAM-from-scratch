@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   roscpp
   sensor_msgs
+  std_msgs
   tf2
   tf2_ros
 )
@@ -21,9 +22,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
-# find_package(Doxygen)
-# set(DOXYGEN_USE_MDFILE_AS_MAINPAGE README.md) # Use the readme in your doxygen docs
-# doxygen_add_docs(doxygen src/ README.md ALL)
+find_package(Doxygen)
+set(DOXYGEN_USE_MDFILE_AS_MAINPAGE README.md) # Use the readme in your doxygen docs
+doxygen_add_docs(${PROJECT_NAME}_doxygen src/ include/ README.md ALL)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -78,7 +79,7 @@ add_service_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+  std_msgs  # Or other packages containing msgs
 )
 
 ################################################
@@ -119,6 +120,7 @@ catkin_package(
     nav_msgs
     roscpp
     sensor_msgs
+    std_msgs
     tf2
     tf2_ros
 #  DEPENDS system_lib
@@ -131,14 +133,14 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
-src/diff_drive.cpp
-src/rigid2d.cpp
+  src/diff_drive.cpp
+  src/rigid2d.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC include/)
@@ -154,24 +156,25 @@ add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EX
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(${PROJECT_NAME}_main src/main.cpp)
-add_executable(odometer src/odometer_node.cpp)
+add_executable(odometer_node src/odometer_node.cpp)
+add_executable(fake_turtle_node src/fake_turtle_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
-# set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
+set_target_properties(fake_turtle_node PROPERTIES OUTPUT_NAME fake_turtle_node PREFIX "")
+set_target_properties(odometer_node PROPERTIES OUTPUT_NAME odometer_node PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(odometer ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(odometer_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(fake_turtle_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
 target_link_libraries(${PROJECT_NAME}_main ${catkin_LIBRARIES} ${PROJECT_NAME})
-target_link_libraries(odometer ${catkin_LIBRARIES} ${PROJECT_NAME})
+target_link_libraries(odometer_node ${catkin_LIBRARIES} ${PROJECT_NAME})
+target_link_libraries(fake_turtle_node ${catkin_LIBRARIES} ${PROJECT_NAME})
 
 
 #############
@@ -190,7 +193,7 @@ target_link_libraries(odometer ${catkin_LIBRARIES} ${PROJECT_NAME})
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-install(TARGETS odometer ${PROJECT_NAME}_main 
+install(TARGETS fake_turtle_node odometer_node ${PROJECT_NAME}_main 
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
