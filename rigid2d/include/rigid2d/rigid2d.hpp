@@ -217,7 +217,7 @@ namespace rigid2d
         /// time unit
         /// \return transformation correspond to a twist for one time step
         Transform2D integrateTwist(const Twist2D &twist) const;
-        
+
         /// \brief \see operator<<(...) (declared outside this class)
         /// for a description
         friend std::ostream & operator<<(std::ostream &os, const Transform2D & tf);

@@ -63,6 +63,12 @@ namespace rigid2d
         /// \param config - the current configuration of the robot
         DiffDrive(const Config2D &configuration);
 
+        /// \brief returns the configuration of the robot
+        Config2D get_config();
+
+        /// \brief reset the configuration of the robot
+        void set_config(const Config2D &pos);
+
         /// \brief convert a desired twist to the equivalent wheel velocities
         /// required to achieve that twist
         /// \param twist - the robot's twist

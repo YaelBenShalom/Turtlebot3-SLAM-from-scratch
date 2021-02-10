@@ -197,6 +197,7 @@ Transform2D Transform2D::integrateTwist(const Twist2D &twist) const {
 }
 
 
+
 /********** Outside of Class - Vector2D related functions **********/
 
 /// Add this vector with another and store the result in this object

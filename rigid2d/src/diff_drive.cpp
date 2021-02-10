@@ -52,6 +52,16 @@ using namespace rigid2d;
             config = configuration;
         }
 
+        /// Returns the configuration of the robot
+        Config2D DiffDrive::get_config() {
+	        return config;
+        }
+
+        /// ReResetturns the configuration of the robot
+        void DiffDrive::set_config(const Config2D &pos) {
+            config = pos;
+        }
+
         /// Convert a desired twist to the equivalent wheel velocities
         /// required to achieve that twist
         WheelVelocity DiffDrive::twist2Wheels(const Twist2D &twist) {
@@ -90,23 +100,24 @@ using namespace rigid2d;
 
         /// Updates the odometry
         WheelVelocity DiffDrive::updateOdometry(double right_angle, double left_angle) {
+            Transform2D T_b, T_bbp;
             WheelVelocity vel;
+            Vector2D v;
+            double angle;
             Twist2D twist;
 
             vel = DiffDrive::wheelAngle2WheelVel(right_angle, left_angle);
             twist = DiffDrive::wheels2Twist(vel);
 
-            // TODO - Missing position update!!
+            v.x = config.x;
+            v.y = config.y;
+            angle = config.theta;
+            T_b = Transform2D(v, angle);
+            T_bbp = T_b.integrateTwist(twist);
+
+            config.x = T_bbp.x();
+            config.y = T_bbp.y();
+            config.theta = T_bbp.theta();
+
             return vel;
         }
-
-        /// Get the current configuration of the robot
-        // Config2D DiffDrive::config() {
-        //     return config;
-        // }
-
-        // /// Update the configuration of the robot, given updated wheel
-        // /// angles (assuming constant wheel velocity in-between updates)
-        // Config2D DiffDrive::update_config(wheel_angle) {
-
-        // }
