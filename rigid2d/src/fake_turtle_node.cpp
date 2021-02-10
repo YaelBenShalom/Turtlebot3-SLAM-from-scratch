@@ -7,8 +7,8 @@
 /// SUBSCRIBES:
 ///     geometry_msgs/Twist (cmd_vel): Subscribes to the robot's velocity.
 
-#include "../include/rigid2d/diff_drive.hpp"
-#include "../include/rigid2d/rigid2d.hpp"
+#include "rigid2d/diff_drive.hpp"
+#include "rigid2d/rigid2d.hpp"
 
 #include "ros/ros.h"
 

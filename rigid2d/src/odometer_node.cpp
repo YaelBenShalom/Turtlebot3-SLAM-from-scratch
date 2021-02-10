@@ -9,8 +9,8 @@
 ///     set_pose (SetPose): Restarts the location of the odometry, so that the robot thinks
 ///                         it is at the requested configuration.
 
-#include "../include/rigid2d/diff_drive.hpp"
-#include "../include/rigid2d/rigid2d.hpp"
+#include "rigid2d/diff_drive.hpp"
+#include "rigid2d/rigid2d.hpp"
 
 #include "ros/ros.h"
 

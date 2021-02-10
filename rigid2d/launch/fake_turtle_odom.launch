@@ -1,0 +1,39 @@
+<launch>
+
+  <!-- Launch file for making a turtle in the turtle simulator move in a rectangular trajectory -->
+
+  <!-- Define Default Arguments -->
+  <arg name="use_rviz" default="True" doc="The use_rviz parameter controls whether Rviz and the joint_state_publisher are launched (default true)"/>
+  <arg name="use_gazebo" default="True" doc="The use_gazebo parameter controls whether Gazebo is launched (default true)"/>
+  <arg name="use_teleop" default="True" doc="The use_teleop parameter controls whether turtlebot3_teleop_keyboard node is launched (default true)"/>
+
+  <!-- Load Turtle Parameters -->
+  <rosparam command="load" file="$(find rigid2d)/config/robot_params.yaml" />
+
+  <!-- Load turtlebot3_teleop -->
+  <group if="$(arg use_teleop)">
+      <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard" output="screen"></node>
+  </group>
+
+  <!-- Load fake_turtle_node.cpp Node -->
+  <node name="fake_turtle" pkg="rigid2d" type="fake_turtle_node" output="screen" />
+
+  <!-- Load odometer_node.cpp Node -->
+  <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" >
+  <!-- <remap from="cmd_vel" to="turtle1/cmd_vel" /> -->
+  </node>
+
+  <!-- Load Robot Model in Gazebo -->
+   <group if="$(arg use_gazebo)">
+        <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch" />
+   </group>
+
+  <!-- Load Robot Model in Rviz -->
+  <group if="$(arg use_rviz)">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rigid2d)/config/turtle_view.rviz" />
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" >
+      <remap from="joint_state" to="different_joint_states" />
+    </node>
+  </group>
+
+</launch>
