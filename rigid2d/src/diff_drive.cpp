@@ -118,8 +118,19 @@ using namespace rigid2d;
             return vel;
         }
 
-        /// Updates the odometry
-        WheelVelocity DiffDrive::updateOdometry(double right_angle, double left_angle) {
+        /// Convert wheel velocities to the equivalent wheel angles
+        WheelAngle DiffDrive::wheelVel2WheelAngle(const WheelVelocity &vel) {
+            WheelAngle wheel_angle;
+            int del_t = 1;
+
+            wheel_angle.right_wheel_angle = normalize_angle(wheel_angle.right_wheel_angle + vel.right_wheel_vel/del_t);
+            wheel_angle.left_wheel_angle = normalize_angle(wheel_angle.left_wheel_angle + vel.left_wheel_vel/del_t);
+
+            return wheel_angle;
+        }
+
+        /// Updates the odometry with wheel angles
+        WheelVelocity DiffDrive::updateOdometryWithAngles(double right_angle, double left_angle) {
             Transform2D T_b, T_bbp;
             WheelVelocity vel;
             Vector2D v;
@@ -140,4 +151,28 @@ using namespace rigid2d;
             config.theta = normalize_angle(T_bbp.theta());
 
             return vel;
+        }
+
+        /// Updates the odometry with twist input
+        WheelAngle DiffDrive::updateOdometryWithTwist(const Twist2D &tw) {
+            Transform2D T_b, T_bbp;
+            WheelAngle wheel_angle;
+            WheelVelocity vel;
+            Vector2D v;
+            double angle;
+
+            v.x = config.x;
+            v.y = config.y;
+            angle = config.theta;
+            T_b = Transform2D(v, angle);
+            T_bbp = T_b.integrateTwist(tw);
+
+            config.x = T_bbp.x();
+            config.y = T_bbp.y();
+            config.theta = normalize_angle(T_bbp.theta());
+
+            vel = DiffDrive::twist2Wheels(tw);
+            wheel_angle = DiffDrive::wheelVel2WheelAngle(vel);
+
+            return wheel_angle;
         }

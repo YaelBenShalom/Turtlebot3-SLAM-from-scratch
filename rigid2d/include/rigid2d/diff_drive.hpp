@@ -107,11 +107,21 @@ namespace rigid2d
         /// \return the wheel velocities of the robot
         WheelVelocity wheelAngle2WheelVel(double right_wheel_angle_, double left_wheel_angle_);
 
-        /// \brief updates the odometry
+        /// \brief convert wheel velocities to the equivalent wheel angles
+        /// \param vel - the wheel velocities of the robot
+        /// \return the wheel angles of the robot
+        WheelAngle wheelVel2WheelAngle(const WheelVelocity &vel);
+
+        /// \brief updates the odometry with wheel angles
         /// \param right_wheel_angle - the right wheel angle (phi1)
         /// \param left_wheel_angle - the left wheel angle (phi2)
         /// \return the wheel velocities of the robot
-        WheelVelocity updateOdometry(double right_wheel_angle_, double left_wheel_angle_);
+        WheelVelocity updateOdometryWithAngles(double right_wheel_angle_, double left_wheel_angle_);
+
+        /// \brief updates the odometry with twist input
+        /// \param tw - the twist of the robot
+        /// \return the wheel angles of the robot
+        WheelAngle updateOdometryWithTwist(const Twist2D &tw);
     };
 
 

@@ -62,7 +62,7 @@ class Odometer
             right_wheel_angle = joint_state->position.at(0);
             left_wheel_angle = joint_state->position.at(1);
 
-            wheel_vel = diff_drive.updateOdometry(right_wheel_angle, left_wheel_angle);
+            wheel_vel = diff_drive.updateOdometryWithAngles(right_wheel_angle, left_wheel_angle);
             twist = diff_drive.wheels2Twist(wheel_vel);
         }
 

@@ -52,6 +52,8 @@ class FakeTurtle
             twist.xdot = tw.linear.x / (double)frequency;
             twist.ydot = tw.linear.y / (double)frequency;
 
+            wheel_angle = diff_drive.updateOdometryWithTwist(twist);
+
             cmd_vel_flag = true;
         }
 
