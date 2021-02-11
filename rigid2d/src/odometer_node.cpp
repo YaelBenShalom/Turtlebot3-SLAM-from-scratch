@@ -92,6 +92,7 @@ class Odometer
             while(ros::ok()) {
                 current_time = ros::Time::now();
                 
+                // If the set_pose_callback was called
                 if (reset_flag) {
                     diff_drive.set_config(reset_pose);
                     // diff_drive.WheelVelocity();
@@ -116,7 +117,6 @@ class Odometer
 
                 odom_broadcaster.sendTransform(odom_tf);
 
-
                 odom.header.stamp = current_time;
                 odom.header.frame_id = odom_frame_id;
                 odom.child_frame_id = body_frame_id;
@@ -138,9 +138,8 @@ class Odometer
         }
 
     private:
-        double PI = 3.14159265358979323846;
-        bool reset_flag = false;
         int frequency = 100;
+        bool reset_flag = false;
         float wheel_base, wheel_radius, right_wheel_angle, left_wheel_angle;
         std::string odom_frame_id, body_frame_id, left_wheel_joint, right_wheel_joint;
         

@@ -52,7 +52,7 @@ class FakeTurtle
             twist.xdot = tw.linear.x / (double)frequency;
             twist.ydot = tw.linear.y / (double)frequency;
 
-            cmd_vel_msg = true;
+            cmd_vel_flag = true;
         }
 
 
@@ -64,22 +64,31 @@ class FakeTurtle
             while(ros::ok()) {
                 current_time = ros::Time::now();
                 
-                // if (cmd_vel_msg) {
+                // If the cmd_vel_callback was called
+                if (cmd_vel_flag) {
+                    wheel_angle = diff_drive.get_wheel_angle();
+                    joint_state.header.stamp = current_time;
 
-                // }
+                    joint_state.name.push_back(right_wheel_joint);
+                    joint_state.position.push_back(wheel_angle.right_wheel_angle);
 
-                cmd_vel_msg = false;
+                    joint_state.name.push_back(left_wheel_joint);
+                    joint_state.position.push_back(wheel_angle.left_wheel_angle);
+
+                    joint_states_pub.publish(joint_state);
+                    cmd_vel_flag = false;
+                }
+
                 loop_rate.sleep();
                 ros::spinOnce();
             }
         }
 
     private:
-        double PI = 3.14159265358979323846;
-        bool cmd_vel_msg = false;
         int frequency = 100;
-        float wheel_base, wheel_radius, right_wheel_angle, left_wheel_angle;
-        std::string odom_frame_id, body_frame_id, left_wheel_joint, right_wheel_joint;
+        bool cmd_vel_flag = false;
+        float wheel_base, wheel_radius;
+        std::string left_wheel_joint, right_wheel_joint;
         
         ros::NodeHandle nh;
         ros::Publisher joint_states_pub;
@@ -87,11 +96,14 @@ class FakeTurtle
         ros::Time current_time;
 
         sensor_msgs::JointState joint_msg;
+        sensor_msgs::JointState joint_state;
 
         rigid2d::Config2D pose;
         rigid2d::Twist2D twist;
         rigid2d::DiffDrive diff_drive;
         rigid2d::WheelVelocity wheel_vel;
+        rigid2d::WheelAngle wheel_angle;
+
 };
 
 int main(int argc, char * argv[])

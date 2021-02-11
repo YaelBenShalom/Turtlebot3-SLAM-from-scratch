@@ -42,6 +42,19 @@ namespace rigid2d
         WheelVelocity(double right_wheel_vel_, double left_wheel_vel_);
     };
 
+    struct WheelAngle
+    {
+        double right_wheel_angle;
+        double left_wheel_angle;
+
+        /// \brief constructor for zero wheel angle
+        WheelAngle();
+
+        /// \brief constructor for non-zero wheel angle
+        /// \param right_wheel_angle - the angle of the right wheel
+        /// \param left_wheel_angle - the angle of the left wheel
+        WheelAngle(double right_wheel_angle_, double left_wheel_angle_);
+    };
 
     /// \brief The class models the kinematics of a differential drive robot with a given wheel base and wheel radius. The class:
     /// 1. Track the configuration  of a differential-drive robot
@@ -50,9 +63,10 @@ namespace rigid2d
     class DiffDrive
     {
     private:
-        double right_wheel_angle, left_wheel_angle, wheel_base, wheel_radius;
+        double wheel_base, wheel_radius;
         Config2D config;
         WheelVelocity wheel_vel;
+        WheelAngle wheel_angle;
 
     public:
 
@@ -64,29 +78,39 @@ namespace rigid2d
         DiffDrive(const Config2D &configuration);
 
         /// \brief returns the configuration of the robot
+        /// \return the configuration of the robot
         Config2D get_config();
 
         /// \brief reset the configuration of the robot
+        /// \return void
         void set_config(const Config2D &pos);
 
+        /// \brief returns the wheel angle of the robot
+        /// \return the wheel angle of the robot
+        WheelAngle get_wheel_angle();
+        
         /// \brief convert a desired twist to the equivalent wheel velocities
         /// required to achieve that twist
         /// \param twist - the robot's twist
+        /// \return the wheel velocities of the robot
         WheelVelocity twist2Wheels(const Twist2D &twist);
 
         /// \brief convert a desired wheel velocities to the equivalent twist
         /// required to achieve those wheel velocities
         /// \param twist - the robot's twist
-        Twist2D wheels2Twist(WheelVelocity vel);
+        /// \return the twist of the robot
+        Twist2D wheels2Twist(const WheelVelocity &vel);
 
         /// \brief convert a wheels angles to the equivalent wheel velocities
         /// \param right_wheel_angle - the right wheel angle (phi1)
         /// \param left_wheel_angle - the left wheel angle (phi2)
+        /// \return the wheel velocities of the robot
         WheelVelocity wheelAngle2WheelVel(double right_wheel_angle_, double left_wheel_angle_);
 
         /// \brief updates the odometry
         /// \param right_wheel_angle - the right wheel angle (phi1)
         /// \param left_wheel_angle - the left wheel angle (phi2)
+        /// \return the wheel velocities of the robot
         WheelVelocity updateOdometry(double right_wheel_angle_, double left_wheel_angle_);
     };
 

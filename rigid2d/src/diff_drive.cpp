@@ -39,6 +39,21 @@ using namespace rigid2d;
         }
 
 
+/********** WheelAngle struct member functions **********/
+
+        /// Constructor for zero angle
+        WheelAngle::WheelAngle() {
+            right_wheel_angle = 0;
+            left_wheel_angle = 0;
+        }
+
+        /// Constructor for non-zero angle
+        WheelAngle::WheelAngle(double right_wheel_angle_, double left_wheel_angle_) {
+            right_wheel_angle = right_wheel_angle_;
+            left_wheel_angle = left_wheel_angle_;
+        }
+
+
 
 /********** DiffDrive class member functions **********/
 
@@ -62,6 +77,11 @@ using namespace rigid2d;
             config = pos;
         }
 
+        /// Returns the wheel angle of the robot
+        WheelAngle DiffDrive::get_wheel_angle() {
+            return wheel_angle;
+        }
+
         /// Convert a desired twist to the equivalent wheel velocities
         /// required to achieve that twist
         WheelVelocity DiffDrive::twist2Wheels(const Twist2D &twist) {
@@ -75,7 +95,7 @@ using namespace rigid2d;
 
         /// Convert a desired wheel velocities to the equivalent twist
         /// required to achieve those wheel velocities
-        Twist2D DiffDrive::wheels2Twist(WheelVelocity vel) {
+        Twist2D DiffDrive::wheels2Twist(const WheelVelocity &vel) {
             Twist2D twist;
             twist.thetadot = wheel_radius * (vel.right_wheel_vel - vel.left_wheel_vel) / wheel_base;
             twist.xdot = wheel_radius * (vel.right_wheel_vel + vel.left_wheel_vel) / 2;
@@ -89,11 +109,11 @@ using namespace rigid2d;
             WheelVelocity vel;
             int del_t = 1;
 
-            vel.right_wheel_vel = normalize_angle(right_angle - right_wheel_angle)/del_t;
-            vel.left_wheel_vel = normalize_angle(left_angle - left_wheel_angle)/del_t;
+            vel.right_wheel_vel = normalize_angle(right_angle - wheel_angle.right_wheel_angle)/del_t;
+            vel.left_wheel_vel = normalize_angle(left_angle - wheel_angle.left_wheel_angle)/del_t;
 
-            right_wheel_angle = normalize_angle(right_angle);
-            left_wheel_angle = normalize_angle(left_angle);
+            wheel_angle.right_wheel_angle = normalize_angle(right_angle);
+            wheel_angle.left_wheel_angle = normalize_angle(left_angle);
 
             return vel;
         }
@@ -117,7 +137,7 @@ using namespace rigid2d;
 
             config.x = T_bbp.x();
             config.y = T_bbp.y();
-            config.theta = T_bbp.theta();
+            config.theta = normalize_angle(T_bbp.theta());
 
             return vel;
         }
