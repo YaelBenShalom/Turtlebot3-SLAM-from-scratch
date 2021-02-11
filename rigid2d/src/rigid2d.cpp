@@ -118,6 +118,8 @@ Transform2D::Transform2D(const Vector2D &trans, double radians) {
 /// Apply a transformation to a Vector2D
 Vector2D Transform2D::operator()(Vector2D v) const {
     Vector2D v_trans;
+
+    // Calculating the transformation vector
     v_trans.x = v.x * cos(trans_angle) - v.y * sin(trans_angle) + trans_vector.x;
     v_trans.y = v.x * sin(trans_angle) + v.y * cos(trans_angle) + trans_vector.y;
     return v_trans;
@@ -126,6 +128,8 @@ Vector2D Transform2D::operator()(Vector2D v) const {
 /// Apply a transformation to a Twist2D
 Twist2D Transform2D::operator()(Twist2D twist) const {
     Twist2D twist_output;
+
+    // Calculating the transformation swist
     twist_output.thetadot = twist.thetadot;
     twist_output.xdot = this->trans_vector.y * twist.thetadot + cos(this->trans_angle) * twist.xdot - sin(this->trans_angle) * twist.ydot;
     twist_output.ydot = -this->trans_vector.x * twist.thetadot + sin(this->trans_angle) * twist.xdot + cos(this->trans_angle) * twist.ydot;
@@ -135,6 +139,8 @@ Twist2D Transform2D::operator()(Twist2D twist) const {
 /// Invert the transformation
 Transform2D Transform2D::inv() const {
     Vector2D inv_trans;
+
+    // Calculating the transformation inverse
     inv_trans.x = -trans_vector.x * cos(trans_angle) - trans_vector.y * sin(trans_angle);
     inv_trans.y = trans_vector.x * sin(trans_angle) - trans_vector.y * cos(trans_angle);
     Transform2D new_trans = Transform2D(inv_trans, -trans_angle);
@@ -151,6 +157,7 @@ Transform2D & Transform2D::operator*=(const Transform2D &rhs) {
     double lhs_y = trans_vector.y;
     double lhs_angle = trans_angle;
 
+    // Calculating the transformation vector and angle
     trans_vector.x = lhs_x + rhs_x * cos(lhs_angle) - rhs_y * sin(lhs_angle);
     trans_vector.y = lhs_y + rhs_x * sin(lhs_angle) + rhs_y * cos(lhs_angle);
     trans_angle = lhs_angle + rhs_angle;
@@ -181,12 +188,14 @@ Transform2D Transform2D::integrateTwist(const Twist2D &twist) const {
     double angle;
     Vector2D v;
 
+    // If the theta component is 0
     if (twist.thetadot == 0.0) {
         v.x = twist.xdot;
         v.y = twist.ydot;
         Transform2D transform(v, 0);
         return transform;
     }
+    // If the theta component is not 0
     else {
         angle = twist.thetadot;
         v.x = std::sin(twist.thetadot) * twist.xdot / twist.thetadot + (std::cos(twist.thetadot) - 1) * twist.ydot/ twist.thetadot;

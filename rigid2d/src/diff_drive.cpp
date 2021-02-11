@@ -86,6 +86,8 @@ using namespace rigid2d;
         /// required to achieve that twist
         WheelVelocity DiffDrive::twist2Wheels(const Twist2D &twist) {
             WheelVelocity vel;
+
+            // Calculating velocity
             vel.right_wheel_vel = (-wheel_base * twist.thetadot + twist.xdot)/
                                     wheel_radius;
             vel.left_wheel_vel = (wheel_base * twist.thetadot + twist.xdot)/
@@ -97,6 +99,8 @@ using namespace rigid2d;
         /// required to achieve those wheel velocities
         Twist2D DiffDrive::wheels2Twist(const WheelVelocity &vel) {
             Twist2D twist;
+
+            // Calculating twist
             twist.thetadot = wheel_radius * (vel.right_wheel_vel - vel.left_wheel_vel) / wheel_base;
             twist.xdot = wheel_radius * (vel.right_wheel_vel + vel.left_wheel_vel) / 2;
             twist.ydot = 0;
@@ -107,11 +111,13 @@ using namespace rigid2d;
         /// Convert a wheels angles to the equivalent wheel velocities
         WheelVelocity DiffDrive::wheelAngle2WheelVel(double right_angle, double left_angle) {
             WheelVelocity vel;
-            int del_t = 1;
+            int del_t = 1; // All velocity calculation are for one time unit
 
+            // Calculating wheel velocity from wheel angles (for one time unit)
             vel.right_wheel_vel = normalize_angle(right_angle - wheel_angle.right_wheel_angle)/del_t;
             vel.left_wheel_vel = normalize_angle(left_angle - wheel_angle.left_wheel_angle)/del_t;
 
+            // Update wheel angles
             wheel_angle.right_wheel_angle = normalize_angle(right_angle);
             wheel_angle.left_wheel_angle = normalize_angle(left_angle);
 
@@ -121,10 +127,11 @@ using namespace rigid2d;
         /// Convert wheel velocities to the equivalent wheel angles
         WheelAngle DiffDrive::wheelVel2WheelAngle(const WheelVelocity &vel) {
             WheelAngle wheel_angle;
-            int del_t = 1;
+            int del_t = 1; // All velocity calculation are for one time unit
 
-            wheel_angle.right_wheel_angle = normalize_angle(wheel_angle.right_wheel_angle + vel.right_wheel_vel/del_t);
-            wheel_angle.left_wheel_angle = normalize_angle(wheel_angle.left_wheel_angle + vel.left_wheel_vel/del_t);
+            // Calculating wheel angles from wheel velocity (for one time unit)
+            wheel_angle.right_wheel_angle = normalize_angle(wheel_angle.right_wheel_angle + vel.right_wheel_vel*del_t);
+            wheel_angle.left_wheel_angle = normalize_angle(wheel_angle.left_wheel_angle + vel.left_wheel_vel*del_t);
 
             return wheel_angle;
         }
@@ -137,18 +144,25 @@ using namespace rigid2d;
             double angle;
             Twist2D twist;
 
+            // Calculating wheel velocity from wheel angles (for one time unit)
             vel = DiffDrive::wheelAngle2WheelVel(right_angle, left_angle);
+            // Calculating the robot twist
             twist = DiffDrive::wheels2Twist(vel);
 
+            // Computing the transformation matrix Tb
             v.x = config.x;
             v.y = config.y;
             angle = config.theta;
             T_b = Transform2D(v, angle);
+
+            // Integrating the twist to get Tbb'
+            // Tbb' = exp(Vb)
             T_bbp = T_b.integrateTwist(twist);
 
+            // Update the configuration
             config.x = T_bbp.x();
             config.y = T_bbp.y();
-            config.theta = normalize_angle(T_bbp.theta());
+            config.theta = normalize_angle(T_bbp.theta());  
 
             return vel;
         }
@@ -161,17 +175,25 @@ using namespace rigid2d;
             Vector2D v;
             double angle;
 
+            // Computing the transformation matrix Tb
             v.x = config.x;
             v.y = config.y;
             angle = config.theta;
             T_b = Transform2D(v, angle);
+
+            // Integrating the twist to get Tbb'
+            // Tbb' = exp(Vb)
             T_bbp = T_b.integrateTwist(tw);
 
+            // Update the configuration
             config.x = T_bbp.x();
             config.y = T_bbp.y();
             config.theta = normalize_angle(T_bbp.theta());
 
+            // Calculating wheel velocity from the robot twist
             vel = DiffDrive::twist2Wheels(tw);
+
+            // Calculating wheel angles from wheel velocity (for one time unit)
             wheel_angle = DiffDrive::wheelVel2WheelAngle(vel);
 
             return wheel_angle;
