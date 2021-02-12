@@ -1,11 +1,26 @@
 /// \file   fake_turtle_node.cpp
 /// \brief  A kinematic simulation of a differential drive robot using the DiffDrive class.
 ///
+/// PARAMETERS:
+///     frequency (int): control loop frequency
+///     cmd_vel_flag (bool): specifies when new cmd_vel is read
+///     wheel_base (float): The distance between the wheels
+///     wheel_radius (float): The radius of the wheels
+///     left_wheel_joint (std::string): The name of the left wheel joint
+///     right_wheel_joint (std::string): The name of the right wheel joint
+///
+///     joint_state (sensor_msgs::JointState): message to publish joint_state readings to /joint_states topic
+///
+///     pose (rigid2d::Config2D): the robot's position (based on the wheel angles)
+///     twist (rigid2d::Twist2D): the robot's twist
+///     diff_drive (rigid2d::DiffDrive): an instance of the diff_drive robot
+///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels
+///     wheel_angle (rigid2d::WheelAngle): the angles of the robot's wheels
 /// PUBLISHES:
-///     sensor_msgs/JointState (joint_states): publishes JointState message on the joint_states topic.
+///     joint_states (sensor_msgs/JointState): publishes JointState message on the joint_states topic.
 ///                                            Reflect the current joint angles of each wheel
 /// SUBSCRIBES:
-///     geometry_msgs/Twist (cmd_vel): Subscribes to the robot's velocity.
+///     cmd_vel (geometry_msgs/Twist): Subscribes to the robot's velocity.
 
 #include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"
@@ -54,6 +69,7 @@ class FakeTurtle
 
             wheel_angle = diff_drive.updateOdometryWithTwist(twist);
 
+            // Raise the cmd_vel flag
             cmd_vel_flag = true;
         }
 
@@ -64,6 +80,7 @@ class FakeTurtle
             ROS_INFO("Entering the loop");
             ros::Rate loop_rate(frequency);
             while(ros::ok()) {
+                ROS_INFO("Looping");
                 current_time = ros::Time::now();
                 
                 // If the cmd_vel_callback was called
@@ -78,6 +95,8 @@ class FakeTurtle
                     joint_state.position.push_back(wheel_angle.left_wheel_angle);
 
                     joint_states_pub.publish(joint_state);
+
+                    // Remove the cmd_vel flag
                     cmd_vel_flag = false;
                 }
 
@@ -97,7 +116,6 @@ class FakeTurtle
         ros::Subscriber vel_sub;
         ros::Time current_time;
 
-        sensor_msgs::JointState joint_msg;
         sensor_msgs::JointState joint_state;
 
         rigid2d::Config2D pose;

@@ -4,15 +4,16 @@
 
   <!-- Define Default Arguments -->
   <arg name="use_rviz" default="True" doc="The use_rviz parameter controls whether Rviz and the joint_state_publisher are launched (default true)"/>
-  <arg name="use_gazebo" default="True" doc="The use_gazebo parameter controls whether Gazebo is launched (default true)"/>
   <arg name="use_teleop" default="True" doc="The use_teleop parameter controls whether turtlebot3_teleop_keyboard node is launched (default true)"/>
 
   <!-- Load Turtle Parameters -->
   <rosparam command="load" file="$(find rigid2d)/config/robot_params.yaml" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro" />
 
   <!-- Load turtlebot3_teleop -->
   <group if="$(arg use_teleop)">
       <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard" output="screen"></node>
+      <!-- <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/> -->
   </group>
 
   <!-- Load fake_turtle_node.cpp Node -->
@@ -23,17 +24,11 @@
   <!-- <remap from="cmd_vel" to="turtle1/cmd_vel" /> -->
   </node>
 
-  <!-- Load Robot Model in Gazebo -->
-   <group if="$(arg use_gazebo)">
-        <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch" />
-   </group>
-
   <!-- Load Robot Model in Rviz -->
   <group if="$(arg use_rviz)">
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rigid2d)/config/turtle_view.rviz" />
-    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" >
-      <remap from="joint_state" to="different_joint_states" />
-    </node>
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
+    <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
   </group>
 
 </launch>

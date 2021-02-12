@@ -4,6 +4,6 @@ wheel_radius: 0.26                          # The radius of the wheels
 
 # Odometer Parameters
 odom_frame_id: "odom"                       # The name of the odometry tf frame
-body_frame_id: "base_link"                  # The name of the body tf frame
+body_frame_id: "base_footprint"                  # The name of the body tf frame
 left_wheel_joint: "left_wheel_axle"         # The name of the left wheel joint
 right_wheel_joint: "right_wheel_axle"       # The name of the right wheel joint

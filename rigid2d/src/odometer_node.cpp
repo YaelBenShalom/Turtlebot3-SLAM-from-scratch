@@ -1,12 +1,32 @@
 /// \file   odometer_node.cpp
 /// \brief  Causes the turtlesim turtle to follow a rectangle path.
 ///
+/// PARAMETERS:
+///     frequency (int): control loop frequency
+///     reset_flag (bool): specifies when new pose is read
+///     wheel_base (float): The distance between the wheels
+///     wheel_radius (float): The radius of the wheels
+///     odom_frame_id (std::string): The name of the odometry tf frame
+///     body_frame_id (std::string): The name of the body tf frame
+///     left_wheel_joint (std::string): The name of the left wheel joint
+///     right_wheel_joint (std::string): The name of the right wheel joint
+///
+///     joint_msg (sensor_msgs::JointState): message to publish wheel angle readings to /joint_states topic
+///     odom_broadcaster (TransformBroadcaster): Broadcast the transform between odom_frame_id and the body_frame_id on /tf using a tf2
+///     odom_tf (geometry_msgs::TransformStamped): odometry transform
+///     odom (nav_msgs::Odometry): odometry message
+///
+///     pose (rigid2d::Config2D): the robot's position (based on the wheel angles)
+///     reset_pose (rigid2d::Config2D): the robot's reset position
+///     twist (rigid2d::Twist2D): the robot's twist
+///     diff_drive (rigid2d::DiffDrive): an instance of the diff_drive robot
+///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels
 /// PUBLISHES:
-///     nav_msgs/Odometry (odom): publishes Odometry message on the odom topic.
+///     odom (nav_msgs/Odometry): publishes Odometry message on the odom topic.
 /// SUBSCRIBES:
-///     sensor_msgs/JointState (joint_states): Subscribes to the robot's joint_states.
+///     joint_states (sensor_msgs/JointState): Subscribes to the robot's joint_states.
 /// SERVICES:
-///     set_pose (SetPose): Restarts the location of the odometry, so that the robot thinks
+///     SetPose (set_pose): Restarts the location of the odometry, so that the robot thinks
 ///                         it is at the requested configuration.
 
 #include "rigid2d/diff_drive.hpp"
@@ -79,6 +99,7 @@ class Odometer
             reset_pose.theta = req.theta;
             res.result = true;
 
+            // Raise the reset flag
             reset_flag = true;
 
             return true;
@@ -97,13 +118,17 @@ class Odometer
                     diff_drive.set_config(reset_pose);
                     // diff_drive.WheelVelocity();
 
+                    // Provide the configuration of the robot
                     ROS_INFO("Reset robot position:");
-                    ROS_INFO("x = %f", diff_drive.get_config().x);
-                    ROS_INFO("y = %f", diff_drive.get_config().y);
-                    ROS_INFO("theta = %f", diff_drive.get_config().theta);
+                    ROS_INFO("x = %f\n", diff_drive.get_config().x);
+                    ROS_INFO("y = %f\n", diff_drive.get_config().y);
+                    ROS_INFO("theta = %f\n", diff_drive.get_config().theta);
+
+                    // Remove the reset flag
                     reset_flag = false;
                 }
 
+                pose = diff_drive.get_config();
                 odom_tf.header.stamp = current_time;
                 odom_tf.header.frame_id = odom_frame_id;
                 odom_tf.child_frame_id = body_frame_id;
