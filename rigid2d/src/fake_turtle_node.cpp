@@ -63,14 +63,16 @@ class FakeTurtle
         /// \param tw - constant pointer to twist
         /// \returns void
         void cmd_vel_callback(const geometry_msgs::Twist &tw) {
-            twist.thetadot = tw.angular.z / (double)frequency;
-            twist.xdot = tw.linear.x / (double)frequency;
-            twist.ydot = tw.linear.y / (double)frequency;
+            // twist.thetadot = tw.angular.z / (double)frequency;
+            // twist.xdot = tw.linear.x / (double)frequency;
+            // twist.ydot = tw.linear.y / (double)frequency;
+            twist.thetadot = tw.angular.z;
+            twist.xdot = tw.linear.x;
+            twist.ydot = tw.linear.y;
 
-            wheel_angle = diff_drive.updateOdometryWithTwist(twist);
+            // wheel_angle = diff_drive.updateOdometryWithTwist(twist);
             // Raise the cmd_vel flag
             cmd_vel_flag = true;
-            
         }
 
 
@@ -88,13 +90,15 @@ class FakeTurtle
                     sensor_msgs::JointState joint_state;
 
                     // ROS_INFO("Entering if statement/n");
-                    wheel_angle = diff_drive.get_wheel_angle();
+                    // wheel_angle = diff_drive.get_wheel_angle();
+                    wheel_angle = diff_drive.updateOdometryWithTwist(twist);
                     joint_state.header.stamp = current_time;
 
                     joint_state.name.push_back(right_wheel_joint);
                     joint_state.name.push_back(left_wheel_joint);
                     joint_state.position.push_back(wheel_angle.right_wheel_angle);
                     joint_state.position.push_back(wheel_angle.left_wheel_angle);
+                    ROS_INFO("right_wheel_angle = %4.2f\t left_wheel_angle = %4.2f\r", wheel_angle.right_wheel_angle, wheel_angle.left_wheel_angle);
 
                     joint_states_pub.publish(joint_state);
 
@@ -109,7 +113,7 @@ class FakeTurtle
     private:
         int frequency = 100;
         bool cmd_vel_flag = false;
-        float wheel_base, wheel_radius;
+        double wheel_base, wheel_radius;
         std::string left_wheel_joint, right_wheel_joint;
         
         ros::NodeHandle nh;

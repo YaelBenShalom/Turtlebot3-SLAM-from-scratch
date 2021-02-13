@@ -75,7 +75,9 @@ namespace rigid2d
 
         /// \brief defines the robot configuration
         /// \param config - the current configuration of the robot
-        DiffDrive(const Config2D &configuration);
+        /// \param wheel_base_ - the distance between the wheels
+        /// \param wheel_radius_ - the radius of the wheels
+        DiffDrive(const Config2D &configuration, double wheel_base_, double wheel_radius_);
 
         /// \brief returns the configuration of the robot
         /// \return the configuration of the robot

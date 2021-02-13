@@ -79,10 +79,11 @@ class Odometer
         /// \param joint_state - constant pointer to joint_states
         /// \returns void
         void joint_state_callback(const sensor_msgs::JointState::ConstPtr &joint_state) {
-            right_wheel_angle = joint_state->position.at(0);
-            left_wheel_angle = joint_state->position.at(1);
+            right_angle = joint_state->position.at(0);
+            left_angle = joint_state->position.at(1);
+            // ROS_INFO("rightangle = %4.2f\t left_angle = %4.2f\r", right_angle, left_angle);
 
-            wheel_vel = diff_drive.updateOdometryWithAngles(right_wheel_angle, left_wheel_angle);
+            wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
             twist = diff_drive.wheels2Twist(wheel_vel);
         }
 
@@ -93,7 +94,6 @@ class Odometer
         /// \returns bool
         bool set_pose_callback(rigid2d::SetPose::Request &req, rigid2d::SetPose::Response &res) {
             ROS_INFO("Setting pose");
-
             reset_pose.x = req.x;
             reset_pose.y = req.y;
             reset_pose.theta = req.theta;
@@ -120,15 +120,16 @@ class Odometer
 
                     // Provide the configuration of the robot
                     ROS_INFO("Reset robot position:");
-                    ROS_INFO("x = %f\n", diff_drive.get_config().x);
-                    ROS_INFO("y = %f\n", diff_drive.get_config().y);
-                    ROS_INFO("theta = %f\n", diff_drive.get_config().theta);
+                    ROS_INFO("x = %f\n\r", diff_drive.get_config().x);
+                    ROS_INFO("y = %f\n\r", diff_drive.get_config().y);
+                    ROS_INFO("theta = %f\n\r", diff_drive.get_config().theta);
 
                     // Remove the reset flag
                     reset_flag = false;
                 }
 
                 pose = diff_drive.get_config();
+                // ROS_INFO("pose.x = %f\t pose.y = %f\r", pose.x, pose.y);
                 odom_tf.header.stamp = current_time;
                 odom_tf.header.frame_id = odom_frame_id;
                 odom_tf.child_frame_id = body_frame_id;
@@ -165,7 +166,7 @@ class Odometer
     private:
         int frequency = 100;
         bool reset_flag = false;
-        float wheel_base, wheel_radius, right_wheel_angle, left_wheel_angle;
+        double wheel_base, wheel_radius, right_angle, left_angle;
         std::string odom_frame_id, body_frame_id, left_wheel_joint, right_wheel_joint;
         
         ros::NodeHandle nh;

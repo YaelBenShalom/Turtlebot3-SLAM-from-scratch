@@ -11,7 +11,7 @@ using namespace rigid2d;
 /// Create a 2-Dimensional Vector
 Vector2D::Vector2D() {
     x = 0.0;
-    y = 0.0;\
+    y = 0.0;
     // Vector2D::normalize();
 }
 
