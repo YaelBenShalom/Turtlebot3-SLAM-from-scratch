@@ -12,8 +12,8 @@
 
   <!-- Load turtlebot3_teleop -->
   <group if="$(arg use_teleop)">
-      <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard" output="screen"></node>
-      <!-- <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/> -->
+      <!-- <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard" output="screen"></node> -->
+      <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/>
   </group>
 
   <!-- Load fake_turtle_node.cpp Node -->
