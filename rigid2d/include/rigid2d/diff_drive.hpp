@@ -73,6 +73,11 @@ namespace rigid2d
         /// \brief defines the robot configuration as (0,0,0)
         DiffDrive();
 
+        /// \brief defines the robot configuration as (0,0,0)
+        /// \param wheel_base_ - the distance between the wheels
+        /// \param wheel_radius_ - the radius of the wheels
+        DiffDrive(double wheel_base_, double wheel_radius_);
+
         /// \brief defines the robot configuration
         /// \param config - the current configuration of the robot
         /// \param wheel_base_ - the distance between the wheels

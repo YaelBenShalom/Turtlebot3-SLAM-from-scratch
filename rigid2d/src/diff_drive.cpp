@@ -62,8 +62,13 @@ using namespace rigid2d;
             Config2D config();
         	wheel_base = 0.16;
 	        wheel_radius = 0.033;
-        	// wheel_base = 0.1;
-	        // wheel_radius = 0.26;
+        }
+
+        /// Defines the robot configuration as (0,0,0)
+        DiffDrive::DiffDrive(double wheel_base_, double wheel_radius_) {
+            Config2D config();
+        	wheel_base = wheel_base_;
+	        wheel_radius = wheel_radius_; 
         }
 
         /// Defines the robot configuration

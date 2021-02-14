@@ -16,8 +16,8 @@ TEST_CASE( "Test bgfe" ) {
     auto wheel_radious = 0.033;
     Config2D pose_start = {0,0,0};
 
-    rigid2d::DiffDrive diff_drive(pose_start,wheel_base,wheel_radious);
-    double right_angle,left_angle;
+    rigid2d::DiffDrive diff_drive(pose_start, wheel_base, wheel_radious);
+    double right_angle, left_angle;
     left_angle = PI/2;
     right_angle = PI/2;
     WheelVelocity wheel_vel;
