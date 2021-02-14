@@ -59,6 +59,9 @@ namespace rigid2d
         if (deree > PI) {
             deree -= 2*PI;
         }
+        else if (deree < -PI) {
+            deree += 2*PI;
+        }
         return deree;
     }
 

@@ -81,10 +81,13 @@ class Odometer
         void joint_state_callback(const sensor_msgs::JointState::ConstPtr &joint_state) {
             right_angle = joint_state->position.at(0);
             left_angle = joint_state->position.at(1);
-            // ROS_INFO("rightangle = %4.2f\t left_angle = %4.2f\r", right_angle, left_angle);
+            // ROS_INFO("right_angle = %4.2f\t left_angle = %4.2f\r", right_angle, left_angle);
 
             wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
-            twist = diff_drive.wheels2Twist(wheel_vel);
+            // ROS_INFO("wheel_vel_right = %4.2f\t wheel_vel_left = %4.2f\r", wheel_vel.right_wheel_vel, wheel_vel.left_wheel_vel);
+
+            // twist = diff_drive.wheels2Twist(wheel_vel);
+            // ROS_INFO("twist.x = %4.2f\t twist.theta = %4.2f\r", twist.xdot, twist.thetadot);
         }
 
         /// \brief Restarts the location of the odometry, so that the robot thinks

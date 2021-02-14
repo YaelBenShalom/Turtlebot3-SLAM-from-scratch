@@ -55,14 +55,15 @@ using namespace rigid2d;
         }
 
 
-
 /********** DiffDrive class member functions **********/
 
         /// Defines the robot configuration as (0,0,0)
         DiffDrive::DiffDrive() {
             Config2D config();
-        	wheel_base = 0.1;
-	        wheel_radius = 0.26;
+        	wheel_base = 0.16;
+	        wheel_radius = 0.033;
+        	// wheel_base = 0.1;
+	        // wheel_radius = 0.26;
         }
 
         /// Defines the robot configuration
@@ -91,10 +92,9 @@ using namespace rigid2d;
         /// required to achieve that twist
         WheelVelocity DiffDrive::twist2Wheels(const Twist2D &twist) {
             WheelVelocity vel;
-
             // Calculating velocity
-            vel.right_wheel_vel = (-wheel_base * twist.thetadot + twist.xdot) / 2.0 * wheel_radius;
-            vel.left_wheel_vel = (wheel_base * twist.thetadot + twist.xdot) / 2.0 * wheel_radius;
+            vel.right_wheel_vel = (-wheel_base * twist.thetadot + twist.xdot) / (2.0 * wheel_radius);
+            vel.left_wheel_vel = (wheel_base * twist.thetadot + twist.xdot) / (2.0 * wheel_radius);
             // std::cout << "twist2Wheels:" << "wheel_base = " << wheel_base << "\t wheel_radius = " << wheel_radius << "\n\r" << std::endl;
             // std::cout << "twist2Wheels:" << "twist.xdot = " << twist.xdot << "\t twist.thetadot = " << twist.thetadot << "\n\r" << std::endl;
             // std::cout << "twist2Wheels:" << "vel.right = " << vel.right_wheel_vel << "\t vel.left = " << vel.left_wheel_vel << "\n\r" << std::endl;
@@ -138,20 +138,19 @@ using namespace rigid2d;
             int del_t = 1; // All velocity calculation are for one time unit
 
             // Calculating wheel angles from wheel velocity (for one time unit)
-            std::cout << "wheelVel2WheelAngle:" << "wheel_angle.right_wheel_angle = " << wheel_angle.right_wheel_angle << "\t wheel_angle.left_wheel_angle = " << wheel_angle.left_wheel_angle << "\n\r" << std::endl;
-            std::cout << "wheelVel2WheelAngle:" << "vel.right_wheel_vel = " << vel.right_wheel_vel << "\t vel.left_wheel_vel = " << vel.left_wheel_vel << "\n\r" << std::endl;
+            // std::cout << "wheelVel2WheelAngle:" << "wheel_angle.right_wheel_angle = " << wheel_angle.right_wheel_angle << "\t wheel_angle.left_wheel_angle = " << wheel_angle.left_wheel_angle << "\n\r" << std::endl;
+            // std::cout << "wheelVel2WheelAngle:" << "vel.right_wheel_vel = " << vel.right_wheel_vel << "\t vel.left_wheel_vel = " << vel.left_wheel_vel << "\n\r" << std::endl;
 
             wheel_angle.right_wheel_angle = normalize_angle(wheel_angle.right_wheel_angle + vel.right_wheel_vel*del_t);
             wheel_angle.left_wheel_angle = normalize_angle(wheel_angle.left_wheel_angle + vel.left_wheel_vel*del_t);
-            std::cout << "wheelVel2WheelAngle:" << "wheel_angle.right_wheel_angle = " << wheel_angle.right_wheel_angle << "\t wheel_angle.left_wheel_angle = " << wheel_angle.left_wheel_angle << "\n\r" << std::endl;
+            // std::cout << "wheelVel2WheelAngle:" << "wheel_angle.right_wheel_angle = " << wheel_angle.right_wheel_angle << "\t wheel_angle.left_wheel_angle = " << wheel_angle.left_wheel_angle << "\n\r" << std::endl;
 
             return wheel_angle;
         }
 
         /// Updates the odometry with wheel angles
         WheelVelocity DiffDrive::updateOdometryWithAngles(double right_angle, double left_angle) {
-            Transform2D T_b, T_bbp;
-            WheelVelocity vel;
+            Transform2D T_b, T_bbp, T_wbp;
             Vector2D v;
             double angle;
             Twist2D twist;
@@ -160,12 +159,12 @@ using namespace rigid2d;
             // std::cout << "ANGLE IN:" << "wheel_angle.right = " << wheel_angle.right_wheel_angle << "\t wheel_angle.left = " << wheel_angle.left_wheel_angle << "\n\r" << std::endl;
 
             // Calculating wheel velocity from wheel angles (for one time unit)
-            vel = DiffDrive::wheelAngle2WheelVel(right_angle, left_angle);
-            // std::cout << "ANGLE IN:" << "vel.right = " << vel.right_wheel_vel << "\t vel.left = " << vel.left_wheel_vel << "\n\r" << std::endl;
+            wheel_vel = DiffDrive::wheelAngle2WheelVel(right_angle, left_angle);
+            std::cout << "ANGLE IN:" << "wheel_vel.right = " << wheel_vel.right_wheel_vel << "\t wheel_vel.left = " << wheel_vel.left_wheel_vel << "\n\r" << std::endl;
 
             // Calculating the robot twist
-            twist = DiffDrive::wheels2Twist(vel);
-            // std::cout << "ANGLE IN:" << "twist.xdot = " << twist.xdot << "\t twist.ydot = " << twist.ydot << "\n\r" << std::endl;
+            twist = DiffDrive::wheels2Twist(wheel_vel);
+            std::cout << "ANGLE IN:" << "twist.xdot = " << twist.xdot << "\t twist.ydot = " << twist.ydot << "\n\r" << std::endl;
 
             // Computing the transformation matrix Tb
             v.x = config.x;
@@ -177,49 +176,50 @@ using namespace rigid2d;
             // Integrating the twist to get Tbb'
             // Tbb' = exp(Vb)
             T_bbp = T_b.integrateTwist(twist);
+            T_wbp = T_b * T_bbp;
 
-            // Update the configuration
-            config.x = T_bbp.x();
-            config.y = T_bbp.y();
-            config.theta = normalize_angle(T_bbp.theta());  
-            // std::cout << "ANGLE IN:" << "config.x = " << config.x << "\t config.y = " << config.y << "\n\r" << std::endl;
+            // Update the configuratiT_bbpon
+            config.x = T_wbp.x();
+            config.y = T_wbp.y();
+            config.theta = normalize_angle(T_wbp.theta());  
+            std::cout << "ANGLE IN:" << "config.x = " << config.x << "\t config.y = " << config.y << "\t config.theta = " << config.theta << "\n\r" << std::endl;
 
-            return vel;
+            return wheel_vel;
         }
 
         /// Updates the odometry with twist input
         WheelAngle DiffDrive::updateOdometryWithTwist(const Twist2D &tw) {
-            Transform2D T_b, T_bbp;
-            WheelVelocity vel;
+            Transform2D T_b, T_bbp, T_wbp;
             Vector2D v;
             double angle;
 
-            std::cout << "TWIST IN:" << "twist.xdot = " << tw.xdot << "\t twist.ydot = " << tw.ydot << "\n\r" << std::endl;
+            // std::cout << "TWIST IN:" << "twist.xdot = " << tw.xdot << "\t twist.ydot = " << tw.ydot << "\n\r" << std::endl;
 
             // Computing the transformation matrix Tb
             v.x = config.x;
             v.y = config.y;
             angle = config.theta;
             T_b = Transform2D(v, angle);
-            std::cout << "TWIST IN:" << "v.x = " << v.x << "\t v.y = " << v.y << "\n\r" << std::endl;
+            // std::cout << "TWIST IN:" << "v.x = " << v.x << "\t v.y = " << v.y << "\n\r" << std::endl;
 
             // Integrating the twist to get Tbb'
             // Tbb' = exp(Vb)
             T_bbp = T_b.integrateTwist(tw);
+            T_wbp = T_b * T_bbp;
 
             // Update the configuration
-            config.x = T_bbp.x();
-            config.y = T_bbp.y();
-            config.theta = normalize_angle(T_bbp.theta());
-            std::cout << "TWIST IN:" << "config.x = " << config.x << "\t config.y = " << config.y << "\n\r" << std::endl;
+            config.x = T_wbp.x();
+            config.y = T_wbp.y();
+            config.theta = normalize_angle(T_wbp.theta()); 
+            // std::cout << "TWIST IN:" << "config.x = " << config.x << "\t config.y = " << config.y << "\n\r" << std::endl;
 
             // Calculating wheel velocity from the robot twist
-            vel = DiffDrive::twist2Wheels(tw);
-            std::cout << "TWIST IN:" << "vel.right = " << vel.right_wheel_vel << "\t vel.left = " << vel.left_wheel_vel << "\n\r" << std::endl;
+            wheel_vel = DiffDrive::twist2Wheels(tw);
+            // std::cout << "TWIST IN:" << "wheel_vel.right = " << wheel_vel.right_wheel_vel << "\t wheel_vel.left = " << wheel_vel.left_wheel_vel << "\n\r" << std::endl;
 
             // Calculating wheel angles from wheel velocity (for one time unit)
-            wheel_angle = DiffDrive::wheelVel2WheelAngle(vel);
-            std::cout << "TWIST IN:" << "wheel_angle.right = " << wheel_angle.right_wheel_angle << "\t wheel_angle.left = " << wheel_angle.left_wheel_angle << "\n\r" << std::endl;
+            wheel_angle = DiffDrive::wheelVel2WheelAngle(wheel_vel);
+            // std::cout << "TWIST IN:" << "wheel_angle.right = " << wheel_angle.right_wheel_angle << "\t wheel_angle.left = " << wheel_angle.left_wheel_angle << "\n\r" << std::endl;
 
             return wheel_angle;
         }

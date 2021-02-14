@@ -8,6 +8,7 @@ Panels:
         - /Status1
         - /Path1
         - /TF1/Frames1
+        - /Odometry1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz/Selection
@@ -202,7 +203,7 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.05000000074505806
         Value: Arrow
-      Topic: ""
+      Topic: /odom
       Unreliable: false
       Value: true
   Enabled: true
@@ -233,7 +234,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.371946930885315
+      Distance: 7.26358699798584
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -249,9 +250,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4403979182243347
+      Pitch: 0.8403975367546082
       Target Frame: <Fixed Frame>
-      Yaw: 0.6603981256484985
+      Yaw: 6.26858377456665
     Saved: ~
 Window Geometry:
   Displays:
@@ -269,5 +270,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 833
-  Y: 68
+  X: 871
+  Y: 27

@@ -1,6 +1,6 @@
-# Robot Parameters
-wheel_base: 0.1                             # The distance between the wheels
-wheel_radius: 0.26                          # The radius of the wheels
+# # Robot Parameters
+# wheel_base: 0.16                            # The distance between the wheels
+# wheel_radius: 0.033                         # The radius of the wheels
 
 # Odometer Parameters
 odom_frame_id: "odom"                       # The name of the odometry tf frame

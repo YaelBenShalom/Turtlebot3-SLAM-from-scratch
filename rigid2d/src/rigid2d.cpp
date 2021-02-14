@@ -197,7 +197,7 @@ Transform2D Transform2D::integrateTwist(const Twist2D &twist) const {
     }
     // If the theta component is not 0
     else {
-        angle = twist.thetadot;
+        angle = normalize_angle(twist.thetadot);
         v.x = std::sin(twist.thetadot) * twist.xdot / twist.thetadot + (std::cos(twist.thetadot) - 1) * twist.ydot/ twist.thetadot;
         v.y = (1 - std::cos(twist.thetadot)) * twist.xdot / twist.thetadot + std::sin(twist.thetadot) * twist.ydot / twist.thetadot;
         Transform2D transform(v, angle);

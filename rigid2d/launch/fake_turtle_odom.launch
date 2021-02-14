@@ -8,7 +8,8 @@
 
   <!-- Load Turtle Parameters -->
   <rosparam command="load" file="$(find rigid2d)/config/robot_params.yaml" />
-  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro" />
+  <rosparam command="load" file="$(find nuturtle_description)/config/diff_params.yaml" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find nuturtle_description)/urdf/my_turtlebot3.urdf.xacro" />
 
   <!-- Load turtlebot3_teleop -->
   <group if="$(arg use_teleop)">

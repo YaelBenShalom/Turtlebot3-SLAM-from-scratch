@@ -98,7 +98,7 @@ class FakeTurtle
                     joint_state.name.push_back(left_wheel_joint);
                     joint_state.position.push_back(wheel_angle.right_wheel_angle);
                     joint_state.position.push_back(wheel_angle.left_wheel_angle);
-                    ROS_INFO("right_wheel_angle = %4.2f\t left_wheel_angle = %4.2f\r", wheel_angle.right_wheel_angle, wheel_angle.left_wheel_angle);
+                    // ROS_INFO("right_wheel_angle = %4.2f\t left_wheel_angle = %4.2f\r", wheel_angle.right_wheel_angle, wheel_angle.left_wheel_angle);
 
                     joint_states_pub.publish(joint_state);
 
