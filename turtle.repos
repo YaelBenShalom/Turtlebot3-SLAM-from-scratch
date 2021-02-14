@@ -1,0 +1,9 @@
+repositories:
+  src/assignment-git:
+    type: git
+    url: git@github.com:ME495-Navigation/assignment-YaelBenShalom.git
+    version: master
+  src/nuturtlebot:
+    type: git
+    url: https://github.com/ME495-Navigation/nuturtlebot.git
+    version: master
