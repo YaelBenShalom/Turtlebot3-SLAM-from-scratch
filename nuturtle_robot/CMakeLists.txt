@@ -1,19 +1,40 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.9)
 project(nuturtle_robot)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-Wall -Wextra -pipe -Wno-psabi)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+# target_include_directories(${PROJECT_NAME} PUBLIC)
+# target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17) # enable C++ 17
+# target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  catch_ros
+  geometry_msgs
+  message_generation
+  message_runtime
+  nav_msgs
+	nuturtlebot
+	rigid2d
   roscpp
+  sensor_msgs
+  std_msgs
+  tf2
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
+find_package(Doxygen)
+set(DOXYGEN_USE_MDFILE_AS_MAINPAGE README.md) # Use the readme in your doxygen docs
+doxygen_add_docs(${PROJECT_NAME}_doxygen src/ README.md ALL)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -68,7 +89,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+#   geometry_msgs
+#   std_msgs
 # )
 
 ################################################
@@ -101,9 +123,17 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES nuturtle_robot
-#  CATKIN_DEPENDS roscpp
+# INCLUDE_DIRS include
+# LIBRARIES ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    geometry_msgs
+    message_runtime
+    nav_msgs
+    roscpp
+    sensor_msgs
+    std_msgs
+    tf2
+    tf2_ros
 #  DEPENDS system_lib
 )
 
@@ -114,11 +144,11 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  # include
   ${catkin_INCLUDE_DIRS}
 )
 
-## Declare a C++ library
+# Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/nuturtle_robot.cpp
 # )
@@ -131,22 +161,27 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/nuturtle_robot_node.cpp)
+add_executable(turtle_interface_node src/turtle_interface_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
-# set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
+set_target_properties(turtle_interface_node PROPERTIES OUTPUT_NAME turtle_interface_node PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(turtle_interface_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(
+  turtle_interface_node
+  # ${rigid2d_LIBRARIES}
+  # ${nuturtlebot_LIBRARIES}
+  ${catkin_LIBRARIES}
+  # ${PROJECT_NAME}
+)
+
 
 #############
 ## Install ##
@@ -164,9 +199,9 @@ include_directories(
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-# install(TARGETS ${PROJECT_NAME}_node
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(TARGETS turtle_interface_node
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark libraries for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
@@ -179,9 +214,11 @@ include_directories(
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/
 #   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
 # )
+
+install(DIRECTORY config/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
@@ -200,5 +237,12 @@ include_directories(
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+if (CATKIN_ENABLE_TESTING)
+  catch_add_test(${PROJECT_NAME}_test tests/turtle_interface_test.test tests/turtle_interface_test.cpp)
+  target_link_libraries(${PROJECT_NAME}_test ${catkin_LIBRARIES})
+endif()
+
+# if (CATKIN_ENABLE_TESTING)
+#     add_rostest_gtest(turtle_interface_test tests/turtle_interface_test.test tests/turtle_interface_test.cpp)
+#     target_link_libraries(turtle_interface_test ${catkin_LIBRARIES} gtest_main ${rigid2d_LIBRARIES} ${nuturtlebot_LIBRARIES})
+# endif()

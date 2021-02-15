@@ -10,7 +10,7 @@
 
 
 
-TEST_CASE( "Test bgfe" ) {
+TEST_CASE( "Test DiffDrive constructors" ) {
     using namespace rigid2d;
     auto wheel_base = 0.16;
     auto wheel_radious = 0.033;

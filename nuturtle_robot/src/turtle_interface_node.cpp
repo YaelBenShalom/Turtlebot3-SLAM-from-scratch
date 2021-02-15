@@ -2,24 +2,20 @@
 /// \brief  A low-level control and sensor routines in ROS
 ///
 /// PARAMETERS:
-                            ///     frequency (int): control loop frequency
+///     frequency (int): control loop frequency
 ///     cmd_vel_flag (bool): specifies when new cmd_vel is read
 ///     sensor_data_flag (bool): specifies when new sensor_data is read
 ///     wheel_base (float): The distance between the wheels
 ///     wheel_radius (float): The radius of the wheels
-                            ///     linear_vel (float): the linear velocity of the robot
-                            ///     angular_vel (float): 
-
-                            ///     left_wheel_joint (std::string): The name of the left wheel joint
-                            ///     right_wheel_joint (std::string): The name of the right wheel joint
-                            ///
-                            ///     joint_state (sensor_msgs::JointState): message to publish joint_state readings to /joint_states topic
-                            ///
-                            ///     pose (rigid2d::Config2D): the robot's position (based on the wheel angles)
+///     left_wheel_joint (std::string): The name of the left wheel joint
+///     right_wheel_joint (std::string): The name of the right wheel joint
+///
+///     joint_state (sensor_msgs::JointState): message to publish joint_state readings to /joint_states topic
+///
 ///     twist (rigid2d::Twist2D): the robot's twist
 ///     diff_drive (rigid2d::DiffDrive): an instance of the diff_drive robot
-                            ///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels
-                            ///     wheel_angle (rigid2d::WheelAngle): the angles of the robot's wheels
+///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels
+///     wheel_angle (rigid2d::WheelAngle): the angles of the robot's wheels
 /// PUBLISHES:
 ///     wheel_cmd (nuturtlebot/WheelCommands): publishes WheelCommands message on the wheel_cmd topic.
 ///                                            Make the turtlebot3 follow the specified twist
@@ -32,11 +28,13 @@
 
 #include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"
-
 #include "ros/ros.h"
 
+#include <nuturtlebot/SensorData.h>
 #include <nuturtlebot/WheelCommands.h>
+
 #include <geometry_msgs/Twist.h>
+#include <sensor_msgs/JointState.h>
 
 #include <iostream>
 #include <vector> 
@@ -47,7 +45,7 @@
 class TurtleInterface
 {
     public:
-        FakeTurtle(){
+        TurtleInterface(){
             ROS_INFO("Initialize the variables");
             // Init Parameters
             load_parameter();
@@ -55,7 +53,7 @@ class TurtleInterface
             // Init publishers, subscribers, and services
             wheel_cmd_pub = nh.advertise<nuturtlebot::WheelCommands>("wheel_cmd", 1);
             joint_states_pub = nh.advertise<sensor_msgs::JointState>("joint_states", 1);
-            vel_sub = nh.subscribe("cmd_vel", 1, &FakeTurtle::cmd_vel_callback, this);
+            vel_sub = nh.subscribe("cmd_vel", 1, &TurtleInterface::cmd_vel_callback, this);
             sensor_data_sub = nh.subscribe("sensor_data", 1, &TurtleInterface::sensor_data_callback, this);
          }
 
@@ -173,7 +171,7 @@ class TurtleInterface
         }
 
     private:
-        // int frequency = 100;
+        int frequency = 100;
         bool cmd_vel_flag = false;
         bool sensor_data_flag = false;
         double power_rot_ratio, encoder_ticks, right_angle, left_angle;
@@ -189,7 +187,6 @@ class TurtleInterface
 
         nuturtlebot::WheelCommands wheel_command;
 
-        // rigid2d::Config2D pose;
         rigid2d::Twist2D twist;
         rigid2d::DiffDrive diff_drive;
         rigid2d::WheelVelocity wheel_vel;
