@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>nuturtle_robot</name>
+  <version>0.0.1</version>
+  <description>Store the code that interacts with the turtlebot hardware</description>
+
+  <!-- Package maintainer and author-->
+  <maintainer email="yaelbshalom@gmail.com">Yael Ben Shalom</maintainer>
+  <author email="yaelbshalom@gmail.com">Yael Ben Shalom</author>
+
+  <!-- Package license -->
+  <license>Apache License 2.0</license>
+
+  <!-- Package dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+
+</package>

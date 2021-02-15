@@ -165,11 +165,11 @@ using namespace rigid2d;
 
             // Calculating wheel velocity from wheel angles (for one time unit)
             wheel_vel = DiffDrive::wheelAngle2WheelVel(right_angle, left_angle);
-            std::cout << "ANGLE IN:" << "wheel_vel.right = " << wheel_vel.right_wheel_vel << "\t wheel_vel.left = " << wheel_vel.left_wheel_vel << "\n\r" << std::endl;
+            // std::cout << "ANGLE IN:" << "wheel_vel.right = " << wheel_vel.right_wheel_vel << "\t wheel_vel.left = " << wheel_vel.left_wheel_vel << "\n\r" << std::endl;
 
             // Calculating the robot twist
             twist = DiffDrive::wheels2Twist(wheel_vel);
-            std::cout << "ANGLE IN:" << "twist.xdot = " << twist.xdot << "\t twist.ydot = " << twist.ydot << "\n\r" << std::endl;
+            // std::cout << "ANGLE IN:" << "twist.xdot = " << twist.xdot << "\t twist.ydot = " << twist.ydot << "\n\r" << std::endl;
 
             // Computing the transformation matrix Tb
             v.x = config.x;
@@ -187,7 +187,7 @@ using namespace rigid2d;
             config.x = T_wbp.x();
             config.y = T_wbp.y();
             config.theta = normalize_angle(T_wbp.theta());  
-            std::cout << "ANGLE IN:" << "config.x = " << config.x << "\t config.y = " << config.y << "\t config.theta = " << config.theta << "\n\r" << std::endl;
+            // std::cout << "ANGLE IN:" << "config.x = " << config.x << "\t config.y = " << config.y << "\t config.theta = " << config.theta << "\n\r" << std::endl;
 
             return wheel_vel;
         }

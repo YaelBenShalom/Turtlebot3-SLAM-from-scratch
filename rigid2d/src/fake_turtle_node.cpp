@@ -63,14 +63,10 @@ class FakeTurtle
         /// \param tw - constant pointer to twist
         /// \returns void
         void cmd_vel_callback(const geometry_msgs::Twist &tw) {
-            // twist.thetadot = tw.angular.z / (double)frequency;
-            // twist.xdot = tw.linear.x / (double)frequency;
-            // twist.ydot = tw.linear.y / (double)frequency;
             twist.thetadot = tw.angular.z;
             twist.xdot = tw.linear.x;
             twist.ydot = tw.linear.y;
 
-            // wheel_angle = diff_drive.updateOdometryWithTwist(twist);
             // Raise the cmd_vel flag
             cmd_vel_flag = true;
         }
@@ -87,10 +83,9 @@ class FakeTurtle
                 
                 // If the cmd_vel_callback was called
                 if (cmd_vel_flag) {
-                    sensor_msgs::JointState joint_state;
-
                     // ROS_INFO("Entering if statement/n");
-                    // wheel_angle = diff_drive.get_wheel_angle();
+                    sensor_msgs::JointState joint_state;
+                    
                     wheel_angle = diff_drive.updateOdometryWithTwist(twist);
                     joint_state.header.stamp = current_time;
 
@@ -98,7 +93,6 @@ class FakeTurtle
                     joint_state.name.push_back(left_wheel_joint);
                     joint_state.position.push_back(wheel_angle.right_wheel_angle);
                     joint_state.position.push_back(wheel_angle.left_wheel_angle);
-                    // ROS_INFO("right_wheel_angle = %4.2f\t left_wheel_angle = %4.2f\r", wheel_angle.right_wheel_angle, wheel_angle.left_wheel_angle);
 
                     joint_states_pub.publish(joint_state);
 
@@ -121,14 +115,11 @@ class FakeTurtle
         ros::Subscriber vel_sub;
         ros::Time current_time;
 
-        // sensor_msgs::JointState joint_state;
-
         rigid2d::Config2D pose;
         rigid2d::Twist2D twist;
         rigid2d::DiffDrive diff_drive;
         rigid2d::WheelVelocity wheel_vel;
         rigid2d::WheelAngle wheel_angle;
-
 };
 
 int main(int argc, char * argv[])

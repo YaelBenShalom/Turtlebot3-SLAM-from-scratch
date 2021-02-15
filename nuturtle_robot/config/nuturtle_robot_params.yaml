@@ -1,0 +1,5 @@
+# Turtle Interface Parameters
+max_trans_speed: 0.22     # The max translational speed [m/s]
+max_rot_speed: 2.84       # The max rotational speed [rad/s]
+max_motor_rot: 6.35492    # The maximum motor rotational speed [rad/s]
+resolution: 4096          # The resolution of the motor (XL430-W250-T) [pulse/rev]

@@ -1,7 +1,3 @@
-# # Robot Parameters
-# wheel_base: 0.16                            # The distance between the wheels
-# wheel_radius: 0.033                         # The radius of the wheels
-
 # Odometer Parameters
 odom_frame_id: "odom"                       # The name of the odometry tf frame
 body_frame_id: "base_footprint"             # The name of the body tf frame

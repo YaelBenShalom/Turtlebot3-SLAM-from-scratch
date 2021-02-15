@@ -1,6 +1,6 @@
 <launch>
 
-  <!-- Launch file for making a turtle in the turtle simulator move in a rectangular trajectory -->
+  <!-- Launch file for making a turtle move in rviz using turtlebot3_teleop -->
 
   <!-- Define Default Arguments -->
   <arg name="use_rviz" default="True" doc="The use_rviz parameter controls whether Rviz and the joint_state_publisher are launched (default true)"/>
@@ -13,8 +13,7 @@
 
   <!-- Load turtlebot3_teleop -->
   <group if="$(arg use_teleop)">
-      <!-- <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard" output="screen"></node> -->
-      <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/>
+    <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/>
   </group>
 
   <!-- Load fake_turtle_node.cpp Node -->
@@ -22,14 +21,12 @@
 
   <!-- Load odometer_node.cpp Node -->
   <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" >
-  <!-- <remap from="cmd_vel" to="turtle1/cmd_vel" /> -->
   </node>
 
   <!-- Load Robot Model in Rviz -->
   <group if="$(arg use_rviz)">
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rigid2d)/config/turtle_view.rviz" />
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
-    <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
   </group>
 
 </launch>
