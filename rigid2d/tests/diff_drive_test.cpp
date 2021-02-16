@@ -28,7 +28,7 @@ TEST_CASE( "Test DiffDrive constructors" ) {
 
 
     pose = diff_drive.get_config();
-    REQUIRE( rigid2d::almost_equal(pose.x, PI/2*wheel_radious, 10e-3));
+    REQUIRE( rigid2d::almost_equal(pose.x, PI/2*wheel_radious, 1e-3));
     REQUIRE( rigid2d::almost_equal(pose.y, 0));
 
     for(int i=0; i<50; i++){
@@ -45,7 +45,7 @@ TEST_CASE( "Test DiffDrive constructors" ) {
     ROS_INFO("pose.x = %f\n\r", pose.x);
     ROS_INFO("Reset robot position");
     ROS_INFO("Reset robot position");
-    // REQUIRE( rigid2d::almost_equal(pose.x, 0.0518362, 10e-3));
+    // REQUIRE( rigid2d::almost_equal(pose.x, 0.0518362, 1e-3));
     // REQUIRE( rigid2d::almost_equal(pose.y, 0));
     }
 }

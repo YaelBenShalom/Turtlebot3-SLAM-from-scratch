@@ -93,22 +93,23 @@ class TurtleInterface
             else {
                 twist.thetadot = tw.angular.z;
             }
+            ROS_INFO("twist.xdot = %f\t twist.thetadot = %f\r", twist.xdot, twist.thetadot);
 
             wheel_vel = diff_drive.twist2Wheels(twist);
 
             if (wheel_vel.right_wheel_vel > max_motor_rot) {
                 wheel_vel.right_wheel_vel = max_motor_rot;
             }
-            else if (wheel_vel.right_wheel_vel > -max_motor_rot) {
+            else if (wheel_vel.right_wheel_vel < -max_motor_rot) {
                 wheel_vel.right_wheel_vel = -max_motor_rot;
             }
             if (wheel_vel.left_wheel_vel > max_motor_rot) {
                 wheel_vel.left_wheel_vel = max_motor_rot;
             }
-            else if (wheel_vel.left_wheel_vel > -max_motor_rot) {
+            else if (wheel_vel.left_wheel_vel < -max_motor_rot) {
                 wheel_vel.left_wheel_vel = -max_motor_rot;
             }
-
+            ROS_INFO("wheel_vel.right = %f\t wheel_vel.left = %f\r", wheel_vel.right_wheel_vel, wheel_vel.left_wheel_vel);
             // Raise the cmd_vel flag
             cmd_vel_flag = true;
         }
@@ -136,10 +137,11 @@ class TurtleInterface
                 // If the cmd_vel_callback was called
                 if (cmd_vel_flag) {
                     // ROS_INFO("Entering if statement/n");
-                    power_rot_ratio = 256 / max_motor_rot;
+                    power_rot_ratio = 256 / (max_motor_rot);
+                    ROS_INFO("max_motor_rot = %f\r", max_motor_rot);
                     wheel_command.right_velocity = std::round(wheel_vel.right_wheel_vel * power_rot_ratio);
                     wheel_command.left_velocity = std::round(wheel_vel.left_wheel_vel * power_rot_ratio);
-
+                    ROS_INFO("wheel_command.right = %d\t wheel_command.left = %d\r", wheel_command.right_velocity, wheel_command.left_velocity);
                     wheel_cmd_pub.publish(wheel_command);
 
                     // Remove the cmd_vel flag
