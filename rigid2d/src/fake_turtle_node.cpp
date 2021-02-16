@@ -36,6 +36,7 @@
 #include <cmath>
 
 
+/// \brief Class FakeTurtle
 class FakeTurtle
 {
     public:
@@ -45,8 +46,8 @@ class FakeTurtle
             load_parameter();
 
             // Init publishers, subscribers, and services
-            joint_states_pub = nh.advertise<sensor_msgs::JointState>("joint_states", 1);
-            vel_sub = nh.subscribe("cmd_vel", 10, &FakeTurtle::cmd_vel_callback, this);
+            joint_states_pub = nh.advertise<sensor_msgs::JointState>("/joint_states", 1);
+            vel_sub = nh.subscribe("/cmd_vel", 1, &FakeTurtle::cmd_vel_callback, this);
          }
 
         /// \brief Load the parameters from the parameter server
@@ -122,6 +123,8 @@ class FakeTurtle
         rigid2d::WheelAngle wheel_angle;
 };
 
+/// \brief Main function
+/// \returns int
 int main(int argc, char * argv[])
 {
     ros::init(argc, argv, "fake_turtle_node");

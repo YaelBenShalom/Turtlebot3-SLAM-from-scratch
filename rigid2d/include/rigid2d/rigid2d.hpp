@@ -18,8 +18,6 @@ namespace rigid2d
     /// \param d2 - a second number to compare
     /// \param epsilon - absolute threshold required for equality
     /// \return true if abs(d1 - d2) < epsilon
-    /// Note: the fabs function in <cmath> (c++ equivalent of math.h) will
-    /// be useful here
     constexpr bool almost_equal(double d1, double d2, double epsilon=1.0e-12)
     {
         if (fabs(d1 - d2) < epsilon) {
@@ -31,9 +29,6 @@ namespace rigid2d
     /// \brief convert degrees to radians
     /// \param deg - angle in degrees
     /// \returns radians
-    /// NOTE: implement this in the header file
-    /// constexpr means that the function can be computed at compile time
-    /// if given a compile-time constant as input
     constexpr double deg2rad(double deg)
     {
         double rad = (deg/360.0)*2*PI;
@@ -66,9 +61,6 @@ namespace rigid2d
     }
 
     /// static_assertions test compile time assumptions.
-    /// You should write at least one more test for each function
-    /// You should also purposely (and temporarily) make one of these tests fail
-    /// just to see what happens
     static_assert(almost_equal(0, 0), "almost_equal failed");
     static_assert(almost_equal(0.001, 0.005, 1.0e-2), "almost_equal failed");
     static_assert(almost_equal(0.1, 0.5, 1.0), "almost_equal failed");
@@ -86,20 +78,25 @@ namespace rigid2d
     /// \brief A 2-Dimensional Vector
     struct Vector2D
     {
-        double x = 0.0;
-        double y = 0.0;
+        /// \param x - x input of the vector
+        double x;
+        /// \param y - y input of the vector
+        double y;
+        /// \param x_ - x input of the vector - normalized
         double x_normalized;
+        /// \param y - y input of the vector - normalized
         double y_normalized;
 
         /// \brief create zero-vector
         Vector2D();
 
         /// \brief create a vector with x,y inputs
-        /// \param x_input - x input of the vector
-        /// \param y_input - y input of the vector
-        explicit Vector2D(double x_input, double y_input);
+        /// \param x_ - x input of the vector
+        /// \param y_ - y input of the vector
+        explicit Vector2D(double x_, double y_);
 
         /// \brief function to normalize vector
+        /// \returns void
         void normalize();
 
         /// \brief compute the magnitude of the vector
@@ -126,7 +123,7 @@ namespace rigid2d
 
         /// \brief multiply this vector with a scalar and store the result
         /// in this object
-        /// \param v - scalar to multiply
+        /// \param scalar - scalar to multiply
         /// \returns a reference to the newly transformed vector
         Vector2D & operator*=(const double scalar);
     };
@@ -135,18 +132,21 @@ namespace rigid2d
     /// \brief A 2-Dimensional twist
     struct Twist2D
     {
+        /// \param thetadot - thetadot input of the vector
         double thetadot;
+        /// \param xdot - xdot input of the vector
         double xdot;
+        /// \param ydot - ydot input of the vector
         double ydot;
 
         /// \brief create a zero-Twist
         Twist2D();
 
         /// \brief create a twist with x,y inputs
-        /// \param thetadot_input - thetadot input of the vector
-        /// \param xdot_input - xdot input of the vector
-        /// \param ydot_input - ydot input of the vector
-        explicit Twist2D(double thetadot_input, double xdot_input, double ydot_input);
+        /// \param thetadot_ - thetadot input of the vector
+        /// \param xdot_ - xdot input of the vector
+        /// \param ydot_ - ydot input of the vector
+        explicit Twist2D(double thetadot_, double xdot_, double ydot_);
 
         /// \brief \see operator<<(...) (declared outside this class)
         /// for a description.
@@ -162,7 +162,9 @@ namespace rigid2d
     class Transform2D
     {
     private:
+        /// \param trans_vector - the vector by which to translate
         Vector2D trans_vector;
+        /// \param trans_angle - the angle of the rotation, in radians
         double trans_angle;
 
     public:
@@ -174,13 +176,13 @@ namespace rigid2d
         explicit Transform2D(const Vector2D &trans);
 
         /// \brief create a pure rotation
-        /// \param radians - angle of the rotation, in radians
+        /// \param radians - the angle of the rotation, in radians
         explicit Transform2D(double radians);
 
         /// \brief Create a transformation with a translational and rotational
         /// component
         /// \param trans - the translation
-        /// \param rot - the rotation, in radians
+        /// \param radians - the rotation, in radians
         Transform2D(const Vector2D &trans, double radians);
 
         /// \brief apply a transformation to a Vector2D
@@ -233,25 +235,29 @@ namespace rigid2d
 
     /// \brief add this vector with another and store the result
     /// in this object
-    /// \param v - components to add
+    /// \param v1 - vector
+    /// \param v2 - vector to add
     /// \returns a reference to the newly transformed vector
     Vector2D & operator+(Vector2D v1, const Vector2D &v2);
 
     /// \brief subtract another vector from this vector and store the result
     /// in this object
-    /// \param v - components to subtract
+    /// \param v1 - vector
+    /// \param v2 - vector to subtruct
     /// \returns a reference to the newly transformed vector
     Vector2D & operator-(Vector2D v1, const Vector2D &v2);
 
     /// \brief multiply this vector with a scalar and store the result
     /// in this object
-    /// \param v - scalar to multiply
+    /// \param v1 - vector vector to multiply
+    /// \param scalar - scalar to multiply
     /// \returns a reference to the newly transformed vector
     Vector2D & operator*(Vector2D v1, const double scalar);
 
     /// \brief multiply a scalar with a vector and store the result
     /// in this object
-    /// \param v - scalar to multiply
+    /// \param scalar - scalar to multiply
+    /// \param v1 - vector vector to multiply
     /// \returns a reference to the newly transformed vector
     Vector2D & operator*(const double scalar, Vector2D v1);
     
@@ -280,6 +286,8 @@ namespace rigid2d
     /// \brief Read a twist from stdin
     /// Should be able to read input either as output by operator<< or
     /// as 3 numbers (w, xdot, ydot) separated by spaces or newlines
+    /// \param is - stream from which to read
+    /// \param twist - the twist to print
     std::istream & operator>>(std::istream &is, Twist2D &twist);
 
     /// \brief should print a human readable version of the transform:
@@ -292,13 +300,14 @@ namespace rigid2d
     /// \brief Read a transformation from stdin
     /// Should be able to read input either as output by operator<< or
     /// as 3 numbers (degrees, dx, dy) separated by spaces or newlines
+    /// \param is - stream from which to read
+    /// \param tf - the transform to print    
     std::istream & operator>>(std::istream &is, Transform2D &tf);
 
     /// \brief multiply two transforms together, returning their composition
     /// \param lhs - the left hand operand
     /// \param rhs - the right hand operand
     /// \return the composition of the two transforms
-    /// HINT: This function should be implemented in terms of *=
     Transform2D operator*(Transform2D lhs, const Transform2D &rhs);
 }
 

@@ -1,5 +1,3 @@
-// #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main()
-
 #include "rigid2d/diff_drive.hpp"
 
 #include <cmath>
@@ -11,7 +9,7 @@
 
 
 TEST_CASE( "Test DiffDrive constructors" ) {
-    using namespace rigid2d;
+    using namespace rigid2d;    
     auto wheel_base = 0.16;
     auto wheel_radious = 0.033;
     Config2D pose_start = {0,0,0};
@@ -50,8 +48,4 @@ TEST_CASE( "Test DiffDrive constructors" ) {
     // REQUIRE( rigid2d::almost_equal(pose.x, 0.0518362, 10e-3));
     // REQUIRE( rigid2d::almost_equal(pose.y, 0));
     }
-
-
-
-
 }

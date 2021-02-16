@@ -26,15 +26,14 @@
 ///     sensor_data_sub (nuturtlebot/SensorData): Subscribes to the robot's sensor data.
 ///                                               Provide the angle (in radians) and velocity (in rad/sec) of the wheels, based on encoder data.
 
-#include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"
+#include "rigid2d/diff_drive.hpp"
 #include "ros/ros.h"
-
-#include <nuturtlebot/SensorData.h>
-#include <nuturtlebot/WheelCommands.h>
 
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/JointState.h>
+#include <nuturtlebot/SensorData.h>
+#include <nuturtlebot/WheelCommands.h>
 
 #include <iostream>
 #include <vector> 
@@ -42,6 +41,7 @@
 #include <cmath>
 
 
+/// \brief Class TurtleInterface
 class TurtleInterface
 {
     public:
@@ -51,8 +51,8 @@ class TurtleInterface
             load_parameter();
 
             // Init publishers, subscribers, and services
-            wheel_cmd_pub = nh.advertise<nuturtlebot::WheelCommands>("wheel_cmd", 1);
-            joint_states_pub = nh.advertise<sensor_msgs::JointState>("joint_states", 1);
+            wheel_cmd_pub = nh.advertise<nuturtlebot::WheelCommands>("/wheel_cmd", 1);
+            joint_states_pub = nh.advertise<sensor_msgs::JointState>("/joint_states", 1);
             vel_sub = nh.subscribe("cmd_vel", 1, &TurtleInterface::cmd_vel_callback, this);
             sensor_data_sub = nh.subscribe("sensor_data", 1, &TurtleInterface::sensor_data_callback, this);
          }
@@ -194,6 +194,8 @@ class TurtleInterface
 
 };
 
+/// \brief Main function
+/// \returns int
 int main(int argc, char * argv[])
 {
     ros::init(argc, argv, "turtle_interface_node");

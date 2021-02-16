@@ -16,9 +16,9 @@ Vector2D::Vector2D() {
 }
 
 /// Create a zero-vector
-Vector2D::Vector2D(double x_input, double y_input) {
-    x = x_input;
-    y = y_input;
+Vector2D::Vector2D(double x_, double y_) {
+    x = x_;
+    y = y_;
     // Vector2D::normalize();
 }
 
@@ -78,10 +78,10 @@ Twist2D::Twist2D() {
 }
 
 /// Create a twist with x,y inputs
-Twist2D::Twist2D(double thetadot_input, double xdot_input, double ydot_input) {
-    thetadot = thetadot_input;
-    xdot = xdot_input;
-    ydot = ydot_input;
+Twist2D::Twist2D(double thetadot_, double xdot_, double ydot_) {
+    thetadot = thetadot_;
+    xdot = xdot_;
+    ydot = ydot_;
 }
 
 

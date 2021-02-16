@@ -72,8 +72,8 @@ using namespace rigid2d;
         }
 
         /// Defines the robot configuration
-        DiffDrive::DiffDrive(const Config2D &configuration, double wheel_base_, double wheel_radius_) {
-            config = configuration;
+        DiffDrive::DiffDrive(const Config2D &config_, double wheel_base_, double wheel_radius_) {
+            config = config_;
         	wheel_base = wheel_base_;
 	        wheel_radius = wheel_radius_;            
         }
@@ -84,8 +84,8 @@ using namespace rigid2d;
         }
 
         /// ReResetturns the configuration of the robot
-        void DiffDrive::set_config(const Config2D &pos) {
-            config = pos;
+        void DiffDrive::set_config(const Config2D &config_) {
+            config = config_;
         }
 
         /// Returns the wheel angle of the robot

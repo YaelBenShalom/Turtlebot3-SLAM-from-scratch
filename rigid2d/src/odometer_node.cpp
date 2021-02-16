@@ -50,6 +50,7 @@
 #include <cmath>
 
 
+/// \brief Class Odometer
 class Odometer
 {
     public:
@@ -59,8 +60,8 @@ class Odometer
             load_parameter();
 
             // Init publishers, subscribers, and services
-            odom_pub = nh.advertise<nav_msgs::Odometry>("odom", 5);
-            joint_states_sub = nh.subscribe("/joint_states", 10, &Odometer::joint_state_callback, this);
+            odom_pub = nh.advertise<nav_msgs::Odometry>("/odom", 1);
+            joint_states_sub = nh.subscribe("/joint_states", 1, &Odometer::joint_state_callback, this);
             set_pose_srv = nh.advertiseService("/set_pose", &Odometer::set_pose_callback, this);
          }
 
@@ -92,8 +93,8 @@ class Odometer
 
         /// \brief Restarts the location of the odometry, so that the robot thinks
         /// it is at the requested configuration.
-        /// \param request - SetPose request.
-        /// \param response - SetPose response.
+        /// \param req - SetPose request.
+        /// \param res - SetPose response.
         /// \returns bool
         bool set_pose_callback(rigid2d::SetPose::Request &req, rigid2d::SetPose::Response &res) {
             ROS_INFO("Setting pose");
@@ -191,10 +192,11 @@ class Odometer
         rigid2d::WheelVelocity wheel_vel;
 };
 
+/// \brief Main function
+/// \returns int
 int main(int argc, char * argv[])
 {
     ros::init(argc, argv, "odometer_node");
-    
     Odometer node;
     node.main_loop();
     ros::spin();

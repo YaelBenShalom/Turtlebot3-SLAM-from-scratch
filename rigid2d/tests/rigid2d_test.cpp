@@ -1,5 +1,3 @@
-// #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main()
-
 #include "rigid2d/rigid2d.hpp"
 
 #include <cmath>

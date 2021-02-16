@@ -2,12 +2,13 @@ cmake_minimum_required(VERSION 3.9)
 project(nuturtle_robot)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-Wall -Wextra -pipe -Wno-psabi)
+# add_compile_options(-Wall -Wextra -pipe -Wno-psabi)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-# target_include_directories(${PROJECT_NAME} PUBLIC)
+
+# target_include_directories(${PROJECT_NAME} PUBLIC include/)
 # target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17) # enable C++ 17
 # target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra)
 
@@ -176,8 +177,8 @@ add_dependencies(turtle_interface_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${cat
 ## Specify libraries to link a library or executable target against
 target_link_libraries(
   turtle_interface_node
-  # ${rigid2d_LIBRARIES}
-  # ${nuturtlebot_LIBRARIES}
+  ${rigid2d_LIBRARIES}
+  ${nuturtlebot_LIBRARIES}
   ${catkin_LIBRARIES}
   # ${PROJECT_NAME}
 )
@@ -212,10 +213,6 @@ install(TARGETS turtle_interface_node
 # )
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-# )
-
 install(DIRECTORY config/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config
 )
@@ -238,8 +235,10 @@ install(DIRECTORY config/
 # endif()
 
 if (CATKIN_ENABLE_TESTING)
-  catch_add_test(${PROJECT_NAME}_test tests/turtle_interface_test.test tests/turtle_interface_test.cpp)
-  target_link_libraries(${PROJECT_NAME}_test ${catkin_LIBRARIES})
+  find_package(rostest REQUIRED)
+  catch_add_rostest_node(turtle_interface_test tests/turtle_interface_test.cpp)
+  target_link_libraries(turtle_interface_test ${catkin_LIBRARIES} ${rigid2d_LIBRARIES} ${nuturtlebot_LIBRARIES})
+  add_rostest(tests/turtle_interface_test.test)
 endif()
 
 # if (CATKIN_ENABLE_TESTING)

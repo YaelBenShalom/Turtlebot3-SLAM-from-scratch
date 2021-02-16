@@ -1,64 +1,69 @@
-// #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main()
-
 #include "rigid2d/rigid2d.hpp"
 #include "rigid2d/diff_drive.hpp"
+#include "ros/ros.h"
 
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/JointState.h>
-#include "nuturtlebot/WheelCommands.h"
-#include "nuturtlebot/SensorData.h"
+#include <nuturtlebot/SensorData.h>
+#include <nuturtlebot/WheelCommands.h>
 
 #include <cmath>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <catch_ros/catch.hpp>
-#include "ros/ros.h"
 
 
+bool cmd_flag = false;
+bool joint_state_flag = true;
+
+nuturtlebot::WheelCommands wheel_cmd;
+rigid2d::WheelVelocity wheel_vel;
+rigid2d::WheelAngle wheel_angle;
+
+// /wheel_cmd callback
+void wheel_cmd_callback(const nuturtlebot::WheelCommands &cmd)
+{
+  wheel_cmd = cmd;
+
+  cmd_flag = true;
+}
+
+// joint_states callback
+void joint_state_callback(const sensor_msgs::JointState &joint_state)
+{
+  wheel_angle.right_wheel_angle = joint_state.position[0];
+  wheel_angle.left_wheel_angle = joint_state.position[1];
+  wheel_vel.right_wheel_vel = joint_state.velocity[0];
+  wheel_vel.left_wheel_vel = joint_state.velocity[1];
+
+  joint_state_flag = true;
+}
 
 TEST_CASE( "Test for turtle_interface ROS API" ) {
-    // using namespace rigid2d;
-    // auto wheel_base = 0.16;
-    // auto wheel_radious = 0.033;
-    // Config2D pose_start = {0,0,0};
+    using namespace rigid2d;
 
-    // rigid2d::DiffDrive diff_drive(pose_start, wheel_base, wheel_radious);
-    // double right_angle, left_angle;
-    // left_angle = PI/2;
-    // right_angle = PI/2;
-    // WheelVelocity wheel_vel;
-    // WheelAngle wheel_angle;
-    // Config2D pose;
-    // wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
-    // wheel_angle = diff_drive.get_wheel_angle();
-    // REQUIRE( rigid2d::almost_equal(wheel_angle.right_wheel_angle, right_angle));
-    // REQUIRE( rigid2d::almost_equal(wheel_angle.left_wheel_angle, left_angle));
+    ros::NodeHandle nh;
+    ros::Subscriber wheel_cmd_sub = nh.subscribe("/wheel_cmd", 1, wheel_cmd_callback);
+    ros::Publisher vel_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1, true);
+	geometry_msgs::Twist twist;
 
+    SECTION( "test pure translation" ) {
+        twist.linear.x = 0.1; // TODO!!!!!!
+        twist.angular.z = 0;
+        wheel_cmd.left_velocity = 0;
+	    wheel_cmd.right_velocity = 0;
 
-    // pose = diff_drive.get_config();
-    // REQUIRE( rigid2d::almost_equal(pose.x, PI/2*wheel_radious, 10e-3));
-    // REQUIRE( rigid2d::almost_equal(pose.y, 0));
+        cmd_flag = false;
 
-    // for(int i=0; i<50; i++){
-    // right_angle+=PI/2;
-    // left_angle+=PI/2;
+        while(!cmd_flag) {
+            ros::spinOnce();
+            vel_pub.publish(twist);
+        }
 
-    // wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
-    // wheel_angle = diff_drive.get_wheel_angle();
-    // REQUIRE( rigid2d::almost_equal(wheel_angle.right_wheel_angle, normalize_angle(right_angle)));
-    // REQUIRE( rigid2d::almost_equal(wheel_angle.left_wheel_angle,  normalize_angle(left_angle)));
+        // REQUIRE( rigid2d::almost_equal(wheel_cmd.left_velocity, 126)); // TODO!!!!!!
+        // REQUIRE( rigid2d::almost_equal(wheel_cmd.right_velocity, 126)); // TODO!!!!!!
+        REQUIRE( wheel_cmd.right_velocity == 126); // TODO!!!!!!
 
-
-    // pose = diff_drive.get_config();
-    // ROS_INFO("pose.x = %f\n\r", pose.x);
-    // ROS_INFO("Reset robot position");
-    // ROS_INFO("Reset robot position");
-    REQUIRE( 1 == 1);
-    // // REQUIRE( rigid2d::almost_equal(pose.y, 0));
-    // }
-
-
-
-
+    }
 }
