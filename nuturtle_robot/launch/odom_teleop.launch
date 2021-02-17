@@ -1,6 +1,6 @@
 <launch>
 
-  <!-- Launch file for making a turtle move in rviz using turtlebot3_teleop -->
+  <!-- Launch file for making a turtle move in rviz in a circulat path or using turtlebot3_teleop -->
 
   <!-- Define Default Arguments -->
   <arg name="circle" default="True" doc="The circle parameter controls whether the turtlebot will follow circular path or whether the turtlebot3_teleop_keyboard node wil be launched (default true)"/>

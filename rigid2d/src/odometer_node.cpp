@@ -1,5 +1,5 @@
 /// \file   odometer_node.cpp
-/// \brief  Causes the turtlesim turtle to follow a rectangle path.
+/// \brief  Publishes Odometry messages for differential drive robot based on wheel joint states
 ///
 /// PARAMETERS:
 ///     frequency (int): control loop frequency
