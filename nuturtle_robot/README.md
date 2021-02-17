@@ -70,5 +70,8 @@ Try one of the previous experiments again, but try to get either a significantly
 
 I repeated the first expirament, although this one, I didn't reduce the turtlebot's velocity fast enough before the finish point, so the robot crossed the initial position and stopped ~10 cm after it.
 
+![Demonstration](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuturtle_robot/videos/Task_F8-6a.gif)
+
+
 
 Note - all the real turtlebot's videos are speed by X2.
