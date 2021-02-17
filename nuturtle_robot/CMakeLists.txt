@@ -74,11 +74,10 @@ doxygen_add_docs(${PROJECT_NAME}_doxygen src/ README.md ALL)
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  Control.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -88,11 +87,11 @@ doxygen_add_docs(${PROJECT_NAME}_doxygen src/ README.md ALL)
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   geometry_msgs
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  geometry_msgs
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -163,20 +162,31 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(turtle_interface_node src/turtle_interface_node.cpp)
+add_executable(follow_circle_node src/follow_circle_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
 set_target_properties(turtle_interface_node PROPERTIES OUTPUT_NAME turtle_interface_node PREFIX "")
+set_target_properties(follow_circle_node PROPERTIES OUTPUT_NAME follow_circle_node PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(turtle_interface_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(follow_circle_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(
   turtle_interface_node
+  ${rigid2d_LIBRARIES}
+  ${nuturtlebot_LIBRARIES}
+  ${catkin_LIBRARIES}
+  # ${PROJECT_NAME}
+)
+
+target_link_libraries(
+  follow_circle_node
   ${rigid2d_LIBRARIES}
   ${nuturtlebot_LIBRARIES}
   ${catkin_LIBRARIES}
@@ -200,7 +210,7 @@ target_link_libraries(
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-install(TARGETS turtle_interface_node
+install(TARGETS follow_circle_node turtle_interface_node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
@@ -213,9 +223,8 @@ install(TARGETS turtle_interface_node
 # )
 
 ## Mark cpp header files for installation
-install(DIRECTORY config/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config
-)
+install(DIRECTORY config/ DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config)
+install(DIRECTORY launch/ DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/launch)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES

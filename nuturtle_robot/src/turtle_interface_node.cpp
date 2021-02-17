@@ -152,7 +152,7 @@ class TurtleInterface
                     // ROS_INFO("Entering if statement/n");
                     sensor_msgs::JointState joint_state;
 
-                    wheel_vel = diff_drive.wheelAngle2WheelVel(right_angle, left_angle);
+                    wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
                     joint_state.header.stamp = current_time;
 
                     joint_state.name.push_back(right_wheel_joint);

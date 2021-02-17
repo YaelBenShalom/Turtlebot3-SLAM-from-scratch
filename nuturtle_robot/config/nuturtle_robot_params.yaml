@@ -3,3 +3,7 @@ max_trans_speed: 0.22     # The max translational speed [m/s]
 max_rot_speed: 2.84       # The max rotational speed [rad/s]
 max_motor_rot: 6.3879     # The maximum motor rotational speed [rev/s] (61 [rev/min]*2*PI/60 = 6.3879[rad/sec])
 resolution: 4096          # The resolution of the motor (XL430-W250-T) [pulse/rev]
+
+# Follow Circle Parameters
+turtle_speed: 0.2         # The speed of the turtle [m/s]
+circle_radius: 1.0        # The radius of the circle [m]
