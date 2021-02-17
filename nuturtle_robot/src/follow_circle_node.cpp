@@ -4,10 +4,10 @@
 /// PARAMETERS:
 ///     frequency (int): control loop frequency
 ///     control_flag (bool): specifies when new /control message is read
-///     sensor_data_flag (bool): specifies when new sensor_data is read
-///     wheel_base (float): The distance between the wheels
-///     wheel_radius (float): The radius of the wheels
-
+///     turtle_speed (float): The linear speed of the robot
+///     turtle_controlled_speed (float): The linear speed of the robot, when taking into account the control service
+///     circle_radius (float): The radius of the circle
+///     twist (geometry_msgs::Twist): the robot's twist
 /// PUBLISHES:
 ///     cmd_vel (geometry_msgs/Twist): Publishes to the robot's velocity.
 /// SERVICES:
@@ -27,7 +27,7 @@
 #include <cmath>
 
 
-/// \brief Class TurtleInterface
+/// \brief Class FollowCircle
 class FollowCircle
 {
     public:
@@ -36,7 +36,7 @@ class FollowCircle
             // Init Parameters
             load_parameter();
 
-            // Init publishers, subscribers, and services
+            // Init publishers, and services
             vel_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
             control_srv = nh.advertiseService("/control", &FollowCircle::control_callback, this);
          }
@@ -57,7 +57,6 @@ class FollowCircle
             ROS_INFO("Setting control");
             control = req.dir;
             res.result = true;
-
 
             // Raise the reset flag
             control_flag = true;
