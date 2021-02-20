@@ -36,6 +36,10 @@
   <exec_depend>message_runtime</exec_depend>
   <exec_depend>rosserial_python</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>rigid2d</exec_depend>
+  <exec_depend>turtlebot3_teleop</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>nuturtle_description</exec_depend>
   <exec_depend>rviz</exec_depend>
   
   <test_depend>rostest</test_depend>
