@@ -249,8 +249,3 @@ if (CATKIN_ENABLE_TESTING)
   target_link_libraries(turtle_interface_test ${catkin_LIBRARIES} ${rigid2d_LIBRARIES} ${nuturtlebot_LIBRARIES})
   add_rostest(tests/turtle_interface_test.test)
 endif()
-
-# if (CATKIN_ENABLE_TESTING)
-#     add_rostest_gtest(turtle_interface_test tests/turtle_interface_test.test tests/turtle_interface_test.cpp)
-#     target_link_libraries(turtle_interface_test ${catkin_LIBRARIES} gtest_main ${rigid2d_LIBRARIES} ${nuturtlebot_LIBRARIES})
-# endif()

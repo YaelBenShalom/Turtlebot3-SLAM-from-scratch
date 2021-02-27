@@ -1,22 +1,31 @@
 cmake_minimum_required(VERSION 3.9)
-project(rigid2d)
+project(nurtlesim)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# target_include_directories(${PROJECT_NAME} PUBLIC include/)
+# target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17) # enable C++ 17
+# target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  catch_ros
+  # catch_ros
   geometry_msgs
   message_generation
   nav_msgs
+  rigid2d
   roscpp
   sensor_msgs
   std_msgs
-  tf2
-  tf2_ros
+  # tf2
+  # tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -64,10 +73,10 @@ doxygen_add_docs(${PROJECT_NAME}_doxygen src/ include/ README.md ALL)
 # )
 
 ## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  SetPose.srv
-)
+# add_service_files(
+#   FILES
+#   SetPose.srv
+# )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -77,10 +86,10 @@ add_service_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  std_msgs  # Or other packages containing msgs
-)
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs  # Or other packages containing msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -113,7 +122,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}
+  # LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS 
     geometry_msgs
     message_runtime
@@ -121,8 +130,8 @@ catkin_package(
     roscpp
     sensor_msgs
     std_msgs
-    tf2
-    tf2_ros
+    # tf2
+    # tf2_ros
 #  DEPENDS system_lib
 )
 
@@ -137,45 +146,41 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-## Declare a C++ library
-add_library(${PROJECT_NAME}
-  src/diff_drive.cpp
-  src/rigid2d.cpp
-)
-
-target_include_directories(${PROJECT_NAME} PUBLIC include/)
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17) # enable C++ 17
-target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra)
+# Declare a C++ library
+# add_library(${PROJECT_NAME}
+#   src/diff_drive.cpp
+#   src/rigid2d.cpp
+# )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_main src/main.cpp)
-add_executable(odometer_node src/odometer_node.cpp)
-add_executable(fake_turtle_node src/fake_turtle_node.cpp)
+add_executable(tube_world src/tube_world.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
-set_target_properties(fake_turtle_node PROPERTIES OUTPUT_NAME fake_turtle_node PREFIX "")
-set_target_properties(odometer_node PROPERTIES OUTPUT_NAME odometer_node PREFIX "")
+set_target_properties(tube_world PROPERTIES OUTPUT_NAME tube_world PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(odometer_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(fake_turtle_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tube_world ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_main ${catkin_LIBRARIES} ${PROJECT_NAME})
-target_link_libraries(odometer_node ${catkin_LIBRARIES} ${PROJECT_NAME})
-target_link_libraries(fake_turtle_node ${catkin_LIBRARIES} ${PROJECT_NAME})
-
+# target_link_libraries(tube_world ${catkin_LIBRARIES} ${PROJECT_NAME})
+target_link_libraries(
+  tube_world
+  ${rigid2d_LIBRARIES}
+  ${nuturtlebot_LIBRARIES}
+  ${catkin_LIBRARIES}
+  # ${PROJECT_NAME}
+)
 
 #############
 ## Install ##
@@ -193,26 +198,31 @@ target_link_libraries(fake_turtle_node ${catkin_LIBRARIES} ${PROJECT_NAME})
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-install(TARGETS fake_turtle_node odometer_node ${PROJECT_NAME}_main 
+install(TARGETS tube_world
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 ## Mark libraries for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
-install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-)
+# install(TARGETS ${PROJECT_NAME}
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+# )
 
 ## Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
 )
 
-install(DIRECTORY config/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/launch
 )
+
+
+# install(DIRECTORY config/
+#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config
+# )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
@@ -238,7 +248,7 @@ install(DIRECTORY config/
 #add_executable(${PROJECT_NAME}_test tests/tests.cpp)
 #add_test(NAME Test_of_Rigid2d COMMAND rigid_test)
 
-if (CATKIN_ENABLE_TESTING)
-  catch_add_test(${PROJECT_NAME}_test tests/${PROJECT_NAME}_test.cpp tests/diff_drive_test.cpp)
-  target_link_libraries(${PROJECT_NAME}_test ${catkin_LIBRARIES} ${PROJECT_NAME})
-endif()
+# if (CATKIN_ENABLE_TESTING)
+#   catch_add_test(${PROJECT_NAME}_test tests/${PROJECT_NAME}_test.cpp tests/diff_drive_test.cpp)
+#   target_link_libraries(${PROJECT_NAME}_test ${catkin_LIBRARIES} ${PROJECT_NAME})
+# endif()
