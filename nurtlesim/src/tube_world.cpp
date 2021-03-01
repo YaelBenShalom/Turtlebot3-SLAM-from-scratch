@@ -220,7 +220,7 @@ class TubeWorld
                     twist_noised.xdot = twist.xdot + twist_linear_noised;
                     twist_noised.ydot = twist.ydot;
 
-                    ROS_INFO("twist_noised.thetadot = %f\t twist_noised.xdot = %f\n\r", twist_noised.thetadot, twist_noised.xdot);
+                    // ROS_INFO("twist_noised.thetadot = %f\t twist_noised.xdot = %f\n\r", twist_noised.thetadot, twist_noised.xdot);
 
                     wheel_angle = diff_drive.updateOdometryWithTwist(twist_noised);
                     real_wheel_angle = real_diff_drive.updateOdometryWithTwist(twist);
