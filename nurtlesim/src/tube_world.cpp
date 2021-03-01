@@ -135,7 +135,7 @@ class TubeWorld
                 ros::spinOnce();
                 current_time = ros::Time::now();
 
-                world_tf.header.stamp = current_time;
+                world_tf.header.stamp = ros::Time::now();
                 world_tf.header.frame_id = world_frame_id;
                 world_tf.child_frame_id = body_frame_id;
                 world_tf.transform.translation.x = pose.x;
@@ -151,13 +151,14 @@ class TubeWorld
 
                 for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
                     marker_array.markers.resize(obstacles_coordinate_x.size());
-                    marker_array.markers[i].header.frame_id = body_frame_id;
+                    marker_array.markers[i].header.frame_id = world_frame_id;
                     marker_array.markers[i].header.stamp = ros::Time();
                     marker_array.markers[i].ns = "marker";
                     marker_array.markers[i].id = i;
                     marker_array.markers[i].type = visualization_msgs::Marker::CYLINDER;
 
                     pose = diff_drive.get_config();
+                    real_pose = real_diff_drive.get_config();
 
                     markers_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - pose.x, 2) + \
                                         pow(real_marker_array.markers[i].pose.position.y - pose.y, 2));
@@ -186,6 +187,24 @@ class TubeWorld
                     }
                 marker_pub.publish(marker_array);
 
+
+                real_pose_stamped.header.stamp = ros::Time::now();
+
+                real_pose_stamped.pose.position.x = real_pose.x;
+                real_pose_stamped.pose.position.y = real_pose.y;
+                real_pose_stamped.pose.position.z = 0.0;
+
+                quat.setRPY(0, 0, real_pose.theta);
+                real_quat = tf2::toMsg(quat);
+                real_pose_stamped.pose.orientation = real_quat;
+
+                real_path.header.stamp = ros::Time::now();
+                real_path.header.frame_id = world_frame_id;
+                real_path.poses.push_back(real_pose_stamped);
+                
+                robot_path_pub.publish(real_path);
+
+
                 // If the cmd_vel_callback was called
                 if (cmd_vel_flag) {
                     sensor_msgs::JointState joint_state;
@@ -204,12 +223,13 @@ class TubeWorld
                     ROS_INFO("twist_noised.thetadot = %f\t twist_noised.xdot = %f\n\r", twist_noised.thetadot, twist_noised.xdot);
 
                     wheel_angle = diff_drive.updateOdometryWithTwist(twist_noised);
+                    real_wheel_angle = real_diff_drive.updateOdometryWithTwist(twist);
 
                     // Calculate the wheel_angle with the wheel angle noise factor
                     wheel_angle.right_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
                     wheel_angle.left_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
 
-                    joint_state.header.stamp = current_time;
+                    joint_state.header.stamp = ros::Time::now();
 
                     joint_state.name.push_back(right_wheel_joint);
                     joint_state.name.push_back(left_wheel_joint);
@@ -231,7 +251,7 @@ class TubeWorld
         // bool real_marker_flag = false;
         double wheel_base, wheel_radius, stddev_linear, stddev_angular, slip_min, slip_max, obstacles_radius, max_visable_dist, markers_dist;
         std::string left_wheel_joint, right_wheel_joint, world_frame_id, odom_frame_id, body_frame_id;
-        std::vector<int> obstacles_coordinate_x, obstacles_coordinate_y;
+        std::vector<double> obstacles_coordinate_x, obstacles_coordinate_y;
 
         ros::NodeHandle nh;
         ros::Publisher joint_states_pub, marker_pub, real_marker_pub, robot_path_pub;
@@ -242,13 +262,15 @@ class TubeWorld
         tf2::Quaternion quat;
         tf2_ros::TransformBroadcaster world_broadcaster;
         geometry_msgs::TransformStamped world_tf;
-        geometry_msgs::Quaternion world_quat;
+        geometry_msgs::Quaternion world_quat, real_quat;
+        geometry_msgs::PoseStamped real_pose_stamped;
+        nav_msgs::Path real_path;
 
-        rigid2d::Config2D pose;
+        rigid2d::Config2D pose, real_pose;
         rigid2d::Twist2D twist, twist_noised;
-        rigid2d::DiffDrive diff_drive;
-        rigid2d::WheelVelocity wheel_vel;
-        rigid2d::WheelAngle wheel_angle;
+        rigid2d::DiffDrive diff_drive, real_diff_drive;
+        rigid2d::WheelVelocity wheel_vel, real_wheel_vel;
+        rigid2d::WheelAngle wheel_angle, real_wheel_angle;
 };
 
 /// \brief Main function
