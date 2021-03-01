@@ -24,8 +24,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
-  # tf2
-  # tf2_ros
+  tf2
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -33,7 +33,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(Doxygen)
 set(DOXYGEN_USE_MDFILE_AS_MAINPAGE README.md) # Use the readme in your doxygen docs
-doxygen_add_docs(${PROJECT_NAME}_doxygen src/ include/ README.md ALL)
+doxygen_add_docs(${PROJECT_NAME}_doxygen src/ README.md ALL)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -121,7 +121,7 @@ doxygen_add_docs(${PROJECT_NAME}_doxygen src/ include/ README.md ALL)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
+  # INCLUDE_DIRS include
   # LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS 
     geometry_msgs
@@ -130,8 +130,8 @@ catkin_package(
     roscpp
     sensor_msgs
     std_msgs
-    # tf2
-    # tf2_ros
+    tf2
+    tf2_ros
 #  DEPENDS system_lib
 )
 
@@ -142,7 +142,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include
+  # include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -211,18 +211,8 @@ install(TARGETS tube_world
 # )
 
 ## Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-)
-
-install(DIRECTORY launch/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/launch
-)
-
-
-# install(DIRECTORY config/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config
-# )
+install(DIRECTORY config/ DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config)
+install(DIRECTORY launch/ DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}/launch)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES

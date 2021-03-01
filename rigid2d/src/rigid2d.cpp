@@ -4,26 +4,26 @@
 #include <iostream>
 
 
-using namespace rigid2d;
+// using namespace rigid2d;
 
 /********** Vector2D struct member functions **********/
 
 /// Create a 2-Dimensional Vector
-Vector2D::Vector2D() {
+rigid2d::Vector2D::Vector2D() {
     x = 0.0;
     y = 0.0;
-    // Vector2D::normalize();
+    // rigid2d::Vector2D::normalize();
 }
 
 /// Create a zero-vector
-Vector2D::Vector2D(double x_, double y_) {
+rigid2d::Vector2D::Vector2D(double x_, double y_) {
     x = x_;
     y = y_;
-    // Vector2D::normalize();
+    // rigid2d::Vector2D::normalize();
 }
 
 /// Normalize a vector
-void Vector2D::normalize() {
+void rigid2d::Vector2D::normalize() {
     if (x == 0 && y == 0){
         x_normalized = 0;
         y_normalized = 0;
@@ -35,16 +35,16 @@ void Vector2D::normalize() {
 }
 
 /// Compute the magnitude of the vector
-double Vector2D::magnitude(const Vector2D &v) {
+double rigid2d::Vector2D::magnitude(const rigid2d::Vector2D &v) {
     return std::sqrt(std::pow(v.x, 2) + std::pow(v.y, 2));
 }
 
 /// Compute the angle of the vector
-double Vector2D::angle(const Vector2D &v) {
-    return std::acos(v.x / Vector2D::magnitude(v));
+double rigid2d::Vector2D::angle(const rigid2d::Vector2D &v) {
+    return std::acos(v.x / rigid2d::Vector2D::magnitude(v));
 }
 /// Add this vector with another and store the result in this object
-Vector2D & Vector2D::operator+=(const Vector2D &v) {
+rigid2d::Vector2D & rigid2d::Vector2D::operator+=(const rigid2d::Vector2D &v) {
     x += v.x;
     y += v.y;
     // Vector2D::normalize();
@@ -52,7 +52,7 @@ Vector2D & Vector2D::operator+=(const Vector2D &v) {
 }
 
 /// Subtract another vector from this vector and store the result in this object
-Vector2D & Vector2D::operator-=(const Vector2D &v) {
+rigid2d::Vector2D & rigid2d::Vector2D::operator-=(const rigid2d::Vector2D &v) {
     x -= v.x;
     y -= v.y;
     // Vector2D::normalize();
@@ -60,7 +60,7 @@ Vector2D & Vector2D::operator-=(const Vector2D &v) {
 }
 
 /// Multiply this vector with a scalar and store the result in this object
-Vector2D & Vector2D::operator*=(const double scalar){
+rigid2d::Vector2D & rigid2d::Vector2D::operator*=(const double scalar){
     x *= scalar;
     y *= scalar;
     // Vector2D::normalize();
@@ -71,14 +71,14 @@ Vector2D & Vector2D::operator*=(const double scalar){
 /********** Twist2D class member functions **********/
 
 /// Create a zero-Twist
-Twist2D::Twist2D() {
+rigid2d::Twist2D::Twist2D() {
     thetadot = 0.0;
     xdot = 0.0;
     ydot = 0.0;
 }
 
 /// Create a twist with x,y inputs
-Twist2D::Twist2D(double thetadot_, double xdot_, double ydot_) {
+rigid2d::Twist2D::Twist2D(double thetadot_, double xdot_, double ydot_) {
     thetadot = thetadot_;
     xdot = xdot_;
     ydot = ydot_;
@@ -88,35 +88,35 @@ Twist2D::Twist2D(double thetadot_, double xdot_, double ydot_) {
 /********** Transform2D class member functions **********/
 
 /// Create an identity transformation
-Transform2D::Transform2D() {
+rigid2d::Transform2D::Transform2D() {
     trans_angle = 0.0;
     trans_vector.x = 0.0;
     trans_vector.y = 0.0;
 }
 
 /// Create a transformation that is a pure translation
-Transform2D::Transform2D(const Vector2D &trans) {
+rigid2d::Transform2D::Transform2D(const Vector2D &trans) {
     trans_angle = 0.0;
     trans_vector.x = trans.x;
     trans_vector.y = trans.y;
 }
 
 /// Create a pure rotation
-Transform2D::Transform2D(double radians) {
+rigid2d::Transform2D::Transform2D(double radians) {
     trans_angle = radians;
     trans_vector.x = 0.0;
     trans_vector.y = 0.0;
 }
 
 /// Create a transformation with a translational and rotational component
-Transform2D::Transform2D(const Vector2D &trans, double radians) {
+rigid2d::Transform2D::Transform2D(const Vector2D &trans, double radians) {
     trans_angle = radians;
     trans_vector.x = trans.x;
     trans_vector.y = trans.y;
 }
 
 /// Apply a transformation to a Vector2D
-Vector2D Transform2D::operator()(Vector2D v) const {
+rigid2d::Vector2D rigid2d::Transform2D::operator()(rigid2d::Vector2D v) const {
     Vector2D v_trans;
 
     // Calculating the transformation vector
@@ -126,7 +126,7 @@ Vector2D Transform2D::operator()(Vector2D v) const {
 }
 
 /// Apply a transformation to a Twist2D
-Twist2D Transform2D::operator()(Twist2D twist) const {
+rigid2d::Twist2D rigid2d::Transform2D::operator()(rigid2d::Twist2D twist) const {
     Twist2D twist_output;
 
     // Calculating the transformation swist
@@ -137,18 +137,18 @@ Twist2D Transform2D::operator()(Twist2D twist) const {
 }
 
 /// Invert the transformation
-Transform2D Transform2D::inv() const {
+rigid2d::Transform2D rigid2d::Transform2D::inv() const {
     Vector2D inv_trans;
 
     // Calculating the transformation inverse
     inv_trans.x = -trans_vector.x * cos(trans_angle) - trans_vector.y * sin(trans_angle);
     inv_trans.y = trans_vector.x * sin(trans_angle) - trans_vector.y * cos(trans_angle);
-    Transform2D new_trans = Transform2D(inv_trans, -trans_angle);
+    Transform2D new_trans = rigid2d::Transform2D(inv_trans, -trans_angle);
     return new_trans;
 }
 
 /// Compose this transform with another and store the result in this object
-Transform2D & Transform2D::operator*=(const Transform2D &rhs) {
+rigid2d::Transform2D & rigid2d::Transform2D::operator*=(const rigid2d::Transform2D &rhs) {
     double rhs_x = rhs.trans_vector.x;
     double rhs_y = rhs.trans_vector.y;
     double rhs_angle = rhs.trans_angle;
@@ -165,26 +165,26 @@ Transform2D & Transform2D::operator*=(const Transform2D &rhs) {
 }
 
 /// Get the x displacement of the transformation
-double Transform2D::x() const {
+double rigid2d::Transform2D::x() const {
     double x = trans_vector.x;
     return x;
 }
 
 /// Get the y displacement of the transformation
-double Transform2D::y() const {
+double rigid2d::Transform2D::y() const {
     double y = trans_vector.y;
     return y;
 }
 
 /// Get the angular displacement of the transform
-double Transform2D::theta() const {
+double rigid2d::Transform2D::theta() const {
     double theta = trans_angle;
     return theta;
 }
 
 /// Compute the transformation corresponding to a rigid body following a
 /// constant twist (in its original body frame) for one time unit
-Transform2D Transform2D::integrateTwist(const Twist2D &twist) const {
+rigid2d::Transform2D rigid2d::Transform2D::integrateTwist(const rigid2d::Twist2D &twist) const {
     double angle;
     Vector2D v;
 
@@ -192,7 +192,7 @@ Transform2D Transform2D::integrateTwist(const Twist2D &twist) const {
     if (twist.thetadot == 0.0) {
         v.x = twist.xdot;
         v.y = twist.ydot;
-        Transform2D transform(v, 0);
+        rigid2d::Transform2D transform(v, 0);
         return transform;
     }
     // If the theta component is not 0
@@ -200,7 +200,7 @@ Transform2D Transform2D::integrateTwist(const Twist2D &twist) const {
         angle = normalize_angle(twist.thetadot);
         v.x = std::sin(twist.thetadot) * twist.xdot / twist.thetadot + (std::cos(twist.thetadot) - 1) * twist.ydot/ twist.thetadot;
         v.y = (1 - std::cos(twist.thetadot)) * twist.xdot / twist.thetadot + std::sin(twist.thetadot) * twist.ydot / twist.thetadot;
-        Transform2D transform(v, angle);
+        rigid2d::Transform2D transform(v, angle);
         return transform;
     }
 }

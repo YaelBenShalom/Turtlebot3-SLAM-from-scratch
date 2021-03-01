@@ -9,6 +9,7 @@
   <!-- Load Turtle Parameters -->
   <rosparam command="load" file="$(find rigid2d)/config/robot_params.yaml" />
   <rosparam command="load" file="$(find nuturtle_description)/config/diff_params.yaml" />
+  <rosparam command="load" file="$(find nurtlesim)/config/nurtlesim_params.yaml" />
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find nuturtle_description)/urdf/my_turtlebot3.urdf.xacro" />
 
   <!-- Load turtlebot3_teleop -->
@@ -17,14 +18,17 @@
   </group>
 
   <!-- Load fake_turtle_node.cpp Node -->
-  <node name="fake_turtle" pkg="rigid2d" type="fake_turtle_node" output="screen" />
+  <!-- <node name="fake_turtle" pkg="rigid2d" type="fake_turtle_node" output="screen" /> -->
 
   <!-- Load odometer_node.cpp Node -->
-  <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" />
+  <!-- <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" /> -->
+
+  <!-- Load odometer_node.cpp Node -->
+  <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
 
   <!-- Load Robot Model in Rviz -->
   <group if="$(arg use_rviz)">
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rigid2d)/config/turtle_view.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nurtlesim)/config/tube_world.rviz" />
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
   </group>
 

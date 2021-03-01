@@ -29,11 +29,17 @@
 
 #include <sensor_msgs/JointState.h>
 #include <geometry_msgs/Twist.h>
+#include <visualization_msgs/MarkerArray.h>
+#include <nav_msgs/Path.h>
+#include <tf2_ros/transform_broadcaster.h>
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 #include <iostream>
 #include <vector> 
 #include <string>
 #include <cmath>
+#include <random>
 
 
 /// \brief Class TubeWorld
@@ -47,56 +53,162 @@ class TubeWorld
 
             // Init publishers, subscribers, and services
             joint_states_pub = nh.advertise<sensor_msgs::JointState>("/joint_states", 1);
+            real_marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/real_markers", 1, true);
+            marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/fake_sensor", 1);
+            robot_path_pub = nh.advertise<nav_msgs::Path>("/real_path", 1);
             vel_sub = nh.subscribe("/cmd_vel", 1, &TubeWorld::cmd_vel_callback, this);
-         }
+            // real_marker_sub = nh.subscribe("/real_markers", 1, &TubeWorld::real_marker_callback, this);
+        }
 
         /// \brief Load the parameters from the parameter server
         /// \returns void
         void load_parameter() {
-            nh.getParam("wheel_base", wheel_base);                  // The distance between the wheels
-            nh.getParam("wheel_radius", wheel_radius);              // The radius of the wheels
-            nh.getParam("stddev_linear", stddev_linear);            // The standard deviation of the linear twist noise
-            nh.getParam("stddev_angular", stddev_angular);          // The standard deviation of the angular twist noise
-            nh.getParam("left_wheel_joint", left_wheel_joint);      // The name of the left wheel joint
-            nh.getParam("right_wheel_joint", right_wheel_joint);    // The name of the right wheel joint
+            nh.getParam("wheel_base", wheel_base);                          // The distance between the wheels
+            nh.getParam("wheel_radius", wheel_radius);                      // The radius of the wheels
+            nh.getParam("left_wheel_joint", left_wheel_joint);              // The name of the left wheel joint
+            nh.getParam("right_wheel_joint", right_wheel_joint);            // The name of the right wheel joint
+            nh.getParam("world_frame_id", world_frame_id);                  // The name of the world tf frame
+            nh.getParam("odom_frame_id", odom_frame_id);                    // The name of the odom tf frame
+            nh.getParam("body_frame_id", body_frame_id);                    // The name of the body tf frame
+            nh.getParam("stddev_linear", stddev_linear);                    // The standard deviation of the linear twist noise
+            nh.getParam("stddev_angular", stddev_angular);                  // The standard deviation of the angular twist noise
+            nh.getParam("slip_min", slip_min);                              // The minimum wheel slip for the slip noise
+            nh.getParam("slip_max", slip_max);                              // The maximum wheel slip for the slip noise
+            nh.getParam("obstacles_coordinate_x", obstacles_coordinate_x);  // The x coordinate of the obstacles
+            nh.getParam("obstacles_coordinate_y", obstacles_coordinate_y);  // The y coordinate of the obstacles
+            nh.getParam("obstacles_radius", obstacles_radius);              // The radous of the cardboard tubes [m]
+            nh.getParam("max_visable_dist", max_visable_dist);              // The maximum distance beyond which tubes are not visible [m]
         }
-        
+
 
         /// \brief Subscribes to the robot's velocity.
         /// \param tw - constant pointer to twist
         /// \returns void
         void cmd_vel_callback(const geometry_msgs::Twist &tw) {
-            std::default_random_engine generator;
-            std::normal_distribution<double> dist_linear(0, stddev_linear);
-            std::normal_distribution<double> dist_angular(0, stddev_angular);
 
+            // Calculate the twist without noise factor
             twist.thetadot = tw.angular.z;
             twist.xdot = tw.linear.x;
             twist.ydot = tw.linear.y;
-
-            twist_noised.thetadot = tw.angular.z + dist_angular(generator);
-            twist_noised.xdot = tw.linear.x + dist_linear(generator);
-            twist_noised.ydot = tw.linear.y;
-
+            
             // Raise the cmd_vel flag
             cmd_vel_flag = true;
         }
 
+
         /// \brief Main loop for the turtle's motion
         /// \returns void
         void main_loop() {
-            ROS_INFO("Entering the loop");
+            ROS_INFO("Entering the loop\n\r");
             ros::Rate loop_rate(frequency);
+            static std::default_random_engine generator;
+            static std::uniform_real_distribution<double> distribution(slip_min, slip_max);
+
+            real_marker_array.markers.resize(obstacles_coordinate_x.size());
+            for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
+                real_marker_array.markers[i].header.frame_id = world_frame_id;
+                real_marker_array.markers[i].header.stamp = ros::Time();
+                real_marker_array.markers[i].ns = "real";
+                real_marker_array.markers[i].id = i;
+                real_marker_array.markers[i].type = visualization_msgs::Marker::CYLINDER;
+                real_marker_array.markers[i].action = visualization_msgs::Marker::ADD;
+                real_marker_array.markers[i].pose.position.x = obstacles_coordinate_x[i];
+                real_marker_array.markers[i].pose.position.y = obstacles_coordinate_y[i];
+                real_marker_array.markers[i].pose.position.z = 0.0;
+                real_marker_array.markers[i].pose.orientation.x = 0.0;
+                real_marker_array.markers[i].pose.orientation.y = 0.0;
+                real_marker_array.markers[i].pose.orientation.z = 0.0;
+                real_marker_array.markers[i].pose.orientation.w = 1.0;
+                real_marker_array.markers[i].scale.x = 2 * obstacles_radius;
+                real_marker_array.markers[i].scale.y = 2 * obstacles_radius;
+                real_marker_array.markers[i].scale.z = 1.0;
+                real_marker_array.markers[i].color.a = 1.0;
+                real_marker_array.markers[i].color.r = 0.0;
+                real_marker_array.markers[i].color.g = 1.0;
+                real_marker_array.markers[i].color.b = 0.0;
+                // real_marker_array.markers[i].lifetime = ros::Duration(10);
+                }
+            real_marker_pub.publish(real_marker_array);
+
             while(ros::ok()) {
                 // ROS_INFO("Looping");
+                ros::spinOnce();
                 current_time = ros::Time::now();
-                
+
+                world_tf.header.stamp = current_time;
+                world_tf.header.frame_id = world_frame_id;
+                world_tf.child_frame_id = body_frame_id;
+                world_tf.transform.translation.x = pose.x;
+                world_tf.transform.translation.y = pose.y;
+                world_tf.transform.translation.z = 0;
+
+                quat.setRPY(0, 0, pose.theta);
+                world_quat = tf2::toMsg(quat);
+                world_tf.transform.rotation = world_quat;
+
+                world_broadcaster.sendTransform(world_tf);
+
+
+                for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
+                    marker_array.markers.resize(obstacles_coordinate_x.size());
+                    marker_array.markers[i].header.frame_id = body_frame_id;
+                    marker_array.markers[i].header.stamp = ros::Time();
+                    marker_array.markers[i].ns = "marker";
+                    marker_array.markers[i].id = i;
+                    marker_array.markers[i].type = visualization_msgs::Marker::CYLINDER;
+
+                    pose = diff_drive.get_config();
+
+                    markers_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - pose.x, 2) + \
+                                        pow(real_marker_array.markers[i].pose.position.y - pose.y, 2));
+                    if (markers_dist > max_visable_dist) {
+                        marker_array.markers[i].action = visualization_msgs::Marker::DELETE;
+                    }
+                    else {
+                        marker_array.markers[i].action = visualization_msgs::Marker::ADD;
+                    }
+
+                    marker_array.markers[i].pose.position.x = obstacles_coordinate_x[i] + distribution(generator);
+                    marker_array.markers[i].pose.position.y = obstacles_coordinate_y[i] + distribution(generator);
+                    marker_array.markers[i].pose.position.z = 0.0;
+                    marker_array.markers[i].pose.orientation.x = 0.0;
+                    marker_array.markers[i].pose.orientation.y = 0.0;
+                    marker_array.markers[i].pose.orientation.z = 0.0;
+                    marker_array.markers[i].pose.orientation.w = 1.0;
+                    marker_array.markers[i].scale.x = 2 * obstacles_radius + distribution(generator);
+                    marker_array.markers[i].scale.y = 2 * obstacles_radius + distribution(generator);
+                    marker_array.markers[i].scale.z = 1.0;
+                    marker_array.markers[i].color.a = 1.0;
+                    marker_array.markers[i].color.r = 1.0;
+                    marker_array.markers[i].color.g = 0.0;
+                    marker_array.markers[i].color.b = 0.0;
+                    marker_array.markers[i].lifetime = ros::Duration(10);
+                    }
+                marker_pub.publish(marker_array);
+
                 // If the cmd_vel_callback was called
                 if (cmd_vel_flag) {
-                    // ROS_INFO("Entering if statement/n");
                     sensor_msgs::JointState joint_state;
-                    
+
+                    // Calculate the twist with noise factor
+                    static std::default_random_engine generator;
+                    static std::normal_distribution<double> dist_linear(0, stddev_linear);
+                    static std::normal_distribution<double> dist_angular(0, stddev_angular);
+                    double twist_angular_noised = dist_angular(generator);
+                    double twist_linear_noised = dist_linear(generator);
+
+                    twist_noised.thetadot = twist.thetadot + twist_angular_noised;
+                    twist_noised.xdot = twist.xdot + twist_linear_noised;
+                    twist_noised.ydot = twist.ydot;
+
+                    ROS_INFO("twist_noised.thetadot = %f\t twist_noised.xdot = %f\n\r", twist_noised.thetadot, twist_noised.xdot);
+
                     wheel_angle = diff_drive.updateOdometryWithTwist(twist_noised);
+
+                    // Calculate the wheel_angle with the wheel angle noise factor
+                    wheel_angle.right_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
+                    wheel_angle.left_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
+
                     joint_state.header.stamp = current_time;
 
                     joint_state.name.push_back(right_wheel_joint);
@@ -110,20 +222,27 @@ class TubeWorld
                     cmd_vel_flag = false;
                 }
                 loop_rate.sleep();
-                ros::spinOnce();
             }
         }
 
     private:
         int frequency = 100;
         bool cmd_vel_flag = false;
-        double wheel_base, wheel_radius, stddev_linear, stddev_angular;
-        std::string left_wheel_joint, right_wheel_joint;
+        // bool real_marker_flag = false;
+        double wheel_base, wheel_radius, stddev_linear, stddev_angular, slip_min, slip_max, obstacles_radius, max_visable_dist, markers_dist;
+        std::string left_wheel_joint, right_wheel_joint, world_frame_id, odom_frame_id, body_frame_id;
+        std::vector<int> obstacles_coordinate_x, obstacles_coordinate_y;
 
         ros::NodeHandle nh;
-        ros::Publisher joint_states_pub;
+        ros::Publisher joint_states_pub, marker_pub, real_marker_pub, robot_path_pub;
         ros::Subscriber vel_sub;
         ros::Time current_time;
+
+        visualization_msgs::MarkerArray marker_array, real_marker_array;
+        tf2::Quaternion quat;
+        tf2_ros::TransformBroadcaster world_broadcaster;
+        geometry_msgs::TransformStamped world_tf;
+        geometry_msgs::Quaternion world_quat;
 
         rigid2d::Config2D pose;
         rigid2d::Twist2D twist, twist_noised;

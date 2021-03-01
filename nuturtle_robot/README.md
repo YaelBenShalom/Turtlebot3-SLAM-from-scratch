@@ -4,7 +4,7 @@
 
 
 # Nuturtle Robot Package
-This packaage stores the code that interacts with the turtlebot hardware.
+This package stores the code that interacts with the turtlebot hardware.
 * Launch Run `roslaunch nuturtle_robot basic_remote.launch --ros-args` to view any optional arguments and their instructions.
 * Launch `roslaunch nuturtle_robot basic_remote.launch robot:=localhost` to run the node on the local machine.
 
@@ -39,7 +39,7 @@ To activate the real turtle, please follow the following steps:
 
 ## Physical Testing
 
-### Expirament I:
+### Experiment I:
 Driving the robot forward and backward in a straight line several times, and then stopping when the turtlebot is in its initial configuration.
 
 ![Demonstration](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuturtle_robot/videos/Task_F8-3a.gif)
@@ -47,7 +47,7 @@ Driving the robot forward and backward in a straight line several times, and the
 ![Demonstration](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuturtle_robot/videos/Task_F8-3b.gif)
 
 
-### Expirament II:
+### Experiment II:
 Rotating the robot clockwise and counter clockwise several times, stopping when the turtlebot is in its initial configuration.
 
 ![Demonstration](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuturtle_robot/videos/Task_F8-4a.gif)
@@ -57,7 +57,7 @@ Rotating the robot clockwise and counter clockwise several times, stopping when 
 We can see that in reality the robot slips on the floor, so we don't get the same results as in the simulation.
 
 
-### Expirament III:
+### Experiment III:
 Driving the robot in a circle, clockwise and counter clockwise several times, stopping when the turtlebot is its initial configuration.
 
 ![Demonstration](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuturtle_robot/videos/Task_Fa.gif)
@@ -65,10 +65,10 @@ Driving the robot in a circle, clockwise and counter clockwise several times, st
 The robot's final configuration was almost equal to the inital configuration, with ~3 cm difference on the y axis.
 
 
-### Expirament IV:
+### Experiment IV:
 Try one of the previous experiments again, but try to get either a significantly better or significantly worse result.
 
-I repeated the first expirament, although this one, I didn't reduce the turtlebot's velocity fast enough before the finish point, so the robot crossed the initial position and stopped ~10 cm after it.
+I repeated the first experiment, although this one, I didn't reduce the turtlebot's velocity fast enough before the finish point, so the robot crossed the initial position and stopped ~10 cm after it.
 
 ![Demonstration](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuturtle_robot/videos/Task_F8-6a.gif)
 
