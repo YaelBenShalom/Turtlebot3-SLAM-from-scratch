@@ -1,0 +1,38 @@
+<launch>
+
+  <!-- Launch file for making a turtle move in rviz using turtlebot3_teleop -->
+
+  <!-- Define Default Arguments -->
+  <arg name="use_rviz" default="True" doc="The use_rviz parameter controls whether Rviz and the joint_state_publisher are launched (default true)"/>
+  <arg name="use_teleop" default="True" doc="The use_teleop parameter controls whether turtlebot3_teleop_keyboard node is launched (default true)"/>
+
+  <!-- Define Robot Arguments -->
+  <arg name="robot" default="localhost" doc="Whether launchfile runs the robot in the simulator (localhost) or runs the real turtle (fasturtle.local)"/>
+
+  <!-- Load Turtle Parameters -->
+  <rosparam command="load" file="$(find rigid2d)/config/robot_params.yaml" />
+  <rosparam command="load" file="$(find nuturtle_description)/config/diff_params.yaml" />
+  <rosparam command="load" file="$(find nurtlesim)/config/nurtlesim_params.yaml" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find nuturtle_description)/urdf/my_turtlebot3.urdf.xacro" />
+
+  <!-- Load turtlebot3_teleop -->
+  <group if="$(arg use_teleop)">
+    <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
+  </group>
+
+  <!-- Load fake_turtle_node.cpp Node -->
+  <!-- <node name="fake_turtle" pkg="rigid2d" type="fake_turtle_node" output="screen" /> -->
+
+  <!-- Load odometer_node.cpp Node -->
+  <!-- <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" /> -->
+
+  <!-- Load odometer_node.cpp Node -->
+  <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
+
+  <!-- Load Robot Model in Rviz -->
+  <group if="$(arg use_rviz)">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nurtlesim)/config/tube_world.rviz" />
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
+  </group>
+
+</launch>

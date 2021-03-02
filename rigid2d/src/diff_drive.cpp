@@ -6,8 +6,6 @@
 #include <sstream>
 
 
-// using namespace rigid2d;
-
 /********** Config2D struct member functions **********/
 
         /// Constructor for zero configuration
@@ -91,6 +89,11 @@
         /// Returns the wheel angle of the robot
         rigid2d::WheelAngle rigid2d::DiffDrive::get_wheel_angle() {
             return wheel_angle;
+        }
+
+        /// Returns the wheel velocity of the robot
+        rigid2d::WheelVelocity rigid2d::DiffDrive::get_wheel_vel() {
+            return wheel_vel;
         }
 
         /// Convert a desired twist to the equivalent wheel velocities
@@ -217,6 +220,21 @@
             config.y = T_wbp.y();
             config.theta = rigid2d::normalize_angle(T_wbp.theta()); 
             // std::cout << "TWIST IN:" << "config.x = " << config.x << "\t config.y = " << config.y << "\n\r" << std::endl;
+
+            // Calculating wheel velocity from the robot twist
+            wheel_vel = rigid2d::DiffDrive::twist2Wheels(tw);
+            // std::cout << "TWIST IN:" << "wheel_vel.right = " << wheel_vel.right_wheel_vel << "\t wheel_vel.left = " << wheel_vel.left_wheel_vel << "\n\r" << std::endl;
+
+            // Calculating wheel angles from wheel velocity (for one time unit)
+            wheel_angle = rigid2d::DiffDrive::wheelVel2WheelAngle(wheel_vel);
+            // std::cout << "TWIST IN:" << "wheel_angle.right = " << wheel_angle.right_wheel_angle << "\t wheel_angle.left = " << wheel_angle.left_wheel_angle << "\n\r" << std::endl;
+
+            return wheel_angle;
+        }
+
+        /// Rotating the wheels with twist input (without updating the odometry)
+        rigid2d::WheelAngle rigid2d::DiffDrive::rotatingWheelsWithTwist(const rigid2d::Twist2D &tw) {
+            // std::cout << "TWIST IN:" << "twist.xdot = " << tw.xdot << "\t twist.ydot = " << tw.ydot << "\n\r" << std::endl;
 
             // Calculating wheel velocity from the robot twist
             wheel_vel = rigid2d::DiffDrive::twist2Wheels(tw);

@@ -160,8 +160,8 @@ class TubeWorld
                     pose = diff_drive.get_config();
                     real_pose = real_diff_drive.get_config();
 
-                    markers_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - pose.x, 2) + \
-                                        pow(real_marker_array.markers[i].pose.position.y - pose.y, 2));
+                    markers_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) + \
+                                        pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2));
                     if (markers_dist > max_visable_dist) {
                         marker_array.markers[i].action = visualization_msgs::Marker::DELETE;
                     }
@@ -221,9 +221,39 @@ class TubeWorld
                     twist_noised.ydot = twist.ydot;
 
                     // ROS_INFO("twist_noised.thetadot = %f\t twist_noised.xdot = %f\n\r", twist_noised.thetadot, twist_noised.xdot);
+                    
+                    // TODO - collision detection
+                    for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
 
+                        collision_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) + \
+                                            pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2)) - \
+                                            obstacles_radius - wheel_base;
+
+                        if (collision_dist <= 0) {
+                            ROS_INFO("Collosion!!\n\r");
+                            // wheel_vel = diff_drive.get_wheel_vel();
+
+
+                            // twist.thetadot = 0;
+                            // twist.xdot = 0;
+                            // twist.ydot = 0;
+
+                            // twist_noised.thetadot = 0;
+                            // twist_noised.xdot = 0;
+                            // twist_noised.ydot = 0;
+
+                            wheel_angle = diff_drive.rotatingWheelsWithTwist(twist_noised);
+                            real_wheel_angle = diff_drive.rotatingWheelsWithTwist(twist);
+
+                            collision_flag = true;
+                            break;
+                        }
+                    }
+
+                    if (!collision_flag) {
                     wheel_angle = diff_drive.updateOdometryWithTwist(twist_noised);
                     real_wheel_angle = real_diff_drive.updateOdometryWithTwist(twist);
+                    }
 
                     // Calculate the wheel_angle with the wheel angle noise factor
                     wheel_angle.right_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
@@ -248,8 +278,8 @@ class TubeWorld
     private:
         int frequency = 100;
         bool cmd_vel_flag = false;
-        // bool real_marker_flag = false;
-        double wheel_base, wheel_radius, stddev_linear, stddev_angular, slip_min, slip_max, obstacles_radius, max_visable_dist, markers_dist;
+        bool collision_flag = false;
+        double wheel_base, wheel_radius, stddev_linear, stddev_angular, slip_min, slip_max, obstacles_radius, max_visable_dist, markers_dist, collision_dist;
         std::string left_wheel_joint, right_wheel_joint, world_frame_id, odom_frame_id, body_frame_id;
         std::vector<double> obstacles_coordinate_x, obstacles_coordinate_y;
 

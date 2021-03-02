@@ -111,7 +111,11 @@ namespace rigid2d
         /// \brief returns the wheel angle of the robot
         /// \return the wheel angle of the robot
         WheelAngle get_wheel_angle();
-        
+
+        /// \brief returns the wheel velocity of the robot
+        /// \return the wheel velocity of the robot
+        WheelVelocity get_wheel_vel();
+
         /// \brief convert a desired twist to the equivalent wheel velocities
         /// required to achieve that twist
         /// \param twist - the robot's twist
@@ -145,6 +149,11 @@ namespace rigid2d
         /// \param tw - the twist of the robot
         /// \return the wheel angles of the robot
         WheelAngle updateOdometryWithTwist(const Twist2D &tw);
+
+        /// \brief rotating the wheels with twist input (without updating the odometry)
+        /// \param tw - the twist of the robot
+        /// \return the wheel angles of the robot
+        WheelAngle rotatingWheelsWithTwist(const Twist2D &tw);
     };
 }
 
