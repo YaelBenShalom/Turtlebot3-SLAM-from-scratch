@@ -2,29 +2,21 @@
 /// \brief  The simulation visualization
 ///
 /// PARAMETERS:
-                    ///     frequency (int): control loop frequency
-                    ///     cmd_vel_flag (bool): specifies when new cmd_vel is read
-                    ///     sensor_data_flag (bool): specifies when new sensor_data is read
-                    ///     wheel_base (float): The distance between the wheels
-                    ///     wheel_radius (float): The radius of the wheels
-                    ///     left_wheel_joint (std::string): The name of the left wheel joint
-                    ///     right_wheel_joint (std::string): The name of the right wheel joint
-                    ///
-                    ///     joint_state (sensor_msgs::JointState): message to publish joint_state readings to /joint_states topic
-                    ///
-                    ///     twist (rigid2d::Twist2D): the robot's twist
-                    ///     diff_drive (rigid2d::DiffDrive): an instance of the diff_drive robot
-                    ///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels
-                    ///     wheel_angle (rigid2d::WheelAngle): the angles of the robot's wheels
+///     frequency (int): control loop frequency
+///     odom_callback_flag (bool): specifies when new odom msg is read
+///     slam_callback_flag (bool): specifies when new slam msg is read
+///
+///     odom_path (nav_msgs::Path): the trajectory of the robot according only to wheel odometry
+///     slam_path (nav_msgs::Path): the trajectory of the robot according to the SLAM algorithm
+///
 /// PUBLISHES:
-                    ///     wheel_cmd (nuturtlebot/WheelCommands): publishes WheelCommands message on the wheel_cmd topic.
-                    ///                                            Make the turtlebot3 follow the specified twist
-                    ///     joint_states (sensor_msgs/JointState): publishes JointState message on the joint_states topic.
-                    ///                                            Reflect the current joint angles of each wheel
+///     odom_path_pub (nav_msgs/Odometry): publishes Odometry message on the odom_path topic.
+///     slam_path_pub (nav_msgs/Odometry): publishes Odometry message on the slam_path topic.
+///
 /// SUBSCRIBES:
-                    ///     cmd_vel (geometry_msgs/Twist): Subscribes to the robot's velocity.
-                    ///     sensor_data_sub (nuturtlebot/SensorData): Subscribes to the robot's sensor data.
-                    ///                                               Provide the angle (in radians) and velocity (in rad/sec) of the wheels, based on encoder data.
+///     odom_sub (nav_msgs/Odometry): Subscribes to the odometry readings.
+///     slam_sub (nav_msgs/Odometry): Subscribes to the slam readings.
+
 
 #include "rigid2d/rigid2d.hpp"
 #include "rigid2d/diff_drive.hpp"
