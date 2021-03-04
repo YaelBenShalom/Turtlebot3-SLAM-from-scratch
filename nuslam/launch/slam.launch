@@ -22,10 +22,10 @@
     <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
 
     <!-- Load fake_turtle_node.cpp Node -->
-    <node name="turtle_interface" pkg="nuturtle_robot" type="turtle_interface_node" output="screen" />
+    <!-- <node name="turtle_interface" pkg="nuturtle_robot" type="turtle_interface_node" output="screen" /> -->
 
     <!-- Load odometer_node.cpp Node -->
-    <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" />
+    <!-- <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" /> -->
 
     <!-- Load tube_world.cpp Node -->
     <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
@@ -52,10 +52,10 @@
     <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
 
     <!-- Load fake_turtle_node.cpp Node -->
-    <node name="turtle_interface" pkg="nuturtle_robot" type="turtle_interface_node" output="screen" />
+    <!-- <node name="turtle_interface" pkg="nuturtle_robot" type="turtle_interface_node" output="screen" /> -->
 
     <!-- Load odometer_node.cpp Node -->
-    <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" />
+    <!-- <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" /> -->
 
     <!-- Load odometer_node.cpp Node -->
     <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
