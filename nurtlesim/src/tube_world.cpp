@@ -4,23 +4,50 @@
 /// PARAMETERS:
 ///     frequency (int): control loop frequency
 ///     cmd_vel_flag (bool): specifies when new cmd_vel is read
+///     collision_flag (bool): specifies when the robot collides with an obstacle
 ///     wheel_base (float): The distance between the wheels
 ///     wheel_radius (float): The radius of the wheels
 ///     left_wheel_joint (std::string): The name of the left wheel joint
 ///     right_wheel_joint (std::string): The name of the right wheel joint
+///     world_frame_id (std::string): The name of the world tf frame
+///     odom_frame_id (std::string): The name of the odom tf frame
+///     body_frame_id (std::string): The name of the body tf frame
+///     stddev_linear (float): The standard deviation of the linear twist noise
+///     stddev_angular (float): The standard deviation of the angular twist noise
+///     slip_min (float): The minimum wheel slip for the slip noise
+///     slip_max (float): The maximum wheel slip for the slip noise
+///     obstacles_coordinate_x (std::vector<double>): The x coordinate of the obstacles
+///     obstacles_coordinate_y (std::vector<double>): The y coordinate of the obstacles
+///     obstacles_radius (float): The radous of the cardboard tubes [m]
+///     max_visable_dist (float): The maximum distance beyond which tubes are not visible [m]
 ///
 ///     joint_state (sensor_msgs::JointState): message to publish joint_state readings to /joint_states topic
-///
+///     marker_array (visualization_msgs::MarkerArray): the array of the obstacles' configuration
+///     real_marker_array (visualization_msgs::MarkerArray): the array of the real obstacles' configuration
+///     world_broadcaster (TransformBroadcaster): Broadcast the transform between worls_frame_id and the body_frame_id on /tf using a tf2
+///     world_tf (geometry_msgs::TransformStamped): world transform
+///     real_pose_stamped (geometry_msgs::PoseStamped): the real position of the robot
+///     real_path (nav_msgs::Path): the real path of the robot
+
 ///     pose (rigid2d::Config2D): the robot's position (based on the wheel angles)
+///     real_pose (rigid2d::Config2D): the robot's real position
 ///     twist (rigid2d::Twist2D): the robot's twist
+///     twist_noised (rigid2d::Twist2D): the robot's twist (plus noise)
 ///     diff_drive (rigid2d::DiffDrive): an instance of the diff_drive robot
+///     real_diff_drive (rigid2d::DiffDrive): an instance of the real diff_drive robot
 ///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels
+///     real_wheel_vel (rigid2d::WheelVelocity): the real velocity of the robot's wheels
 ///     wheel_angle (rigid2d::WheelAngle): the angles of the robot's wheels
+///     real_wheel_angle (rigid2d::WheelAngle): the real angles of the robot's wheels
+///
 /// PUBLISHES:
-///     joint_states (sensor_msgs/JointState): publishes JointState message on the joint_states topic.
-///                                            Reflect the current joint angles of each wheel
+///     joint_states_pub (sensor_msgs/JointState): publishes JointState message on the joint_states topic.
+///     marker_pub (visualization_msgs::MarkerArray): publishes MarkerArray message on the fake_sensor topic.
+///     real_marker_pub (visualization_msgs::MarkerArray): publishes MarkerArray message on the real_markers topic.
+///     robot_path_pub (nav_msgs::Path): publishes JointState message on the real_path topic.
+///
 /// SUBSCRIBES:
-///     cmd_vel (geometry_msgs/Twist): Subscribes to the robot's velocity.
+///     vel_sub (geometry_msgs/Twist): Subscribes to the robot's velocity.
 
 #include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"

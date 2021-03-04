@@ -2,7 +2,7 @@
 <package format="2">
   <name>nuslam</name>
   <version>0.0.1</version>
-  <description>Implementation of Feature-Based Kalman Filter SLAM</description>
+  <description>Implementing Feature-Based Kalman Filter SLAM</description>
 
   <!-- Package maintainer and author-->
   <maintainer email="yaelbshalom@gmail.com">Yael Ben Shalom</maintainer>
@@ -13,8 +13,30 @@
 
   <!-- Package dependencies -->
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>roscpp</build_depend>
-  <build_export_depend>roscpp</build_export_depend>
-  <exec_depend>roscpp</exec_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>rigid2d</build_depend>
+
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>nav_msgs</build_export_depend>
+  <build_export_depend>sensor_msgs</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>turtlebot3_teleop</exec_depend>
+  <exec_depend>turtlebot3_gazebo</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>nuturtle_description</exec_depend>
+  <exec_depend>nuturtle_robot</exec_depend>
+  <exec_depend>nurtlesim</exec_depend>
+  <exec_depend>rigid2d</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>rviz</exec_depend>
+
+  <depend>roscpp</depend>
 
 </package>

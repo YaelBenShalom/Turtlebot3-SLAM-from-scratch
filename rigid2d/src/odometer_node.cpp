@@ -21,10 +21,13 @@
 ///     twist (rigid2d::Twist2D): the robot's twist
 ///     diff_drive (rigid2d::DiffDrive): an instance of the diff_drive robot
 ///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels
+///
 /// PUBLISHES:
 ///     odom (nav_msgs/Odometry): publishes Odometry message on the odom topic.
+///
 /// SUBSCRIBES:
 ///     joint_states (sensor_msgs/JointState): Subscribes to the robot's joint_states.
+///
 /// SERVICES:
 ///     SetPose (set_pose): Restarts the location of the odometry, so that the robot thinks
 ///                         it is at the requested configuration.
