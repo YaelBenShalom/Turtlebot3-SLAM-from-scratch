@@ -4,8 +4,6 @@
 #include <iostream>
 
 
-// using namespace rigid2d;
-
 /********** Vector2D struct member functions **********/
 
 /// Create a 2-Dimensional Vector

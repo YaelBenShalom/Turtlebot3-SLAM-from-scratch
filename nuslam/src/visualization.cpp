@@ -1,4 +1,4 @@
-/// \file   visualization_node.cpp
+/// \file   visualization.cpp
 /// \brief  The simulation visualization
 ///
 /// PARAMETERS:
@@ -130,7 +130,7 @@ class Visualization
 /// \returns int
 int main(int argc, char * argv[])
 {
-    ros::init(argc, argv, "visualization_node");
+    ros::init(argc, argv, "visualization");
     Visualization node;
     node.main_loop();
     ros::spin();

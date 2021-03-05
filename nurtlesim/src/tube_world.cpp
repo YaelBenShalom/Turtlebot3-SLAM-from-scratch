@@ -253,8 +253,8 @@ class TubeWorld
                     for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
 
                         collision_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) + \
-                                            pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2)) - \
-                                            obstacles_radius - wheel_base;
+                                              pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2)) - \
+                                              obstacles_radius - wheel_base;
 
                         if (collision_dist <= 0) {
                             ROS_INFO("Collosion!!\n\r");

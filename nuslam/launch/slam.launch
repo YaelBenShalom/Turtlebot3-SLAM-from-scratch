@@ -34,7 +34,7 @@
     <node name="visualization" pkg="nuslam" type="visualization" output="screen" />
 
     <!-- Load Robot Model in Rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nurtlesim)/config/tube_world.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nuslam)/config/visualization.rviz" />
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
     
   </group>
@@ -61,7 +61,7 @@
     <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
 
     <!-- Load Robot Model in Rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nurtlesim)/config/tube_world.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nuslam)/config/visualization.rviz" />
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
     
   </group>
