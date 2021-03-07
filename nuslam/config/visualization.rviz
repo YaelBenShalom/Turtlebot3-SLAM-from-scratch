@@ -6,6 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Path2
+        - /Path2/Status1
+        - /Path3
         - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 555
@@ -140,6 +143,12 @@ Visualization Manager:
           Value: false
         imu_link:
           Value: false
+        map:
+          Value: true
+        odom:
+          Value: true
+        turtle:
+          Value: true
         wheel_left_link:
           Value: true
         wheel_right_link:
@@ -154,18 +163,22 @@ Visualization Manager:
       Show Names: true
       Tree:
         world:
-          base_footprint:
-            base_link:
-              base_scan:
-                {}
-              caster_back_link:
-                {}
-              imu_link:
-                {}
-              wheel_left_link:
-                {}
-              wheel_right_link:
-                {}
+          map:
+            odom:
+              base_footprint:
+                base_link:
+                  base_scan:
+                    {}
+                  caster_back_link:
+                    {}
+                  imu_link:
+                    {}
+                  wheel_left_link:
+                    {}
+                  wheel_right_link:
+                    {}
+          turtle:
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -333,4 +346,4 @@ Window Geometry:
     collapsed: false
   Width: 1200
   X: 720
-  Y: 142
+  Y: 68

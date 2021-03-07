@@ -101,8 +101,8 @@ rigid2d::WheelVelocity rigid2d::DiffDrive::get_wheel_vel() {
 rigid2d::WheelVelocity rigid2d::DiffDrive::twist2Wheels(const rigid2d::Twist2D &twist) {
     WheelVelocity vel;
     // Calculating velocity
-    vel.right_wheel_vel = (-(wheel_base / 2.0) * twist.thetadot + twist.xdot) / wheel_radius;
-    vel.left_wheel_vel = ((wheel_base / 2.0) * twist.thetadot + twist.xdot) / wheel_radius;
+    vel.right_wheel_vel = ((wheel_base / 2.0) * twist.thetadot + twist.xdot) / wheel_radius;
+    vel.left_wheel_vel = (-(wheel_base / 2.0) * twist.thetadot + twist.xdot) / wheel_radius;
     // std::cout << "twist2Wheels:" << "wheel_base = " << wheel_base << "\t wheel_radius = " << wheel_radius << "\n\r" << std::endl;
     // std::cout << "twist2Wheels:" << "twist.xdot = " << twist.xdot << "\t twist.thetadot = " << twist.thetadot << "\n\r" << std::endl;
     // std::cout << "twist2Wheels:" << "vel.right = " << vel.right_wheel_vel << "\t vel.left = " << vel.left_wheel_vel << "\n\r" << std::endl;

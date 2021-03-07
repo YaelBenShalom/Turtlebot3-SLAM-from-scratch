@@ -28,10 +28,10 @@
     <!-- <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" /> -->
 
     <!-- Load tube_world.cpp Node -->
-    <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
+    <node name="tube_world" pkg="nurtlesim" type="tube_world" />
 
     <!-- Load visualization_node.cpp Node -->
-    <node name="visualization" pkg="nuslam" type="visualization" output="screen" />
+    <node name="visualization" pkg="nuslam" type="visualization" />
 
     <!-- Load visualization_node.cpp Node -->
     <node name="slam" pkg="nuslam" type="slam" output="screen" />

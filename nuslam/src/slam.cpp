@@ -172,24 +172,6 @@ class KFSlam
 
                     odom_pose = diff_drive.get_config();
 
-                    // v.x = config.x;
-                    // v.y = config.y;
-                    // angle = config.theta;
-                    // T_b = rigid2d::Transform2D(v, angle);
-                    // // Integrating the twist to get Tbb' (Tbb' = exp(Vb))
-                    // T_bbp = T_b.integrateTwist(tw);
-                    // T_wbp = T_b * T_bbp;
-                    // // Update the configuration
-                    // config.x = T_wbp.x();
-                    // config.y = T_wbp.y();
-                    // config.theta = rigid2d::normalize_angle(T_wbp.theta()); 
-                    // // Calculating wheel velocity from the robot twist
-                    // wheel_vel = rigid2d::DiffDrive::twist2Wheels(tw);
-                    // // Calculating wheel angles from wheel velocity (for one time unit)
-                    // wheel_angle = rigid2d::DiffDrive::wheelVel2WheelAngle(wheel_vel);
-
-
-
                     // Transform from "world" to "map" frame
                     world_tf.header.stamp = current_time;
                     world_tf.header.frame_id = world_frame_id;
@@ -197,10 +179,10 @@ class KFSlam
                     world_tf.transform.translation.x = 0;
                     world_tf.transform.translation.y = 0;
                     world_tf.transform.translation.z = 0;
-                    map_tf.transform.rotation.x = 0.0;
-                    map_tf.transform.rotation.y = 0.0;
-                    map_tf.transform.rotation.z = 0.0;
-                    map_tf.transform.rotation.w = 1.0;
+                    world_tf.transform.rotation.x = 0.0;
+                    world_tf.transform.rotation.y = 0.0;
+                    world_tf.transform.rotation.z = 0.0;
+                    world_tf.transform.rotation.w = 1.0;
 
                     world_broadcaster.sendTransform(world_tf);
 

@@ -51,12 +51,13 @@ class Visualization
         /// \param odom - the trajectory of the robot according only to wheel odometry
         void odom_callback(const nav_msgs::Odometry &odom) {
             geometry_msgs::PoseStamped pose;
+
             pose.header.stamp = ros::Time::now();
-            pose.header.frame_id = "map";
+            pose.header.frame_id = "world";
             pose.pose = odom.pose.pose;
 
             odom_path.header.stamp = ros::Time::now();
-            // odom_path.frame_id = "map";
+            odom_path.header.frame_id = "world";
             odom_path.poses.push_back(pose);
 
             odom_callback_flag = true;
@@ -68,16 +69,15 @@ class Visualization
             geometry_msgs::PoseStamped pose;
 
             pose.header.stamp = ros::Time::now();
-            pose.header.frame_id = "map";
+            pose.header.frame_id = "world";
             pose.pose = slam.pose.pose;
 
             slam_path.header.stamp = ros::Time::now();
-            // slam_path.frame_id = "map";
+            odom_path.header.frame_id = "world";
             slam_path.poses.push_back(pose);
 
             slam_callback_flag = true;
         }
-
 
         /// \brief Main loop for the turtle's motion
         /// \returns void
