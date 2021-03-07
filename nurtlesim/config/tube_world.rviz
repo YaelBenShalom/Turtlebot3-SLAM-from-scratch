@@ -13,6 +13,8 @@ Panels:
         - /Odometry1
         - /MarkerArray1
         - /MarkerArray2
+        - /Marker1
+        - /Marker1/Status1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz/Selection
@@ -171,6 +173,14 @@ Visualization Manager:
         real: true
       Queue Size: 100
       Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /robot_marker
+      Name: Marker
+      Namespaces:
+        marker: true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -199,7 +209,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 18.853275299072266
+      Distance: 9.949474334716797
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -207,17 +217,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.8149794340133667
-        Y: -0.7985123991966248
-        Z: -2.402810573577881
+        X: -0.4823664426803589
+        Y: -0.8166521787643433
+        Z: -2.4035961627960205
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.4947963953018188
+      Pitch: 1.5047963857650757
       Target Frame: <Fixed Frame>
-      Yaw: 4.663592338562012
+      Yaw: 4.6935930252075195
     Saved: ~
 Window Geometry:
   Displays:
@@ -236,4 +246,4 @@ Window Geometry:
     collapsed: false
   Width: 1200
   X: 720
-  Y: 142
+  Y: 105

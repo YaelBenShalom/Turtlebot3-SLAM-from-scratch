@@ -83,7 +83,7 @@ class TubeWorld
             real_joint_states_pub = nh.advertise<sensor_msgs::JointState>("/real_joint_states", 1);
             real_marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/real_markers", 1, true);
             marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/fake_sensor", 1);
-            robot_marker_pub = nh.advertise<visualization_msgs::visualization_marker>("/robot_marker", 1);
+            robot_marker_pub = nh.advertise<visualization_msgs::Marker>("/robot_marker", 1);
             robot_path_pub = nh.advertise<nav_msgs::Path>("/real_path", 1);
             vel_sub = nh.subscribe("/cmd_vel", 1, &TubeWorld::cmd_vel_callback, this);
         }
@@ -166,6 +166,32 @@ class TubeWorld
 
                 pose = diff_drive.get_config();
                 
+                // Publish robot marker
+                robot_marker.header.frame_id = world_frame_id;
+                robot_marker.header.stamp = ros::Time();
+                robot_marker.ns = "marker";
+                robot_marker.id = 0;
+                robot_marker.type = visualization_msgs::Marker::SPHERE;
+                robot_marker.action = visualization_msgs::Marker::ADD;
+
+                robot_marker.pose.position.x = pose.x;
+                robot_marker.pose.position.y = pose.y;
+                robot_marker.pose.position.z = 0.0;
+                robot_marker.pose.orientation.x = 0.0;
+                robot_marker.pose.orientation.y = 0.0;
+                robot_marker.pose.orientation.z = 0.0;
+                robot_marker.pose.orientation.w = 1.0;
+                robot_marker.scale.x = 0.3;
+                robot_marker.scale.y = 0.3;
+                robot_marker.scale.z = 0.3;
+                robot_marker.color.a = 1.0;
+                robot_marker.color.r = 0.0;
+                robot_marker.color.g = 0.0;
+                robot_marker.color.b = 1.0;
+
+                robot_marker_pub.publish(robot_marker);
+
+
                 // Transform from "world" to "turtle" frame
                 world_tf.header.stamp = current_time;
                 world_tf.header.frame_id = world_frame_id;
@@ -314,11 +340,12 @@ class TubeWorld
         std::vector<double> obstacles_coordinate_x, obstacles_coordinate_y;
 
         ros::NodeHandle nh;
-        ros::Publisher joint_states_pub, real_joint_states_pub, marker_pub, real_marker_pub, robot_path_pub;
+        ros::Publisher joint_states_pub, real_joint_states_pub, marker_pub, real_marker_pub, robot_path_pub, robot_marker_pub;
         ros::Subscriber vel_sub;
         ros::Time current_time;
 
         visualization_msgs::MarkerArray marker_array, real_marker_array;
+        visualization_msgs::Marker robot_marker;
         tf2::Quaternion quat;
         tf2_ros::TransformBroadcaster world_broadcaster;
         geometry_msgs::TransformStamped world_tf;
