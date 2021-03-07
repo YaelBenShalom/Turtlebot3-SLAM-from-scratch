@@ -94,7 +94,7 @@ class KFSlam
         /// \param joint_state - constant pointer to joint_states
         /// \returns void
         void joint_state_callback(const sensor_msgs::JointState::ConstPtr &joint_state) {
-            ROS_INFO("Subscribing to joint state");
+            // ROS_INFO("Subscribing to joint state");
             right_angle = joint_state->position.at(0);
             left_angle = joint_state->position.at(1);
 
@@ -109,7 +109,7 @@ class KFSlam
         /// \param res - SetPose response.
         /// \returns void
         void landmarks_callback(const visualization_msgs::MarkerArray &markers) {
-            ROS_INFO("Subscribing to landmarks");
+            // ROS_INFO("Subscribing to landmarks");
             for (auto& marker: markers.markers) {
                 double x = marker.pose.position.x;
                 double y = marker.pose.position.y;
@@ -127,7 +127,7 @@ class KFSlam
         /// \param res - SetPose response.
         /// \returns bool
         bool set_pose_callback(rigid2d::SetPose::Request &req, rigid2d::SetPose::Response &res) {
-            ROS_INFO("Setting pose");
+            // ROS_INFO("Setting pose");
             reset_pose.x = req.x;
             reset_pose.y = req.y;
             reset_pose.theta = req.theta;
@@ -142,7 +142,7 @@ class KFSlam
         /// \brief Main loop for the turtle's motion
         /// \returns void
         void main_loop() {
-            ROS_INFO("Entering the loop");
+            // ROS_INFO("Entering the loop");
             ros::Rate loop_rate(frequency);
 
             // Initializing Extended Kalman Filter
@@ -154,7 +154,7 @@ class KFSlam
                 // If the set_pose_callback was called
                 if (reset_flag) {
                     diff_drive.set_config(reset_pose);
-
+                    
                     // Provide the configuration of the robot
                     ROS_INFO("Reset robot position:");
                     ROS_INFO("x = %f\n\r", diff_drive.get_config().x);
@@ -163,6 +163,17 @@ class KFSlam
 
                     // Remove the set_pose flag
                     reset_flag = false;
+                }
+
+                if (landmarks_flag) {
+                    wheel_vel_new = diff_drive.get_wheel_vel();
+                    wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel.right_wheel_vel;
+                    wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel.right_wheel_vel;
+
+                    twist_del = diff_drive.wheels2Twist(wheel_vel_del);
+                    Kalman_Filter.run_ekf(twist_del, measurements);
+                    // arma::mat q_t = Kalman_Filter.output_state();
+                    // arma::mat m_t = Kalman_Filter.output_map_state();
                 }
 
                 if ((joint_state_flag) || (landmarks_flag) || (reset_flag)) {
@@ -262,9 +273,9 @@ class KFSlam
         nav_msgs::Odometry odom;
 
         rigid2d::Config2D odom_pose, reset_pose;
-        rigid2d::Twist2D twist;
+        rigid2d::Twist2D twist, twist_del;
         rigid2d::DiffDrive diff_drive;
-        rigid2d::WheelVelocity wheel_vel;
+        rigid2d::WheelVelocity wheel_vel, wheel_vel_new, wheel_vel_del;
 
         std::vector<nuslam::Measurement> measurements;
 };

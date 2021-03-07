@@ -92,7 +92,7 @@ namespace nuslam
     /// Get the state transition ξ_t (q_t, m_t) and the map’s movement with respect to the state ξ.
     arma::mat EKF::get_new_state(const Twist2D &twist) {
         arma::mat T_wbp = arma::mat(q_t.n_rows, 1);
-        arma::mat w_t = (arma::mat(3,1)).fill(0.0);
+        arma::mat w_t = (arma::mat(3, 1)).fill(0.0);
 
         // If the rotational velocity is zero (twist.thetadot = 0)
         if (rigid2d::almost_equal(twist.thetadot, 0.0, 1.0e-3)) {
@@ -105,12 +105,13 @@ namespace nuslam
         else {
             double dx_dtheta = twist.xdot/twist.thetadot;
             T_wbp(0, 0) =  twist.thetadot;
-            T_wbp(1, 0) = -dx_dtheta * sin(q_t(0, 0)) + sin(q_t(0, 0) + twist.thetadot); 
-            T_wbp(2, 0) =  dx_dtheta * cos(q_t(0, 0)) - cos(q_t(0, 0) + twist.thetadot); 
+            T_wbp(1, 0) = -dx_dtheta * sin(q_t(0, 0)) + dx_dtheta * sin(q_t(0, 0) + twist.thetadot); 
+            T_wbp(2, 0) =  dx_dtheta * cos(q_t(0, 0)) - dx_dtheta * cos(q_t(0, 0) + twist.thetadot); 
         }
 
         // Return the current state
-        return (q_t + T_wbp + w_t);
+        arma::mat q_t_new = q_t + T_wbp + w_t;
+        return (std::move(arma::join_cols(q_t_new, m_t)));
     }
     
     /// Get derivative of g with respect to the state ξ.
@@ -142,16 +143,14 @@ namespace nuslam
     void EKF::predict(const Twist2D &twist) {
         xi_predict = get_new_state(twist);
         arma::mat A_t = get_transition(twist);
-        Q_mat = update_matrix_size(Q_mat);
-
         cov_predict = A_t * cov * A_t.t() + Q_mat;
     }
 
     /// Compute the measurement h for range and bearing to landmark.
     arma::mat EKF::get_h(int index) {
         arma::mat h = arma::mat(2,1);
-        h(0,0) = std::sqrt(pow(m_t(index, 0) - xi_predict(1, 0), 2) + pow(m_t(index + 1, 0) - xi_predict(2, 0), 2));
-        h(1,0) = rigid2d::normalize_angle(atan2(m_t(index + 1, 0) - xi_predict(2, 0), m_t(index, 0) - xi_predict(1, 0)) - xi_predict(0, 0));
+        h(0, 0) = std::sqrt(pow(m_t(index, 0) - xi_predict(1, 0), 2) + pow(m_t(index + 1, 0) - xi_predict(2, 0), 2));
+        h(1, 0) = rigid2d::normalize_angle(atan2(m_t(index + 1, 0) - xi_predict(2, 0), m_t(index, 0) - xi_predict(1, 0)) - xi_predict(0, 0));
 
         return h;
     }
@@ -169,10 +168,10 @@ namespace nuslam
         H(1, 1) =  del_y / d;
         H(1, 2) = -del_x / d;
 
-        H(0, index) = del_x / sqrt(d);
-        H(0, index + 1) = del_y / sqrt(d);
-        H(1, index) =  -del_y / d;
-        H(1, index + 1) = del_x / d;
+        H(0, index + 3) = del_x / sqrt(d);
+        H(0, index + 4) = del_y / sqrt(d);
+        H(1, index + 3) =  -del_y / d;
+        H(1, index + 4) = del_x / d;
 
         return H;
     }
@@ -187,23 +186,51 @@ namespace nuslam
 
             // Compute the Kalman gain from the linearized measurement model
             arma::mat H_i = get_H(m_row);
+
+            // std::cout << "H_i " << (H_i) << "\n\r" << std::endl;
+            // std::cout << "cov_predict " << (cov_predict) << "\n\r" << std::endl;
+            // std::cout << "H_i.t() " << (H_i.t()) << "\n\r" << std::endl;
+            // std::cout << "R_mat " << (R_mat) << "\n\r" << std::endl;
+            // std::cout << "H_i * cov_predict * H_i.t() + R_mat " << size(H_i * cov_predict * H_i.t() + R_mat) << "\n\r" << std::endl;
+            // std::cout << "inv(H_i * cov_predict * H_i.t() + R_mat) " << size(inv(H_i * cov_predict * H_i.t() + R_mat)) << "\n\r" << std::endl;
+
             arma::mat int_mat = inv(H_i * cov_predict * H_i.t() + R_mat);
+
+            // std::cout << "cov_predict " << (size(cov_predict)) << "\n\r" << std::endl;
+            // std::cout << "H_i.t() " << (size(H_i.t())) << "\n\r" << std::endl;
+            // std::cout << "int_mat " << (size(int_mat)) << "\n\r" << std::endl;
+            // std::cout << "cov_predict * H_i.t() * int_mat " << cov_predict * H_i.t() * int_mat << "\n\r" << std::endl;
+
+
             arma::mat K = cov_predict * H_i.t() * int_mat;
 
             // Compute the posterior state update
             arma::mat z = m.compute_z();
+
+            // std::cout << "xi_predict " << (size(xi_predict)) << "\n\r" << std::endl;
+            // std::cout << "K " << (size(K)) << std::endl;
+            // std::cout << "z " << (size(z)) << "\n\r" << std::endl;
+            // std::cout << "z_theory " << (size(z_theory)) << "\n\r" << std::endl;
+
             xi_predict = xi_predict + K * (z - z_theory);
 
             // Compute the posterior covariance
             arma::mat I = eye(size(cov_predict));
-            cov_predict = (I - K * H_i) * cov_predict;
+
+            // std::cout << "I " << ((I)) << "\n\r" << std::endl;
+            // std::cout << "K " << ((K)) << "\n\r" << std::endl;
+            // std::cout << "H_i " << ((H_i)) << "\n\r" << std::endl;
+            // std::cout << "cov_predict " << ((cov_predict)) << "\n\r" << std::endl;
+            // std::cout << "K * H_i " << ((I - K * H_i) * cov_predict) << "\n\r" << std::endl;
+
+            cov_predict = ((I - K * H_i) * cov_predict);
         }
     }
 
     /// Add a new zero row and column to a matrix (used when adding new landmark).
     arma::mat EKF::update_matrix_size(arma::mat mat) {
-        arma::mat mat_addition_col = (arma::mat(mat.n_rows, 1)).fill(0.0);
-        arma::mat mat_addition_row = (arma::mat(1, mat.n_cols + 1)).fill(0.0);
+        arma::mat mat_addition_col = (arma::mat(mat.n_rows, 2)).fill(0.0);
+        arma::mat mat_addition_row = (arma::mat(2, mat.n_cols + 2)).fill(0.0);
 
         arma::mat mat_update = std::move(arma::join_rows(mat, mat_addition_col));
         mat_update = std::move(arma::join_cols(mat_update, mat_addition_row));
@@ -223,12 +250,12 @@ namespace nuslam
         update(meas);
 
         // Update the combined state vector and the covariance
-        xi = xi_predict;
-        cov = cov_predict;
+        // xi = xi_predict;
+        // cov = cov_predict;
 
-        // Update robot state and map state
-        q_t = xi.submat(0, 0, 2, 0);
-        m_t = xi.submat(3, 0, xi.n_rows - 1, 0);
+        // // Update robot state and map state
+        // q_t = xi.submat(0, 0, 2, 0);
+        // m_t = xi.submat(3, 0, xi.n_rows - 1, 0);
     }
 
     /// Output the robot state
