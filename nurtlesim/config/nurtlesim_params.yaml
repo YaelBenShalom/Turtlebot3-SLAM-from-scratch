@@ -5,7 +5,7 @@ slip_min: -0.001                                # The minimum wheel slip for the
 slip_max: 0.001                                 # The maximum wheel slip for the slip noise
 
 # Obstacle Parameters
-obstacles_coordinate_x: [1.0, 1.0, -1.0, -1.0]  # The x coordinate of the obstacles
-obstacles_coordinate_y: [1.0, -1.0, -1.0, 1.0]  # The y coordinate of the obstacles               
+obstacles_coordinate_x: [3.0, 5.0, -4.0, -3.0]  # The x coordinate of the obstacles
+obstacles_coordinate_y: [5.0, -2.0, -4.0, 3.0]  # The y coordinate of the obstacles               
 obstacles_radius: 0.0762                        # The radius of the cardboard tubes [m]
-max_visable_dist: 5.0                           # The maximum distance beyond which tubes are not visible [m]
+max_visable_dist: 3.0                           # The maximum distance beyond which tubes are not visible [m]

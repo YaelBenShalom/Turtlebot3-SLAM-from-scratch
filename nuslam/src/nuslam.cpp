@@ -191,13 +191,13 @@ namespace nuslam
             // std::cout << "cov_predict " << (cov_predict) << "\n\r" << std::endl;
             // std::cout << "H_i.t() " << (H_i.t()) << "\n\r" << std::endl;
             // std::cout << "R_mat " << (R_mat) << "\n\r" << std::endl;
-            // std::cout << "H_i * cov_predict * H_i.t() + R_mat " << size(H_i * cov_predict * H_i.t() + R_mat) << "\n\r" << std::endl;
+            std::cout << "H_i * cov_predict * H_i.t() + R_mat " << (H_i * cov_predict * H_i.t() + R_mat) << "\n\r" << std::endl;
             // std::cout << "inv(H_i * cov_predict * H_i.t() + R_mat) " << size(inv(H_i * cov_predict * H_i.t() + R_mat)) << "\n\r" << std::endl;
 
             arma::mat int_mat = inv(H_i * cov_predict * H_i.t() + R_mat);
 
             // std::cout << "cov_predict " << (size(cov_predict)) << "\n\r" << std::endl;
-            // std::cout << "H_i.t() " << (size(H_i.t())) << "\n\r" << std::endl;
+            std::cout << "H_i.t() " << (size(H_i.t())) << "\n\r" << std::endl;
             // std::cout << "int_mat " << (size(int_mat)) << "\n\r" << std::endl;
             // std::cout << "cov_predict * H_i.t() * int_mat " << cov_predict * H_i.t() * int_mat << "\n\r" << std::endl;
 
