@@ -44,9 +44,8 @@ namespace nuslam
         q_t.fill(0.0);
         cov.fill(0.0);
 
-        Q_mat = Q;
-        Q_mat.fill(0.0); // TODO
-        R_mat.fill(0.0); // TODO
+        Q_mat.fill(1e-3);
+        R_mat.fill(1e-3);
     }
 
     /// Check if the measured landmark exists in the landmark dictionary.
@@ -96,7 +95,7 @@ namespace nuslam
 
         // If the rotational velocity is zero (twist.thetadot = 0)
         if (rigid2d::almost_equal(twist.thetadot, 0.0, 1.0e-3)) {
-            T_wbp(0, 0) = twist.thetadot;
+            T_wbp(0, 0) = 0.0;
             T_wbp(1, 0) = twist.xdot * cos(q_t(0, 0));
             T_wbp(2, 0) = twist.xdot * sin(q_t(0, 0));
         }
@@ -122,7 +121,7 @@ namespace nuslam
 
         // If the rotational velocity is zero (twist.thetadot = 0)
         if (rigid2d::almost_equal(twist.thetadot, 0.0, 1.0e-3)) {
-            g(0, 0) =  twist.thetadot;
+            g(0, 0) =  0.0;
             g(1, 0) = -twist.xdot * sin(q_t(0, 0));
             g(2, 0) =  twist.xdot * cos(q_t(0, 0));
         }
@@ -130,9 +129,9 @@ namespace nuslam
         // If the rotational velocity is not zero (twist.thetadot != 0)
         else {
             double dx_dtheta = twist.xdot/twist.thetadot;
-            g(0, 0) =  twist.thetadot;
-            g(1, 0) = -dx_dtheta * cos(q_t(0, 0)) + dx_dtheta * sin(q_t(0, 0) + twist.thetadot); 
-            g(2, 0) = -dx_dtheta * sin(q_t(0, 0)) + dx_dtheta * cos(q_t(0, 0) + twist.thetadot); 
+            g(0, 0) =  0.0;
+            g(1, 0) = -dx_dtheta * cos(q_t(0, 0)) + dx_dtheta * cos(q_t(0, 0) + twist.thetadot); 
+            g(2, 0) = -dx_dtheta * sin(q_t(0, 0)) + dx_dtheta * sin(q_t(0, 0) + twist.thetadot); 
         }
 
         // Return the current state
@@ -178,6 +177,8 @@ namespace nuslam
 
     /// Update the next step.
     void EKF::update(std::vector<Measurement> meas) {
+        std::cout << "Updating \n\r" << std::endl;
+
         for (auto& m: meas) {
             int m_row = id2landmark.find(m.id)->second;
 
@@ -186,23 +187,23 @@ namespace nuslam
 
             // Compute the Kalman gain from the linearized measurement model
             arma::mat H_i = get_H(m_row);
+            arma::mat H_i_t = H_i.t();
 
             // std::cout << "H_i " << (H_i) << "\n\r" << std::endl;
             // std::cout << "cov_predict " << (cov_predict) << "\n\r" << std::endl;
-            // std::cout << "H_i.t() " << (H_i.t()) << "\n\r" << std::endl;
+            // std::cout << "H_i.t() " << (H_i_t) << "\n\r" << std::endl;
             // std::cout << "R_mat " << (R_mat) << "\n\r" << std::endl;
-            std::cout << "H_i * cov_predict * H_i.t() + R_mat " << (H_i * cov_predict * H_i.t() + R_mat) << "\n\r" << std::endl;
-            // std::cout << "inv(H_i * cov_predict * H_i.t() + R_mat) " << size(inv(H_i * cov_predict * H_i.t() + R_mat)) << "\n\r" << std::endl;
+            std::cout << "H_i * cov_predict * H_i.t() + R_mat " << (H_i * cov_predict * H_i_t + R_mat) << "\n\r" << std::endl;
+            // std::cout << "inv(H_i * cov_predict * H_i.t() + R_mat) " << size(inv(H_i * cov_predict * H_i_t + R_mat)) << "\n\r" << std::endl;
 
-            arma::mat int_mat = inv(H_i * cov_predict * H_i.t() + R_mat);
+            arma::mat int_mat = inv(H_i * cov_predict * H_i_t + R_mat);
 
             // std::cout << "cov_predict " << (size(cov_predict)) << "\n\r" << std::endl;
-            std::cout << "H_i.t() " << (size(H_i.t())) << "\n\r" << std::endl;
+            // std::cout << "H_i.t() " << (size(H_i_t)) << "\n\r" << std::endl;
             // std::cout << "int_mat " << (size(int_mat)) << "\n\r" << std::endl;
-            // std::cout << "cov_predict * H_i.t() * int_mat " << cov_predict * H_i.t() * int_mat << "\n\r" << std::endl;
+            // std::cout << "cov_predict * H_i.t() * int_mat " << cov_predict * H_i_t * int_mat << "\n\r" << std::endl;
 
-
-            arma::mat K = cov_predict * H_i.t() * int_mat;
+            arma::mat K = cov_predict * H_i_t * int_mat;
 
             // Compute the posterior state update
             arma::mat z = m.compute_z();
@@ -221,9 +222,9 @@ namespace nuslam
             // std::cout << "K " << ((K)) << "\n\r" << std::endl;
             // std::cout << "H_i " << ((H_i)) << "\n\r" << std::endl;
             // std::cout << "cov_predict " << ((cov_predict)) << "\n\r" << std::endl;
-            // std::cout << "K * H_i " << ((I - K * H_i) * cov_predict) << "\n\r" << std::endl;
+            // std::cout << "I - K * H_i " << (I - K * H_i) << "\n\r" << std::endl;
 
-            cov_predict = ((I - K * H_i) * cov_predict);
+            cov_predict = (I - K * H_i) * cov_predict;
         }
     }
 
@@ -250,12 +251,12 @@ namespace nuslam
         update(meas);
 
         // Update the combined state vector and the covariance
-        // xi = xi_predict;
-        // cov = cov_predict;
+        xi = xi_predict;
+        cov = cov_predict;
 
-        // // Update robot state and map state
-        // q_t = xi.submat(0, 0, 2, 0);
-        // m_t = xi.submat(3, 0, xi.n_rows - 1, 0);
+        // Update robot state and map state
+        q_t = xi.submat(0, 0, 2, 0);
+        m_t = xi.submat(3, 0, xi.n_rows - 1, 0);
     }
 
     /// Output the robot state

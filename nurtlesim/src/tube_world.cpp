@@ -155,7 +155,6 @@ class TubeWorld
                 real_marker_array.markers[i].color.r = 0.0;
                 real_marker_array.markers[i].color.g = 1.0;
                 real_marker_array.markers[i].color.b = 0.0;
-                // real_marker_array.markers[i].lifetime = ros::Duration(10);
                 }
             real_marker_pub.publish(real_marker_array);
 
@@ -173,7 +172,6 @@ class TubeWorld
                 robot_marker.id = 0;
                 robot_marker.type = visualization_msgs::Marker::SPHERE;
                 robot_marker.action = visualization_msgs::Marker::ADD;
-
                 robot_marker.pose.position.x = pose.x;
                 robot_marker.pose.position.y = pose.y;
                 robot_marker.pose.position.z = 0.0;
@@ -191,7 +189,6 @@ class TubeWorld
 
                 robot_marker_pub.publish(robot_marker);
 
-
                 // Transform from "world" to "turtle" frame
                 world_tf.header.stamp = current_time;
                 world_tf.header.frame_id = world_frame_id;
@@ -199,13 +196,11 @@ class TubeWorld
                 world_tf.transform.translation.x = pose.x;
                 world_tf.transform.translation.y = pose.y;
                 world_tf.transform.translation.z = 0;
-
                 quat.setRPY(0, 0, pose.theta);
                 world_quat = tf2::toMsg(quat);
                 world_tf.transform.rotation = world_quat;
 
                 world_broadcaster.sendTransform(world_tf);
-
 
                 for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
                     marker_array.markers.resize(obstacles_coordinate_x.size());
@@ -214,7 +209,6 @@ class TubeWorld
                     marker_array.markers[i].ns = "marker";
                     marker_array.markers[i].id = i;
                     marker_array.markers[i].type = visualization_msgs::Marker::CYLINDER;
-
                     markers_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) + \
                                         pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2));
                     if (markers_dist > max_visable_dist) {
@@ -223,7 +217,6 @@ class TubeWorld
                     else {
                         marker_array.markers[i].action = visualization_msgs::Marker::ADD;
                     }
-
                     marker_array.markers[i].pose.position.x = obstacles_coordinate_x[i] + distribution(generator);
                     marker_array.markers[i].pose.position.y = obstacles_coordinate_y[i] + distribution(generator);
                     marker_array.markers[i].pose.position.z = 0.0;
@@ -248,7 +241,6 @@ class TubeWorld
                 real_pose_stamped.pose.position.x = real_pose.x;
                 real_pose_stamped.pose.position.y = real_pose.y;
                 real_pose_stamped.pose.position.z = 0.0;
-
                 quat.setRPY(0, 0, real_pose.theta);
                 real_quat = tf2::toMsg(quat);
                 real_pose_stamped.pose.orientation = real_quat;
@@ -258,7 +250,6 @@ class TubeWorld
                 real_path.poses.push_back(real_pose_stamped);
                 
                 robot_path_pub.publish(real_path);
-
 
                 // If the cmd_vel_callback was called
                 if (cmd_vel_flag) {
@@ -274,8 +265,6 @@ class TubeWorld
                     twist_noised.thetadot = twist.thetadot + twist_angular_noised;
                     twist_noised.xdot = twist.xdot + twist_linear_noised;
                     twist_noised.ydot = twist.ydot;
-
-                    // ROS_INFO("twist_noised.thetadot = %f\t twist_noised.xdot = %f\n\r", twist_noised.thetadot, twist_noised.xdot);
                     
                     // Collision detection
                     for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
@@ -295,12 +284,11 @@ class TubeWorld
                     }
 
                     if (!collision_flag) {
-                    // twist_noised.thetadot *=-1;
-                    wheel_angle = diff_drive.updateOdometryWithTwist(twist_noised);
-                    // twist_noised.thetadot *=-1;
-                    real_wheel_angle = real_diff_drive.updateOdometryWithTwist(twist);
-                    collision_flag = false;
+                        wheel_angle = diff_drive.updateOdometryWithTwist(twist_noised);
+                        real_wheel_angle = real_diff_drive.updateOdometryWithTwist(twist);
+                        collision_flag = false;
                     }
+
                     // Calculate the wheel_angle with the wheel angle noise factor
                     wheel_angle.right_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
                     wheel_angle.left_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
@@ -316,13 +304,13 @@ class TubeWorld
 
                     joint_states_pub.publish(joint_state);
 
-                    real_joint_state.header.stamp = current_time;
-                    real_joint_state.name.push_back(right_wheel_joint);
-                    real_joint_state.name.push_back(left_wheel_joint);
-                    real_joint_state.position.push_back(real_wheel_angle.right_wheel_angle);
-                    real_joint_state.position.push_back(real_wheel_angle.left_wheel_angle);
+                    // real_joint_state.header.stamp = current_time;
+                    // real_joint_state.name.push_back(right_wheel_joint);
+                    // real_joint_state.name.push_back(left_wheel_joint);
+                    // real_joint_state.position.push_back(real_wheel_angle.right_wheel_angle);
+                    // real_joint_state.position.push_back(real_wheel_angle.left_wheel_angle);
 
-                    real_joint_states_pub.publish(real_joint_state);
+                    // real_joint_states_pub.publish(real_joint_state);
 
                     // Remove the cmd_vel flag
                     cmd_vel_flag = false;

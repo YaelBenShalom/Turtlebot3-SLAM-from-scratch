@@ -171,9 +171,15 @@ class KFSlam
                     wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel.right_wheel_vel;
 
                     twist_del = diff_drive.wheels2Twist(wheel_vel_del);
+
                     Kalman_Filter.run_ekf(twist_del, measurements);
                     arma::mat q_t = Kalman_Filter.output_state();
-                    arma::mat m_t = Kalman_Filter.output_map_state();
+                    m_t = Kalman_Filter.output_map_state();
+
+                    new_config.theta = q_t(0, 0);
+                    new_config.x = q_t(1, 0);
+                    new_config.x = q_t(2, 0);
+                    diff_drive.set_config(new_config);
                 }
 
                 if ((joint_state_flag) || (landmarks_flag) || (reset_flag)) {
@@ -218,7 +224,6 @@ class KFSlam
                     odom_tf.transform.translation.x = odom_pose.x;
                     odom_tf.transform.translation.y = odom_pose.y;
                     odom_tf.transform.translation.z = 0;
-
                     quat.setRPY(0, 0, odom_pose.theta);
                     odom_quat = tf2::toMsg(quat);
                     odom_tf.transform.rotation = odom_quat;
@@ -228,12 +233,10 @@ class KFSlam
                     odom.header.stamp = current_time;
                     odom.header.frame_id = odom_frame_id;
                     odom.child_frame_id = body_frame_id;
-
                     odom.pose.pose.position.x = odom_pose.x;
                     odom.pose.pose.position.y = odom_pose.y;
                     odom.pose.pose.position.z = 0.0;
                     odom.pose.pose.orientation = odom_quat;
-
                     odom.twist.twist.linear.x = twist.xdot;
                     odom.twist.twist.linear.y = twist.ydot;
                     odom.twist.twist.angular.z = twist.thetadot;
@@ -251,13 +254,15 @@ class KFSlam
         }
 
     private:
-        int frequency = 100;
+        int frequency = 60;
         bool joint_state_flag = false;
         bool landmarks_flag = false;
         bool reset_flag = false;
         double wheel_base, wheel_radius, right_angle, left_angle;
         std::string world_frame_id, map_frame_id, odom_frame_id, body_frame_id, \
                     left_wheel_joint, right_wheel_joint;
+
+        arma::mat m_t;
         
         ros::NodeHandle nh;
         ros::Publisher odom_pub, landmarks_pub;
@@ -267,12 +272,11 @@ class KFSlam
 
         tf2::Quaternion quat;
         tf2_ros::TransformBroadcaster world_broadcaster, map_broadcaster, odom_broadcaster;
-        // sensor_msgs::JointState joint_msg;
         geometry_msgs::TransformStamped world_tf, map_tf, odom_tf;
         geometry_msgs::Quaternion odom_quat;
         nav_msgs::Odometry odom;
 
-        rigid2d::Config2D odom_pose, reset_pose;
+        rigid2d::Config2D odom_pose, reset_pose, new_config;
         rigid2d::Twist2D twist, twist_del;
         rigid2d::DiffDrive diff_drive;
         rigid2d::WheelVelocity wheel_vel, wheel_vel_new, wheel_vel_del;

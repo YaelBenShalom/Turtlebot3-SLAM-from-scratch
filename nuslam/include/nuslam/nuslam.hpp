@@ -52,8 +52,7 @@ namespace nuslam
         arma::mat xi = arma::mat(3, 1);
         arma::mat cov = arma::mat(3, 3);
 
-        arma::mat Q = arma::mat(3, 3);
-        arma::mat Q_mat;
+        arma::mat Q_mat = arma::mat(3, 3);
         arma::mat R_mat = arma::mat(2, 2);
 
         arma::mat xi_predict;

@@ -1,8 +1,8 @@
 # Nurtlesim Parameters
-stddev_linear: 0.001                            # The standard deviation of the linear twist noise
-stddev_angular: 0.001                           # The standard deviation of the angular twist noise
-slip_min: -0.001                                # The minimum wheel slip for the slip noise
-slip_max: 0.001                                 # The maximum wheel slip for the slip noise
+stddev_linear: 0.01                            # The standard deviation of the linear twist noise
+stddev_angular: 0.01                           # The standard deviation of the angular twist noise
+slip_min: -0.01                                # The minimum wheel slip for the slip noise
+slip_max: 0.01                                 # The maximum wheel slip for the slip noise
 
 # Obstacle Parameters
 obstacles_coordinate_x: [2.0, 3.0, -2.0, -3.0]  # The x coordinate of the obstacles
