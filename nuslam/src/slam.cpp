@@ -35,12 +35,14 @@
 
 #include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"
+#include "nuslam/nuslam.hpp"
 
 #include "ros/ros.h"
 
 #include <sensor_msgs/JointState.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <geometry_msgs/Quaternion.h>
+#include <visualization_msgs/MarkerArray.h>
 #include <nav_msgs/Odometry.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2/LinearMath/Quaternion.h>
@@ -53,6 +55,7 @@
 #include <utility>
 #include <string>
 #include <cmath>
+#include <armadillo>
 
 
 /// \brief Class KFSlam
@@ -66,10 +69,10 @@ class KFSlam
 
             // Init publishers, subscribers, and services
             odom_pub = nh.advertise<nav_msgs::Odometry>("/odom", 1);
-            landmarks_pub = nh.advertise<nav_msgs::Odometry>("/landmarks", 1);
+            landmarks_pub = nh.advertise<visualization_msgs::MarkerArray>("/landmarks", 1);
 
             joint_states_sub = nh.subscribe("/joint_states", 1, &KFSlam::joint_state_callback, this);
-            // landmarks_sub = nh.subscribe("/landmarks", 1, &KFSlam::landmarks_callback, this);
+            landmarks_sub = nh.subscribe("/fake_sensor", 1, &KFSlam::landmarks_callback, this);
 
             set_pose_srv = nh.advertiseService("/set_pose", &KFSlam::set_pose_callback, this);
          }
@@ -79,6 +82,8 @@ class KFSlam
         void load_parameter() {
             nh.getParam("wheel_base", wheel_base);                  // The distance between the wheels
             nh.getParam("wheel_radius", wheel_radius);              // The radius of the wheels
+            nh.getParam("world_frame_id", world_frame_id);          // The name of the world tf frame
+            nh.getParam("map_frame_id", map_frame_id);              // The name of the map tf frame
             nh.getParam("odom_frame_id", odom_frame_id);            // The name of the odometry tf frame
             nh.getParam("body_frame_id", body_frame_id);            // The name of the body tf frame
             nh.getParam("left_wheel_joint", left_wheel_joint);      // The name of the left wheel joint
@@ -89,6 +94,7 @@ class KFSlam
         /// \param joint_state - constant pointer to joint_states
         /// \returns void
         void joint_state_callback(const sensor_msgs::JointState::ConstPtr &joint_state) {
+            ROS_INFO("Subscribing to joint state");
             right_angle = joint_state->position.at(0);
             left_angle = joint_state->position.at(1);
 
@@ -98,22 +104,22 @@ class KFSlam
             joint_state_flag = true;
         }
 
-        // /// \brief Subscribes to the map's landmarks.
-        // /// \param req - SetPose request.
-        // /// \param res - SetPose response.
-        // /// \returns bool
-        // bool landmarks_callback(const sensor_msgs::JointState::ConstPtr &joint_state) {
-        //     // ROS_INFO("Setting pose");
-        //     // reset_pose.x = req.x;
-        //     // reset_pose.y = req.y;
-        //     // reset_pose.theta = req.theta;
-        //     // res.result = true;
+        /// \brief Subscribes to the map's landmarks.
+        /// \param req - SetPose request.
+        /// \param res - SetPose response.
+        /// \returns void
+        void landmarks_callback(const visualization_msgs::MarkerArray &markers) {
+            ROS_INFO("Subscribing to landmarks");
+            for (auto& marker: markers.markers) {
+                double x = marker.pose.position.x;
+                double y = marker.pose.position.y;
+                int id = marker.id;
+                measurements.push_back(nuslam::Measurement(x, y, id));
+            }
 
-        //     // Raise the reset flag
-        //     landmarks_flag = true;
-
-        //     return true;
-        // }
+            // Raise the landmarks flag
+            landmarks_flag = true;
+        }
 
         /// \brief Restarts the location of the odometry, so that the robot thinks
         /// it is at the requested configuration.
@@ -138,13 +144,16 @@ class KFSlam
         void main_loop() {
             ROS_INFO("Entering the loop");
             ros::Rate loop_rate(frequency);
+
+            // Initializing Extended Kalman Filter
+            nuslam::EKF Kalman_Filter;
+
             while(ros::ok()) {
                 current_time = ros::Time::now();
                 
-                // // If the set_pose_callback was called
+                // If the set_pose_callback was called
                 if (reset_flag) {
                     diff_drive.set_config(reset_pose);
-                    // diff_drive.WheelVelocity();
 
                     // Provide the configuration of the robot
                     ROS_INFO("Reset robot position:");
@@ -159,7 +168,7 @@ class KFSlam
                 if ((joint_state_flag) || (landmarks_flag) || (reset_flag)) {
                     rigid2d::Transform2D T_mb, T_ob, T_mo;
                     rigid2d::Vector2D v_mb, v_ob;
-                    double angle__mb, angle__ob;
+                    // double angle_mb, angle_ob;
 
                     odom_pose = diff_drive.get_config();
 
@@ -181,9 +190,35 @@ class KFSlam
 
 
 
+                    // Transform from "world" to "map" frame
+                    world_tf.header.stamp = current_time;
+                    world_tf.header.frame_id = world_frame_id;
+                    world_tf.child_frame_id = map_frame_id;
+                    world_tf.transform.translation.x = 0;
+                    world_tf.transform.translation.y = 0;
+                    world_tf.transform.translation.z = 0;
+                    map_tf.transform.rotation.x = 0.0;
+                    map_tf.transform.rotation.y = 0.0;
+                    map_tf.transform.rotation.z = 0.0;
+                    map_tf.transform.rotation.w = 1.0;
 
+                    world_broadcaster.sendTransform(world_tf);
 
+                    // Transform from "map" to "odom" frame
+                    map_tf.header.stamp = current_time;
+                    map_tf.header.frame_id = map_frame_id;
+                    map_tf.child_frame_id = odom_frame_id;
+                    map_tf.transform.translation.x = 0;
+                    map_tf.transform.translation.y = 0;
+                    map_tf.transform.translation.z = 0;
+                    map_tf.transform.rotation.x = 0.0;
+                    map_tf.transform.rotation.y = 0.0;
+                    map_tf.transform.rotation.z = 0.0;
+                    map_tf.transform.rotation.w = 1.0;
 
+                    map_broadcaster.sendTransform(map_tf);
+
+                    // Transform from "odom" to "body" frame
                     odom_tf.header.stamp = current_time;
                     odom_tf.header.frame_id = odom_frame_id;
                     odom_tf.child_frame_id = body_frame_id;
@@ -228,25 +263,28 @@ class KFSlam
         bool landmarks_flag = false;
         bool reset_flag = false;
         double wheel_base, wheel_radius, right_angle, left_angle;
-        std::string odom_frame_id, body_frame_id, left_wheel_joint, right_wheel_joint;
+        std::string world_frame_id, map_frame_id, odom_frame_id, body_frame_id, \
+                    left_wheel_joint, right_wheel_joint;
         
         ros::NodeHandle nh;
         ros::Publisher odom_pub, landmarks_pub;
         ros::Subscriber joint_states_sub, landmarks_sub;
-                        ros::ServiceServer set_pose_srv;
-                        ros::Time current_time;
+        ros::ServiceServer set_pose_srv;
+        ros::Time current_time;
 
-                        tf2::Quaternion quat;
-        tf2_ros::TransformBroadcaster odom_broadcaster;
-                        sensor_msgs::JointState joint_msg;
-                        geometry_msgs::TransformStamped odom_tf;
-                        geometry_msgs::Quaternion odom_quat;
-                        nav_msgs::Odometry odom;
+        tf2::Quaternion quat;
+        tf2_ros::TransformBroadcaster world_broadcaster, map_broadcaster, odom_broadcaster;
+        // sensor_msgs::JointState joint_msg;
+        geometry_msgs::TransformStamped world_tf, map_tf, odom_tf;
+        geometry_msgs::Quaternion odom_quat;
+        nav_msgs::Odometry odom;
 
         rigid2d::Config2D odom_pose, reset_pose;
         rigid2d::Twist2D twist;
         rigid2d::DiffDrive diff_drive;
         rigid2d::WheelVelocity wheel_vel;
+
+        std::vector<nuslam::Measurement> measurements;
 };
 
 /// \brief Main function

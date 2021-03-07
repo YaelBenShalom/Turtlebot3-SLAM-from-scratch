@@ -82,9 +82,9 @@ namespace rigid2d
         double x;
         /// \param y - y input of the vector
         double y;
-        /// \param x_ - x input of the vector - normalized
+        /// \param x_normalized - x input of the vector - normalized
         double x_normalized;
-        /// \param y - y input of the vector - normalized
+        /// \param y_normalized - y input of the vector - normalized
         double y_normalized;
 
         /// \brief create zero-vector

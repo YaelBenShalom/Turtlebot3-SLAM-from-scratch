@@ -80,11 +80,11 @@ class TubeWorld
 
             // Init publishers, subscribers, and services
             joint_states_pub = nh.advertise<sensor_msgs::JointState>("/joint_states", 1);
+            real_joint_states_pub = nh.advertise<sensor_msgs::JointState>("/real_joint_states", 1);
             real_marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/real_markers", 1, true);
             marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/fake_sensor", 1);
             robot_path_pub = nh.advertise<nav_msgs::Path>("/real_path", 1);
             vel_sub = nh.subscribe("/cmd_vel", 1, &TubeWorld::cmd_vel_callback, this);
-            // real_marker_sub = nh.subscribe("/real_markers", 1, &TubeWorld::real_marker_callback, this);
         }
 
         /// \brief Load the parameters from the parameter server
@@ -112,6 +112,7 @@ class TubeWorld
         /// \param tw - constant pointer to twist
         /// \returns void
         void cmd_vel_callback(const geometry_msgs::Twist &tw) {
+            ROS_INFO("Subscribing to Twist");
 
             // Calculate the twist without noise factor
             twist.thetadot = tw.angular.z;
@@ -162,7 +163,7 @@ class TubeWorld
                 ros::spinOnce();
                 current_time = ros::Time::now();
 
-                world_tf.header.stamp = ros::Time::now();
+                world_tf.header.stamp = current_time;
                 world_tf.header.frame_id = world_frame_id;
                 world_tf.child_frame_id = body_frame_id;
                 world_tf.transform.translation.x = pose.x;
@@ -215,8 +216,7 @@ class TubeWorld
                 marker_pub.publish(marker_array);
 
 
-                real_pose_stamped.header.stamp = ros::Time::now();
-
+                real_pose_stamped.header.stamp = current_time;
                 real_pose_stamped.pose.position.x = real_pose.x;
                 real_pose_stamped.pose.position.y = real_pose.y;
                 real_pose_stamped.pose.position.z = 0.0;
@@ -225,7 +225,7 @@ class TubeWorld
                 real_quat = tf2::toMsg(quat);
                 real_pose_stamped.pose.orientation = real_quat;
 
-                real_path.header.stamp = ros::Time::now();
+                real_path.header.stamp = current_time;
                 real_path.header.frame_id = world_frame_id;
                 real_path.poses.push_back(real_pose_stamped);
                 
@@ -234,7 +234,7 @@ class TubeWorld
 
                 // If the cmd_vel_callback was called
                 if (cmd_vel_flag) {
-                    sensor_msgs::JointState joint_state;
+                    sensor_msgs::JointState joint_state, real_joint_state;
 
                     // Calculate the twist with noise factor
                     static std::default_random_engine generator;
@@ -286,14 +286,24 @@ class TubeWorld
                     wheel_angle.right_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
                     wheel_angle.left_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
 
-                    joint_state.header.stamp = ros::Time::now();
+                    real_wheel_angle.right_wheel_angle += real_wheel_angle.right_wheel_angle;
+                    real_wheel_angle.left_wheel_angle += real_wheel_angle.right_wheel_angle;
 
+                    joint_state.header.stamp = current_time;
                     joint_state.name.push_back(right_wheel_joint);
                     joint_state.name.push_back(left_wheel_joint);
                     joint_state.position.push_back(wheel_angle.right_wheel_angle);
                     joint_state.position.push_back(wheel_angle.left_wheel_angle);
 
                     joint_states_pub.publish(joint_state);
+
+                    real_joint_state.header.stamp = current_time;
+                    real_joint_state.name.push_back(right_wheel_joint);
+                    real_joint_state.name.push_back(left_wheel_joint);
+                    real_joint_state.position.push_back(real_wheel_angle.right_wheel_angle);
+                    real_joint_state.position.push_back(real_wheel_angle.left_wheel_angle);
+
+                    real_joint_states_pub.publish(real_joint_state);
 
                     // Remove the cmd_vel flag
                     cmd_vel_flag = false;
@@ -311,7 +321,7 @@ class TubeWorld
         std::vector<double> obstacles_coordinate_x, obstacles_coordinate_y;
 
         ros::NodeHandle nh;
-        ros::Publisher joint_states_pub, marker_pub, real_marker_pub, robot_path_pub;
+        ros::Publisher joint_states_pub, real_joint_states_pub, marker_pub, real_marker_pub, robot_path_pub;
         ros::Subscriber vel_sub;
         ros::Time current_time;
 

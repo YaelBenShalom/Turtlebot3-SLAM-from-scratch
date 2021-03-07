@@ -4,9 +4,9 @@ project(nuslam)
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# set(CMAKE_CXX_EXTENSIONS OFF)
 
 # target_include_directories(${PROJECT_NAME} PUBLIC include/)
 # target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17) # enable C++ 17
@@ -119,8 +119,8 @@ doxygen_add_docs(${PROJECT_NAME}_doxygen src/ include/ README.md ALL)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
- INCLUDE_DIRS include
- LIBRARIES EFK
+  INCLUDE_DIRS include
+  LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS
     geometry_msgs
     message_runtime
@@ -143,17 +143,22 @@ include_directories(
   include
   ${ARMADILLO_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
+  # ${rigid2d_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
-  src/EKF.cpp
+  src/${PROJECT_NAME}.cpp
 )
+
+target_include_directories(${PROJECT_NAME} PUBLIC include/)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17) # enable C++ 17
+target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
@@ -189,14 +194,12 @@ target_link_libraries(
   ${PROJECT_NAME}
 )
 
-# target_link_libraries(
-#   EKF
-#   # ${PROJECT_NAME}
-#   ${rigid2d_LIBRARIES}
-#   ${catkin_LIBRARIES}
-#   ${ARMADILLO_LIBRARIES}
-#   ${PROJECT_NAME}
-#   )
+target_link_libraries(
+  ${PROJECT_NAME}
+  ${rigid2d_LIBRARIES}
+  ${catkin_LIBRARIES}
+  ${ARMADILLO_LIBRARIES}
+  )
 
 #############
 ## Install ##

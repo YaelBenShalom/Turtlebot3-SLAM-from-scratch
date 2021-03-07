@@ -1,5 +1,6 @@
 # Odometer Parameters
 world_frame_id: "world"                     # The name of the world tf frame
+map_frame_id: "map"                         # The name of the map tf frame
 odom_frame_id: "odom"                       # The name of the odometry tf frame
 body_frame_id: "base_footprint"             # The name of the body tf frame
 left_wheel_joint: "wheel_left_joint"        # The name of the left wheel joint

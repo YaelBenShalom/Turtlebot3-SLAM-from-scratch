@@ -33,6 +33,9 @@
     <!-- Load visualization_node.cpp Node -->
     <node name="visualization" pkg="nuslam" type="visualization" output="screen" />
 
+    <!-- Load visualization_node.cpp Node -->
+    <node name="slam" pkg="nuslam" type="slam" output="screen" />
+
     <!-- Load Robot Model in Rviz -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nuslam)/config/visualization.rviz" />
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
