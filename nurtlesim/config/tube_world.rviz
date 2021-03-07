@@ -7,11 +7,9 @@ Panels:
         - /Global Options1
         - /Status1
         - /Grid1
-        - /Grid1/Status1
         - /Path1
         - /TF1
         - /TF1/Frames1
-        - /RobotModel1
         - /Odometry1
         - /MarkerArray1
         - /MarkerArray2
@@ -90,19 +88,7 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        base_footprint:
-          Value: true
-        base_link:
-          Value: false
-        base_scan:
-          Value: false
-        caster_back_link:
-          Value: false
-        imu_link:
-          Value: false
-        wheel_left_link:
-          Value: true
-        wheel_right_link:
+        turtle:
           Value: true
         world:
           Value: true
@@ -114,69 +100,10 @@ Visualization Manager:
       Show Names: true
       Tree:
         world:
-          base_footprint:
-            base_link:
-              base_scan:
-                {}
-              caster_back_link:
-                {}
-              imu_link:
-                {}
-              wheel_left_link:
-                {}
-              wheel_right_link:
-                {}
+          turtle:
+            {}
       Update Interval: 0
       Value: true
-    - Alpha: 1
-      Class: rviz/RobotModel
-      Collision Enabled: false
-      Enabled: true
-      Links:
-        All Links Enabled: true
-        Expand Joint Details: false
-        Expand Link Details: false
-        Expand Tree: false
-        Link Tree Style: Links in Alphabetic Order
-        base_footprint:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        base_scan:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        caster_back_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        imu_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wheel_left_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_right_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-      Name: RobotModel
-      Robot Description: robot_description
-      TF Prefix: ""
-      Update Interval: 0
-      Value: true
-      Visual Enabled: true
     - Angle Tolerance: 0.10000000149011612
       Class: rviz/Odometry
       Covariance:
@@ -233,7 +160,7 @@ Visualization Manager:
       Marker Topic: /fake_sensor
       Name: MarkerArray
       Namespaces:
-        marker: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
@@ -290,7 +217,7 @@ Visualization Manager:
       Near Clip Distance: 0.009999999776482582
       Pitch: 1.4947963953018188
       Target Frame: <Fixed Frame>
-      Yaw: 4.608591079711914
+      Yaw: 4.663592338562012
     Saved: ~
 Window Geometry:
   Displays:
@@ -309,4 +236,4 @@ Window Geometry:
     collapsed: false
   Width: 1200
   X: 720
-  Y: 179
+  Y: 142

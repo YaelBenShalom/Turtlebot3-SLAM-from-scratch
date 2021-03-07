@@ -83,6 +83,7 @@ class TubeWorld
             real_joint_states_pub = nh.advertise<sensor_msgs::JointState>("/real_joint_states", 1);
             real_marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/real_markers", 1, true);
             marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/fake_sensor", 1);
+            robot_marker_pub = nh.advertise<visualization_msgs::visualization_marker>("/robot_marker", 1);
             robot_path_pub = nh.advertise<nav_msgs::Path>("/real_path", 1);
             vel_sub = nh.subscribe("/cmd_vel", 1, &TubeWorld::cmd_vel_callback, this);
         }

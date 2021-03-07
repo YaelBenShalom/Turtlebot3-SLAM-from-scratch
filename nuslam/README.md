@@ -16,4 +16,5 @@ This library contains several nodes and launchfiles:
     * Launch `roslaunch nuslam slam.launch robot:=fasturtle.local` to run the code on the turtlebot.
 
 
-![Simulation](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuslam/images/simulation.png)
+
+    ![Simulation](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuslam/images/simulation.png)
