@@ -4,7 +4,7 @@
 
 
 # Nuslam Package
-* This package contains the simulation visualization and the SLAM implemention in a controlled environment.<br>
+* This package contains the implementation for the Feature-Based Kalman Filter SLAM. The package stores the simulation visualization and the SLAM implementation in a controlled environment.<br>
 
 
 ## Nodes and launchfiles
@@ -14,3 +14,6 @@ This library contains several nodes and launchfiles:
 - slam launchfile - Launch file for running the visualization for the turtlebot.
     * Launch `roslaunch nuslam slam.launch robot:=localhost` to run the robot in the simulator. Slam will use relative x, y positions and landmark ids as sensor information.
     * Launch `roslaunch nuslam slam.launch robot:=fasturtle.local` to run the code on the turtlebot.
+
+
+![Simulation](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuslam/images/simulation.png)

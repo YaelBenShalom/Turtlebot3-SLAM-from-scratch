@@ -172,8 +172,8 @@ class KFSlam
 
                     twist_del = diff_drive.wheels2Twist(wheel_vel_del);
                     Kalman_Filter.run_ekf(twist_del, measurements);
-                    // arma::mat q_t = Kalman_Filter.output_state();
-                    // arma::mat m_t = Kalman_Filter.output_map_state();
+                    arma::mat q_t = Kalman_Filter.output_state();
+                    arma::mat m_t = Kalman_Filter.output_map_state();
                 }
 
                 if ((joint_state_flag) || (landmarks_flag) || (reset_flag)) {
