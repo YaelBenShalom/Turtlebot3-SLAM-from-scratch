@@ -101,9 +101,6 @@ class KFSlam
             right_angle = joint_state->position.at(0);
             left_angle = joint_state->position.at(1);
 
-            wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
-            twist = diff_drive.wheels2Twist(wheel_vel);
-
             joint_state_flag = true;
         }
 
@@ -151,6 +148,8 @@ class KFSlam
             // Initializing Extended Kalman Filter
             nuslam::EKF Kalman_Filter;
 
+            wheel_vel_old = diff_drive.get_wheel_vel();
+
             while(ros::ok()) {
                 current_time = ros::Time::now();
                 
@@ -168,12 +167,13 @@ class KFSlam
                     reset_flag = false;
                 }
 
-                // if (landmarks_flag) {
-                    // wheel_vel_new = diff_drive.get_wheel_vel();
-                    // wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel.right_wheel_vel;
-                    // wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel.right_wheel_vel;
+                if (landmarks_flag) {
+                    wheel_vel_new = diff_drive.get_wheel_vel();
+                    wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel_old.right_wheel_vel;
+                    wheel_vel_del.left_wheel_vel = wheel_vel_new.left_wheel_vel - wheel_vel_old.left_wheel_vel;
 
-                    // twist_del = diff_drive.wheels2Twist(wheel_vel_del);
+                    twist_del = diff_drive.wheels2Twist(wheel_vel_del);
+                    wheel_vel_old = wheel_vel_new;
 
                     // Kalman_Filter.run_ekf(twist_del, measurements);
                     
@@ -209,14 +209,14 @@ class KFSlam
                     //     slam_marker_array.markers[2*i].color.b = 1.0;
                     //     }
                     // slam_landmarks_pub.publish(slam_marker_array);
-                // }
+                }
 
-                if ((joint_state_flag) || (landmarks_flag) || (reset_flag)) {
+                if (joint_state_flag) {
                     rigid2d::Transform2D T_mo;
                     rigid2d::Vector2D v_mb, v_ob;
                     double angle_mb, angle_ob;
                     
-                    // diff_drive.updateOdometryWithTwist(twist);
+                    wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
                     odom_pose = diff_drive.get_config();
 
                     angle_mb = q_t(0, 0);
@@ -269,8 +269,11 @@ class KFSlam
                     quat.setRPY(0, 0, odom_pose.theta);
                     odom_quat = tf2::toMsg(quat);
                     odom_tf.transform.rotation = odom_quat;
-
                     odom_broadcaster.sendTransform(odom_tf);
+
+
+
+
 
                     odom.header.stamp = current_time;
                     odom.header.frame_id = odom_frame_id;
@@ -329,7 +332,7 @@ class KFSlam
 
         visualization_msgs::MarkerArray slam_marker_array;
         tf2::Quaternion quat;
-        tf2_ros::TransformBroadcaster world_broadcaster, map_broadcaster, odom_broadcaster;
+        tf2_ros::TransformBroadcaster world_broadcaster, map_broadcaster, odom_broadcaster, makis;
         geometry_msgs::TransformStamped world_tf, map_tf, odom_tf;
         geometry_msgs::Quaternion odom_quat, map_quat;
         nav_msgs::Odometry odom, slam;
@@ -337,7 +340,7 @@ class KFSlam
         rigid2d::Config2D odom_pose, reset_pose, new_config;
         rigid2d::Twist2D twist, twist_del;
         rigid2d::DiffDrive diff_drive;
-        rigid2d::WheelVelocity wheel_vel, wheel_vel_new, wheel_vel_del;
+        rigid2d::WheelVelocity wheel_vel, wheel_vel_new, wheel_vel_old, wheel_vel_del;
 
         std::vector<nuslam::Measurement> measurements;
 };
