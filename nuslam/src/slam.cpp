@@ -69,11 +69,11 @@ class KFSlam
 
             // Init publishers, subscribers, and services
             odom_pub = nh.advertise<nav_msgs::Odometry>("/odom", 1);
-            // slam_pub = nh.advertise<nav_msgs::Odometry>("/slam", 1);
+            joint_states_pub = nh.advertise<sensor_msgs::JointState>("/joint_states", 1);
             landmarks_pub = nh.advertise<visualization_msgs::MarkerArray>("/landmarks", 1);
             slam_landmarks_pub = nh.advertise<visualization_msgs::MarkerArray>("/slam_landmarks", 1);
 
-            joint_states_sub = nh.subscribe("/joint_states", 1, &KFSlam::joint_state_callback, this);
+            joint_states_sub = nh.subscribe("/real_joint_states", 1, &KFSlam::joint_state_callback, this);
             landmarks_sub = nh.subscribe("/fake_sensor", 1, &KFSlam::landmarks_callback, this);
 
             set_pose_srv = nh.advertiseService("/set_pose", &KFSlam::set_pose_callback, this);
@@ -169,143 +169,128 @@ class KFSlam
 
                 if (landmarks_flag) {
                     wheel_vel_new = diff_drive.get_wheel_vel();
-                    wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel_old.right_wheel_vel;
-                    wheel_vel_del.left_wheel_vel = wheel_vel_new.left_wheel_vel - wheel_vel_old.left_wheel_vel;
+                    wheel_vel_del.right_wheel_vel = wheel_vel_old.right_wheel_vel - wheel_vel_new.right_wheel_vel;
+                    wheel_vel_del.left_wheel_vel = wheel_vel_old.left_wheel_vel - wheel_vel_new.left_wheel_vel;
 
                     twist_del = diff_drive.wheels2Twist(wheel_vel_del);
+                    wheel_angle = diff_drive.wheelVel2WheelAngle(wheel_vel_del);
                     wheel_vel_old = wheel_vel_new;
 
-                    // Kalman_Filter.run_ekf(twist_del, measurements);
+                    Kalman_Filter.run_ekf(twist_del, measurements);
                     
-                    // q_t = Kalman_Filter.output_state();
-                    // m_t = Kalman_Filter.output_map_state();
+                    q_t = Kalman_Filter.output_state();
+                    m_t = Kalman_Filter.output_map_state();
                     // std::cout << "m_t " << (m_t) << "\n\r" << std::endl;
-
-                    // new_config.theta = q_t(0, 0);
-                    // new_config.x = q_t(1, 0);
-                    // new_config.x = q_t(2, 0);
-                    // diff_drive.set_config(new_config);
                         
-                    // for (unsigned int i=0; i<m_t.n_rows/2; i++) {
-                    //     slam_marker_array.markers[2*i].header.frame_id = map_frame_id;
-                    //     slam_marker_array.markers[2*i].header.stamp = ros::Time();
-                    //     slam_marker_array.markers[2*i].ns = "marker";
-                    //     slam_marker_array.markers[2*i].id = i;
-                    //     slam_marker_array.markers[2*i].type = visualization_msgs::Marker::CYLINDER;
-                    //     slam_marker_array.markers[2*i].action = visualization_msgs::Marker::ADD;
-                    //     slam_marker_array.markers[2*i].pose.position.x = m_t(2*i, 0);
-                    //     slam_marker_array.markers[2*i].pose.position.y = m_t(2*i + 1, 0);
-                    //     slam_marker_array.markers[2*i].pose.position.z = 0.0;
-                    //     slam_marker_array.markers[2*i].pose.orientation.x = 0.0;
-                    //     slam_marker_array.markers[2*i].pose.orientation.y = 0.0;
-                    //     slam_marker_array.markers[2*i].pose.orientation.z = 0.0;
-                    //     slam_marker_array.markers[2*i].pose.orientation.w = 1.0;
-                    //     slam_marker_array.markers[2*i].scale.x = obstacles_radius;
-                    //     slam_marker_array.markers[2*i].scale.y = obstacles_radius;
-                    //     slam_marker_array.markers[2*i].scale.z = 1.2;
-                    //     slam_marker_array.markers[2*i].color.a = 1.0;
-                    //     slam_marker_array.markers[2*i].color.r = 0.0;
-                    //     slam_marker_array.markers[2*i].color.g = 0.0;
-                    //     slam_marker_array.markers[2*i].color.b = 1.0;
-                    //     }
-                    // slam_landmarks_pub.publish(slam_marker_array);
+                    slam_marker_array.markers.resize(m_t.size());
+                    for (unsigned int i=0; i<m_t.n_rows/2; i++) {
+                        slam_marker_array.markers.resize(m_t.n_rows/2);
+                        slam_marker_array.markers[i].header.frame_id = map_frame_id;
+                        slam_marker_array.markers[i].header.stamp = ros::Time();
+                        slam_marker_array.markers[i].ns = "marker";
+                        slam_marker_array.markers[i].id = i;
+                        slam_marker_array.markers[i].type = visualization_msgs::Marker::CYLINDER;
+                        slam_marker_array.markers[i].action = visualization_msgs::Marker::ADD;
+                        slam_marker_array.markers[i].pose.position.x = m_t(2*i, 0);
+                        slam_marker_array.markers[i].pose.position.y = m_t(2*i + 1, 0);
+                        slam_marker_array.markers[i].pose.position.z = 0.0;
+                        slam_marker_array.markers[i].pose.orientation.x = 0.0;
+                        slam_marker_array.markers[i].pose.orientation.y = 0.0;
+                        slam_marker_array.markers[i].pose.orientation.z = 0.0;
+                        slam_marker_array.markers[i].pose.orientation.w = 1.0;
+                        slam_marker_array.markers[i].scale.x = 3*obstacles_radius;
+                        slam_marker_array.markers[i].scale.y = 3*obstacles_radius;
+                        slam_marker_array.markers[i].scale.z = 0.5;
+                        slam_marker_array.markers[i].color.a = 1.0;
+                        slam_marker_array.markers[i].color.r = 0.0;
+                        slam_marker_array.markers[i].color.g = 0.0;
+                        slam_marker_array.markers[i].color.b = 1.0;
+                    }
+                    slam_landmarks_pub.publish(slam_marker_array);
+
+                    landmarks_flag = false;
                 }
 
                 if (joint_state_flag) {
-                    rigid2d::Transform2D T_mo;
-                    rigid2d::Vector2D v_mb, v_ob;
-                    double angle_mb, angle_ob;
                     
                     wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
+                    twist = diff_drive.wheels2Twist(wheel_vel);
                     odom_pose = diff_drive.get_config();
 
-                    angle_mb = q_t(0, 0);
-                    v_mb.x = q_t(1, 0);
-                    v_mb.y = q_t(2, 0);
-                    rigid2d::Transform2D T_mb(v_mb, angle_mb);
-                
-                    angle_ob = odom_pose.theta;
-                    v_ob.x = odom_pose.x;
-                    v_ob.y = odom_pose.y;
-                    rigid2d::Transform2D T_ob(v_ob, angle_ob);
-                    
-                    T_mo = T_mb * (T_ob).inv();
-
-                    // Transform from "world" to "map" frame
-                    world_tf.header.stamp = current_time;
-                    world_tf.header.frame_id = world_frame_id;
-                    world_tf.child_frame_id = map_frame_id;
-                    world_tf.transform.translation.x = 0;
-                    world_tf.transform.translation.y = 0;
-                    world_tf.transform.translation.z = 0;
-                    world_tf.transform.rotation.x = 0.0;
-                    world_tf.transform.rotation.y = 0.0;
-                    world_tf.transform.rotation.z = 0.0;
-                    world_tf.transform.rotation.w = 1.0;
-
-                    world_broadcaster.sendTransform(world_tf);
-
-                    // Transform from "map" to "odom" frame
-                    map_tf.header.stamp = current_time;
-                    map_tf.header.frame_id = map_frame_id;
-                    map_tf.child_frame_id = odom_frame_id;
-                    map_tf.transform.translation.x = 0; //T_mo.x();
-                    map_tf.transform.translation.y = 0; //T_mo.y();
-                    map_tf.transform.translation.z = 0;
-                    // quat.setRPY(0, 0, T_mo.theta());
-                    quat.setRPY(0, 0, 0);
-                    map_quat = tf2::toMsg(quat);
-                    map_tf.transform.rotation = map_quat;
-
-                    map_broadcaster.sendTransform(map_tf);
-
-                    // Transform from "odom" to "body" frame
-                    odom_tf.header.stamp = current_time;
-                    odom_tf.header.frame_id = odom_frame_id;
-                    odom_tf.child_frame_id = body_frame_id;
-                    odom_tf.transform.translation.x = odom_pose.x;
-                    odom_tf.transform.translation.y = odom_pose.y;
-                    odom_tf.transform.translation.z = 0;
-                    quat.setRPY(0, 0, odom_pose.theta);
-                    odom_quat = tf2::toMsg(quat);
-                    odom_tf.transform.rotation = odom_quat;
-                    odom_broadcaster.sendTransform(odom_tf);
-
-
-
-
-
-                    odom.header.stamp = current_time;
-                    odom.header.frame_id = odom_frame_id;
-                    odom.child_frame_id = body_frame_id;
-                    odom.pose.pose.position.x = odom_pose.x;
-                    odom.pose.pose.position.y = odom_pose.y;
-                    odom.pose.pose.position.z = 0.0;
-                    odom.pose.pose.orientation = odom_quat;
-                    odom.twist.twist.linear.x = twist.xdot;
-                    odom.twist.twist.linear.y = twist.ydot;
-                    odom.twist.twist.angular.z = twist.thetadot;
-
-                    odom_pub.publish(odom);
-
-                    ROS_ERROR_STREAM("Robot" << odom_pose.x <<","<< odom_pose.y <<","<<odom_pose.theta);
-                    // slam.header.stamp = current_time;
-                    // slam.header.frame_id = odom_frame_id;
-                    // slam.child_frame_id = body_frame_id;
-                    // slam.pose.pose.position.x = odom_pose.x;
-                    // slam.pose.pose.position.y = odom_pose.y;
-                    // slam.pose.pose.position.z = 0.0;
-                    // slam.pose.pose.orientation = odom_quat;
-                    // slam.twist.twist.linear.x = twist.xdot;
-                    // slam.twist.twist.linear.y = twist.ydot;
-                    // slam.twist.twist.angular.z = twist.thetadot;
-
-                    // slam_pub.publish(slam);
-
                     joint_state_flag = false;
-                    landmarks_flag = false;
-                    reset_flag = false;
                 }
+
+                rigid2d::Transform2D T_mo, T_om;
+                rigid2d::Vector2D v_mb, v_ob;
+                double angle_mb, angle_ob;
+
+                angle_mb = q_t(0, 0);
+                v_mb.x = q_t(1, 0);
+                v_mb.y = q_t(2, 0);
+                rigid2d::Transform2D T_mb(v_mb, angle_mb);
+            
+                angle_ob = odom_pose.theta;
+                v_ob.x = odom_pose.x;
+                v_ob.y = odom_pose.y;
+                rigid2d::Transform2D T_ob(v_ob, angle_ob);
+                
+                T_mo = T_mb * T_ob.inv();
+                T_om = T_ob * T_mb.inv();
+
+                // Transform from "world" to "map" frame
+                world_tf.header.stamp = current_time;
+                world_tf.header.frame_id = world_frame_id;
+                world_tf.child_frame_id = map_frame_id;
+                world_tf.transform.translation.x = 0;
+                world_tf.transform.translation.y = 0;
+                world_tf.transform.translation.z = 0;
+                world_tf.transform.rotation.x = 0.0;
+                world_tf.transform.rotation.y = 0.0;
+                world_tf.transform.rotation.z = 0.0;
+                world_tf.transform.rotation.w = 1.0;
+
+                world_broadcaster.sendTransform(world_tf);
+
+                // Transform from "map" to "odom" frame
+                map_tf.header.stamp = current_time;
+                map_tf.header.frame_id = map_frame_id;
+                map_tf.child_frame_id = odom_frame_id;
+                map_tf.transform.translation.x = T_om.x(); //T_mo.x();
+                map_tf.transform.translation.y = T_om.y(); //T_mo.y();
+                map_tf.transform.translation.z = 0;
+                quat.setRPY(0, 0, T_om.theta());
+                // quat.setRPY(0, 0, 0);
+                map_quat = tf2::toMsg(quat);
+                map_tf.transform.rotation = map_quat;
+
+                map_broadcaster.sendTransform(map_tf);
+
+                // Transform from "odom" to "body" frame
+                odom_tf.header.stamp = current_time;
+                odom_tf.header.frame_id = odom_frame_id;
+                odom_tf.child_frame_id = body_frame_id;
+                odom_tf.transform.translation.x = odom_pose.x;
+                odom_tf.transform.translation.y = odom_pose.y;
+                odom_tf.transform.translation.z = 0;
+                quat.setRPY(0, 0, odom_pose.theta);
+                odom_quat = tf2::toMsg(quat);
+                odom_tf.transform.rotation = odom_quat;
+                odom_broadcaster.sendTransform(odom_tf);
+
+                odom.header.stamp = current_time;
+                odom.header.frame_id = odom_frame_id;
+                odom.child_frame_id = body_frame_id;
+                odom.pose.pose.position.x = odom_pose.x;
+                odom.pose.pose.position.y = odom_pose.y;
+                odom.pose.pose.position.z = 0.0;
+                quat.setRPY(0, 0, odom_pose.theta);
+                odom_quat = tf2::toMsg(quat);
+                odom.pose.pose.orientation = odom_quat;
+                odom.twist.twist.linear.x = twist.xdot;
+                odom.twist.twist.linear.y = twist.ydot;
+                odom.twist.twist.angular.z = twist.thetadot;
+
+                odom_pub.publish(odom);
 
                 loop_rate.sleep();
                 ros::spinOnce();
@@ -325,7 +310,7 @@ class KFSlam
         arma::mat q_t = arma::mat(3, 1).fill(0.0);
         
         ros::NodeHandle nh;
-        ros::Publisher odom_pub, landmarks_pub, slam_landmarks_pub;
+        ros::Publisher odom_pub, landmarks_pub, slam_landmarks_pub, joint_states_pub;
         ros::Subscriber joint_states_sub, landmarks_sub;
         ros::ServiceServer set_pose_srv;
         ros::Time current_time;
@@ -341,6 +326,7 @@ class KFSlam
         rigid2d::Twist2D twist, twist_del;
         rigid2d::DiffDrive diff_drive;
         rigid2d::WheelVelocity wheel_vel, wheel_vel_new, wheel_vel_old, wheel_vel_del;
+        rigid2d::WheelAngle wheel_angle;
 
         std::vector<nuslam::Measurement> measurements;
 };

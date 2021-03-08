@@ -79,8 +79,8 @@ class TubeWorld
             load_parameter();
 
             // Init publishers, subscribers, and services
-            joint_states_pub = nh.advertise<sensor_msgs::JointState>("/joint_states", 1);
-            real_joint_states_pub = nh.advertise<sensor_msgs::JointState>("/real_joint_states", 1);
+            joint_states_pub = nh.advertise<sensor_msgs::JointState>("/real_joint_states", 1);
+            // real_joint_states_pub = nh.advertise<sensor_msgs::JointState>("/real_joint_states", 1);
             real_marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/real_markers", 1, true);
             marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/fake_sensor", 1);
             robot_marker_pub = nh.advertise<visualization_msgs::Marker>("/robot_marker", 1);
@@ -161,7 +161,8 @@ class TubeWorld
                 current_time = ros::Time::now();
 
                 pose = diff_drive.get_config();
-                
+                real_pose = real_diff_drive.get_config();
+
                 // Publish robot marker
                 robot_marker.header.frame_id = world_frame_id;
                 robot_marker.header.stamp = ros::Time();
@@ -169,8 +170,8 @@ class TubeWorld
                 robot_marker.id = 0;
                 robot_marker.type = visualization_msgs::Marker::SPHERE;
                 robot_marker.action = visualization_msgs::Marker::ADD;
-                robot_marker.pose.position.x = pose.x;
-                robot_marker.pose.position.y = pose.y;
+                robot_marker.pose.position.x = real_pose.x;
+                robot_marker.pose.position.y = real_pose.y;
                 robot_marker.pose.position.z = 0.0;
                 robot_marker.pose.orientation.x = 0.0;
                 robot_marker.pose.orientation.y = 0.0;
@@ -190,10 +191,10 @@ class TubeWorld
                 world_tf.header.stamp = current_time;
                 world_tf.header.frame_id = world_frame_id;
                 world_tf.child_frame_id = turtle_frame_id;
-                world_tf.transform.translation.x = pose.x;
-                world_tf.transform.translation.y = pose.y;
+                world_tf.transform.translation.x = real_pose.x;
+                world_tf.transform.translation.y = real_pose.y;
                 world_tf.transform.translation.z = 0;
-                quat.setRPY(0, 0, pose.theta);
+                quat.setRPY(0, 0, real_pose.theta);
                 world_quat = tf2::toMsg(quat);
                 world_tf.transform.rotation = world_quat;
 
@@ -299,14 +300,6 @@ class TubeWorld
                 joint_state.position.push_back(wheel_angle.left_wheel_angle);
 
                 joint_states_pub.publish(joint_state);
-
-                // real_joint_state.header.stamp = current_time;
-                // real_joint_state.name.push_back(right_wheel_joint);
-                // real_joint_state.name.push_back(left_wheel_joint);
-                // real_joint_state.position.push_back(real_wheel_angle.right_wheel_angle);
-                // real_joint_state.position.push_back(real_wheel_angle.left_wheel_angle);
-
-                // real_joint_states_pub.publish(real_joint_state);
 
                 loop_rate.sleep();
             }
