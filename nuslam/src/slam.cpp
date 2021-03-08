@@ -168,24 +168,24 @@ class KFSlam
                     reset_flag = false;
                 }
 
-                if (landmarks_flag) {
-                    wheel_vel_new = diff_drive.get_wheel_vel();
-                    wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel.right_wheel_vel;
-                    wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel.right_wheel_vel;
+                // if (landmarks_flag) {
+                    // wheel_vel_new = diff_drive.get_wheel_vel();
+                    // wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel.right_wheel_vel;
+                    // wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel.right_wheel_vel;
 
-                    twist_del = diff_drive.wheels2Twist(wheel_vel_del);
+                    // twist_del = diff_drive.wheels2Twist(wheel_vel_del);
 
-                    Kalman_Filter.run_ekf(twist_del, measurements);
+                    // Kalman_Filter.run_ekf(twist_del, measurements);
                     
-                    q_t = Kalman_Filter.output_state();
-                    m_t = Kalman_Filter.output_map_state();
+                    // q_t = Kalman_Filter.output_state();
+                    // m_t = Kalman_Filter.output_map_state();
                     // std::cout << "m_t " << (m_t) << "\n\r" << std::endl;
 
                     // new_config.theta = q_t(0, 0);
                     // new_config.x = q_t(1, 0);
                     // new_config.x = q_t(2, 0);
                     // diff_drive.set_config(new_config);
-
+                        
                     // for (unsigned int i=0; i<m_t.n_rows/2; i++) {
                     //     slam_marker_array.markers[2*i].header.frame_id = map_frame_id;
                     //     slam_marker_array.markers[2*i].header.stamp = ros::Time();
@@ -209,14 +209,14 @@ class KFSlam
                     //     slam_marker_array.markers[2*i].color.b = 1.0;
                     //     }
                     // slam_landmarks_pub.publish(slam_marker_array);
-                }
+                // }
 
                 if ((joint_state_flag) || (landmarks_flag) || (reset_flag)) {
                     rigid2d::Transform2D T_mo;
                     rigid2d::Vector2D v_mb, v_ob;
                     double angle_mb, angle_ob;
                     
-                    diff_drive.updateOdometryWithTwist(twist);
+                    // diff_drive.updateOdometryWithTwist(twist);
                     odom_pose = diff_drive.get_config();
 
                     angle_mb = q_t(0, 0);
@@ -249,10 +249,11 @@ class KFSlam
                     map_tf.header.stamp = current_time;
                     map_tf.header.frame_id = map_frame_id;
                     map_tf.child_frame_id = odom_frame_id;
-                    map_tf.transform.translation.x = T_mo.x();
-                    map_tf.transform.translation.y = T_mo.y();
+                    map_tf.transform.translation.x = 0; //T_mo.x();
+                    map_tf.transform.translation.y = 0; //T_mo.y();
                     map_tf.transform.translation.z = 0;
-                    quat.setRPY(0, 0, T_mo.theta());
+                    // quat.setRPY(0, 0, T_mo.theta());
+                    quat.setRPY(0, 0, 0);
                     map_quat = tf2::toMsg(quat);
                     map_tf.transform.rotation = map_quat;
 
