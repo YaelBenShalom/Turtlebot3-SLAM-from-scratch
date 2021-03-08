@@ -176,14 +176,15 @@ class KFSlam
                     twist_del = diff_drive.wheels2Twist(wheel_vel_del);
 
                     Kalman_Filter.run_ekf(twist_del, measurements);
+                    
                     q_t = Kalman_Filter.output_state();
                     m_t = Kalman_Filter.output_map_state();
-                    std::cout << "m_t " << (m_t) << "\n\r" << std::endl;
+                    // std::cout << "m_t " << (m_t) << "\n\r" << std::endl;
 
-                    new_config.theta = q_t(0, 0);
-                    new_config.x = q_t(1, 0);
-                    new_config.x = q_t(2, 0);
-                    diff_drive.set_config(new_config);
+                    // new_config.theta = q_t(0, 0);
+                    // new_config.x = q_t(1, 0);
+                    // new_config.x = q_t(2, 0);
+                    // diff_drive.set_config(new_config);
 
                     // for (unsigned int i=0; i<m_t.n_rows/2; i++) {
                     //     slam_marker_array.markers[2*i].header.frame_id = map_frame_id;
@@ -214,7 +215,8 @@ class KFSlam
                     rigid2d::Transform2D T_mo;
                     rigid2d::Vector2D v_mb, v_ob;
                     double angle_mb, angle_ob;
-
+                    
+                    diff_drive.updateOdometryWithTwist(twist);
                     odom_pose = diff_drive.get_config();
 
                     angle_mb = q_t(0, 0);
@@ -282,7 +284,7 @@ class KFSlam
 
                     odom_pub.publish(odom);
 
-
+                    ROS_ERROR_STREAM("Robot" << odom_pose.x <<","<< odom_pose.y <<","<<odom_pose.theta);
                     // slam.header.stamp = current_time;
                     // slam.header.frame_id = odom_frame_id;
                     // slam.child_frame_id = body_frame_id;
@@ -315,7 +317,8 @@ class KFSlam
         std::string world_frame_id, map_frame_id, odom_frame_id, body_frame_id, \
                     left_wheel_joint, right_wheel_joint;
 
-        arma::mat m_t, q_t;
+        arma::mat m_t;
+        arma::mat q_t = arma::mat(3, 1).fill(0.0);
         
         ros::NodeHandle nh;
         ros::Publisher odom_pub, landmarks_pub, slam_landmarks_pub;
