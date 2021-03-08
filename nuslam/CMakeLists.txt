@@ -199,7 +199,7 @@ target_link_libraries(
   ${rigid2d_LIBRARIES}
   ${catkin_LIBRARIES}
   ${ARMADILLO_LIBRARIES}
-  )
+)
 
 #############
 ## Install ##

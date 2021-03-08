@@ -175,6 +175,7 @@ class KFSlam
                     Kalman_Filter.run_ekf(twist_del, measurements);
                     arma::mat q_t = Kalman_Filter.output_state();
                     m_t = Kalman_Filter.output_map_state();
+                    std::cout << "m_t " << (m_t) << "\n\r" << std::endl;
 
                     new_config.theta = q_t(0, 0);
                     new_config.x = q_t(1, 0);

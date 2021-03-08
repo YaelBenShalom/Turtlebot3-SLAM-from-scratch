@@ -44,8 +44,15 @@ namespace nuslam
         q_t.fill(0.0);
         cov.fill(0.0);
 
-        Q_mat.fill(1e-3);
-        R_mat.fill(1e-3);
+        Q_mat.fill(0.0);
+        Q_mat(0, 0) = 1e-6;
+        Q_mat(1, 1) = 1e-6;
+        Q_mat(2, 2) = 1e-6;
+
+        R_mat.fill(0.0);
+        R_mat(0, 0) = 1e-6;
+        R_mat(1, 1) = 1e-6;
+
     }
 
     /// Check if the measured landmark exists in the landmark dictionary.
@@ -193,7 +200,7 @@ namespace nuslam
             // std::cout << "cov_predict " << (cov_predict) << "\n\r" << std::endl;
             // std::cout << "H_i.t() " << (H_i_t) << "\n\r" << std::endl;
             // std::cout << "R_mat " << (R_mat) << "\n\r" << std::endl;
-            std::cout << "H_i * cov_predict * H_i.t() + R_mat " << (H_i * cov_predict * H_i_t + R_mat) << "\n\r" << std::endl;
+            // std::cout << "H_i * cov_predict * H_i.t() + R_mat " << (H_i * cov_predict * H_i_t + R_mat) << "\n\r" << std::endl;
             // std::cout << "inv(H_i * cov_predict * H_i.t() + R_mat) " << size(inv(H_i * cov_predict * H_i_t + R_mat)) << "\n\r" << std::endl;
 
             arma::mat int_mat = inv(H_i * cov_predict * H_i_t + R_mat);
