@@ -116,12 +116,9 @@ class TubeWorld
             ROS_INFO("Subscribing to Twist");
 
             // Calculate the twist without noise factor
-            twist.thetadot = tw.angular.z;
-            twist.xdot = tw.linear.x;
-            twist.ydot = tw.linear.y;
-            
-            // Raise the cmd_vel flag
-            cmd_vel_flag = true;
+            twist.thetadot = tw.angular.z / frequency;
+            twist.xdot = tw.linear.x / frequency;
+            twist.ydot = tw.linear.y / frequency;
         }
 
 
@@ -251,70 +248,66 @@ class TubeWorld
                 
                 robot_path_pub.publish(real_path);
 
-                // If the cmd_vel_callback was called
-                if (cmd_vel_flag) {
-                    sensor_msgs::JointState joint_state, real_joint_state;
 
-                    // Calculate the twist with noise factor
-                    static std::default_random_engine generator;
-                    static std::normal_distribution<double> dist_linear(0, stddev_linear);
-                    static std::normal_distribution<double> dist_angular(0, stddev_angular);
-                    double twist_angular_noised = dist_angular(generator);
-                    double twist_linear_noised = dist_linear(generator);
+                sensor_msgs::JointState joint_state, real_joint_state;
 
-                    twist_noised.thetadot = twist.thetadot + twist_angular_noised;
-                    twist_noised.xdot = twist.xdot + twist_linear_noised;
-                    twist_noised.ydot = twist.ydot;
-                    
-                    // Collision detection
-                    for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
+                // Calculate the twist with noise factor
+                static std::default_random_engine generator;
+                static std::normal_distribution<double> dist_linear(0, stddev_linear);
+                static std::normal_distribution<double> dist_angular(0, stddev_angular);
+                double twist_angular_noised = dist_angular(generator);
+                double twist_linear_noised = dist_linear(generator);
 
-                        collision_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) + \
-                                              pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2)) - \
-                                              obstacles_radius - wheel_base;
+                twist_noised.thetadot = twist.thetadot + twist_angular_noised;
+                twist_noised.xdot = twist.xdot + twist_linear_noised;
+                twist_noised.ydot = twist.ydot;
+                
+                // Collision detection
+                for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
 
-                        if (collision_dist <= 0) {
-                            ROS_INFO("Collosion!!\n\r");
-                            wheel_angle = diff_drive.rotatingWheelsWithTwist(twist_noised);
-                            real_wheel_angle = real_diff_drive.rotatingWheelsWithTwist(twist);
+                    collision_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) + \
+                                            pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2)) - \
+                                            obstacles_radius - wheel_base;
 
-                            collision_flag = true;
-                            break;
-                        }
+                    if (collision_dist <= 0) {
+                        ROS_INFO("Collosion!!\n\r");
+                        wheel_angle = diff_drive.rotatingWheelsWithTwist(twist_noised);
+                        real_wheel_angle = real_diff_drive.rotatingWheelsWithTwist(twist);
+
+                        collision_flag = true;
+                        break;
                     }
-
-                    if (!collision_flag) {
-                        wheel_angle = diff_drive.updateOdometryWithTwist(twist_noised);
-                        real_wheel_angle = real_diff_drive.updateOdometryWithTwist(twist);
-                        collision_flag = false;
-                    }
-
-                    // Calculate the wheel_angle with the wheel angle noise factor
-                    wheel_angle.right_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
-                    wheel_angle.left_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
-
-                    real_wheel_angle.right_wheel_angle += real_wheel_angle.right_wheel_angle;
-                    real_wheel_angle.left_wheel_angle += real_wheel_angle.right_wheel_angle;
-
-                    joint_state.header.stamp = current_time;
-                    joint_state.name.push_back(right_wheel_joint);
-                    joint_state.name.push_back(left_wheel_joint);
-                    joint_state.position.push_back(wheel_angle.right_wheel_angle);
-                    joint_state.position.push_back(wheel_angle.left_wheel_angle);
-
-                    joint_states_pub.publish(joint_state);
-
-                    // real_joint_state.header.stamp = current_time;
-                    // real_joint_state.name.push_back(right_wheel_joint);
-                    // real_joint_state.name.push_back(left_wheel_joint);
-                    // real_joint_state.position.push_back(real_wheel_angle.right_wheel_angle);
-                    // real_joint_state.position.push_back(real_wheel_angle.left_wheel_angle);
-
-                    // real_joint_states_pub.publish(real_joint_state);
-
-                    // Remove the cmd_vel flag
-                    cmd_vel_flag = false;
                 }
+
+                if (!collision_flag) {
+                    wheel_angle = diff_drive.updateOdometryWithTwist(twist_noised);
+                    real_wheel_angle = real_diff_drive.updateOdometryWithTwist(twist);
+                    collision_flag = false;
+                }
+
+                // Calculate the wheel_angle with the wheel angle noise factor
+                wheel_angle.right_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
+                wheel_angle.left_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
+
+                real_wheel_angle.right_wheel_angle += real_wheel_angle.right_wheel_angle;
+                real_wheel_angle.left_wheel_angle += real_wheel_angle.right_wheel_angle;
+
+                joint_state.header.stamp = current_time;
+                joint_state.name.push_back(right_wheel_joint);
+                joint_state.name.push_back(left_wheel_joint);
+                joint_state.position.push_back(wheel_angle.right_wheel_angle);
+                joint_state.position.push_back(wheel_angle.left_wheel_angle);
+
+                joint_states_pub.publish(joint_state);
+
+                // real_joint_state.header.stamp = current_time;
+                // real_joint_state.name.push_back(right_wheel_joint);
+                // real_joint_state.name.push_back(left_wheel_joint);
+                // real_joint_state.position.push_back(real_wheel_angle.right_wheel_angle);
+                // real_joint_state.position.push_back(real_wheel_angle.left_wheel_angle);
+
+                // real_joint_states_pub.publish(real_joint_state);
+
                 loop_rate.sleep();
             }
         }

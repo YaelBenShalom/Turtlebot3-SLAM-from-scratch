@@ -79,6 +79,7 @@ namespace nuslam
         // Update covariance matrix
         cov = update_matrix_size(cov);
         cov(cov.n_rows - 1, cov.n_cols - 1) = 1000.0;  // Infinity
+        cov(cov.n_rows - 2, cov.n_cols - 2) = 1000.0;  // Infinity
 
         // Update process noise for the robot motion model Q (expanding to fill the whole state)
         Q_mat = update_matrix_size(Q_mat);

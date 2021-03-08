@@ -7,9 +7,9 @@ Panels:
         - /Global Options1
         - /Status1
         - /Path2
-        - /Path2/Status1
         - /Path3
         - /TF1/Frames1
+        - /Marker1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz/Selection
@@ -281,6 +281,14 @@ Visualization Manager:
         real: true
       Queue Size: 100
       Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /robot_marker
+      Name: Marker
+      Namespaces:
+        marker: true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -309,7 +317,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 15.841456413269043
+      Distance: 12.346120834350586
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -317,9 +325,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.10961498320102692
-        Y: -0.3580572009086609
-        Z: -2.39526629447937
+        X: -0.10460259020328522
+        Y: -0.2974274754524231
+        Z: -2.3936808109283447
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -345,5 +353,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 720
-  Y: 68
+  X: 514
+  Y: 100

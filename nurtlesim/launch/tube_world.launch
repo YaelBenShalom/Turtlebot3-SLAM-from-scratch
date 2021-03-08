@@ -18,7 +18,7 @@
   </group>
 
   <!-- Load odometer_node.cpp Node -->
-  <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
+  <node name="tube_world" pkg="nurtlesim" type="tube_world" />
 
   <!-- Load Robot Model in Rviz -->
   <group if="$(arg use_rviz)">
