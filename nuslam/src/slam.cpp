@@ -139,6 +139,35 @@ class KFSlam
             return true;
         }
 
+        /// \brief Gets markers from map
+        /// \returns void
+        void get_marker_from_map() {
+            slam_marker_array.markers.resize(m_t.size());
+            for (unsigned int i=0; i<m_t.n_rows/2; i++) {
+                slam_marker_array.markers.resize(m_t.n_rows/2);
+                slam_marker_array.markers[i].header.frame_id = map_frame_id;
+                slam_marker_array.markers[i].header.stamp = ros::Time();
+                slam_marker_array.markers[i].ns = "marker";
+                slam_marker_array.markers[i].id = i;
+                slam_marker_array.markers[i].type = visualization_msgs::Marker::CYLINDER;
+                slam_marker_array.markers[i].action = visualization_msgs::Marker::ADD;
+                slam_marker_array.markers[i].pose.position.x = m_t(2*i, 0);
+                slam_marker_array.markers[i].pose.position.y = m_t(2*i + 1, 0);
+                slam_marker_array.markers[i].pose.position.z = 0.0;
+                slam_marker_array.markers[i].pose.orientation.x = 0.0;
+                slam_marker_array.markers[i].pose.orientation.y = 0.0;
+                slam_marker_array.markers[i].pose.orientation.z = 0.0;
+                slam_marker_array.markers[i].pose.orientation.w = 1.0;
+                slam_marker_array.markers[i].scale.x = 3*obstacles_radius;
+                slam_marker_array.markers[i].scale.y = 3*obstacles_radius;
+                slam_marker_array.markers[i].scale.z = 0.5;
+                slam_marker_array.markers[i].color.a = 1.0;
+                slam_marker_array.markers[i].color.r = 0.0;
+                slam_marker_array.markers[i].color.g = 0.0;
+                slam_marker_array.markers[i].color.b = 1.0;
+            }
+        }
+
         /// \brief Main loop for the turtle's motion
         /// \returns void
         void main_loop() {
@@ -169,43 +198,21 @@ class KFSlam
 
                 if (landmarks_flag) {
                     wheel_vel_new = diff_drive.get_wheel_vel();
-                    wheel_vel_del.right_wheel_vel = wheel_vel_old.right_wheel_vel - wheel_vel_new.right_wheel_vel;
-                    wheel_vel_del.left_wheel_vel = wheel_vel_old.left_wheel_vel - wheel_vel_new.left_wheel_vel;
+                    wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel_old.right_wheel_vel;
+                    wheel_vel_del.left_wheel_vel = wheel_vel_new.left_wheel_vel - wheel_vel_old.left_wheel_vel;
 
                     twist_del = diff_drive.wheels2Twist(wheel_vel_del);
                     wheel_angle = diff_drive.wheelVel2WheelAngle(wheel_vel_del);
                     wheel_vel_old = wheel_vel_new;
 
+                    // Running Extended Kalman Filter
                     Kalman_Filter.run_ekf(twist_del, measurements);
                     
                     q_t = Kalman_Filter.output_state();
                     m_t = Kalman_Filter.output_map_state();
-                    // std::cout << "m_t " << (m_t) << "\n\r" << std::endl;
-                        
-                    slam_marker_array.markers.resize(m_t.size());
-                    for (unsigned int i=0; i<m_t.n_rows/2; i++) {
-                        slam_marker_array.markers.resize(m_t.n_rows/2);
-                        slam_marker_array.markers[i].header.frame_id = map_frame_id;
-                        slam_marker_array.markers[i].header.stamp = ros::Time();
-                        slam_marker_array.markers[i].ns = "marker";
-                        slam_marker_array.markers[i].id = i;
-                        slam_marker_array.markers[i].type = visualization_msgs::Marker::CYLINDER;
-                        slam_marker_array.markers[i].action = visualization_msgs::Marker::ADD;
-                        slam_marker_array.markers[i].pose.position.x = m_t(2*i, 0);
-                        slam_marker_array.markers[i].pose.position.y = m_t(2*i + 1, 0);
-                        slam_marker_array.markers[i].pose.position.z = 0.0;
-                        slam_marker_array.markers[i].pose.orientation.x = 0.0;
-                        slam_marker_array.markers[i].pose.orientation.y = 0.0;
-                        slam_marker_array.markers[i].pose.orientation.z = 0.0;
-                        slam_marker_array.markers[i].pose.orientation.w = 1.0;
-                        slam_marker_array.markers[i].scale.x = 3*obstacles_radius;
-                        slam_marker_array.markers[i].scale.y = 3*obstacles_radius;
-                        slam_marker_array.markers[i].scale.z = 0.5;
-                        slam_marker_array.markers[i].color.a = 1.0;
-                        slam_marker_array.markers[i].color.r = 0.0;
-                        slam_marker_array.markers[i].color.g = 0.0;
-                        slam_marker_array.markers[i].color.b = 1.0;
-                    }
+
+                    // Publishing map markers                    
+                    get_marker_from_map();
                     slam_landmarks_pub.publish(slam_marker_array);
 
                     landmarks_flag = false;
@@ -220,6 +227,7 @@ class KFSlam
                     joint_state_flag = false;
                 }
 
+                // Setting transformations
                 rigid2d::Transform2D T_mo, T_om;
                 rigid2d::Vector2D v_mb, v_ob;
                 double angle_mb, angle_ob;
@@ -258,8 +266,7 @@ class KFSlam
                 map_tf.transform.translation.x = T_om.x(); //T_mo.x();
                 map_tf.transform.translation.y = T_om.y(); //T_mo.y();
                 map_tf.transform.translation.z = 0;
-                quat.setRPY(0, 0, T_om.theta());
-                // quat.setRPY(0, 0, 0);
+                quat.setRPY(0, 0, T_om.theta()); // T_mo.theta()
                 map_quat = tf2::toMsg(quat);
                 map_tf.transform.rotation = map_quat;
 
