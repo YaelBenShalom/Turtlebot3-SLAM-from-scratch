@@ -45,6 +45,7 @@
 #include <visualization_msgs/MarkerArray.h>
 #include <nav_msgs/Odometry.h>
 #include <tf2_ros/transform_broadcaster.h>
+#include <tf2_ros/static_transform_broadcaster.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
@@ -168,6 +169,74 @@ class KFSlam
             }
         }
 
+        /// \brief Broadcast the static "world" to "map" transform
+        /// \returns void
+        void world_map_transform() {
+            // Transform from "world" to "map" frame
+            static_world_tf.header.stamp = ros::Time::now();
+            static_world_tf.header.frame_id = world_frame_id;
+            static_world_tf.child_frame_id = map_frame_id;
+            static_world_tf.transform.translation.x = 0;
+            static_world_tf.transform.translation.y = 0;
+            static_world_tf.transform.translation.z = 0;
+            static_world_tf.transform.rotation.x = 0.0;
+            static_world_tf.transform.rotation.y = 0.0;
+            static_world_tf.transform.rotation.z = 0.0;
+            static_world_tf.transform.rotation.w = 1.0;
+
+            static_world_broadcaster.sendTransform(static_world_tf);
+        }
+
+        /// \brief Broadcast the "map" to "odom" transform
+        /// \returns void
+        void map_odom_transform() {
+            rigid2d::Transform2D T_mo, T_om;
+            rigid2d::Vector2D v_mb, v_ob;
+            double angle_mb, angle_ob;
+
+            angle_mb = q_t(0, 0);
+            v_mb.x = q_t(1, 0);
+            v_mb.y = q_t(2, 0);
+            rigid2d::Transform2D T_mb(v_mb, angle_mb);
+        
+            angle_ob = odom_pose.theta;
+            v_ob.x = odom_pose.x;
+            v_ob.y = odom_pose.y;
+            rigid2d::Transform2D T_ob(v_ob, angle_ob);
+            
+            T_mo = T_mb * T_ob.inv();
+            T_om = T_ob * T_mb.inv();
+
+            // Transform from "map" to "odom" frame
+            map_tf.header.stamp = current_time;
+            map_tf.header.frame_id = map_frame_id;
+            map_tf.child_frame_id = odom_frame_id;
+            map_tf.transform.translation.x = T_om.x(); //T_mo.x();
+            map_tf.transform.translation.y = T_om.y(); //T_mo.y();
+            map_tf.transform.translation.z = 0;
+            quat.setRPY(0, 0, T_om.theta()); // T_mo.theta()
+            map_quat = tf2::toMsg(quat);
+            map_tf.transform.rotation = map_quat;
+
+            map_broadcaster.sendTransform(map_tf);
+        }
+
+        /// \brief Broadcast the "odom" to "body" transform
+        /// \returns void
+        void odom_body_transform() {
+            // Transform from "odom" to "body" frame
+            odom_tf.header.stamp = current_time;
+            odom_tf.header.frame_id = odom_frame_id;
+            odom_tf.child_frame_id = body_frame_id;
+            odom_tf.transform.translation.x = odom_pose.x;
+            odom_tf.transform.translation.y = odom_pose.y;
+            odom_tf.transform.translation.z = 0;
+            quat.setRPY(0, 0, odom_pose.theta);
+            odom_quat = tf2::toMsg(quat);
+            odom_tf.transform.rotation = odom_quat;
+            odom_broadcaster.sendTransform(odom_tf);
+        }
+
         /// \brief Main loop for the turtle's motion
         /// \returns void
         void main_loop() {
@@ -207,7 +276,6 @@ class KFSlam
 
                     // Running Extended Kalman Filter
                     Kalman_Filter.run_ekf(twist_del, measurements);
-                    
                     q_t = Kalman_Filter.output_state();
                     m_t = Kalman_Filter.output_map_state();
 
@@ -219,7 +287,6 @@ class KFSlam
                 }
 
                 if (joint_state_flag) {
-                    
                     wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
                     twist = diff_drive.wheels2Twist(wheel_vel);
                     odom_pose = diff_drive.get_config();
@@ -228,62 +295,11 @@ class KFSlam
                 }
 
                 // Setting transformations
-                rigid2d::Transform2D T_mo, T_om;
-                rigid2d::Vector2D v_mb, v_ob;
-                double angle_mb, angle_ob;
+                world_map_transform();
+                map_odom_transform();
+                odom_body_transform();
 
-                angle_mb = q_t(0, 0);
-                v_mb.x = q_t(1, 0);
-                v_mb.y = q_t(2, 0);
-                rigid2d::Transform2D T_mb(v_mb, angle_mb);
-            
-                angle_ob = odom_pose.theta;
-                v_ob.x = odom_pose.x;
-                v_ob.y = odom_pose.y;
-                rigid2d::Transform2D T_ob(v_ob, angle_ob);
-                
-                T_mo = T_mb * T_ob.inv();
-                T_om = T_ob * T_mb.inv();
-
-                // Transform from "world" to "map" frame
-                world_tf.header.stamp = current_time;
-                world_tf.header.frame_id = world_frame_id;
-                world_tf.child_frame_id = map_frame_id;
-                world_tf.transform.translation.x = 0;
-                world_tf.transform.translation.y = 0;
-                world_tf.transform.translation.z = 0;
-                world_tf.transform.rotation.x = 0.0;
-                world_tf.transform.rotation.y = 0.0;
-                world_tf.transform.rotation.z = 0.0;
-                world_tf.transform.rotation.w = 1.0;
-
-                world_broadcaster.sendTransform(world_tf);
-
-                // Transform from "map" to "odom" frame
-                map_tf.header.stamp = current_time;
-                map_tf.header.frame_id = map_frame_id;
-                map_tf.child_frame_id = odom_frame_id;
-                map_tf.transform.translation.x = T_om.x(); //T_mo.x();
-                map_tf.transform.translation.y = T_om.y(); //T_mo.y();
-                map_tf.transform.translation.z = 0;
-                quat.setRPY(0, 0, T_om.theta()); // T_mo.theta()
-                map_quat = tf2::toMsg(quat);
-                map_tf.transform.rotation = map_quat;
-
-                map_broadcaster.sendTransform(map_tf);
-
-                // Transform from "odom" to "body" frame
-                odom_tf.header.stamp = current_time;
-                odom_tf.header.frame_id = odom_frame_id;
-                odom_tf.child_frame_id = body_frame_id;
-                odom_tf.transform.translation.x = odom_pose.x;
-                odom_tf.transform.translation.y = odom_pose.y;
-                odom_tf.transform.translation.z = 0;
-                quat.setRPY(0, 0, odom_pose.theta);
-                odom_quat = tf2::toMsg(quat);
-                odom_tf.transform.rotation = odom_quat;
-                odom_broadcaster.sendTransform(odom_tf);
-
+                // Publish odometry messages
                 odom.header.stamp = current_time;
                 odom.header.frame_id = odom_frame_id;
                 odom.child_frame_id = body_frame_id;
@@ -324,8 +340,11 @@ class KFSlam
 
         visualization_msgs::MarkerArray slam_marker_array;
         tf2::Quaternion quat;
-        tf2_ros::TransformBroadcaster world_broadcaster, map_broadcaster, odom_broadcaster, makis;
-        geometry_msgs::TransformStamped world_tf, map_tf, odom_tf;
+        tf2_ros::TransformBroadcaster map_broadcaster, odom_broadcaster;
+        tf2_ros::StaticTransformBroadcaster static_world_broadcaster;
+        geometry_msgs::TransformStamped map_tf, odom_tf;
+        geometry_msgs::TransformStamped static_world_tf;
+
         geometry_msgs::Quaternion odom_quat, map_quat;
         nav_msgs::Odometry odom, slam;
 

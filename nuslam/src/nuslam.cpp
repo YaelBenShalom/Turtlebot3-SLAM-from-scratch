@@ -118,6 +118,7 @@ namespace nuslam
 
         // Return the current state
         arma::mat q_t_new = q_t + T_wbp + w_t;
+        q_t_new(0, 0) = rigid2d::normalize_angle(q_t_new(0, 0));
         return (std::move(arma::join_cols(q_t_new, m_t)));
     }
     
@@ -269,6 +270,7 @@ namespace nuslam
 
     /// Output the robot state
     arma::mat EKF::output_state() {
+        q_t(0, 0) = rigid2d::normalize_angle(q_t(0, 0));
         return q_t;
     }
 
