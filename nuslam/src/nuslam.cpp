@@ -186,7 +186,7 @@ namespace nuslam
 
     /// Update the next step.
     void EKF::update(std::vector<Measurement> meas) {
-        std::cout << "Updating \n\r" << std::endl;
+        // std::cout << "Updating \n\r" << std::endl;
 
         for (auto& m: meas) {
             int m_row = id2landmark.find(m.id)->second;

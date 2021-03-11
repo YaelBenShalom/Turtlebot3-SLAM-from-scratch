@@ -228,10 +228,10 @@ class KFSlam
             odom_tf.header.stamp = current_time;
             odom_tf.header.frame_id = odom_frame_id;
             odom_tf.child_frame_id = body_frame_id;
-            odom_tf.transform.translation.x = odom_pose.x;
-            odom_tf.transform.translation.y = odom_pose.y;
+            odom_tf.transform.translation.x = odom_pose.x / frequency;
+            odom_tf.transform.translation.y = odom_pose.y / frequency;
             odom_tf.transform.translation.z = 0;
-            quat.setRPY(0, 0, odom_pose.theta);
+            quat.setRPY(0, 0, odom_pose.theta / frequency);
             odom_quat = tf2::toMsg(quat);
             odom_tf.transform.rotation = odom_quat;
             odom_broadcaster.sendTransform(odom_tf);
