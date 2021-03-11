@@ -279,7 +279,7 @@ class KFSlam
                     q_t = Kalman_Filter.output_state();
                     m_t = Kalman_Filter.output_map_state();
 
-                    // Publishing map markers                    
+                    // Publishing map markers      
                     get_marker_from_map();
                     slam_landmarks_pub.publish(slam_marker_array);
 

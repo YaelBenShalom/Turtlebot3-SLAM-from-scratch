@@ -64,9 +64,9 @@ class FakeTurtle
         /// \param tw - constant pointer to twist
         /// \returns void
         void cmd_vel_callback(const geometry_msgs::Twist &tw) {
-            twist.thetadot = tw.angular.z;
-            twist.xdot = tw.linear.x;
-            twist.ydot = tw.linear.y;
+            twist.thetadot = tw.angular.z / frequency;
+            twist.xdot = tw.linear.x / frequency;
+            twist.ydot = tw.linear.y / frequency;
 
             // Raise the cmd_vel flag
             cmd_vel_flag = true;
@@ -106,7 +106,7 @@ class FakeTurtle
         }
 
     private:
-        int frequency = 100;
+        int frequency = 10;
         bool cmd_vel_flag = false;
         double wheel_base, wheel_radius;
         std::string left_wheel_joint, right_wheel_joint;
