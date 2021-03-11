@@ -53,8 +53,8 @@ class TurtleInterface
             // Init publishers, subscribers, and services
             wheel_cmd_pub = nh.advertise<nuturtlebot::WheelCommands>("/wheel_cmd", 1);
             joint_states_pub = nh.advertise<sensor_msgs::JointState>("/joint_states", 1);
-            vel_sub = nh.subscribe("cmd_vel", 1, &TurtleInterface::cmd_vel_callback, this);
-            sensor_data_sub = nh.subscribe("sensor_data", 1, &TurtleInterface::sensor_data_callback, this);
+            vel_sub = nh.subscribe("/cmd_vel", 1, &TurtleInterface::cmd_vel_callback, this);
+            sensor_data_sub = nh.subscribe("/sensor_data", 1, &TurtleInterface::sensor_data_callback, this);
          }
 
         /// \brief Load the parameters from the parameter server
@@ -75,25 +75,24 @@ class TurtleInterface
         /// \returns void
         void cmd_vel_callback(const geometry_msgs::Twist &tw) {
             if (tw.linear.x > max_trans_speed) {
-                twist.xdot = max_trans_speed;
+                twist.xdot = max_trans_speed / frequency;
             }
             else if (tw.linear.x < -max_trans_speed) {
-                twist.xdot = -max_trans_speed;
+                twist.xdot = -max_trans_speed / frequency;
             }
             else {
-                twist.xdot = tw.linear.x;
+                twist.xdot = tw.linear.x / frequency;
             }
             twist.ydot = tw.linear.y;
             if (tw.angular.z > max_rot_speed) {
-                twist.thetadot = max_rot_speed;
+                twist.thetadot = max_rot_speed / frequency;
             }
             else if (tw.angular.z < -max_rot_speed) {
-                twist.thetadot = -max_rot_speed;
+                twist.thetadot = -max_rot_speed / frequency;
             }
             else {
-                twist.thetadot = tw.angular.z;
+                twist.thetadot = tw.angular.z / frequency;
             }
-            ROS_INFO("twist.xdot = %f\t twist.thetadot = %f\r", twist.xdot, twist.thetadot);
 
             wheel_vel = diff_drive.twist2Wheels(twist);
 
@@ -109,7 +108,7 @@ class TurtleInterface
             else if (wheel_vel.left_wheel_vel < -max_motor_rot) {
                 wheel_vel.left_wheel_vel = -max_motor_rot;
             }
-            ROS_INFO("wheel_vel.right = %f\t wheel_vel.left = %f\r", wheel_vel.right_wheel_vel, wheel_vel.left_wheel_vel);
+            // ROS_INFO("wheel_vel.right = %f\t wheel_vel.left = %f\r", wheel_vel.right_wheel_vel, wheel_vel.left_wheel_vel);
             // Raise the cmd_vel flag
             cmd_vel_flag = true;
         }
@@ -136,37 +135,35 @@ class TurtleInterface
                 
                 // If the cmd_vel_callback was called
                 if (cmd_vel_flag) {
-                    // ROS_INFO("Entering if statement/n");
                     power_rot_ratio = 256 / (max_motor_rot);
-                    ROS_INFO("max_motor_rot = %f\r", max_motor_rot);
                     wheel_command.right_velocity = std::round(wheel_vel.right_wheel_vel * power_rot_ratio);
                     wheel_command.left_velocity = std::round(wheel_vel.left_wheel_vel * power_rot_ratio);
-                    ROS_INFO("wheel_command.right = %d\t wheel_command.left = %d\r", wheel_command.right_velocity, wheel_command.left_velocity);
                     wheel_cmd_pub.publish(wheel_command);
 
                     // Remove the cmd_vel flag
                     cmd_vel_flag = false;
                 }
 
-                if (sensor_data_flag) {
-                    // ROS_INFO("Entering if statement/n");
-                    sensor_msgs::JointState joint_state;
+                // if (sensor_data_flag) {
+                // ROS_INFO("Entering if statement/n");
+                sensor_msgs::JointState joint_state;
 
-                    wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
-                    joint_state.header.stamp = current_time;
+                // wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
+                wheel_angle = diff_drive.updateOdometryWithTwist(twist);
+                joint_state.header.stamp = current_time;
 
-                    joint_state.name.push_back(right_wheel_joint);
-                    joint_state.name.push_back(left_wheel_joint);
-                    joint_state.position.push_back(wheel_angle.right_wheel_angle);
-                    joint_state.position.push_back(wheel_angle.left_wheel_angle);
-                    joint_state.velocity.push_back(wheel_vel.right_wheel_vel);
-                    joint_state.velocity.push_back(wheel_vel.left_wheel_vel);
+                joint_state.name.push_back(right_wheel_joint);
+                joint_state.name.push_back(left_wheel_joint);
+                joint_state.position.push_back(wheel_angle.right_wheel_angle);
+                joint_state.position.push_back(wheel_angle.left_wheel_angle);
+                // joint_state.velocity.push_back(wheel_vel.right_wheel_vel);
+                // joint_state.velocity.push_back(wheel_vel.left_wheel_vel);
 
-                    joint_states_pub.publish(joint_state);
+                joint_states_pub.publish(joint_state);
 
                     // Remove the sensor_data flag
-                    sensor_data_flag = false;
-                }
+                    // sensor_data_flag = false;
+                // }
                 loop_rate.sleep();
                 ros::spinOnce();
             }

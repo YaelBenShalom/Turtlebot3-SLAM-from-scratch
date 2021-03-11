@@ -121,15 +121,9 @@ class TubeWorld
             twist.ydot = tw.linear.y / frequency;
         }
 
-
-        /// \brief Main loop for the turtle's motion
+        /// \brief Sets real marker array
         /// \returns void
-        void main_loop() {
-            ROS_INFO("Entering the loop\n\r");
-            ros::Rate loop_rate(frequency);
-            static std::default_random_engine generator;
-            static std::uniform_real_distribution<double> distribution(slip_min, slip_max);
-
+        void set_real_marker_array() {
             real_marker_array.markers.resize(obstacles_coordinate_x.size());
             for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
                 real_marker_array.markers[i].header.frame_id = world_frame_id;
@@ -152,7 +146,45 @@ class TubeWorld
                 real_marker_array.markers[i].color.r = 0.0;
                 real_marker_array.markers[i].color.g = 1.0;
                 real_marker_array.markers[i].color.b = 0.0;
-                }
+            }
+        }
+
+        /// \brief Sets real marker array
+        /// \returns void
+        void set_robot_marker() {
+            robot_marker.header.frame_id = world_frame_id;
+            robot_marker.header.stamp = ros::Time();
+            robot_marker.ns = "marker";
+            robot_marker.id = 0;
+            robot_marker.type = visualization_msgs::Marker::SPHERE;
+            robot_marker.action = visualization_msgs::Marker::ADD;
+            robot_marker.pose.position.x = real_pose.x;
+            robot_marker.pose.position.y = real_pose.y;
+            robot_marker.pose.position.z = 0.0;
+            robot_marker.pose.orientation.x = 0.0;
+            robot_marker.pose.orientation.y = 0.0;
+            robot_marker.pose.orientation.z = 0.0;
+            robot_marker.pose.orientation.w = 1.0;
+            robot_marker.scale.x = 0.3;
+            robot_marker.scale.y = 0.3;
+            robot_marker.scale.z = 0.3;
+            robot_marker.color.a = 1.0;
+            robot_marker.color.r = 0.0;
+            robot_marker.color.g = 0.0;
+            robot_marker.color.b = 1.0;
+        }
+
+
+        /// \brief Main loop for the turtle's motion
+        /// \returns void
+        void main_loop() {
+            ROS_INFO("Entering the loop\n\r");
+            ros::Rate loop_rate(frequency);
+            static std::default_random_engine generator;
+            static std::uniform_real_distribution<double> distribution(slip_min, slip_max);
+
+            // Publishing real markers  
+            set_real_marker_array();
             real_marker_pub.publish(real_marker_array);
 
             while(ros::ok()) {
@@ -164,27 +196,7 @@ class TubeWorld
                 real_pose = real_diff_drive.get_config();
 
                 // Publish robot marker
-                robot_marker.header.frame_id = world_frame_id;
-                robot_marker.header.stamp = ros::Time();
-                robot_marker.ns = "marker";
-                robot_marker.id = 0;
-                robot_marker.type = visualization_msgs::Marker::SPHERE;
-                robot_marker.action = visualization_msgs::Marker::ADD;
-                robot_marker.pose.position.x = real_pose.x;
-                robot_marker.pose.position.y = real_pose.y;
-                robot_marker.pose.position.z = 0.0;
-                robot_marker.pose.orientation.x = 0.0;
-                robot_marker.pose.orientation.y = 0.0;
-                robot_marker.pose.orientation.z = 0.0;
-                robot_marker.pose.orientation.w = 1.0;
-                robot_marker.scale.x = 0.3;
-                robot_marker.scale.y = 0.3;
-                robot_marker.scale.z = 0.3;
-                robot_marker.color.a = 1.0;
-                robot_marker.color.r = 0.0;
-                robot_marker.color.g = 0.0;
-                robot_marker.color.b = 1.0;
-
+                set_robot_marker();
                 robot_marker_pub.publish(robot_marker);
 
                 // Transform from "world" to "turtle" frame
