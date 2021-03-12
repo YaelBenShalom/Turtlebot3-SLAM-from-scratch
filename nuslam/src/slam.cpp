@@ -70,11 +70,10 @@ class KFSlam
 
             // Init publishers, subscribers, and services
             odom_pub = nh.advertise<nav_msgs::Odometry>("/odom", 1);
-            joint_states_pub = nh.advertise<sensor_msgs::JointState>("/joint_states", 1);
             landmarks_pub = nh.advertise<visualization_msgs::MarkerArray>("/landmarks", 1);
             slam_landmarks_pub = nh.advertise<visualization_msgs::MarkerArray>("/slam_landmarks", 1);
 
-            joint_states_sub = nh.subscribe("/real_joint_states", 1, &KFSlam::joint_state_callback, this);
+            joint_states_sub = nh.subscribe("/joint_states", 1, &KFSlam::joint_state_callback, this);
             landmarks_sub = nh.subscribe("/fake_sensor", 1, &KFSlam::landmarks_callback, this);
 
             set_pose_srv = nh.advertiseService("/set_pose", &KFSlam::set_pose_callback, this);
@@ -333,7 +332,7 @@ class KFSlam
         arma::mat q_t = arma::mat(3, 1).fill(0.0);
         
         ros::NodeHandle nh;
-        ros::Publisher odom_pub, landmarks_pub, slam_landmarks_pub, joint_states_pub;
+        ros::Publisher odom_pub, landmarks_pub, slam_landmarks_pub;
         ros::Subscriber joint_states_sub, landmarks_sub;
         ros::ServiceServer set_pose_srv;
         ros::Time current_time;

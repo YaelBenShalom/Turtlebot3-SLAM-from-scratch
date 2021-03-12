@@ -79,7 +79,7 @@ class TubeWorld
             load_parameter();
 
             // Init publishers, subscribers, and services
-            joint_states_pub = nh.advertise<sensor_msgs::JointState>("/real_joint_states", 1);
+            joint_states_pub = nh.advertise<sensor_msgs::JointState>("/joint_states", 1);
             // real_joint_states_pub = nh.advertise<sensor_msgs::JointState>("/real_joint_states", 1);
             real_marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/real_markers", 1, true);
             marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/fake_sensor", 1);
