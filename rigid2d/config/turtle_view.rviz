@@ -6,9 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /Path1
         - /TF1/Frames1
-        - /Odometry1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz/Selection
@@ -94,6 +92,12 @@ Visualization Manager:
           Value: false
         imu_link:
           Value: false
+        odom:
+          Value: true
+        wheel_left_link:
+          Value: true
+        wheel_right_link:
+          Value: true
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -101,7 +105,19 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        odom:
+          base_footprint:
+            base_link:
+              base_scan:
+                {}
+              caster_back_link:
+                {}
+              imu_link:
+                {}
+              wheel_left_link:
+                {}
+              wheel_right_link:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -269,4 +285,4 @@ Window Geometry:
     collapsed: false
   Width: 1200
   X: 720
-  Y: 1107
+  Y: 197

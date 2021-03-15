@@ -61,6 +61,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <sensor_msgs/LaserScan.h>
 
 #include <iostream>
 #include <vector> 
@@ -86,6 +87,7 @@ class TubeWorld
             robot_path_pub = nh.advertise<nav_msgs::Path>("/real_path", 1);
 
             vel_sub = nh.subscribe("/cmd_vel", 1, &TubeWorld::cmd_vel_callback, this);
+            lidar_data_sub = nh.subscribe("/scan", 1, &TubeWorld::lidar_data_callback, this);
         }
 
         /// \brief Load the parameters from the parameter server
@@ -126,7 +128,17 @@ class TubeWorld
             // Raise the cmd_vel flag
             cmd_vel_flag = true;
         }
-                
+
+        /// \brief Subscribe to /scan topic and publish a sensor_msgs/LaserScan message with simulated lidar data at 5Hz
+        /// \param data - constant pointer to twist
+        /// \returns void
+        void lidar_data_callback(const sensor_msgs::LaserScan &data) {
+            // ROS_INFO("Subscribing to Twist");
+
+
+            ///////////////// TODO!!
+        }
+                        
         /// \brief Sets marker array
         /// \returns void
         void set_marker_array() {
@@ -347,6 +359,8 @@ class TubeWorld
                     joint_state.name.push_back(left_wheel_joint);
                     joint_state.position.push_back(wheel_angle.right_wheel_angle);
                     joint_state.position.push_back(wheel_angle.left_wheel_angle);
+                    // joint_state.velocity.push_back(wheel_vel.right_wheel_vel);
+                    // joint_state.velocity.push_back(wheel_vel.left_wheel_vel);
 
                     joint_states_pub.publish(joint_state);
 
@@ -368,7 +382,7 @@ class TubeWorld
 
         ros::NodeHandle nh;
         ros::Publisher joint_states_pub, real_joint_states_pub, marker_pub, real_marker_pub, robot_path_pub, robot_marker_pub;
-        ros::Subscriber vel_sub;
+        ros::Subscriber vel_sub, lidar_data_sub;
         ros::Time current_time;
 
         visualization_msgs::MarkerArray marker_array, real_marker_array;

@@ -86,7 +86,7 @@ class KFSlam
             odom_pub = nh.advertise<nav_msgs::Odometry>("/odom", 1);
             slam_landmarks_pub = nh.advertise<visualization_msgs::MarkerArray>("/slam_landmarks", 1);
 
-            // joint_states_sub = nh.subscribe("/joint_states", 1, &KFSlam::joint_state_callback, this);
+            joint_states_sub = nh.subscribe("/joint_states", 1, &KFSlam::joint_state_callback, this);
             landmarks_sub = nh.subscribe("/fake_sensor", 1, &KFSlam::landmarks_callback, this);
 
             set_pose_srv = nh.advertiseService("/set_pose", &KFSlam::set_pose_callback, this);
@@ -229,6 +229,10 @@ class KFSlam
             map_tf.transform.translation.y = T_mo.y(); //T_mo.y();
             map_tf.transform.translation.z = 0;
             quat.setRPY(0, 0, T_mo.theta()); // T_mo.theta()
+            // map_tf.transform.translation.x = 0; //T_mo.x();
+            // map_tf.transform.translation.y = 0; //T_mo.y();
+            // map_tf.transform.translation.z = 0;
+            // quat.setRPY(0, 0, 0); // T_mo.theta()
             map_quat = tf2::toMsg(quat);
             map_tf.transform.rotation = map_quat;
 
@@ -242,10 +246,14 @@ class KFSlam
             odom_tf.header.stamp = ros::Time::now();
             odom_tf.header.frame_id = odom_frame_id;
             odom_tf.child_frame_id = body_frame_id;
-            odom_tf.transform.translation.x = odom_pose.x / frequency;
-            odom_tf.transform.translation.y = odom_pose.y / frequency;
+            // odom_tf.transform.translation.x = odom_pose.x / frequency;
+            // odom_tf.transform.translation.y = odom_pose.y / frequency;
+            // odom_tf.transform.translation.z = 0;
+            // quat.setRPY(0, 0, odom_pose.theta / frequency);
+            odom_tf.transform.translation.x = odom_pose.x;
+            odom_tf.transform.translation.y = odom_pose.y;
             odom_tf.transform.translation.z = 0;
-            quat.setRPY(0, 0, odom_pose.theta / frequency);
+            quat.setRPY(0, 0, odom_pose.theta);
             odom_quat = tf2::toMsg(quat);
             odom_tf.transform.rotation = odom_quat;
             odom_broadcaster.sendTransform(odom_tf);
@@ -283,7 +291,17 @@ class KFSlam
 
             while(ros::ok()) {
                 current_time = ros::Time::now();
-                
+
+                if (joint_state_flag) {
+                    ROS_INFO("wheel_angle = %f, %f\n\r", right_angle, left_angle);
+
+                    diff_drive.updateOdometryWithAngles(right_angle, left_angle);
+                    odom_pose = diff_drive.get_config();
+                    ROS_INFO("odom_pose = %f, %f\n\r", odom_pose.x, odom_pose.y);
+
+                    joint_state_flag = false;
+                }
+
                 // If the set_pose_callback was called
                 if (reset_flag) {
                     diff_drive.set_config(reset_pose);
@@ -304,7 +322,6 @@ class KFSlam
                     wheel_vel_del.left_wheel_vel = wheel_vel_new.left_wheel_vel - wheel_vel_old.left_wheel_vel;
 
                     twist_del = diff_drive.wheels2Twist(wheel_vel_del);
-                    wheel_angle = diff_drive.wheelVel2WheelAngle(wheel_vel_del);
                     wheel_vel_old = wheel_vel_new;
 
                     // Running Extended Kalman Filter
@@ -317,21 +334,6 @@ class KFSlam
 
                     landmarks_flag = false;
                 }
-
-                // if (joint_state_flag) {
-                //     wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
-                //     twist = diff_drive.wheels2Twist(wheel_vel);
-                //     odom_pose = diff_drive.get_config();
-                //     ROS_INFO("odom_pose = %f, %f\n\r", odom_pose.x, odom_pose.y);
-
-                //     joint_state_flag = false;
-                // }
-
-                // wheel_vel = diff_drive.get_wheel_vel();
-                // twist = diff_drive.wheels2Twist(wheel_vel);
-                odom_pose = diff_drive.get_config();
-                // ROS_INFO("twist = %f, %f\n\r", twist.xdot, twist.thetadot);
-                // ROS_INFO("odom_pose = %f, %f\n\r", odom_pose.x, odom_pose.y);
 
                 // Setting transformations
                 world_map_transform();

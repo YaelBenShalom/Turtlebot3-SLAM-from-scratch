@@ -168,7 +168,7 @@ rigid2d::WheelVelocity rigid2d::DiffDrive::updateOdometryWithAngles(double right
 
     // Calculating the robot twist
     twist = rigid2d::DiffDrive::wheels2Twist(wheel_vel);
-
+    
     // Computing the transformation matrix Tb
     v.x = config.x;
     v.y = config.y;
