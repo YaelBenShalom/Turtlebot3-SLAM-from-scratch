@@ -22,7 +22,7 @@
     <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
 
     <!-- Load tube_world.cpp Node -->
-    <node name="tube_world" pkg="nurtlesim" type="tube_world" />
+    <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
 
     <!-- Load visualization_node.cpp Node -->
     <node name="visualization" pkg="nuslam" type="visualization" />

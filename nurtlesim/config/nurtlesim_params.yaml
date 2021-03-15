@@ -8,4 +8,4 @@ slip_max: 0.00                                 # The maximum wheel slip for the 
 obstacles_coordinate_x: [3.0, 2.0, -2.0, -3.0]  # The x coordinate of the obstacles
 obstacles_coordinate_y: [3.0, -1.0, -3.0, 1.0]  # The y coordinate of the obstacles               
 obstacles_radius: 0.0762                        # The radius of the cardboard tubes [m]
-max_visable_dist: 3.0                           # The maximum distance beyond which tubes are not visible [m]
+max_visable_dist: 5.0                           # The maximum distance beyond which tubes are not visible [m]

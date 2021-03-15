@@ -52,7 +52,6 @@ namespace nuslam
         R_mat.fill(0.0);
         R_mat(0, 0) = 1e-6;
         R_mat(1, 1) = 1e-6;
-
     }
 
     /// Check if the measured landmark exists in the landmark dictionary.
@@ -78,15 +77,15 @@ namespace nuslam
     
         // Update covariance matrix
         cov = update_matrix_size(cov);
-        cov(cov.n_rows - 1, cov.n_cols - 1) = 1000.0;  // Infinity
-        cov(cov.n_rows - 2, cov.n_cols - 2) = 1000.0;  // Infinity
+        cov(cov.n_rows - 1, cov.n_cols - 1) = 10000.0;  // Infinity
+        cov(cov.n_rows - 2, cov.n_cols - 2) = 10000.0;  // Infinity
 
         // Update process noise for the robot motion model Q (expanding to fill the whole state)
         Q_mat = update_matrix_size(Q_mat);
 
         // Update map state matrix
-        double m_x = q_t(1, 0) + meas.r * cos(meas.phi + q_t(0, 0));
-        double m_y = q_t(2, 0) + meas.r * sin(meas.phi + q_t(0, 0));
+        double m_x = q_t(1, 0) + meas.r * cos(rigid2d::normalize_angle(meas.phi + q_t(0, 0)));
+        double m_y = q_t(2, 0) + meas.r * sin(rigid2d::normalize_angle(meas.phi + q_t(0, 0)));
         
         arma::mat m_addition = arma::mat(2, 1);
         m_addition(0,0) = m_x;
@@ -94,7 +93,6 @@ namespace nuslam
 
         m_t = std::move(arma::join_cols(m_t, m_addition));
     }
-
 
     /// Get the state transition ξ_t (q_t, m_t) and the map’s movement with respect to the state ξ.
     arma::mat EKF::get_new_state(const Twist2D &twist) {
@@ -197,41 +195,15 @@ namespace nuslam
             // Compute the Kalman gain from the linearized measurement model
             arma::mat H_i = get_H(m_row);
             arma::mat H_i_t = H_i.t();
-
-            // std::cout << "H_i " << (H_i) << "\n\r" << std::endl;
-            // std::cout << "cov_predict " << (cov_predict) << "\n\r" << std::endl;
-            // std::cout << "H_i.t() " << (H_i_t) << "\n\r" << std::endl;
-            // std::cout << "R_mat " << (R_mat) << "\n\r" << std::endl;
-            // std::cout << "H_i * cov_predict * H_i.t() + R_mat " << (H_i * cov_predict * H_i_t + R_mat) << "\n\r" << std::endl;
-            // std::cout << "inv(H_i * cov_predict * H_i.t() + R_mat) " << size(inv(H_i * cov_predict * H_i_t + R_mat)) << "\n\r" << std::endl;
-
             arma::mat int_mat = inv(H_i * cov_predict * H_i_t + R_mat);
-
-            // std::cout << "cov_predict " << (size(cov_predict)) << "\n\r" << std::endl;
-            // std::cout << "H_i.t() " << (size(H_i_t)) << "\n\r" << std::endl;
-            // std::cout << "int_mat " << (size(int_mat)) << "\n\r" << std::endl;
-            // std::cout << "cov_predict * H_i.t() * int_mat " << cov_predict * H_i_t * int_mat << "\n\r" << std::endl;
-
             arma::mat K = cov_predict * H_i_t * int_mat;
 
             // Compute the posterior state update
             arma::mat z = m.compute_z();
-
-            // std::cout << "xi_predict " << (size(xi_predict)) << "\n\r" << std::endl;
-            // std::cout << "K " << (size(K)) << std::endl;
-            // std::cout << "z " << (size(z)) << "\n\r" << std::endl;
-            // std::cout << "z_theory " << (size(z_theory)) << "\n\r" << std::endl;
-
             xi_predict = xi_predict + K * (z - z_theory);
 
             // Compute the posterior covariance
             arma::mat I = eye(size(cov_predict));
-
-            // std::cout << "I " << ((I)) << "\n\r" << std::endl;
-            // std::cout << "K " << ((K)) << "\n\r" << std::endl;
-            // std::cout << "H_i " << ((H_i)) << "\n\r" << std::endl;
-            // std::cout << "cov_predict " << ((cov_predict)) << "\n\r" << std::endl;
-            // std::cout << "I - K * H_i " << (I - K * H_i) << "\n\r" << std::endl;
 
             cov_predict = (I - K * H_i) * cov_predict;
         }
@@ -265,6 +237,7 @@ namespace nuslam
 
         // Update robot state and map state
         q_t = xi.submat(0, 0, 2, 0);
+        q_t(0, 0) = rigid2d::normalize_angle(q_t(0, 0));
         m_t = xi.submat(3, 0, xi.n_rows - 1, 0);
     }
 

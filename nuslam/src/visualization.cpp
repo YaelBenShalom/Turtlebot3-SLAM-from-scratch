@@ -41,11 +41,11 @@ class Visualization
             ROS_INFO("Initialize the variables");
             // Init publishers, subscribers, and services
             odom_path_pub = nh.advertise<nav_msgs::Path>("/odom_path", 1);
-            slam_path_pub = nh.advertise<nav_msgs::Path>("/slam_path", 1);
+            slam_path_pub = nh.advertise<nav_msgs::Path>("/map_path", 1);
 
             odom_sub = nh.subscribe("/odom", 1, &Visualization::odom_callback, this);
-            slam_sub = nh.subscribe("/slam", 1, &Visualization::slam_callback, this);
-         }
+            slam_sub = nh.subscribe("/map", 1, &Visualization::slam_callback, this);
+        }
 
         /// \brief Subscribes to the robot's odom position data from Odometry msg
         /// \param odom - the trajectory of the robot according only to wheel odometry
@@ -73,7 +73,7 @@ class Visualization
             pose.pose = slam.pose.pose;
 
             slam_path.header.stamp = ros::Time::now();
-            odom_path.header.frame_id = "world";
+            slam_path.header.frame_id = "world";
             slam_path.poses.push_back(pose);
 
             slam_callback_flag = true;

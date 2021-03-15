@@ -5,16 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /Status1
-        - /Grid1
-        - /Path1
-        - /TF1
         - /TF1/Frames1
-        - /Odometry1
-        - /MarkerArray1
-        - /MarkerArray2
-        - /Marker1
-        - /Marker1/Status1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz/Selection
@@ -162,7 +153,7 @@ Visualization Manager:
       Marker Topic: /fake_sensor
       Name: MarkerArray
       Namespaces:
-        {}
+        marker: true
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
@@ -209,7 +200,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 9.949474334716797
+      Distance: 15.655692100524902
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -225,9 +216,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5047963857650757
+      Pitch: 1.519796371459961
       Target Frame: <Fixed Frame>
-      Yaw: 4.6935930252075195
+      Yaw: 4.723593711853027
     Saved: ~
 Window Geometry:
   Displays:
@@ -245,5 +236,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 720
-  Y: 105
+  X: 1996
+  Y: 167
