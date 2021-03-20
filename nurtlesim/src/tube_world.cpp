@@ -108,6 +108,16 @@ class TubeWorld
             nh.getParam("obstacles_coordinate_y", obstacles_coordinate_y);  // The y coordinate of the obstacles
             nh.getParam("obstacles_radius", obstacles_radius);              // The radous of the cardboard tubes [m]
             nh.getParam("max_visable_dist", max_visable_dist);              // The maximum distance beyond which tubes are not visible [m]
+
+            // nh.getParam("max_range", max_range);                            // The maximum range of the laser scanner
+            // nh.getParam("min_range", min_range);                            // The minimum range of the laser scanner
+            // nh.getParam("mean_scanner_noise", mean_scanner_noise);          // The mean of the scanner noise
+            // nh.getParam("stddev_scanner_noise", stddev_scanner_noise);      // The standard deviation of the scanner noise
+            // nh.getParam("scan_resolution", scan_resolution);                // The scan resolution
+            // nh.getParam("angle_increment", angle_increment);                // The angle increment
+            // nh.getParam("num_of_samples", num_of_samples);                  // The number of samples
+            // nh.getParam("angle_resolution", angle_resolution);              // The angle resolution
+            // nh.getParam("noise_level", noise_level);                        // The noise level
         }
 
         /// \brief Subscribes to the robot's velocity.
@@ -125,18 +135,6 @@ class TubeWorld
             // Raise the cmd_vel flag
             cmd_vel_flag = true;
         }
-
-        // /// \brief Subscribe to /scan topic and publish a sensor_msgs/LaserScan message with simulated lidar data at 5Hz
-        // /// \param data - constant pointer to twist
-        // /// \returns void
-        // void lidar_scan_callback(const sensor_msgs::LaserScan &data) {
-        //     // ROS_INFO("Subscribing to LaserScan");
-
-        //     scan = data->ranges;
-
-        //     // Raise the scan flag
-        //     scan_flag = true;
-        // }
                         
         /// \brief Sets marker array
         /// \returns void

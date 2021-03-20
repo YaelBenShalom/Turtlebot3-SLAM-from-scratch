@@ -53,8 +53,8 @@ namespace nuslam
         Q_mat(2, 2) = 1e-3;
 
         R_mat.fill(0.0);
-        R_mat(0, 0) = 1e-3;
-        R_mat(1, 1) = 1e-3;
+        R_mat(0, 0) = 1e-2;
+        R_mat(1, 1) = 1e-2;
     }
 
     /// Check if the measured landmark exists in the landmark dictionary.
@@ -220,11 +220,15 @@ namespace nuslam
             z_del(1, 0) = rigid2d::normalize_angle(z_del(1, 0));
 
             // std::cout << "\rz" << z  << std::endl;
-            // std::cout << "\rz_del" << z_del << std::endl;
+            // std::cout << "\rz_del" << z_del(0, 0) << ", " << z_del(1, 0)<< std::endl;
             xi_predict = xi_predict + K * z_del;
             xi_predict(0, 0) = rigid2d::normalize_angle(xi_predict(0, 0));
             // Compute the posterior covariance
             cov_predict = (I - K * H_i) * cov_predict;
+                        
+            // std::cout << "\rK" << K << std::endl;
+            // std::cout << "\rxi_predict" << xi_predict << std::endl;
+
         }
     }
 
@@ -268,6 +272,9 @@ namespace nuslam
 
     /// Output the map state
     arma::mat EKF::output_map_state() {
+        // for (int i=0; i<m_t.n_rows; i+=2) {
+        //     // std::cout << "\rmap :" << m_t(i,0) << ", " << m_t(i+1,0) << std::endl;
+        // }
         return m_t;
     }
 }

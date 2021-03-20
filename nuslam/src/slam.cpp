@@ -223,13 +223,13 @@ class KFSlam
             // T_om = T_ob * T_mb.inv();
 
             // Transform from "map" to "odom" frame
-            map_tf.header.stamp = ros::Time::now();
+            map_tf.header.stamp = ros::Time::now(); // TODO
             map_tf.header.frame_id = map_frame_id;
             map_tf.child_frame_id = odom_frame_id;
-            map_tf.transform.translation.x = T_mo.x(); //T_mo.x();
-            map_tf.transform.translation.y = T_mo.y(); //T_mo.y();
+            map_tf.transform.translation.x = 0; //T_mo.x();
+            map_tf.transform.translation.y = 0; //T_mo.y();
             map_tf.transform.translation.z = 0;
-            quat.setRPY(0, 0, T_mo.theta()); // T_mo.theta()
+            quat.setRPY(0, 0, 0); // T_mo.theta()
             map_quat = tf2::toMsg(quat);
             map_tf.transform.rotation = map_quat;
 
@@ -250,6 +250,22 @@ class KFSlam
             odom_quat = tf2::toMsg(quat);
             odom_tf.transform.rotation = odom_quat;
             odom_broadcaster.sendTransform(odom_tf);
+        }
+
+        /// \brief Broadcast the "world" to "slam" transform
+        /// \returns void
+        void world_slam_transform() {
+            // Transform from "world" to "slam" frame
+            slam_tf.header.stamp = ros::Time::now();
+            slam_tf.header.frame_id = world_frame_id;
+            slam_tf.child_frame_id = "slam";
+            slam_tf.transform.translation.x = q_t(1,0);
+            slam_tf.transform.translation.y = q_t(2,0);
+            slam_tf.transform.translation.z = 0;
+            quat.setRPY(0, 0, q_t(0,0));
+            odom_quat = tf2::toMsg(quat);
+            slam_tf.transform.rotation = odom_quat;
+            slam_broadcaster.sendTransform(slam_tf);
         }
 
         /// \brief Publish odometry messages
@@ -334,6 +350,7 @@ class KFSlam
 
                 // Setting transformations
                 world_map_transform();
+                world_slam_transform(); // TODO
                 map_odom_transform();
                 odom_body_transform();
 
@@ -358,16 +375,16 @@ class KFSlam
         arma::mat q_t = arma::mat(3, 1).fill(0.0);
         
         ros::NodeHandle nh;
-        ros::Publisher odom_pub, landmarks_pub, slam_landmarks_pub;
+        ros::Publisher odom_pub, slam_pub, landmarks_pub, slam_landmarks_pub;
         ros::Subscriber joint_states_sub, landmarks_sub;
         ros::ServiceServer set_pose_srv;
         ros::Time current_time;
 
         visualization_msgs::MarkerArray slam_marker_array;
         tf2::Quaternion quat;
-        tf2_ros::TransformBroadcaster map_broadcaster, odom_broadcaster;
+        tf2_ros::TransformBroadcaster map_broadcaster, odom_broadcaster, slam_broadcaster;
         tf2_ros::StaticTransformBroadcaster static_world_broadcaster;
-        geometry_msgs::TransformStamped map_tf, odom_tf;
+        geometry_msgs::TransformStamped map_tf, odom_tf, slam_tf;
         geometry_msgs::TransformStamped static_world_tf;
 
         geometry_msgs::Quaternion odom_quat, map_quat;
