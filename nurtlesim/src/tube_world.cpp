@@ -85,9 +85,9 @@ class TubeWorld
             marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/fake_sensor", 1);
             robot_marker_pub = nh.advertise<visualization_msgs::Marker>("/robot_marker", 1);
             robot_path_pub = nh.advertise<nav_msgs::Path>("/real_path", 1);
+            lidar_data_pub = nh.advertise<sensor_msgs::LaserScan>("/scan", 1);
 
             vel_sub = nh.subscribe("/cmd_vel", 1, &TubeWorld::cmd_vel_callback, this);
-            lidar_data_sub = nh.subscribe("/scan", 1, &TubeWorld::lidar_scan_callback, this);
         }
 
         /// \brief Load the parameters from the parameter server
@@ -126,17 +126,17 @@ class TubeWorld
             cmd_vel_flag = true;
         }
 
-        /// \brief Subscribe to /scan topic and publish a sensor_msgs/LaserScan message with simulated lidar data at 5Hz
-        /// \param data - constant pointer to twist
-        /// \returns void
-        void lidar_scan_callback(const sensor_msgs::LaserScan &data) {
-            // ROS_INFO("Subscribing to LaserScan");
+        // /// \brief Subscribe to /scan topic and publish a sensor_msgs/LaserScan message with simulated lidar data at 5Hz
+        // /// \param data - constant pointer to twist
+        // /// \returns void
+        // void lidar_scan_callback(const sensor_msgs::LaserScan &data) {
+        //     // ROS_INFO("Subscribing to LaserScan");
 
-            // scan = msg->ranges;
+        //     scan = data->ranges;
 
-            // // Raise the scan flag
-            // scan_flag = true;
-        }
+        //     // Raise the scan flag
+        //     scan_flag = true;
+        // }
                         
         /// \brief Sets marker array
         /// \returns void
@@ -293,8 +293,8 @@ class TubeWorld
             for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
 
                 collision_dist = sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) + \
-                                        pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2)) - \
-                                        obstacles_radius - wheel_base;
+                                      pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2)) - \
+                                      obstacles_radius - wheel_base;
 
                 if (collision_dist <= 0) {
                     ROS_INFO("Collosion!!\n\r");
@@ -392,10 +392,11 @@ class TubeWorld
         double wheel_base, wheel_radius, stddev_linear, stddev_angular, slip_min, slip_max, obstacles_radius, max_visable_dist, markers_dist, collision_dist;
         std::string left_wheel_joint, right_wheel_joint, world_frame_id, odom_frame_id, turtle_frame_id;
         std::vector<double> obstacles_coordinate_x, obstacles_coordinate_y;
+        static std::vector<float> scan;
 
         ros::NodeHandle nh;
-        ros::Publisher joint_states_pub, real_joint_states_pub, marker_pub, real_marker_pub, robot_path_pub, robot_marker_pub;
-        ros::Subscriber vel_sub, lidar_data_sub;
+        ros::Publisher joint_states_pub, real_joint_states_pub, marker_pub, real_marker_pub, robot_path_pub, robot_marker_pub, lidar_data_pub;
+        ros::Subscriber vel_sub;
         ros::Time current_time;
 
         visualization_msgs::MarkerArray marker_array, real_marker_array;

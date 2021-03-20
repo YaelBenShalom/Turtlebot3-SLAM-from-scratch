@@ -1,0 +1,12 @@
+# Laser Scanner
+max_range: 3.500                                # The maximum range of the laser scanner
+min_range: 0.120                                # The minimum range of the laser scanner
+
+mean_scanner_noise: 0.00                        # The mean of the scanner noise
+stddev_scanner_noise: 0.01                      # The standard deviation of the scanner noise
+scan_resolution: 0.015                          # The scan resolution
+
+angle_increment: 6.28319                        # The angle increment
+num_of_samples: 360                             # The number of samples
+angle_resolution: 1                             # The angle resolution
+noise_level: 0.1                                   # The noise level
