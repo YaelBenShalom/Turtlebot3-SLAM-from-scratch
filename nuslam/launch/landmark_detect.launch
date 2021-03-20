@@ -2,12 +2,9 @@
 
   <!-- Launch file for making a turtle move in rviz using turtlebot3_teleop -->
 
-  <!-- Define Default Arguments -->
-  <!-- <arg name="use_rviz" default="True" doc="The use_rviz parameter controls whether Rviz and the joint_state_publisher are launched (default true)"/>
-  <arg name="use_teleop" default="True" doc="The use_teleop parameter controls whether turtlebot3_teleop_keyboard node is launched (default true)"/> -->
-
   <!-- Define Robot Arguments -->
   <arg name="robot" default="localhost" doc="Whether launchfile runs the robot in the simulator (localhost) or runs the real turtle (fasturtle.local)"/>
+  <arg name="simulate" default="True" doc="Whether launch the simulator and the landmarks node and display everything in rviz"/>
 
   <!-- Load Turtle Parameters -->
   <rosparam command="load" file="$(find rigid2d)/config/robot_params.yaml" />
@@ -17,7 +14,7 @@
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find nuturtle_description)/urdf/my_turtlebot3.urdf.xacro" />
 
   <!-- launchfile runs the robot in the simulator -->
-  <group if="$(eval arg('robot') == 'localhost')">
+  <group if="$(arg simulate)">
 
     <!-- Load turtlebot3_teleop -->
     <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
@@ -31,15 +28,18 @@
     <!-- Load visualization_node.cpp Node -->
     <node name="slam" pkg="nuslam" type="slam" output="screen" />
 
+    <!-- Load landmarks.cpp Node -->
+    <node name="landmarks" pkg="nuslam" type="landmarks" output="screen" />
+
     <!-- Load Robot Model in Rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nuslam)/config/visualization.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nuslam)/config/detect_landmarks.rviz" />
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
     
   </group>
 
 
   <!-- launchfile runs the real turtlebot -->
-  <group if="$(eval arg('robot') == 'fasturtle.local')">
+  <group unless="$(arg simulate)">
 
   	<!-- Basic Remote Launch -->
 		<include file="$(find nuturtle_robot)/launch/basic_remote.launch">
@@ -59,7 +59,7 @@
     <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
 
     <!-- Load Robot Model in Rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nuslam)/config/visualization.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nuslam)/config/detect_landmarks.rviz" />
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
     
   </group>
