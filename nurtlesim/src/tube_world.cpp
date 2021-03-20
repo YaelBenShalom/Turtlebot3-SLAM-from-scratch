@@ -87,7 +87,7 @@ class TubeWorld
             robot_path_pub = nh.advertise<nav_msgs::Path>("/real_path", 1);
 
             vel_sub = nh.subscribe("/cmd_vel", 1, &TubeWorld::cmd_vel_callback, this);
-            lidar_data_sub = nh.subscribe("/scan", 1, &TubeWorld::lidar_data_callback, this);
+            lidar_data_sub = nh.subscribe("/scan", 1, &TubeWorld::lidar_scan_callback, this);
         }
 
         /// \brief Load the parameters from the parameter server
@@ -119,10 +119,7 @@ class TubeWorld
             // Calculate the twist without noise factor
             twist.thetadot = tw.angular.z / frequency;
             twist.xdot = tw.linear.x / frequency;
-            twist.ydot = tw.linear.y / frequency;
-            // twist.thetadot = tw.angular.z;
-            // twist.xdot = tw.linear.x;
-            // twist.ydot = tw.linear.y;            
+            twist.ydot = tw.linear.y / frequency;          
             // ROS_INFO("twist = %f, %f\n\r", twist.xdot, twist.thetadot);
 
             // Raise the cmd_vel flag
@@ -132,11 +129,13 @@ class TubeWorld
         /// \brief Subscribe to /scan topic and publish a sensor_msgs/LaserScan message with simulated lidar data at 5Hz
         /// \param data - constant pointer to twist
         /// \returns void
-        void lidar_data_callback(const sensor_msgs::LaserScan &data) {
-            // ROS_INFO("Subscribing to Twist");
+        void lidar_scan_callback(const sensor_msgs::LaserScan &data) {
+            // ROS_INFO("Subscribing to LaserScan");
 
+            // scan = msg->ranges;
 
-            ///////////////// TODO!!
+            // // Raise the scan flag
+            // scan_flag = true;
         }
                         
         /// \brief Sets marker array
@@ -145,9 +144,24 @@ class TubeWorld
             static std::default_random_engine generator;
             static std::uniform_real_distribution<double> distribution(slip_min, slip_max);
             
+            rigid2d::Vector2D v_wt, v_t, v_w;
+            double angle_wt;
+            rigid2d::Config2D config = diff_drive.get_config();
+            angle_wt = config.theta;
+            v_wt.x = config.x;
+            v_wt.y = config.y;
+
+            rigid2d::Transform2D T_wt(v_wt, angle_wt);
+
             for (unsigned int i=0; i<obstacles_coordinate_x.size(); i++) {
+                v_w.x = obstacles_coordinate_x[i];
+                v_w.y = obstacles_coordinate_y[i];
+
+                rigid2d::Transform2D T_tw = T_wt.inv();
+                v_t = T_tw(v_w);
+
                 marker_array.markers.resize(obstacles_coordinate_x.size());
-                marker_array.markers[i].header.frame_id = world_frame_id;
+                marker_array.markers[i].header.frame_id = turtle_frame_id;
                 marker_array.markers[i].header.stamp = ros::Time();
                 marker_array.markers[i].ns = "marker";
                 marker_array.markers[i].id = i;
@@ -160,8 +174,8 @@ class TubeWorld
                 else {
                     marker_array.markers[i].action = visualization_msgs::Marker::ADD;
                 }
-                marker_array.markers[i].pose.position.x = obstacles_coordinate_x[i] + distribution(generator);
-                marker_array.markers[i].pose.position.y = obstacles_coordinate_y[i] + distribution(generator);
+                marker_array.markers[i].pose.position.x = v_t.x + distribution(generator);
+                marker_array.markers[i].pose.position.y = v_t.y + distribution(generator);
                 marker_array.markers[i].pose.position.z = 0.0;
                 marker_array.markers[i].pose.orientation.x = 0.0;
                 marker_array.markers[i].pose.orientation.y = 0.0;
@@ -175,7 +189,7 @@ class TubeWorld
                 marker_array.markers[i].color.g = 0.0;
                 marker_array.markers[i].color.b = 0.0;
                 marker_array.markers[i].lifetime = ros::Duration(10);
-                }
+            }
             marker_pub.publish(marker_array);
         }
 
@@ -348,8 +362,8 @@ class TubeWorld
                     wheel_angle.right_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
                     wheel_angle.left_wheel_angle += wheel_angle.right_wheel_angle * distribution(generator);
 
-                    real_wheel_angle.right_wheel_angle += real_wheel_angle.right_wheel_angle;
-                    real_wheel_angle.left_wheel_angle += real_wheel_angle.right_wheel_angle;
+                    // real_wheel_angle.right_wheel_angle += real_wheel_angle.right_wheel_angle;
+                    // real_wheel_angle.left_wheel_angle += real_wheel_angle.left_wheel_angle;
 
                     // ROS_INFO("wheel_angle = %f, %f\n\r", wheel_angle.right_wheel_angle, wheel_angle.left_wheel_angle);
 
@@ -357,10 +371,8 @@ class TubeWorld
                     joint_state.header.stamp = current_time;
                     joint_state.name.push_back(right_wheel_joint);
                     joint_state.name.push_back(left_wheel_joint);
-                    joint_state.position.push_back(wheel_angle.right_wheel_angle);
-                    joint_state.position.push_back(wheel_angle.left_wheel_angle);
-                    // joint_state.velocity.push_back(wheel_vel.right_wheel_vel);
-                    // joint_state.velocity.push_back(wheel_vel.left_wheel_vel);
+                    joint_state.position.push_back(real_wheel_angle.right_wheel_angle);
+                    joint_state.position.push_back(real_wheel_angle.left_wheel_angle);
 
                     joint_states_pub.publish(joint_state);
 
@@ -375,6 +387,7 @@ class TubeWorld
     private:
         int frequency = 10;
         bool cmd_vel_flag = false;
+        bool scan_flag = false;
         bool collision_flag = false;
         double wheel_base, wheel_radius, stddev_linear, stddev_angular, slip_min, slip_max, obstacles_radius, max_visable_dist, markers_dist, collision_dist;
         std::string left_wheel_joint, right_wheel_joint, world_frame_id, odom_frame_id, turtle_frame_id;

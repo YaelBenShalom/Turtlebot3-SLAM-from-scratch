@@ -166,7 +166,7 @@ class Odometer
         }
 
     private:
-        int frequency = 100;
+        int frequency = 10;
         bool reset_flag = false;
         double wheel_base, wheel_radius, right_angle, left_angle;
         std::string odom_frame_id, body_frame_id, left_wheel_joint, right_wheel_joint;

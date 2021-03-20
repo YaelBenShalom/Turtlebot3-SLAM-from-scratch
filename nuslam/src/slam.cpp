@@ -211,15 +211,16 @@ class KFSlam
             angle_mb = q_t(0, 0);
             v_mb.x = q_t(1, 0);
             v_mb.y = q_t(2, 0);
-            rigid2d::Transform2D T_mb(v_mb, angle_mb);
+
+            rigid2d::Transform2D T_mb(v_mb, 0); //angle_mb
         
             angle_ob = odom_pose.theta;
             v_ob.x = odom_pose.x;
             v_ob.y = odom_pose.y;
-            rigid2d::Transform2D T_ob(v_ob, angle_ob);
+            rigid2d::Transform2D T_ob(v_ob, 0); //angle_ob
             
             T_mo = T_mb * T_ob.inv();
-            T_om = T_ob * T_mb.inv();
+            // T_om = T_ob * T_mb.inv();
 
             // Transform from "map" to "odom" frame
             map_tf.header.stamp = ros::Time::now();
@@ -229,10 +230,6 @@ class KFSlam
             map_tf.transform.translation.y = T_mo.y(); //T_mo.y();
             map_tf.transform.translation.z = 0;
             quat.setRPY(0, 0, T_mo.theta()); // T_mo.theta()
-            // map_tf.transform.translation.x = 0; //T_mo.x();
-            // map_tf.transform.translation.y = 0; //T_mo.y();
-            // map_tf.transform.translation.z = 0;
-            // quat.setRPY(0, 0, 0); // T_mo.theta()
             map_quat = tf2::toMsg(quat);
             map_tf.transform.rotation = map_quat;
 
@@ -246,10 +243,6 @@ class KFSlam
             odom_tf.header.stamp = ros::Time::now();
             odom_tf.header.frame_id = odom_frame_id;
             odom_tf.child_frame_id = body_frame_id;
-            // odom_tf.transform.translation.x = odom_pose.x / frequency;
-            // odom_tf.transform.translation.y = odom_pose.y / frequency;
-            // odom_tf.transform.translation.z = 0;
-            // quat.setRPY(0, 0, odom_pose.theta / frequency);
             odom_tf.transform.translation.x = odom_pose.x;
             odom_tf.transform.translation.y = odom_pose.y;
             odom_tf.transform.translation.z = 0;
@@ -286,18 +279,18 @@ class KFSlam
 
             // Initializing Extended Kalman Filter
             nuslam::EKF Kalman_Filter;
-
-            wheel_vel_old = diff_drive.get_wheel_vel();
+            diff_drive = rigid2d::DiffDrive();
+            wheel_angle_old = {0,0};
 
             while(ros::ok()) {
                 current_time = ros::Time::now();
 
                 if (joint_state_flag) {
-                    ROS_INFO("wheel_angle = %f, %f\n\r", right_angle, left_angle);
+                    // ROS_INFO("wheel_angle = %f, %f\n\r", right_angle, left_angle);
 
                     diff_drive.updateOdometryWithAngles(right_angle, left_angle);
                     odom_pose = diff_drive.get_config();
-                    ROS_INFO("odom_pose = %f, %f\n\r", odom_pose.x, odom_pose.y);
+                    // ROS_INFO("odom_pose = %f, %f\n\r", odom_pose.x, odom_pose.y);
 
                     joint_state_flag = false;
                 }
@@ -317,17 +310,21 @@ class KFSlam
                 }
 
                 if (landmarks_flag) {
-                    wheel_vel_new = diff_drive.get_wheel_vel();
-                    wheel_vel_del.right_wheel_vel = wheel_vel_new.right_wheel_vel - wheel_vel_old.right_wheel_vel;
-                    wheel_vel_del.left_wheel_vel = wheel_vel_new.left_wheel_vel - wheel_vel_old.left_wheel_vel;
+                    wheel_angle_new = diff_drive.get_wheel_angle();
+                    // ROS_INFO("wheel_angle_old = %f, %f \n\r", wheel_angle_old.right_wheel_angle, wheel_angle_old.right_wheel_angle);
+                    // ROS_INFO("wheel_angle_new = %f, %f \n\r", wheel_angle_new.right_wheel_angle, wheel_angle_new.right_wheel_angle);
+                    wheel_vel_del.right_wheel_vel = rigid2d::normalize_angle(wheel_angle_new.right_wheel_angle - wheel_angle_old.right_wheel_angle);
+                    wheel_vel_del.left_wheel_vel = rigid2d::normalize_angle(wheel_angle_new.left_wheel_angle - wheel_angle_old.left_wheel_angle);
 
                     twist_del = diff_drive.wheels2Twist(wheel_vel_del);
-                    wheel_vel_old = wheel_vel_new;
+                    wheel_angle_old = wheel_angle_new;
+                    ROS_INFO("twist_del = %f, %f \n\r", twist_del.xdot, twist_del.thetadot);
 
                     // Running Extended Kalman Filter
                     Kalman_Filter.run_ekf(twist_del, measurements);
                     q_t = Kalman_Filter.output_state();
                     m_t = Kalman_Filter.output_map_state();
+                    ROS_INFO("q_t = %f, %f, %f \n\r", q_t(0,0), q_t(1,0), q_t(2,0));
 
                     // Publishing map markers      
                     get_marker_from_map();
@@ -379,8 +376,8 @@ class KFSlam
         rigid2d::Config2D odom_pose, reset_pose;
         rigid2d::Twist2D twist, twist_del;
         rigid2d::DiffDrive diff_drive;
-        rigid2d::WheelVelocity wheel_vel, wheel_vel_new, wheel_vel_old, wheel_vel_del;
-        rigid2d::WheelAngle wheel_angle;
+        rigid2d::WheelVelocity wheel_vel, wheel_vel_del;
+        rigid2d::WheelAngle wheel_angle, wheel_angle_new, wheel_angle_old;
 
         std::vector<nuslam::Measurement> measurements;
 };

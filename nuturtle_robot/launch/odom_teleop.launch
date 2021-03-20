@@ -3,6 +3,7 @@
   <!-- Launch file for making a turtle move in rviz in a circulat path or using turtlebot3_teleop -->
 
   <!-- Define Default Arguments -->
+  <arg name="robot" default="localhost" doc="Whether launchfile runs the robot in the simulator (localhost) or runs the real turtle (fasturtle.local)"/>
   <arg name="circle" default="True" doc="The circle parameter controls whether the turtlebot will follow circular path or whether the turtlebot3_teleop_keyboard node will be launched (default true)"/>
 
   <!-- Load Turtle Parameters -->
@@ -12,24 +13,55 @@
 
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find nuturtle_description)/urdf/my_turtlebot3.urdf.xacro" />
 
-  <!-- Load follow_circle_node.cpp Node -->
-  <group if="$(arg circle)">
-    <node name="follow_circle" pkg="nuturtle_robot" type="follow_circle_node" output="screen" />
+  <!-- launchfile runs the robot in the simulator -->
+  <group if="$(eval arg('robot') == 'localhost')">
+
+    <!-- Load follow_circle_node.cpp Node -->
+    <group if="$(arg circle)">
+      <node name="follow_circle" pkg="nuturtle_robot" type="follow_circle_node" output="screen" />
+    </group>
+
+    <!-- Load turtlebot3_teleop -->
+    <group unless="$(arg circle)">
+      <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
+    </group>
+
+    <!-- Load turtle_interface_node.cpp Node -->
+    <node name="turtle_interface" pkg="nuturtle_robot" type="turtle_interface_node" output="screen" />
+
+    <!-- Load odometer_node.cpp Node -->
+    <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" />
+
+    <!-- Load Robot Model in Rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rigid2d)/config/turtle_view.rviz" />
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
+
   </group>
 
-  <!-- Load turtlebot3_teleop -->
-  <group unless="$(arg circle)">
-    <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
+
+    <!-- launchfile runs the real turtlebot -->
+  <group if="$(eval arg('robot') == 'fasturtle.local')">
+
+  	<!-- Basic Remote Launch -->
+		<include file="$(find nuturtle_robot)/launch/basic_remote.launch">
+			<arg name="robot" value="$(arg robot)"/>
+		</include>
+
+    <!-- Load turtlebot3_teleop -->
+    <group unless="$(arg circle)">
+      <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
+    </group>
+
+    <!-- Load turtle_interface_node.cpp Node -->
+    <node name="turtle_interface" pkg="nuturtle_robot" type="turtle_interface_node" output="screen" />
+
+    <!-- Load odometer_node.cpp Node -->
+    <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" />
+
+    <!-- Load Robot Model in Rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rigid2d)/config/turtle_view.rviz" />
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
+
   </group>
-
-  <!-- Load turtle_interface_node.cpp Node -->
-  <node name="turtle_interface" pkg="nuturtle_robot" type="turtle_interface_node" output="screen" />
-
-  <!-- Load odometer_node.cpp Node -->
-  <node name="odometer" pkg="rigid2d" type="odometer_node" output="screen" />
-
-  <!-- Load Robot Model in Rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rigid2d)/config/turtle_view.rviz" />
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
-
+  
 </launch>
