@@ -11,3 +11,9 @@ max_angle: 6.28319                              # The maximum angle
 num_of_samples: 360                             # The number of samples
 angle_resolution: 1.0                           # The angle resolution
 noise_level: 0.1                                # The noise level
+
+# Border configuration
+border_x0: -5                                   # border configuration
+border_y0: -5                                   # border configuration
+border_size_x: 10                               # border configuration
+border_size_y: 10                               # border configuration

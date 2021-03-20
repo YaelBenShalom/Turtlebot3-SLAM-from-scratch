@@ -25,7 +25,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -142,6 +142,8 @@ Visualization Manager:
           Value: true
         odom:
           Value: true
+        slam:
+          Value: true
         turtle:
           Value: true
         wheel_left_link:
@@ -172,6 +174,8 @@ Visualization Manager:
                     {}
                   wheel_right_link:
                     {}
+          slam:
+            {}
           turtle:
             {}
       Update Interval: 0
@@ -302,7 +306,7 @@ Visualization Manager:
       Channel Name: intensity
       Class: rviz/LaserScan
       Color: 255; 255; 255
-      Color Transformer: ""
+      Color Transformer: Intensity
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
@@ -311,13 +315,13 @@ Visualization Manager:
       Min Color: 0; 0; 0
       Min Intensity: 0
       Name: LaserScan
-      Position Transformer: ""
+      Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
       Size (m): 0.009999999776482582
-      Style: Flat Squares
-      Topic: ""
+      Style: Spheres
+      Topic: /scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -350,7 +354,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.747380018234253
+      Distance: 9.12002944946289
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -368,7 +372,7 @@ Visualization Manager:
       Near Clip Distance: 0.009999999776482582
       Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
-      Yaw: 5.323603630065918
+      Yaw: 4.708598613739014
     Saved: ~
 Window Geometry:
   Displays:

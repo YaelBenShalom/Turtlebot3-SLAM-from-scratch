@@ -253,12 +253,12 @@ class TubeWorld
         /// \brief simulation node should publish a sensor_msgs/LaserScan 
         /// message with simulated lidar data at 5Hz
         /// \returns void
-        void simulated_lidar(){
+        void publish_simulated_lidar(){
             lidar_data.header.frame_id = scanner_frame_id;
             lidar_data.header.stamp = ros::Time::now();
             lidar_data.angle_min = min_angle;
             lidar_data.angle_min = max_angle;
-            lidar_data.angle_increment = max_angle/num_of_samples;
+            lidar_data.angle_increment = max_angle / num_of_samples;
             lidar_data.range_min = min_range;
             lidar_data.range_max = max_range;
 
@@ -350,6 +350,7 @@ class TubeWorld
 
                 // Publish real robot path
                 publish_real_path();
+                publish_simulated_lidar();
 
                 // If the cmd_vel_callback was called
                 if (cmd_vel_flag) {
