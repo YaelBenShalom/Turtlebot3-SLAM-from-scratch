@@ -10,9 +10,9 @@ The simulator simulates the robot kinematics and a sensor that detects the relat
 
 ## Nodes and launchfiles
 This library contains several nodes and launchfiles:
-- tube_world node - A kinematic simulation of a differential drive robot using the DiffDrive class. The node also tracks the ground truth location of the robot.
+- *tube_world node* - A kinematic simulation of a differential drive robot using the DiffDrive class. The node also tracks the ground truth location of the robot.
 
-- tube_world launchfile - Launch file for running simulator for the turtlebot.
+- *tube_world launchfile* - Launch file for running simulator for the turtlebot.
     * Launch `roslaunch nurtlesim tube_world.launch` to run the simulator.
 
 

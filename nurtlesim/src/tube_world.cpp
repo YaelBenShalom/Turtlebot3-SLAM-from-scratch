@@ -262,6 +262,11 @@ class TubeWorld
             lidar_data.range_min = min_range;
             lidar_data.range_max = max_range;
 
+            lidar_data.ranges.resize(num_of_samples);
+            for (int i=0; i<num_of_samples; i++) {
+                lidar_data.ranges[i] = max_range - 1;
+            }
+
             lidar_data_pub.publish(lidar_data);
         }
 
