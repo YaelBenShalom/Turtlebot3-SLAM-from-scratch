@@ -206,21 +206,20 @@ class KFSlam
         void map_odom_transform() {
             rigid2d::Transform2D T_mo, T_om;
             rigid2d::Vector2D v_mb, v_ob;
-            double angle_mb, angle_ob;
+            // double angle_mb, angle_ob;
 
-            angle_mb = q_t(0, 0);
+            // angle_mb = q_t(0, 0);
             v_mb.x = q_t(1, 0);
             v_mb.y = q_t(2, 0);
 
             rigid2d::Transform2D T_mb(v_mb, 0); //angle_mb
         
-            angle_ob = odom_pose.theta;
+            // angle_ob = odom_pose.theta;
             v_ob.x = odom_pose.x;
             v_ob.y = odom_pose.y;
             rigid2d::Transform2D T_ob(v_ob, 0); //angle_ob
             
             T_mo = T_mb * T_ob.inv();
-            // T_om = T_ob * T_mb.inv();
 
             // Transform from "map" to "odom" frame
             map_tf.header.stamp = ros::Time::now(); // TODO

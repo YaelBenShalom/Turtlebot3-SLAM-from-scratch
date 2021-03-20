@@ -4,5 +4,6 @@ map_frame_id: "map"                         # The name of the map tf frame
 odom_frame_id: "odom"                       # The name of the odometry tf frame
 turtle_frame_id: "turtle"                   # The name of the turtle tf frame
 body_frame_id: "base_footprint"             # The name of the body tf frame
+scanner_frame_id: "base_scan"               # The name of the scanner tf frame
 left_wheel_joint: "wheel_left_joint"        # The name of the left wheel joint
 right_wheel_joint: "wheel_right_joint"      # The name of the right wheel joint

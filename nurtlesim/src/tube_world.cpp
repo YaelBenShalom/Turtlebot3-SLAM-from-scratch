@@ -100,6 +100,7 @@ class TubeWorld
             nh.getParam("world_frame_id", world_frame_id);                  // The name of the world tf frame
             nh.getParam("odom_frame_id", odom_frame_id);                    // The name of the odom tf frame
             nh.getParam("turtle_frame_id", turtle_frame_id);                // The name of the body tf frame
+            nh.getParam("scanner_frame_id", scanner_frame_id);                // The name of the body tf frame
             nh.getParam("stddev_linear", stddev_linear);                    // The standard deviation of the linear twist noise
             nh.getParam("stddev_angular", stddev_angular);                  // The standard deviation of the angular twist noise
             nh.getParam("slip_min", slip_min);                              // The minimum wheel slip for the slip noise
@@ -109,15 +110,16 @@ class TubeWorld
             nh.getParam("obstacles_radius", obstacles_radius);              // The radous of the cardboard tubes [m]
             nh.getParam("max_visable_dist", max_visable_dist);              // The maximum distance beyond which tubes are not visible [m]
 
-            // nh.getParam("max_range", max_range);                            // The maximum range of the laser scanner
-            // nh.getParam("min_range", min_range);                            // The minimum range of the laser scanner
-            // nh.getParam("mean_scanner_noise", mean_scanner_noise);          // The mean of the scanner noise
-            // nh.getParam("stddev_scanner_noise", stddev_scanner_noise);      // The standard deviation of the scanner noise
-            // nh.getParam("scan_resolution", scan_resolution);                // The scan resolution
-            // nh.getParam("angle_increment", angle_increment);                // The angle increment
-            // nh.getParam("num_of_samples", num_of_samples);                  // The number of samples
-            // nh.getParam("angle_resolution", angle_resolution);              // The angle resolution
-            // nh.getParam("noise_level", noise_level);                        // The noise level
+            nh.getParam("max_range", max_range);                            // The maximum range of the laser scanner
+            nh.getParam("min_range", min_range);                            // The minimum range of the laser scanner
+            nh.getParam("mean_scanner_noise", mean_scanner_noise);          // The mean of the scanner noise
+            nh.getParam("stddev_scanner_noise", stddev_scanner_noise);      // The standard deviation of the scanner noise
+            nh.getParam("scan_resolution", scan_resolution);                // The scan resolution
+            nh.getParam("min_angle", min_angle);                            // The angle increment
+            nh.getParam("max_angle", max_angle);                            // The angle increment
+            nh.getParam("num_of_samples", num_of_samples);                  // The number of samples
+            nh.getParam("angle_resolution", angle_resolution);              // The angle resolution
+            nh.getParam("noise_level", noise_level);                        // The noise level
         }
 
         /// \brief Subscribes to the robot's velocity.
@@ -246,6 +248,21 @@ class TubeWorld
             robot_marker.color.b = 1.0;
 
             robot_marker_pub.publish(robot_marker);
+        }
+
+        /// \brief simulation node should publish a sensor_msgs/LaserScan 
+        /// message with simulated lidar data at 5Hz
+        /// \returns void
+        void simulated_lidar(){
+            lidar_data.header.frame_id = scanner_frame_id;
+            lidar_data.header.stamp = ros::Time::now();
+            lidar_data.angle_min = min_angle;
+            lidar_data.angle_min = max_angle;
+            lidar_data.angle_increment = max_angle/num_of_samples;
+            lidar_data.range_min = min_range;
+            lidar_data.range_max = max_range;
+
+            lidar_data_pub.publish(lidar_data);
         }
 
         /// \brief Publish real path
@@ -388,7 +405,8 @@ class TubeWorld
         bool scan_flag = false;
         bool collision_flag = false;
         double wheel_base, wheel_radius, stddev_linear, stddev_angular, slip_min, slip_max, obstacles_radius, max_visable_dist, markers_dist, collision_dist;
-        std::string left_wheel_joint, right_wheel_joint, world_frame_id, odom_frame_id, turtle_frame_id;
+        double max_range, min_range, mean_scanner_noise, stddev_scanner_noise, scan_resolution, min_angle, max_angle, num_of_samples, angle_resolution, noise_level;
+        std::string left_wheel_joint, right_wheel_joint, world_frame_id, odom_frame_id, turtle_frame_id, scanner_frame_id;
         std::vector<double> obstacles_coordinate_x, obstacles_coordinate_y;
         static std::vector<float> scan;
 
@@ -405,6 +423,7 @@ class TubeWorld
         geometry_msgs::Quaternion world_quat, real_quat;
         geometry_msgs::PoseStamped real_pose_stamped;
         nav_msgs::Path real_path;
+        sensor_msgs::LaserScan lidar_data;
 
         rigid2d::Config2D pose, real_pose;
         rigid2d::Twist2D twist, twist_noised;
