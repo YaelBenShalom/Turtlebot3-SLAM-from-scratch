@@ -13,14 +13,14 @@
   <rosparam command="load" file="$(find rigid2d)/config/robot_params.yaml" />
   <rosparam command="load" file="$(find nuturtle_description)/config/diff_params.yaml" />
   <rosparam command="load" file="$(find nurtlesim)/config/nurtlesim_params.yaml" />
-  <rosparam command="load" file="$(find slam)/config/laser_scanner.yaml" />
+  <rosparam command="load" file="$(find nuslam)/config/laser_scanner.yaml" />
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find nuturtle_description)/urdf/my_turtlebot3.urdf.xacro" />
 
   <!-- launchfile runs the robot in the simulator -->
   <group if="$(eval arg('robot') == 'localhost')">
 
     <!-- Load turtlebot3_teleop -->
-    <!-- <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" /> -->
+    <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
 
     <!-- Load tube_world.cpp Node -->
     <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />

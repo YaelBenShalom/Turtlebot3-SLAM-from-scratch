@@ -334,15 +334,14 @@ class KFSlam
 
                     twist_del = diff_drive.wheels2Twist(wheel_vel_del);
                     wheel_angle_old = wheel_angle_new;
-                    ROS_INFO("twist_del = %f, %f \n\r", twist_del.xdot, twist_del.thetadot);
+                    // ROS_INFO("twist_del = %f, %f \n\r", twist_del.xdot, twist_del.thetadot);
 
                     // Running Extended Kalman Filter
                     Kalman_Filter.run_ekf(twist_del, measurements);
                     q_t = Kalman_Filter.output_state();
                     m_t = Kalman_Filter.output_map_state();
-                    ROS_INFO("q_t = %f, %f, %f \n\r", q_t(0,0), q_t(1,0), q_t(2,0));
-                    ROS_INFO_STREAM("m_t");
-                    ROS_INFO_STREAM(m_t);
+                    measurements.clear();
+                    // ROS_INFO("q_t = %f, %f, %f \n\r", q_t(0,0), q_t(1,0), q_t(2,0));
 
                     // Publishing map markers      
                     get_marker_from_map();
