@@ -17,3 +17,6 @@ border_x0: -5                                   # border configuration
 border_y0: -5                                   # border configuration
 border_size_x: 10                               # border configuration
 border_size_y: 10                               # border configuration
+
+# Landmark
+radius: 1                                       # The landmark radius

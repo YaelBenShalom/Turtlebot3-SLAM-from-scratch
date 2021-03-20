@@ -165,6 +165,7 @@ add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EX
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(visualization src/visualization.cpp)
 add_executable(slam src/slam.cpp)
+add_executable(landmarks src/landmarks.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -172,11 +173,13 @@ add_executable(slam src/slam.cpp)
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
 set_target_properties(visualization PROPERTIES OUTPUT_NAME visualization PREFIX "")
 set_target_properties(slam PROPERTIES OUTPUT_NAME slam PREFIX "")
+set_target_properties(landmarks PROPERTIES OUTPUT_NAME landmarks PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(visualization ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(slam ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(landmarks ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(
@@ -188,6 +191,14 @@ target_link_libraries(
 
 target_link_libraries(
   slam
+  ${rigid2d_LIBRARIES}
+  ${catkin_LIBRARIES}
+  ${ARMADILLO_LIBRARIES}
+  ${PROJECT_NAME}
+)
+
+target_link_libraries(
+  landmarks
   ${rigid2d_LIBRARIES}
   ${catkin_LIBRARIES}
   ${ARMADILLO_LIBRARIES}
@@ -217,7 +228,7 @@ target_link_libraries(
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-install(TARGETS slam visualization
+install(TARGETS landmarks slam visualization 
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

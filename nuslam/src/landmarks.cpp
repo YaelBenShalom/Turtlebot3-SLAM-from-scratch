@@ -93,28 +93,14 @@ class Landmarks
             load_parameter();
 
             // Init publishers, subscribers, and services
-            lidar_data_sub = nh.subscribe("/scan", 1, &TubeWorld::lidar_scan_callback, this);
+            marker_pub = nh.advertise<visualization_msgs::MarkerArray>("/visual_sensor", 1, true);
+
+            lidar_data_sub = nh.subscribe("/scan", 1, &Landmarks::lidar_scan_callback, this);
         }
 
         /// \brief Load the parameters from the parameter server
         /// \returns void
         void load_parameter() {
-            nh.getParam("wheel_base", wheel_base);                          // The distance between the wheels
-            nh.getParam("wheel_radius", wheel_radius);                      // The radius of the wheels
-            nh.getParam("left_wheel_joint", left_wheel_joint);              // The name of the left wheel joint
-            nh.getParam("right_wheel_joint", right_wheel_joint);            // The name of the right wheel joint
-            nh.getParam("world_frame_id", world_frame_id);                  // The name of the world tf frame
-            nh.getParam("odom_frame_id", odom_frame_id);                    // The name of the odom tf frame
-            nh.getParam("turtle_frame_id", turtle_frame_id);                // The name of the body tf frame
-            nh.getParam("stddev_linear", stddev_linear);                    // The standard deviation of the linear twist noise
-            nh.getParam("stddev_angular", stddev_angular);                  // The standard deviation of the angular twist noise
-            nh.getParam("slip_min", slip_min);                              // The minimum wheel slip for the slip noise
-            nh.getParam("slip_max", slip_max);                              // The maximum wheel slip for the slip noise
-            nh.getParam("obstacles_coordinate_x", obstacles_coordinate_x);  // The x coordinate of the obstacles
-            nh.getParam("obstacles_coordinate_y", obstacles_coordinate_y);  // The y coordinate of the obstacles
-            nh.getParam("obstacles_radius", obstacles_radius);              // The radous of the cardboard tubes [m]
-            nh.getParam("max_visable_dist", max_visable_dist);              // The maximum distance beyond which tubes are not visible [m]
-
             nh.getParam("max_range", max_range);                            // The maximum range of the laser scanner
             nh.getParam("min_range", min_range);                            // The minimum range of the laser scanner
             nh.getParam("mean_scanner_noise", mean_scanner_noise);          // The mean of the scanner noise
@@ -125,30 +111,73 @@ class Landmarks
             nh.getParam("num_of_samples", num_of_samples);                  // The number of samples
             nh.getParam("angle_resolution", angle_resolution);              // The angle resolution
             nh.getParam("noise_level", noise_level);                        // The noise level
+            nh.getParam("/radius", radius);                                 // The landmark radius
         }
 
 
         /// \brief Subscribe to /scan topic and publish a sensor_msgs/LaserScan message with simulated lidar data at 5Hz
         /// \param data - constant pointer to twist
         /// \returns void
-        void lidar_scan_callback(const sensor_msgs::LaserScan &data) {
+        void lidar_scan_callback(const sensor_msgs::LaserScan::ConstPtr &data) {
             // ROS_INFO("Subscribing to LaserScan");
 
-            scan = data->ranges;
+            scan.range_min = data->range_min;
+            scan.range_max = data->range_max;
+            scan.angle_min = data->angle_min;
+            scan.angle_max = data->angle_max;
+            scan.angle_increment = data->angle_increment;
+            scan.ranges.clear();
+
+            for (auto meas : data->ranges){
+                scan.ranges.push_back(meas);
+            }
 
             // Raise the scan flag
             scan_flag = true;
         }
                     
+        void publish_markers(){
+            
+            visualization_msgs::MarkerArray marker_array;
+            marker_array.markers.resize(clusters.size());
+            int i =0;
+
+            for (auto cluster : clusters){
+                marker_array.markers[i].header.frame_id = "base_link";
+                marker_array.markers[i].header.stamp = ros::Time::now();
+                marker_array.markers[i].ns = "clusters";
+                marker_array.markers[i].id = i;
+                marker_array.markers[i].type = visualization_msgs::Marker::CYLINDER;
+                marker_array.markers[i].action = visualization_msgs::Marker::ADD;
+
+                marker_array.markers[i].pose.position.x = cluster.x_center;
+                marker_array.markers[i].pose.position.y = cluster.y_center;
+                marker_array.markers[i].pose.position.z = 0.0;
+
+                marker_array.markers[i].pose.orientation.x = 0.0;
+                marker_array.markers[i].pose.orientation.y = 0.0;
+                marker_array.markers[i].pose.orientation.z = 0.0;
+                marker_array.markers[i].pose.orientation.w = 1.0;
+
+                marker_array.markers[i].scale.x = 2.0 * radius;
+                marker_array.markers[i].scale.y = 2.0 * radius;
+                marker_array.markers[i].scale.z = 0.5;
+
+                marker_array.markers[i].color.r = 1.0f;
+                marker_array.markers[i].color.g = 0.0f;
+                marker_array.markers[i].color.b = 1.0f;
+                marker_array.markers[i].color.a = 1.0f;
+
+                i += 1;
+            }
+            marker_pub.publish(marker_array);
+        }
 
         /// \brief Main loop for the turtle's motion
         /// \returns void
         void main_loop() {
             ROS_INFO("Entering the loop\n\r");
             ros::Rate loop_rate(frequency);
-
-            // Publish real markers  
-            set_real_marker_array();
 
             while(ros::ok()) {
                 // ROS_INFO("Looping");
@@ -157,9 +186,13 @@ class Landmarks
 
 
                 if (scan_flag) {
+                    clusters.clear();
+                    // Cluster
+                    // Fit
+                    // Publish landmarks
 
                 // Remove the cmd_vel flag
-                cmd_vel_flag = false;
+                scan_flag = false;
                 }
 
                 loop_rate.sleep();
@@ -169,31 +202,16 @@ class Landmarks
     private:
         int frequency = 10;
         bool scan_flag = false;
-        double wheel_base, wheel_radius, stddev_linear, stddev_angular, slip_min, slip_max, obstacles_radius, max_visable_dist, markers_dist, collision_dist;
-        double max_range, min_range, mean_scanner_noise, stddev_scanner_noise, scan_resolution, min_angle, max_angle, num_of_samples, angle_resolution, noise_level;
-        std::string left_wheel_joint, right_wheel_joint, world_frame_id, odom_frame_id, turtle_frame_id;
-        std::vector<double> obstacles_coordinate_x, obstacles_coordinate_y;
-        static std::vector<float> scan;
+        double max_range, min_range, mean_scanner_noise, stddev_scanner_noise, scan_resolution, min_angle, max_angle, num_of_samples, angle_resolution, noise_level, radius;
 
         ros::NodeHandle nh;
-        ros::Publisher joint_states_pub, real_joint_states_pub, marker_pub, real_marker_pub, robot_path_pub, robot_marker_pub;
-        ros::Subscriber vel_sub, lidar_data_sub;
+        ros::Publisher marker_pub;
+        ros::Subscriber lidar_data_sub;
         ros::Time current_time;
+        visualization_msgs::MarkerArray marker_array;
 
-        visualization_msgs::MarkerArray marker_array, real_marker_array;
-        visualization_msgs::Marker robot_marker;
-        tf2::Quaternion quat;
-        tf2_ros::TransformBroadcaster world_broadcaster;
-        geometry_msgs::TransformStamped world_tf;
-        geometry_msgs::Quaternion world_quat, real_quat;
-        geometry_msgs::PoseStamped real_pose_stamped;
-        nav_msgs::Path real_path;
-
-        rigid2d::Config2D pose, real_pose;
-        rigid2d::Twist2D twist, twist_noised;
-        rigid2d::DiffDrive diff_drive, real_diff_drive;
-        rigid2d::WheelVelocity wheel_vel, real_wheel_vel;
-        rigid2d::WheelAngle wheel_angle, real_wheel_angle;
+        std::vector<Cluster> clusters;
+        LaserData scan;
 };
 
 /// \brief Main function
