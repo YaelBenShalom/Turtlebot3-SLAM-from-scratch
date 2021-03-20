@@ -20,7 +20,7 @@
   <group if="$(eval arg('robot') == 'localhost')">
 
     <!-- Load turtlebot3_teleop -->
-    <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
+    <!-- <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" /> -->
 
     <!-- Load tube_world.cpp Node -->
     <node name="tube_world" pkg="nurtlesim" type="tube_world" output="screen" />
