@@ -7,7 +7,7 @@
 * This package contains the implementation for the Feature-Based Kalman Filter SLAM. The package stores the simulation visualization and the SLAM implementation in a controlled environment.<br>
 
 
-    ![Simulation](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuslam/images/slam2.png)
+    ![Simulation](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuslam/images/slam2.gif)
 
 
 ## Nodes, Library and launchfiles
