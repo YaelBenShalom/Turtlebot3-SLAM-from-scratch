@@ -1,6 +1,5 @@
-# ME495 Sensing, Navigation and Machine Learning For Robotics
-* Yael Ben Shalom
-* Winter 2021
+# Sensing, Navigation and Machine Learning For Robotics
+* ME-495, Winter 2021
 
 
 # Nurtlesim Package
@@ -17,4 +16,4 @@ This library contains several nodes and launchfiles:
 
 
 
-    ![Simulation](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nurtlesim/videos/Task_G.gif)
+    ![Simulation](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nurtlesim/videos/Task_G.gif)

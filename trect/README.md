@@ -1,6 +1,5 @@
-# ME495 Sensing, Navigation and Machine Learning For Robotics
-* Yael Ben Shalom
-* Winter 2021
+# Sensing, Navigation and Machine Learning For Robotics
+* ME-495, Winter 2021
 
 
 # Turtle Rect
@@ -23,4 +22,5 @@ y: 3.0
 width: 4.0
 height: 5.0"
 ```
-![Demonstration](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/trect/videos/Task_C.gif)
+
+![Demonstration](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/trect/videos/Task_C.gif)

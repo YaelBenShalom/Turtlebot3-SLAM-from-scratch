@@ -1,13 +1,12 @@
-# ME495 Sensing, Navigation and Machine Learning For Robotics
-* Yael Ben Shalom
-* Winter 2021
+# Sensing, Navigation and Machine Learning For Robotics
+* ME-495, Winter 2021
 
 
 # Nuslam Package
 * This package contains the implementation for the Feature-Based Kalman Filter SLAM. The package stores the simulation visualization and the SLAM implementation in a controlled environment.<br>
 
 
-    ![Simulation](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuslam/images/slam2.gif)
+    ![Simulation](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/slam2.gif)
 
 
 ## Nodes, Library and launchfiles
@@ -30,4 +29,4 @@ This library contains several nodes and launchfiles:
     - If the simulate is false, it should launch the landmark detection node on the turtlebot and display everything in rviz.
     * Launch `roslaunch nuturtle_robot landmarks.launch` to launch the feature detection node.
 
-    ![Simulation](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/nuslam/images/simulation.png)
+    ![Simulation](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/simulation.png)

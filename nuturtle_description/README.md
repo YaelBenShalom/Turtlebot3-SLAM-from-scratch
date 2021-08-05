@@ -1,6 +1,5 @@
-# ME495 Sensing, Navigation and Machine Learning For Robotics
-* Yael Ben Shalom
-* Winter 2021
+# Sensing, Navigation and Machine Learning For Robotics
+* ME-495, Winter 2021
 
 
 # Nuturtle Description Package

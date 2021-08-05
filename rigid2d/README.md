@@ -1,6 +1,5 @@
-# ME495 Sensing, Navigation and Machine Learning For Robotics
-* Yael Ben Shalom
-* Winter 2021
+# Sensing, Navigation and Machine Learning For Robotics
+* ME-495, Winter 2021
 
 
 # Rigid 2D transformation Library
@@ -14,7 +13,7 @@ This library contains several nodes and launchfiles:
 
 - **fake_turtle_odom launchfile** - Launch file for making a turtle move in Rviz using turtlebot3_teleop. Run `roslaunch rigid2d fake_turtle_odom.launch` to launch the turtle in Rviz, and move it using the `w`, `d`, `x`, `a` letters on your keyboard.
 
-   ![Demonstration](https://github.com/ME495-Navigation/assignment-YaelBenShalom/blob/master/rigid2d/videos/Task_E.gif)
+   ![Demonstration](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/rigid2d/videos/Task_E.gif)
 
 
 # Conceptual Questions
@@ -24,7 +23,7 @@ This library contains several nodes and launchfiles:
 
 2. Why is Vector2D a struct and Transform2D Class (refer to at least 2 specific C++ core guidelines in your answer)?
 
-   In a struct, the members can vary independently, and they are public. For example, the variables x and y in the Vector2D are independent and public, so we can define and refer to them from outshde the struct, and we can change them independently of each other. On the other hand, the members in Transform2D are private, so we can't refer or change them from outside the class. in order to refer them, I defined x, y, and theta function to output the veriables values.
+   In a struct, the members can vary independently, and they are public. For example, the variables x and y in the Vector2D are independent and public, so we can define and refer to them from outside the struct, and we can change them independently of each other. On the other hand, the members in Transform2D are private, so we can't refer or change them from outside the class. in order to refer them, I defined x, y, and theta function to output the variables values.
 
 3. Why are some of the constructors in Transform2D explicit (refer to a specific C++ core guideline in your answer)?
 
@@ -35,8 +34,8 @@ This library contains several nodes and launchfiles:
    - Discuss the pros and cons of each proposed method, in light of the C++ Core Guidelines.
    - Which of the methods would you implement and why?
 
-   One implementation of the normalize is to implement the function inside the Vectore2D struct (Vector2D::normalize()). Second method is to define another struct for normalized vectors, and define the function normalize as part of this struct (NormalVector2D::normalize()). Third method is to define the function outside of any class or struct.
-   I would implement the function normalize as part of the Vector2D struct (Vector2D::normalize()), because it is only used on Vector2D type variables, and as part of a struct it is a public function and can be used putside of the struct.
+   One implementation of the normalize is to implement the function inside the Vector2D struct (Vector2D::normalize()). Second method is to define another struct for normalized vectors, and define the function normalize as part of this struct (NormalVector2D::normalize()). Third method is to define the function outside of any class or struct.
+   I would implement the function normalize as part of the Vector2D struct (Vector2D::normalize()), because it is only used on Vector2D type variables, and as part of a struct it is a public function and can be used outside of the struct.
 
 5. Why is Transform2D::inv() declared const while Transform2D::operator*=() is not (Refer to C++ core guidelines in your answer)?
    - Refer to [[https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#con-constants-and-immutability][C++ Core Guidelines (Constants and Immutability)]] in your answer.
