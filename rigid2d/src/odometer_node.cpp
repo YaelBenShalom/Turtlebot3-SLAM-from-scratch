@@ -1,5 +1,6 @@
 /// \file   odometer_node.cpp
-/// \brief  Publishes Odometry messages for differential drive robot based on wheel joint states
+/// \brief  Publishes Odometry messages for differential drive robot based on
+///         wheel joint states
 ///
 /// PARAMETERS:
 ///     frequency (int): control loop frequency
@@ -11,14 +12,18 @@
 ///     left_wheel_joint (std::string): The name of the left wheel joint
 ///     right_wheel_joint (std::string): The name of the right wheel joint
 ///
-///     joint_msg (sensor_msgs::JointState): message to publish wheel angle readings to /joint_states topic
-///     odom_broadcaster (TransformBroadcaster): Broadcast the transform between odom_frame_id and the body_frame_id on /tf using a tf2
-///     odom_tf (geometry_msgs::TransformStamped): odometry transform
+///     joint_msg (sensor_msgs::JointState): message to publish wheel angle
+///         readings to /joint_states topic
+///     odom_broadcaster (TransformBroadcaster): Broadcast the transform between
+///         /tf using a tf2
+///     odom_tf (geometry_msgs::TransformStamped): odometry odom_frame_id and
+///         the body_frame_id on transform
 ///     odom (nav_msgs::Odometry): odometry message
 ///
-///     pose (rigid2d::Config2D): the robot's position (based on the wheel angles)
+///     pose (rigid2d::Config2D): the robot's position (based on the wheel
+///         angles)
 ///     reset_pose (rigid2d::Config2D): the robot's reset position
-///     twist (rigid2d::Twist2D): the robot's twist
+///     twist(rigid2d::Twist2D): the robot's twist
 ///     diff_drive (rigid2d::DiffDrive): an instance of the diff_drive robot
 ///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels
 ///
@@ -26,177 +31,182 @@
 ///     odom (nav_msgs/Odometry): publishes Odometry message on the odom topic.
 ///
 /// SUBSCRIBES:
-///     joint_states (sensor_msgs/JointState): Subscribes to the robot's joint_states.
+///     joint_states (sensor_msgs/JointState): Subscribes to the robot's
+///         joint_states.
 ///
 /// SERVICES:
-///     SetPose (set_pose): Restarts the location of the odometry, so that the robot thinks
-///                         it is at the requested configuration.
+///     SetPose (set_pose): Restarts the location of the odometry, so that the
+///         robot thinks it is at the requested configuration.
 
 #include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"
 
 #include "ros/ros.h"
 
-#include <sensor_msgs/JointState.h>
-#include <geometry_msgs/TransformStamped.h>
 #include <geometry_msgs/Quaternion.h>
+#include <geometry_msgs/TransformStamped.h>
 #include <nav_msgs/Odometry.h>
-#include <tf2_ros/transform_broadcaster.h>
+#include <sensor_msgs/JointState.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_ros/transform_broadcaster.h>
 
 #include <rigid2d/SetPose.h>
 
-#include <iostream>
-#include <vector> 
-#include <string>
 #include <cmath>
-
+#include <iostream>
+#include <string>
+#include <vector>
 
 /// \brief Class Odometer
-class Odometer
-{
-    public:
-        Odometer(){
-            ROS_INFO("Initialize the variables");
-            // Init Parameters
-            load_parameter();
+class Odometer {
+public:
+  Odometer() {
+    ROS_INFO("Initialize the variables");
+    // Init Parameters
+    load_parameter();
 
-            // Init publishers, subscribers, and services
-            odom_pub = nh.advertise<nav_msgs::Odometry>("/odom", 1);
-            joint_states_sub = nh.subscribe("/joint_states", 1, &Odometer::joint_state_callback, this);
-            set_pose_srv = nh.advertiseService("/set_pose", &Odometer::set_pose_callback, this);
-         }
+    // Init publishers, subscribers, and services
+    odom_pub = nh.advertise<nav_msgs::Odometry>("/odom", 1);
+    joint_states_sub =
+        nh.subscribe("/joint_states", 1, &Odometer::joint_state_callback, this);
+    set_pose_srv =
+        nh.advertiseService("/set_pose", &Odometer::set_pose_callback, this);
+  }
 
-        /// \brief Load the parameters from the parameter server
-        /// \returns void
-        void load_parameter() {
-            nh.getParam("wheel_base", wheel_base);                  // The distance between the wheels
-            nh.getParam("wheel_radius", wheel_radius);              // The radius of the wheels
-            nh.getParam("odom_frame_id", odom_frame_id);            // The name of the odometry tf frame
-            nh.getParam("body_frame_id", body_frame_id);            // The name of the body tf frame
-            nh.getParam("left_wheel_joint", left_wheel_joint);      // The name of the left wheel joint
-            nh.getParam("right_wheel_joint", right_wheel_joint);    // The name of the right wheel joint
-        }
-        
-        /// \brief Subscribes to the robot's joint_states.
-        /// \param joint_state - constant pointer to joint_states
-        /// \returns void
-        void joint_state_callback(const sensor_msgs::JointState::ConstPtr &joint_state) {
-            right_angle = joint_state->position.at(0);
-            left_angle = joint_state->position.at(1);
+  /// \brief Load the parameters from the parameter server
+  /// \returns void
+  void load_parameter() {
+    nh.getParam("wheel_base", wheel_base); // The distance between the wheels
+    nh.getParam("wheel_radius", wheel_radius); // The radius of the wheels
+    nh.getParam("odom_frame_id",
+                odom_frame_id); // The name of the odometry tf frame
+    nh.getParam("body_frame_id",
+                body_frame_id); // The name of the body tf frame
+    nh.getParam("left_wheel_joint",
+                left_wheel_joint); // The name of the left wheel joint
+    nh.getParam("right_wheel_joint",
+                right_wheel_joint); // The name of the right wheel joint
+  }
 
-            wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
-        }
+  /// \brief Subscribes to the robot's joint_states.
+  /// \param joint_state - constant pointer to joint_states
+  /// \returns void
+  void
+  joint_state_callback(const sensor_msgs::JointState::ConstPtr &joint_state) {
+    right_angle = joint_state->position.at(0);
+    left_angle = joint_state->position.at(1);
 
-        /// \brief Restarts the location of the odometry, so that the robot thinks
-        /// it is at the requested configuration.
-        /// \param req - SetPose request.
-        /// \param res - SetPose response.
-        /// \returns bool
-        bool set_pose_callback(rigid2d::SetPose::Request &req, rigid2d::SetPose::Response &res) {
-            ROS_INFO("Setting pose");
-            reset_pose.x = req.x;
-            reset_pose.y = req.y;
-            reset_pose.theta = req.theta;
-            res.result = true;
+    wheel_vel = diff_drive.updateOdometryWithAngles(right_angle, left_angle);
+  }
 
-            // Raise the reset flag
-            reset_flag = true;
+  /// \brief Restarts the location of the odometry, so that the robot thinks
+  /// it is at the requested configuration.
+  /// \param req - SetPose request.
+  /// \param res - SetPose response.
+  /// \returns bool
+  bool set_pose_callback(rigid2d::SetPose::Request &req,
+                         rigid2d::SetPose::Response &res) {
+    ROS_INFO("Setting pose");
+    reset_pose.x = req.x;
+    reset_pose.y = req.y;
+    reset_pose.theta = req.theta;
+    res.result = true;
 
-            return true;
-        }
+    // Raise the reset flag
+    reset_flag = true;
 
-        /// \brief Main loop for the turtle's motion
-        /// \returns void
-        void main_loop() {
-            ROS_INFO("Entering the loop");
-            ros::Rate loop_rate(frequency);
-            while(ros::ok()) {
-                current_time = ros::Time::now();
-                
-                // If the set_pose_callback was called
-                if (reset_flag) {
-                    diff_drive.set_config(reset_pose);
-                    // diff_drive.WheelVelocity();
+    return true;
+  }
 
-                    // Provide the configuration of the robot
-                    ROS_INFO("Reset robot position:");
-                    ROS_INFO("x = %f\n\r", diff_drive.get_config().x);
-                    ROS_INFO("y = %f\n\r", diff_drive.get_config().y);
-                    ROS_INFO("theta = %f\n\r", diff_drive.get_config().theta);
+  /// \brief Main loop for the turtle's motion
+  /// \returns void
+  void main_loop() {
+    ROS_INFO("Entering the loop");
+    ros::Rate loop_rate(frequency);
+    while (ros::ok()) {
+      current_time = ros::Time::now();
 
-                    // Remove the reset flag
-                    reset_flag = false;
-                }
+      // If the set_pose_callback was called
+      if (reset_flag) {
+        diff_drive.set_config(reset_pose);
+        // diff_drive.WheelVelocity();
 
-                pose = diff_drive.get_config();
-                // ROS_INFO("pose.x = %f\t pose.y = %f\r", pose.x, pose.y);
-                odom_tf.header.stamp = current_time;
-                odom_tf.header.frame_id = odom_frame_id;
-                odom_tf.child_frame_id = body_frame_id;
-                odom_tf.transform.translation.x = pose.x;
-                odom_tf.transform.translation.y = pose.y;
-                odom_tf.transform.translation.z = 0;
+        // Provide the configuration of the robot
+        ROS_INFO("Reset robot position:");
+        ROS_INFO("x = %f\n\r", diff_drive.get_config().x);
+        ROS_INFO("y = %f\n\r", diff_drive.get_config().y);
+        ROS_INFO("theta = %f\n\r", diff_drive.get_config().theta);
 
-                quat.setRPY(0, 0, pose.theta);
-                odom_quat = tf2::toMsg(quat);
-                odom_tf.transform.rotation = odom_quat;
+        // Remove the reset flag
+        reset_flag = false;
+      }
 
-                odom_broadcaster.sendTransform(odom_tf);
+      pose = diff_drive.get_config();
+      odom_tf.header.stamp = current_time;
+      odom_tf.header.frame_id = odom_frame_id;
+      odom_tf.child_frame_id = body_frame_id;
+      odom_tf.transform.translation.x = pose.x;
+      odom_tf.transform.translation.y = pose.y;
+      odom_tf.transform.translation.z = 0;
 
-                odom.header.stamp = current_time;
-                odom.header.frame_id = odom_frame_id;
-                odom.child_frame_id = body_frame_id;
+      quat.setRPY(0, 0, pose.theta);
+      odom_quat = tf2::toMsg(quat);
+      odom_tf.transform.rotation = odom_quat;
 
-                odom.pose.pose.position.x = pose.x;
-                odom.pose.pose.position.y = pose.y;
-                odom.pose.pose.position.z = 0.0;
-                odom.pose.pose.orientation = odom_quat;
+      odom_broadcaster.sendTransform(odom_tf);
 
-                odom.twist.twist.linear.x = twist.xdot;
-                odom.twist.twist.linear.y = twist.ydot;
-                odom.twist.twist.angular.z = twist.thetadot;
+      odom.header.stamp = current_time;
+      odom.header.frame_id = odom_frame_id;
+      odom.child_frame_id = body_frame_id;
 
-                odom_pub.publish(odom);
-                
-                loop_rate.sleep();
-                ros::spinOnce();
-            }
-        }
+      odom.pose.pose.position.x = pose.x;
+      odom.pose.pose.position.y = pose.y;
+      odom.pose.pose.position.z = 0.0;
+      odom.pose.pose.orientation = odom_quat;
 
-    private:
-        int frequency = 10;
-        bool reset_flag = false;
-        double wheel_base, wheel_radius, right_angle, left_angle;
-        std::string odom_frame_id, body_frame_id, left_wheel_joint, right_wheel_joint;
-        
-        ros::NodeHandle nh;
-        ros::Publisher odom_pub;
-        ros::Subscriber joint_states_sub;
-        ros::ServiceServer set_pose_srv;
-        ros::Time current_time;
+      odom.twist.twist.linear.x = twist.xdot;
+      odom.twist.twist.linear.y = twist.ydot;
+      odom.twist.twist.angular.z = twist.thetadot;
 
-        tf2::Quaternion quat;
-        tf2_ros::TransformBroadcaster odom_broadcaster;
-        sensor_msgs::JointState joint_msg;
-        geometry_msgs::TransformStamped odom_tf;
-        geometry_msgs::Quaternion odom_quat;
-        nav_msgs::Odometry odom;
+      odom_pub.publish(odom);
 
-        rigid2d::Config2D pose, reset_pose;
-        rigid2d::Twist2D twist;
-        rigid2d::DiffDrive diff_drive;
-        rigid2d::WheelVelocity wheel_vel;
+      loop_rate.sleep();
+      ros::spinOnce();
+    }
+  }
+
+private:
+  int frequency = 10;
+  bool reset_flag = false;
+  double wheel_base, wheel_radius, right_angle, left_angle;
+  std::string odom_frame_id, body_frame_id, left_wheel_joint, right_wheel_joint;
+
+  ros::NodeHandle nh;
+  ros::Publisher odom_pub;
+  ros::Subscriber joint_states_sub;
+  ros::ServiceServer set_pose_srv;
+  ros::Time current_time;
+
+  tf2::Quaternion quat;
+  tf2_ros::TransformBroadcaster odom_broadcaster;
+  sensor_msgs::JointState joint_msg;
+  geometry_msgs::TransformStamped odom_tf;
+  geometry_msgs::Quaternion odom_quat;
+  nav_msgs::Odometry odom;
+
+  rigid2d::Config2D pose, reset_pose;
+  rigid2d::Twist2D twist;
+  rigid2d::DiffDrive diff_drive;
+  rigid2d::WheelVelocity wheel_vel;
 };
 
 /// \brief Main function
 /// \returns int
-int main(int argc, char * argv[])
-{
-    ros::init(argc, argv, "odometer_node");
-    Odometer node;
-    node.main_loop();
-    ros::spin();
-    return 0;
+int main(int argc, char *argv[]) {
+  ros::init(argc, argv, "odometer_node");
+  Odometer node;
+  node.main_loop();
+  ros::spin();
+  return 0;
 }

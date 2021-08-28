@@ -1,7 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="my_turtlebot3" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find nuturtle_description)/urdf/macro.xacro"/>
-  <!-- <xacro:include filename="$(find nuturtle_description)/urdf/my_turtlebot3.gazebo.xacro"/> -->
 
   <xacro:property name="diff_params" value="$(find nuturtle_description)/config/diff_params.yaml"/>
   <xacro:property name="dictionary" value="${load_yaml(diff_params)}"/>
