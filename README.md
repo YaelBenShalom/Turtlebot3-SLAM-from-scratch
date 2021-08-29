@@ -2,6 +2,10 @@
 * ME-495, Winter 2021
 
 
+# Description
+This repository contains my implementation of feature-based EKF SLAM with unsupervised learning. I implemented all the packages from Scratch using ROS in C++.
+
+
 # Package List
 This repository consists of several ROS packages:
 - [**nuturtle_description**](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/tree/master/nuturtle_description) - A package that adapts the turtlebot3_burger, a differential drive robot, for our needs.
@@ -14,4 +18,20 @@ This repository consists of several ROS packages:
 This repository uses external package:
 - **nuturtlebot** - Additional package to help us work with the lower-level hardware on the turtlebot. In order to run this project, please download the `turtle.repos` file.
 
-![Implementation of Feature-Based Kalman Filter SLAM](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/slam2.gif)
+
+# Getting Started
+Use [turtle.rosinstall](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/turtle.rosinstall) to install the necessary packages:
+```
+mkdir -p ~/ros_ws/src
+cd ~/ros_ws
+vcs import src < PATH_TO_ROSINSTALL_FILE.rosinstall
+```
+Then build the ws:
+```
+cd ..
+catkin_make
+```
+
+
+A demo of the EKF-SLAM in action:
+![Implementation of Feature-Based Kalman Filter SLAM](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/EKF_SLAM_demo.gif)
