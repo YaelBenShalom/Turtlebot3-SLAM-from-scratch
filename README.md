@@ -16,7 +16,7 @@ This repository consists of several ROS packages:
 - [**nuslam**](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/tree/master/nuslam) - A package contains the implementation Feature-Based Kalman Filter SLAM.
 
 This repository uses external package:
-- **nuturtlebot** - Additional package to help us work with the lower-level hardware on the turtlebot. In order to run this project, please download the `turtle.repos` file.
+- **nuturtlebot** - Additional package to help us work with the lower-level hardware on the turtlebot. In order to run this project, please download the `turtle.rosinstall` file.
 
 
 # Getting Started

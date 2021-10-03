@@ -1,7 +1,7 @@
 repositories:
   src/Sensing_Navigation_and_ML:
     type: git
-    url: git@github.com:YaelBenShalom/Sensing_Navigation_and_ML.git
+    url: https://github.com/YaelBenShalom/Sensing_Navigation_and_ML.git
     version: master
   src/nuturtlebot:
     type: git
