@@ -40,7 +40,6 @@ arma::mat Measurement::compute_z() {
 /// Start with a guess for the robot state (0, 0, 0) and zero e map state.
 EKF::EKF() {
   q_t.fill(0.0);
-  // cov.fill(0.0);
 
   xi_predict.fill(0.0);
   cov_predict.fill(0.0);
@@ -64,7 +63,7 @@ bool EKF::check_landmarks(const int landmark_id) {
 }
 
 /// Update the landmarks matrix and landmark covariance.
-void EKF::add_new_measurment(const Measurement &meas) {
+void EKF::add_new_measurement(const Measurement &meas) {
   if (check_landmarks(meas.id)) {
     update_landmark(meas);
   }
@@ -73,7 +72,7 @@ void EKF::add_new_measurment(const Measurement &meas) {
 /// Update the landmarks matrix and landmark covariance.
 void EKF::update_landmark(const Measurement &meas) {
 
-  // Update id2landmark dictionary with new mearusement
+  // Update id2landmark dictionary with new measurement
   id2landmark.insert(std::make_pair(meas.id, xi_predict.n_rows - 3));
 
   // Update covariance matrix
@@ -164,7 +163,7 @@ arma::mat EKF::get_transition(const Twist2D &twist) {
   return (I + g);
 }
 
-/// Predict the next step - finds the estimated state and coveriance.
+/// Predict the next step - finds the estimated state and covariance.
 void EKF::predict(const Twist2D &twist) {
   xi_predict = get_new_state(twist);
   arma::mat A_t = get_transition(twist);
@@ -179,7 +178,7 @@ arma::mat EKF::get_h(int index) {
   h(1, 0) = rigid2d::normalize_angle(
       atan2(xi_predict(index + 4, 0) - xi_predict(2, 0),
             xi_predict(index + 3, 0) - xi_predict(1, 0)) -
-      xi_predict(0, 0));
+            xi_predict(0, 0));
 
   return h;
 }
@@ -208,8 +207,6 @@ arma::mat EKF::get_H(int index) {
 
 /// Update the next step.
 void EKF::update(std::vector<Measurement> meas) {
-  // std::cout << "Updating \n\r" << std::endl;
-
   arma::mat I = eye(size(cov_predict));
   arma::mat z = arma::mat(2, 1);
   arma::mat z_del = arma::mat(2, 1);
@@ -234,15 +231,11 @@ void EKF::update(std::vector<Measurement> meas) {
     z_del = z - z_theory;
     z_del(1, 0) = rigid2d::normalize_angle(z_del(1, 0));
 
-    // std::cout << "\rz" << z  << std::endl;
-    // std::cout << "\rz_del" << z_del(0, 0) << ", " << z_del(1, 0)<< std::endl;
     xi_predict = xi_predict + K * z_del;
     xi_predict(0, 0) = rigid2d::normalize_angle(xi_predict(0, 0));
+
     // Compute the posterior covariance
     cov_predict = (I - K * H_i) * cov_predict;
-
-    // std::cout << "\rK" << K << std::endl;
-    // std::cout << "\rxi_predict" << xi_predict << std::endl;
   }
 }
 
@@ -261,7 +254,7 @@ arma::mat EKF::update_matrix_size(arma::mat mat) {
 void EKF::run_ekf(const Twist2D &twist, const std::vector<Measurement> &meas) {
   // For every measurement
   for (auto &m : meas) {
-    add_new_measurment(m);
+    add_new_measurement(m);
   }
 
   // Predict and update
@@ -286,10 +279,6 @@ arma::mat EKF::output_state() {
 
 /// Output the map state
 arma::mat EKF::output_map_state() {
-  // for (int i=0; i<m_t.n_rows; i+=2) {
-  //     // std::cout << "\rmap :" << m_t(i,0) << ", " << m_t(i+1,0) <<
-  //     std::endl;
-  // }
   return m_t;
 }
 } // namespace nuslam

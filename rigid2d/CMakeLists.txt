@@ -86,21 +86,21 @@ add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EX
 
 ## Declare a C++ executable
 add_executable(${PROJECT_NAME}_main src/main.cpp)
-add_executable(odometer_node src/odometer_node.cpp)
-add_executable(fake_turtle_node src/fake_turtle_node.cpp)
+add_executable(odometer src/odometer.cpp)
+add_executable(fake_turtle src/fake_turtle.cpp)
 
 ## Rename C++ executable without prefix
-set_target_properties(fake_turtle_node PROPERTIES OUTPUT_NAME fake_turtle_node PREFIX "")
-set_target_properties(odometer_node PROPERTIES OUTPUT_NAME odometer_node PREFIX "")
+set_target_properties(fake_turtle PROPERTIES OUTPUT_NAME fake_turtle PREFIX "")
+set_target_properties(odometer PROPERTIES OUTPUT_NAME odometer PREFIX "")
 
 ## Add cmake target dependencies of the executable
-add_dependencies(odometer_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(fake_turtle_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(odometer ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(fake_turtle ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_main ${catkin_LIBRARIES} ${PROJECT_NAME})
-target_link_libraries(odometer_node ${catkin_LIBRARIES} ${PROJECT_NAME})
-target_link_libraries(fake_turtle_node ${catkin_LIBRARIES} ${PROJECT_NAME})
+target_link_libraries(odometer ${catkin_LIBRARIES} ${PROJECT_NAME})
+target_link_libraries(fake_turtle ${catkin_LIBRARIES} ${PROJECT_NAME})
 
 
 #############
@@ -108,7 +108,7 @@ target_link_libraries(fake_turtle_node ${catkin_LIBRARIES} ${PROJECT_NAME})
 #############
 
 ## Mark executables for installation
-install(TARGETS fake_turtle_node odometer_node ${PROJECT_NAME}_main 
+install(TARGETS fake_turtle odometer ${PROJECT_NAME}_main 
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

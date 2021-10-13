@@ -106,6 +106,10 @@ public:
   /// \return void
   void set_config(const Config2D &config_);
 
+  /// \brief returns the transform of the robot
+  /// \return the transform of the robot
+  Transform2D get_transform();
+
   /// \brief returns the wheel angle of the robot
   /// \return the wheel angle of the robot
   WheelAngle get_wheel_angle();

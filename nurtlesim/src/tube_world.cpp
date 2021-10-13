@@ -172,7 +172,6 @@ public:
     twist.thetadot = tw.angular.z / frequency;
     twist.xdot = tw.linear.x / frequency;
     twist.ydot = tw.linear.y / frequency;
-    // ROS_INFO("twist = %f, %f\n\r", twist.xdot, twist.thetadot);
 
     // Raise the cmd_vel flag
     cmd_vel_flag = true;
@@ -197,6 +196,7 @@ public:
     for (unsigned int i = 0; i < obstacles_coordinate_x.size(); i++) {
       v_w.x = obstacles_coordinate_x[i];
       v_w.y = obstacles_coordinate_y[i];
+      landmarks_world.push_back(v_w);
 
       rigid2d::Transform2D T_tw = T_wt.inv();
       v_t = T_tw(v_w);
@@ -304,10 +304,17 @@ public:
     lidar_data.angle_increment = max_angle / num_of_samples;
     lidar_data.range_min = min_range;
     lidar_data.range_max = max_range;
-
     lidar_data.ranges.resize(num_of_samples);
+
     for (int i = 0; i < num_of_samples; i++) {
       lidar_data.ranges[i] = max_range - 1;
+    }
+
+    //calculate landmark positions in turtlebot frame
+    std::vector<rigid2d::Vector2D> landmarks;
+    for (int j = 0; j < int(landmarks_world.size()); j++)
+    {
+        landmarks.push_back((diff_drive.get_transform().inv())(landmarks_world[j]));
     }
 
     lidar_data_pub.publish(lidar_data);
@@ -356,10 +363,8 @@ public:
     for (unsigned int i = 0; i < obstacles_coordinate_x.size(); i++) {
 
       collision_dist =
-          sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x,
-                   2) +
-               pow(real_marker_array.markers[i].pose.position.y - real_pose.y,
-                   2)) -
+          sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) +
+               pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2)) -
           obstacles_radius - wheel_base;
 
       if (collision_dist <= 0) {
@@ -471,6 +476,7 @@ private:
   std::string left_wheel_joint, right_wheel_joint, world_frame_id,
       odom_frame_id, turtle_frame_id, scanner_frame_id;
   std::vector<double> obstacles_coordinate_x, obstacles_coordinate_y;
+  std::vector<rigid2d::Vector2D> landmarks_world;
   static std::vector<float> scan;
 
   ros::NodeHandle nh;

@@ -54,7 +54,7 @@ struct Point {
   double y = 0;
 };
 
-/// \brief A struct of measurments
+/// \brief A struct of measurements
 struct Measurement {
   double r = 0;
   double phi = 0;

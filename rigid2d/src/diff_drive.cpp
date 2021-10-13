@@ -83,6 +83,20 @@ void rigid2d::DiffDrive::set_config(const rigid2d::Config2D &config_) {
   config = config_;
 }
 
+/// Returns the transformation of the robot
+rigid2d::Transform2D rigid2d::DiffDrive::get_transform() {
+  rigid2d::Transform2D T_b;
+  rigid2d::Vector2D v;
+  double angle;
+
+  // Computing the transformation matrix Tb
+  v.x = config.x;
+  v.y = config.y;
+  angle = config.theta;
+  T_b = rigid2d::Transform2D(v, angle);
+  return T_b;
+}
+
 /// Returns the wheel angle of the robot
 rigid2d::WheelAngle rigid2d::DiffDrive::get_wheel_angle() {
   return wheel_angle;
@@ -177,7 +191,7 @@ rigid2d::DiffDrive::updateOdometryWithAngles(double right_angle,
   T_bbp = T_b.integrateTwist(twist);
   T_wbp = T_b * T_bbp;
 
-  // Update the configuratiT_bbpon
+  // Update the configuration
   config.x = T_wbp.x();
   config.y = T_wbp.y();
   config.theta = rigid2d::normalize_angle(T_wbp.theta());
