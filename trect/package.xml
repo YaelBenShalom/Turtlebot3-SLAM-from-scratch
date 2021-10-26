@@ -24,7 +24,7 @@
   <build_export_depend>std_srvs</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
   <build_export_depend>turtlesim</build_export_depend>
-  
+
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>message_runtime</exec_depend>
   <exec_depend>rqt_plot</exec_depend>

@@ -17,7 +17,7 @@
 ///     slip_max (float): The maximum wheel slip for the slip noise
 ///     obstacles_coordinate_x (std::vector<double>): The x coordinate of the
 ///         obstacles
-///     obstacles_coordinate_y (std::vector<double>): The y coordinate of the 
+///     obstacles_coordinate_y (std::vector<double>): The y coordinate of the
 ///         obstacles
 ///     obstacles_radius (float): The radius of the cardboard tubes [m]
 ///     max_visable_dist (float): The maximum distance beyond which tubes are

@@ -310,11 +310,11 @@ public:
       lidar_data.ranges[i] = max_range - 1;
     }
 
-    //calculate landmark positions in turtlebot frame
+    // calculate landmark positions in turtlebot frame
     std::vector<rigid2d::Vector2D> landmarks;
-    for (int j = 0; j < int(landmarks_world.size()); j++)
-    {
-        landmarks.push_back((diff_drive.get_transform().inv())(landmarks_world[j]));
+    for (int j = 0; j < int(landmarks_world.size()); j++) {
+      landmarks.push_back(
+          (diff_drive.get_transform().inv())(landmarks_world[j]));
     }
 
     lidar_data_pub.publish(lidar_data);
@@ -363,8 +363,10 @@ public:
     for (unsigned int i = 0; i < obstacles_coordinate_x.size(); i++) {
 
       collision_dist =
-          sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) +
-               pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2)) -
+          sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x,
+                   2) +
+               pow(real_marker_array.markers[i].pose.position.y - real_pose.y,
+                   2)) -
           obstacles_radius - wheel_base;
 
       if (collision_dist <= 0) {

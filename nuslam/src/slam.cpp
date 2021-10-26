@@ -16,13 +16,13 @@
 ///     static_world_broadcaster (StaticTransformBroadcaster): Broadcast the
 ///         static transform between world_frame_id and the map_frame_id on /tf
 ///         using a tf2
-///     odom_broadcaster (TransformBroadcaster): Broadcast the transform between 
+///     odom_broadcaster (TransformBroadcaster): Broadcast the transform between
 ///         map_frame_id and the odom_frame_id on /tf using a tf2
 ///     map_broadcaster (TransformBroadcaster): Broadcast the transform between
-///         odom_frame_id and the body_frame_id on /tf using a tf2 
-///     static_world_tf(geometry_msgs::TransformStamped): static world transform 
-///     map_tf(geometry_msgs::TransformStamped): map transform 
-///     odom_tf(geometry_msgs::TransformStamped): odometry transform 
+///         odom_frame_id and the body_frame_id on /tf using a tf2
+///     static_world_tf(geometry_msgs::TransformStamped): static world transform
+///     map_tf(geometry_msgs::TransformStamped): map transform
+///     odom_tf(geometry_msgs::TransformStamped): odometry transform
 ///     odom(nav_msgs::Odometry): odometry message
 ///     slam (nav_msgs::Odometry): slam message
 ///     slam_marker_array (visualization_msgs::MarkerArray): an array of
@@ -30,23 +30,24 @@
 ///
 ///     odom_pose (rigid2d::Config2D): the robot's position (based on the wheel
 ///         angles)
-///     reset_pose (rigid2d::Config2D): the robot's reset position 
+///     reset_pose (rigid2d::Config2D): the robot's reset position
 ///     twist(rigid2d::Twist2D): the robot's twist
 ///     twist_del (rigid2d::Twist2D): the delta between the robot's new twist
-///         to the robot's last twist 
-///     diff_drive (rigid2d::DiffDrive): an instance of the diff_drive robot 
-///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels 
+///         to the robot's last twist
+///     diff_drive (rigid2d::DiffDrive): an instance of the diff_drive robot
+///     wheel_vel (rigid2d::WheelVelocity): the velocity of the robot's wheels
 ///     wheel_angle (rigid2d::WheelAngle): the angle of the robot's wheels
 ///
-///     measurements (std::vector<nuslam::Measurement>): a vector with components
-///     of type nuslam::Measurement.
-///     m_t (arma::mat): the map matrix, as measured in the slam simulator.
-///     q_t(arma::mat): the state matrix, as measured in the slam simulator.
+///     measurements (std::vector<nuslam::Measurement>): a vector with
+///     components of type nuslam::Measurement. m_t (arma::mat): the map matrix,
+///     as measured in the slam simulator. q_t(arma::mat): the state matrix, as
+///     measured in the slam simulator.
 ///
 /// PUBLISHES:
 ///     odom (nav_msgs/Odometry): publishes Odometry message on the odom topic.
-///     landmarks_pub (visualization_msgs/MarkerArray): publishes real landmarks.
-///     slam_landmarks_pub (visualization_msgs/MarkerArray): publishes landmark
+///     landmarks_pub (visualization_msgs/MarkerArray): publishes real
+///     landmarks. slam_landmarks_pub (visualization_msgs/MarkerArray):
+///     publishes landmark
 ///         to be subscribed by the slam simulation.
 ///
 /// SUBSCRIBES:

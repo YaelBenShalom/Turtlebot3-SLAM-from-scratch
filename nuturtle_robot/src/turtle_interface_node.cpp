@@ -19,14 +19,16 @@
 ///     wheel_angle (rigid2d::WheelAngle): the angles of the robot's wheels
 /// PUBLISHES:
 ///     wheel_cmd (nuturtlebot/WheelCommands): publishes WheelCommands message
-///         on the wheel_cmd topic. Make the turtlebot3 follow the specified twist
+///         on the wheel_cmd topic. Make the turtlebot3 follow the specified
+///         twist
 ///     joint_states (sensor_msgs/JointState): publishes JointState message on
-///         the joint_states topic. Reflect the current joint angles of each wheel
+///         the joint_states topic. Reflect the current joint angles of each
+///         wheel
 /// SUBSCRIBES:
 ///     cmd_vel (geometry_msgs/Twist): Subscribes to the robot's velocity.
 ///         sensor_data_sub (nuturtlebot/SensorData): Subscribes to the robot's
-///         sensor data. Provide the angle (in radians) and velocity (in rad/sec) of
-///         the wheels, based on encoder data.
+///         sensor data. Provide the angle (in radians) and velocity (in
+///         rad/sec) of the wheels, based on encoder data.
 
 #include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"

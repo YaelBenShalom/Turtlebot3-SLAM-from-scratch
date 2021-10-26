@@ -178,7 +178,7 @@ arma::mat EKF::get_h(int index) {
   h(1, 0) = rigid2d::normalize_angle(
       atan2(xi_predict(index + 4, 0) - xi_predict(2, 0),
             xi_predict(index + 3, 0) - xi_predict(1, 0)) -
-            xi_predict(0, 0));
+      xi_predict(0, 0));
 
   return h;
 }
@@ -278,7 +278,5 @@ arma::mat EKF::output_state() {
 }
 
 /// Output the map state
-arma::mat EKF::output_map_state() {
-  return m_t;
-}
+arma::mat EKF::output_map_state() { return m_t; }
 } // namespace nuslam
