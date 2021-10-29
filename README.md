@@ -29,7 +29,7 @@ This repository uses external package:
 
 # Getting Started
 
-Use [turtle.rosinstall](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/turtle.rosinstall) to install the necessary packages:
+Use `turtle.rosinstall` to install the necessary packages:
 
 ```
 mkdir -p ~/ros_ws/src
