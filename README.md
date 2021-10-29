@@ -1,7 +1,5 @@
 # Sensing, Navigation and Machine Learning For Robotics
 
-- ME-495, Winter 2021
-
 ## Table of Contents
 
 - [Description](#description)
@@ -11,7 +9,8 @@
 
 # Description
 
-This repository contains my implementation of feature-based EKF SLAM with unsupervised learning. I implemented all the packages from Scratch using ROS in C++.
+This repository contains my implementation of feature-based EKF SLAM with unsupervised learning. I implemented all the packages from Scratch using ROS in C++.<br>
+Take a look at my [portfolio post](https://yaelbenshalom.github.io/EKF_SLAM/index.html) for more information about the project.
 
 # Package List
 
