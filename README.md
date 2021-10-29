@@ -29,16 +29,20 @@ This repository uses external package:
 
 # Getting Started
 
-Use `turtle.rosinstall` to install the necessary packages:
-
+Create a workspace and clone the repo:
 ```
 mkdir -p ~/ros_ws/src
-cd ~/ros_ws
-vcs import src < PATH_TO_ROSINSTALL_FILE.rosinstall
+cd ~/ros_ws/src
+git clone https://github.com/YaelBenShalom/Sensing_Navigation_and_ML.git
 ```
 
-Then build the ws:
+Download and install the `turtle.rosinstall` file to get the necessary packages:
+```
+cd ..
+vcs import src <PATH_TO_ROSINSTALL_FILE>.rosinstall
+```
 
+Then build the workspace:
 ```
 cd ..
 catkin_make
