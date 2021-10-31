@@ -31,8 +31,7 @@ This repository uses external package:
 
 Create a workspace and clone the repo:
 ```
-mkdir -p ~/ros_ws/src
-cd ~/ros_ws/src
+mkdir -p ws/src && cd ws/src
 git clone https://github.com/YaelBenShalom/Sensing_Navigation_and_ML.git
 ```
 
@@ -42,10 +41,11 @@ cd ..
 vcs import src <PATH_TO_ROSINSTALL_FILE>.rosinstall
 ```
 
-Then build the workspace:
+Then build and source the workspace:
 ```
 cd ..
 catkin_make
+source devel/setup.bash 
 ```
 
 # Results
