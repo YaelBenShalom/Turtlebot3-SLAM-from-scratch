@@ -13,7 +13,10 @@ Author: Yael Ben Shalom
 # Project Description
 
 This repository contains my implementation of feature-based EKF SLAM with unsupervised learning. I implemented all the packages from Scratch using ROS in C++.<br><br>
-Take a look at my [portfolio post](https://yaelbenshalom.github.io/EKF_SLAM/index.html) for more information about the project.
+Please visit [my website](https://yaelbenshalom.github.io/EKF_SLAM/index.html) for more information about this project.<br>
+For further information about the packages, classes, and methods used in this project, please visit [package documentation](https://yaelbenshalom.github.io/Sensing_Navigation_and_ML/html/index.html).
+
+
 
 # Package List
 
