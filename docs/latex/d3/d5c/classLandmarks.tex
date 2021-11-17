@@ -1,0 +1,74 @@
+\hypertarget{classLandmarks}{}\doxysection{Landmarks Class Reference}
+\label{classLandmarks}\index{Landmarks@{Landmarks}}
+
+
+Class \mbox{\hyperlink{classLandmarks}{Landmarks}}.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classLandmarks_a1d321c99ee26b521e8b5215a00b334ff}{load\+\_\+parameter}} ()
+\begin{DoxyCompactList}\small\item\em Load the parameters from the parameter server. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLandmarks_a229ec755d1dda25088d4063b1753ae4a}{lidar\+\_\+scan\+\_\+callback}} (const sensor\+\_\+msgs\+::\+Laser\+Scan\+::\+Const\+Ptr \&data)
+\begin{DoxyCompactList}\small\item\em Subscribe to /scan topic and publish a sensor\+\_\+msgs/\+Laser\+Scan message with simulated lidar data at 5Hz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLandmarks_acea4f5f8e59bd8cf8444922acd3955b9}\label{classLandmarks_acea4f5f8e59bd8cf8444922acd3955b9}} 
+void {\bfseries publish\+\_\+markers} ()
+\item 
+void \mbox{\hyperlink{classLandmarks_a538214a95752734a03932af49316f1a4}{main\+\_\+loop}} ()
+\begin{DoxyCompactList}\small\item\em Main loop for the turtle\textquotesingle{}s motion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class \mbox{\hyperlink{classLandmarks}{Landmarks}}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classLandmarks_a229ec755d1dda25088d4063b1753ae4a}\label{classLandmarks_a229ec755d1dda25088d4063b1753ae4a}} 
+\index{Landmarks@{Landmarks}!lidar\_scan\_callback@{lidar\_scan\_callback}}
+\index{lidar\_scan\_callback@{lidar\_scan\_callback}!Landmarks@{Landmarks}}
+\doxysubsubsection{\texorpdfstring{lidar\_scan\_callback()}{lidar\_scan\_callback()}}
+{\footnotesize\ttfamily void Landmarks\+::lidar\+\_\+scan\+\_\+callback (\begin{DoxyParamCaption}\item[{const sensor\+\_\+msgs\+::\+Laser\+Scan\+::\+Const\+Ptr \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Subscribe to /scan topic and publish a sensor\+\_\+msgs/\+Laser\+Scan message with simulated lidar data at 5Hz. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & -\/ constant pointer to twist \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLandmarks_a1d321c99ee26b521e8b5215a00b334ff}\label{classLandmarks_a1d321c99ee26b521e8b5215a00b334ff}} 
+\index{Landmarks@{Landmarks}!load\_parameter@{load\_parameter}}
+\index{load\_parameter@{load\_parameter}!Landmarks@{Landmarks}}
+\doxysubsubsection{\texorpdfstring{load\_parameter()}{load\_parameter()}}
+{\footnotesize\ttfamily void Landmarks\+::load\+\_\+parameter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Load the parameters from the parameter server. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLandmarks_a538214a95752734a03932af49316f1a4}\label{classLandmarks_a538214a95752734a03932af49316f1a4}} 
+\index{Landmarks@{Landmarks}!main\_loop@{main\_loop}}
+\index{main\_loop@{main\_loop}!Landmarks@{Landmarks}}
+\doxysubsubsection{\texorpdfstring{main\_loop()}{main\_loop()}}
+{\footnotesize\ttfamily void Landmarks\+::main\+\_\+loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Main loop for the turtle\textquotesingle{}s motion. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+nuslam/src/\mbox{\hyperlink{landmarks_8cpp}{landmarks.\+cpp}}\end{DoxyCompactItemize}

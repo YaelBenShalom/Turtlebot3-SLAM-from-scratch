@@ -1,0 +1,93 @@
+\hypertarget{classOdometer}{}\doxysection{Odometer Class Reference}
+\label{classOdometer}\index{Odometer@{Odometer}}
+
+
+Class \mbox{\hyperlink{classOdometer}{Odometer}}.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classOdometer_a1633405a29cca3b1787f7f600acced80}{load\+\_\+parameter}} ()
+\begin{DoxyCompactList}\small\item\em Load the parameters from the parameter server. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classOdometer_a99d9067944f57efe1283859d70648722}{joint\+\_\+state\+\_\+callback}} (const sensor\+\_\+msgs\+::\+Joint\+State\+::\+Const\+Ptr \&joint\+\_\+state)
+\begin{DoxyCompactList}\small\item\em Subscribes to the robot\textquotesingle{}s joint\+\_\+states. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classOdometer_ac912e44fe9b09057acf17f2bd4e6fba5}{set\+\_\+pose\+\_\+callback}} (rigid2d\+::\+Set\+Pose\+::\+Request \&req, rigid2d\+::\+Set\+Pose\+::\+Response \&res)
+\begin{DoxyCompactList}\small\item\em Restarts the location of the odometry, so that the robot thinks it is at the requested configuration. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classOdometer_a28fbabfd16269b1e5aaf86f0c05f8737}{main\+\_\+loop}} ()
+\begin{DoxyCompactList}\small\item\em Main loop for the turtle\textquotesingle{}s motion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class \mbox{\hyperlink{classOdometer}{Odometer}}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classOdometer_a99d9067944f57efe1283859d70648722}\label{classOdometer_a99d9067944f57efe1283859d70648722}} 
+\index{Odometer@{Odometer}!joint\_state\_callback@{joint\_state\_callback}}
+\index{joint\_state\_callback@{joint\_state\_callback}!Odometer@{Odometer}}
+\doxysubsubsection{\texorpdfstring{joint\_state\_callback()}{joint\_state\_callback()}}
+{\footnotesize\ttfamily void Odometer\+::joint\+\_\+state\+\_\+callback (\begin{DoxyParamCaption}\item[{const sensor\+\_\+msgs\+::\+Joint\+State\+::\+Const\+Ptr \&}]{joint\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Subscribes to the robot\textquotesingle{}s joint\+\_\+states. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em joint\+\_\+state} & -\/ constant pointer to joint\+\_\+states \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometer_a1633405a29cca3b1787f7f600acced80}\label{classOdometer_a1633405a29cca3b1787f7f600acced80}} 
+\index{Odometer@{Odometer}!load\_parameter@{load\_parameter}}
+\index{load\_parameter@{load\_parameter}!Odometer@{Odometer}}
+\doxysubsubsection{\texorpdfstring{load\_parameter()}{load\_parameter()}}
+{\footnotesize\ttfamily void Odometer\+::load\+\_\+parameter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Load the parameters from the parameter server. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometer_a28fbabfd16269b1e5aaf86f0c05f8737}\label{classOdometer_a28fbabfd16269b1e5aaf86f0c05f8737}} 
+\index{Odometer@{Odometer}!main\_loop@{main\_loop}}
+\index{main\_loop@{main\_loop}!Odometer@{Odometer}}
+\doxysubsubsection{\texorpdfstring{main\_loop()}{main\_loop()}}
+{\footnotesize\ttfamily void Odometer\+::main\+\_\+loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Main loop for the turtle\textquotesingle{}s motion. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometer_ac912e44fe9b09057acf17f2bd4e6fba5}\label{classOdometer_ac912e44fe9b09057acf17f2bd4e6fba5}} 
+\index{Odometer@{Odometer}!set\_pose\_callback@{set\_pose\_callback}}
+\index{set\_pose\_callback@{set\_pose\_callback}!Odometer@{Odometer}}
+\doxysubsubsection{\texorpdfstring{set\_pose\_callback()}{set\_pose\_callback()}}
+{\footnotesize\ttfamily bool Odometer\+::set\+\_\+pose\+\_\+callback (\begin{DoxyParamCaption}\item[{rigid2d\+::\+Set\+Pose\+::\+Request \&}]{req,  }\item[{rigid2d\+::\+Set\+Pose\+::\+Response \&}]{res }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restarts the location of the odometry, so that the robot thinks it is at the requested configuration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & -\/ Set\+Pose request. \\
+\hline
+{\em res} & -\/ Set\+Pose response. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+rigid2d/src/odometer.\+cpp\end{DoxyCompactItemize}

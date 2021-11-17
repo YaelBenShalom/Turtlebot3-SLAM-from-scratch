@@ -1,8 +1,9 @@
-# Sensing, Navigation and Machine Learning For Robotics
+# Package: nuturtle_description
 
-- ME-495, Winter 2021
+Author: Yael Ben Shalom
 
-# Nuturtle Description Package
+
+## Package Summary
 
 URDF files for my_turtlebot3 - a differential drive robot, based on the tutlebot3_burger model.
 

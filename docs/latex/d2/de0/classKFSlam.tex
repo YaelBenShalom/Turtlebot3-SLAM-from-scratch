@@ -1,0 +1,205 @@
+\hypertarget{classKFSlam}{}\doxysection{KFSlam Class Reference}
+\label{classKFSlam}\index{KFSlam@{KFSlam}}
+
+
+Class \mbox{\hyperlink{classKFSlam}{KFSlam}}.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classKFSlam_a7bdae2bd34074a6ffa6578dc54e6c71a}{load\+\_\+parameter}} ()
+\begin{DoxyCompactList}\small\item\em Load the parameters from the parameter server. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classKFSlam_a664c8d6aca771686ec5b010a4dfcb6d0}{joint\+\_\+state\+\_\+callback}} (const sensor\+\_\+msgs\+::\+Joint\+State\+::\+Const\+Ptr \&joint\+\_\+state)
+\begin{DoxyCompactList}\small\item\em Subscribes to the robot\textquotesingle{}s joint\+\_\+states. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classKFSlam_ad52e8594c9a12fd6ebaeaefc8cc63fc9}{landmarks\+\_\+callback}} (const visualization\+\_\+msgs\+::\+Marker\+Array \&markers)
+\begin{DoxyCompactList}\small\item\em Subscribes to the map\textquotesingle{}s landmarks. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classKFSlam_aa3b65ccd8124fa7557052fa2e55a770f}{set\+\_\+pose\+\_\+callback}} (rigid2d\+::\+Set\+Pose\+::\+Request \&req, rigid2d\+::\+Set\+Pose\+::\+Response \&res)
+\begin{DoxyCompactList}\small\item\em Restarts the location of the odometry, so that the robot thinks it is at the requested configuration. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classKFSlam_a48026c5c2f270b8cff9268640179ef81}{get\+\_\+marker\+\_\+from\+\_\+map}} ()
+\begin{DoxyCompactList}\small\item\em Gets markers from map. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classKFSlam_ae362ef14ea3977b98659698b427f1576}{world\+\_\+map\+\_\+transform}} ()
+\begin{DoxyCompactList}\small\item\em Broadcast the static \char`\"{}world\char`\"{} to \char`\"{}map\char`\"{} transform. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classKFSlam_aeae7cf117e3cbc05cc404b73d3733e80}{map\+\_\+odom\+\_\+transform}} ()
+\begin{DoxyCompactList}\small\item\em Broadcast the \char`\"{}map\char`\"{} to \char`\"{}odom\char`\"{} transform. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classKFSlam_afb3ddf9d59cb254ba50fd84628284323}{odom\+\_\+body\+\_\+transform}} ()
+\begin{DoxyCompactList}\small\item\em Broadcast the \char`\"{}odom\char`\"{} to \char`\"{}body\char`\"{} transform. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classKFSlam_a7e30613a244c92fb2b63de2356658742}{world\+\_\+slam\+\_\+transform}} ()
+\begin{DoxyCompactList}\small\item\em Broadcast the \char`\"{}world\char`\"{} to \char`\"{}slam\char`\"{} transform. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classKFSlam_a086c84518270888d9c7dc2b55a35d7c5}{publish\+\_\+odometry}} ()
+\begin{DoxyCompactList}\small\item\em Publish odometry messages. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classKFSlam_ada24ac9daebf000cde8778f469f8c124}{main\+\_\+loop}} ()
+\begin{DoxyCompactList}\small\item\em Main loop for the turtle\textquotesingle{}s motion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class \mbox{\hyperlink{classKFSlam}{KFSlam}}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classKFSlam_a48026c5c2f270b8cff9268640179ef81}\label{classKFSlam_a48026c5c2f270b8cff9268640179ef81}} 
+\index{KFSlam@{KFSlam}!get\_marker\_from\_map@{get\_marker\_from\_map}}
+\index{get\_marker\_from\_map@{get\_marker\_from\_map}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{get\_marker\_from\_map()}{get\_marker\_from\_map()}}
+{\footnotesize\ttfamily void KFSlam\+::get\+\_\+marker\+\_\+from\+\_\+map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets markers from map. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_a664c8d6aca771686ec5b010a4dfcb6d0}\label{classKFSlam_a664c8d6aca771686ec5b010a4dfcb6d0}} 
+\index{KFSlam@{KFSlam}!joint\_state\_callback@{joint\_state\_callback}}
+\index{joint\_state\_callback@{joint\_state\_callback}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{joint\_state\_callback()}{joint\_state\_callback()}}
+{\footnotesize\ttfamily void KFSlam\+::joint\+\_\+state\+\_\+callback (\begin{DoxyParamCaption}\item[{const sensor\+\_\+msgs\+::\+Joint\+State\+::\+Const\+Ptr \&}]{joint\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Subscribes to the robot\textquotesingle{}s joint\+\_\+states. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em joint\+\_\+state} & -\/ constant pointer to joint\+\_\+states \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_ad52e8594c9a12fd6ebaeaefc8cc63fc9}\label{classKFSlam_ad52e8594c9a12fd6ebaeaefc8cc63fc9}} 
+\index{KFSlam@{KFSlam}!landmarks\_callback@{landmarks\_callback}}
+\index{landmarks\_callback@{landmarks\_callback}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{landmarks\_callback()}{landmarks\_callback()}}
+{\footnotesize\ttfamily void KFSlam\+::landmarks\+\_\+callback (\begin{DoxyParamCaption}\item[{const visualization\+\_\+msgs\+::\+Marker\+Array \&}]{markers }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Subscribes to the map\textquotesingle{}s landmarks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & -\/ Set\+Pose request. \\
+\hline
+{\em res} & -\/ Set\+Pose response. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_a7bdae2bd34074a6ffa6578dc54e6c71a}\label{classKFSlam_a7bdae2bd34074a6ffa6578dc54e6c71a}} 
+\index{KFSlam@{KFSlam}!load\_parameter@{load\_parameter}}
+\index{load\_parameter@{load\_parameter}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{load\_parameter()}{load\_parameter()}}
+{\footnotesize\ttfamily void KFSlam\+::load\+\_\+parameter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Load the parameters from the parameter server. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_ada24ac9daebf000cde8778f469f8c124}\label{classKFSlam_ada24ac9daebf000cde8778f469f8c124}} 
+\index{KFSlam@{KFSlam}!main\_loop@{main\_loop}}
+\index{main\_loop@{main\_loop}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{main\_loop()}{main\_loop()}}
+{\footnotesize\ttfamily void KFSlam\+::main\+\_\+loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Main loop for the turtle\textquotesingle{}s motion. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_aeae7cf117e3cbc05cc404b73d3733e80}\label{classKFSlam_aeae7cf117e3cbc05cc404b73d3733e80}} 
+\index{KFSlam@{KFSlam}!map\_odom\_transform@{map\_odom\_transform}}
+\index{map\_odom\_transform@{map\_odom\_transform}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{map\_odom\_transform()}{map\_odom\_transform()}}
+{\footnotesize\ttfamily void KFSlam\+::map\+\_\+odom\+\_\+transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Broadcast the \char`\"{}map\char`\"{} to \char`\"{}odom\char`\"{} transform. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_afb3ddf9d59cb254ba50fd84628284323}\label{classKFSlam_afb3ddf9d59cb254ba50fd84628284323}} 
+\index{KFSlam@{KFSlam}!odom\_body\_transform@{odom\_body\_transform}}
+\index{odom\_body\_transform@{odom\_body\_transform}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{odom\_body\_transform()}{odom\_body\_transform()}}
+{\footnotesize\ttfamily void KFSlam\+::odom\+\_\+body\+\_\+transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Broadcast the \char`\"{}odom\char`\"{} to \char`\"{}body\char`\"{} transform. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_a086c84518270888d9c7dc2b55a35d7c5}\label{classKFSlam_a086c84518270888d9c7dc2b55a35d7c5}} 
+\index{KFSlam@{KFSlam}!publish\_odometry@{publish\_odometry}}
+\index{publish\_odometry@{publish\_odometry}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{publish\_odometry()}{publish\_odometry()}}
+{\footnotesize\ttfamily void KFSlam\+::publish\+\_\+odometry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Publish odometry messages. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_aa3b65ccd8124fa7557052fa2e55a770f}\label{classKFSlam_aa3b65ccd8124fa7557052fa2e55a770f}} 
+\index{KFSlam@{KFSlam}!set\_pose\_callback@{set\_pose\_callback}}
+\index{set\_pose\_callback@{set\_pose\_callback}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{set\_pose\_callback()}{set\_pose\_callback()}}
+{\footnotesize\ttfamily bool KFSlam\+::set\+\_\+pose\+\_\+callback (\begin{DoxyParamCaption}\item[{rigid2d\+::\+Set\+Pose\+::\+Request \&}]{req,  }\item[{rigid2d\+::\+Set\+Pose\+::\+Response \&}]{res }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restarts the location of the odometry, so that the robot thinks it is at the requested configuration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & -\/ Set\+Pose request. \\
+\hline
+{\em res} & -\/ Set\+Pose response. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_ae362ef14ea3977b98659698b427f1576}\label{classKFSlam_ae362ef14ea3977b98659698b427f1576}} 
+\index{KFSlam@{KFSlam}!world\_map\_transform@{world\_map\_transform}}
+\index{world\_map\_transform@{world\_map\_transform}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{world\_map\_transform()}{world\_map\_transform()}}
+{\footnotesize\ttfamily void KFSlam\+::world\+\_\+map\+\_\+transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Broadcast the static \char`\"{}world\char`\"{} to \char`\"{}map\char`\"{} transform. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classKFSlam_a7e30613a244c92fb2b63de2356658742}\label{classKFSlam_a7e30613a244c92fb2b63de2356658742}} 
+\index{KFSlam@{KFSlam}!world\_slam\_transform@{world\_slam\_transform}}
+\index{world\_slam\_transform@{world\_slam\_transform}!KFSlam@{KFSlam}}
+\doxysubsubsection{\texorpdfstring{world\_slam\_transform()}{world\_slam\_transform()}}
+{\footnotesize\ttfamily void KFSlam\+::world\+\_\+slam\+\_\+transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Broadcast the \char`\"{}world\char`\"{} to \char`\"{}slam\char`\"{} transform. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+nuslam/src/\mbox{\hyperlink{slam_8cpp}{slam.\+cpp}}\end{DoxyCompactItemize}

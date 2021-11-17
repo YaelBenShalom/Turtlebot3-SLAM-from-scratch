@@ -1,0 +1,55 @@
+\hypertarget{md_README_autotoc_md1}{}\doxysection{Table of Contents}\label{md_README_autotoc_md1}
+
+\begin{DoxyItemize}
+\item \href{\#description}{\texttt{ Description}}
+\item \href{\#package-list}{\texttt{ Package List}}
+\item \href{\#getting-started}{\texttt{ Getting Started}}
+\item \href{\#results}{\texttt{ Results}}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md2}{}\doxysection{Description}\label{md_README_autotoc_md2}
+This repository contains my implementation of feature-\/based EKF SLAM with unsupervised learning. I implemented all the packages from Scratch using ROS in C++.~\newline
+ Take a look at my \href{https://yaelbenshalom.github.io/EKF_SLAM/index.html}{\texttt{ portfolio post}} for more information about the project.\hypertarget{md_README_autotoc_md3}{}\doxysection{Package List}\label{md_README_autotoc_md3}
+This repository consists of several ROS packages\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/tree/master/nuturtle_description}{\texttt{ {\bfseries{nuturtle\+\_\+description}}}} -\/ A package that adapts the turtlebot3\+\_\+burger, a differential drive robot, for our needs.
+\item \href{https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/tree/master/rigid2d}{\texttt{ {\bfseries{rigid2d}}}} -\/ A package that handles transformations in SE(2).
+\item \href{https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/tree/master/trect}{\texttt{ {\bfseries{trect}}}} -\/ A package that causes the turtlesim turtle to follow a rectangle path.
+\item \href{https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/tree/master/nuturtle_robot}{\texttt{ {\bfseries{nuturtle\+\_\+robot}}}} -\/ A package that stores the code that interacts with the turtlebot hardware.
+\item \href{https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/tree/master/nurtlesim}{\texttt{ {\bfseries{nurtlesim}}}} -\/ A package that simulates the robot kinematics and a sensor that detects the relative x, y positions of landmarks and a landmark id.
+\item \href{https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/tree/master/nuslam}{\texttt{ {\bfseries{nuslam}}}} -\/ A package contains the implementation Feature-\/\+Based Kalman Filter SLAM.
+\end{DoxyItemize}
+
+This repository uses external package\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{nuturtlebot}} -\/ Additional package to help us work with the lower-\/level hardware on the turtlebot. In order to run this project, please download the {\ttfamily turtle.\+rosinstall} file.
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md4}{}\doxysection{Getting Started}\label{md_README_autotoc_md4}
+Create a workspace and clone the repo\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir -\/p ws/src \&\& cd ws/src}
+\DoxyCodeLine{git clone https://github.com/YaelBenShalom/Sensing\_Navigation\_and\_ML.git}
+
+\end{DoxyCode}
+
+
+Download and install the {\ttfamily turtle.\+rosinstall} file to get the necessary packages\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd ..}
+\DoxyCodeLine{vcs import src <PATH\_TO\_ROSINSTALL\_FILE>.rosinstall}
+
+\end{DoxyCode}
+
+
+Then build and source the workspace\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd ..}
+\DoxyCodeLine{catkin\_make}
+\DoxyCodeLine{source devel/setup.bash }
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md5}{}\doxysection{Results}\label{md_README_autotoc_md5}
+A demo of the EKF-\/\+SLAM in action\+: 
+
+ 

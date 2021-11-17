@@ -1,0 +1,55 @@
+\hypertarget{visualization_8cpp}{}\doxysection{nuslam/src/visualization.cpp File Reference}
+\label{visualization_8cpp}\index{nuslam/src/visualization.cpp@{nuslam/src/visualization.cpp}}
+
+
+The simulation visualization.  
+
+
+{\ttfamily \#include \char`\"{}rigid2d/diff\+\_\+drive.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rigid2d/rigid2d.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Pose.\+h$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Pose\+Stamped.\+h$>$}\newline
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Odometry.\+h$>$}\newline
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Path.\+h$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classVisualization}{Visualization}}
+\begin{DoxyCompactList}\small\item\em Class \mbox{\hyperlink{classVisualization}{Visualization}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{visualization_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The simulation visualization. 
+
+PARAMETERS\+: frequency (int)\+: control loop frequency odom\+\_\+callback\+\_\+flag (bool)\+: specifies when new odom msg is read slam\+\_\+callback\+\_\+flag (bool)\+: specifies when new slam msg is read
+
+odom\+\_\+path (nav\+\_\+msgs\+::\+Path)\+: the trajectory of the robot according only to wheel odometry slam\+\_\+path (nav\+\_\+msgs\+::\+Path)\+: the trajectory of the robot according to the SLAM algorithm
+
+PUBLISHES\+: odom\+\_\+path\+\_\+pub (nav\+\_\+msgs/\+Odometry)\+: publishes Odometry message on the odom\+\_\+path topic. slam\+\_\+path\+\_\+pub (nav\+\_\+msgs/\+Odometry)\+: publishes Odometry message on the slam\+\_\+path topic.
+
+SUBSCRIBES\+: odom\+\_\+sub (nav\+\_\+msgs/\+Odometry)\+: Subscribes to the odometry readings. slam\+\_\+sub (nav\+\_\+msgs/\+Odometry)\+: Subscribes to the slam readings. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{visualization_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{visualization_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{visualization.cpp@{visualization.cpp}!main@{main}}
+\index{main@{main}!visualization.cpp@{visualization.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}

@@ -1,0 +1,17 @@
+digraph "nuslam"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_0ea33a0037152376b412e8829e0d6d02 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", style="filled,bold,", label="", fontname="Helvetica", fontsize="10", URL="dir_0ea33a0037152376b412e8829e0d6d02.html"]
+    dir_0ea33a0037152376b412e8829e0d6d02 [shape=plaintext, label="nuslam"];
+  dir_768e7bff774e9521f6243e2b5add71bb [shape=box, label="include", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_768e7bff774e9521f6243e2b5add71bb.html"];
+  dir_527084958f359af5f63eae13e173b414 [shape=box, label="src", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_527084958f359af5f63eae13e173b414.html"];
+  }
+  dir_d09810d5115b48fcdca4443ac0f353e3 [shape=box, label="rigid2d", style="", fillcolor="#edf0f7", color="red", URL="dir_d09810d5115b48fcdca4443ac0f353e3.html"];
+  dir_768e7bff774e9521f6243e2b5add71bb->dir_d09810d5115b48fcdca4443ac0f353e3 [headlabel="2", labeldistance=1.5 headhref="dir_000000_000007.html"];
+  dir_527084958f359af5f63eae13e173b414->dir_768e7bff774e9521f6243e2b5add71bb [headlabel="2", labeldistance=1.5 headhref="dir_000010_000000.html"];
+  dir_527084958f359af5f63eae13e173b414->dir_d09810d5115b48fcdca4443ac0f353e3 [headlabel="8", labeldistance=1.5 headhref="dir_000010_000007.html"];
+}

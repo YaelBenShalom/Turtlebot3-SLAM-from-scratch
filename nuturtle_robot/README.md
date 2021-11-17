@@ -1,8 +1,9 @@
-# Sensing, Navigation and Machine Learning For Robotics
+# Package: nuturtle_robot
 
-- ME-495, Winter 2021
+Author: Yael Ben Shalom
 
-# Nuturtle Robot Package
+
+## Package Summary
 
 This package stores the code that interacts with the turtlebot hardware.
 

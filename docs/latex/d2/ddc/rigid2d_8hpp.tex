@@ -1,0 +1,357 @@
+\hypertarget{rigid2d_8hpp}{}\doxysection{rigid2d/include/rigid2d/rigid2d.hpp File Reference}
+\label{rigid2d_8hpp}\index{rigid2d/include/rigid2d/rigid2d.hpp@{rigid2d/include/rigid2d/rigid2d.hpp}}
+
+
+Library for two-\/dimensional rigid body transformations.  
+
+
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iosfwd$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structrigid2d_1_1Vector2D}{rigid2d\+::\+Vector2D}}
+\begin{DoxyCompactList}\small\item\em static\+\_\+assertions test compile time assumptions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structrigid2d_1_1Twist2D}{rigid2d\+::\+Twist2D}}
+\begin{DoxyCompactList}\small\item\em A 2-\/Dimensional twist. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrigid2d_1_1Transform2D}{rigid2d\+::\+Transform2D}}
+\begin{DoxyCompactList}\small\item\em a rigid body transformation in 2 dimensions \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr bool \mbox{\hyperlink{rigid2d_8hpp_aa56fa40a409082af8395dbd4e1a25b1b}{rigid2d\+::almost\+\_\+equal}} (double d1, double d2, double epsilon=1.\+0e-\/12)
+\begin{DoxyCompactList}\small\item\em approximately compare two floating-\/point numbers using an absolute comparison \end{DoxyCompactList}\item 
+constexpr double \mbox{\hyperlink{rigid2d_8hpp_a58a218146f51c0c2454e5fe1a83cb04c}{rigid2d\+::deg2rad}} (double deg)
+\begin{DoxyCompactList}\small\item\em convert degrees to radians \end{DoxyCompactList}\item 
+constexpr double \mbox{\hyperlink{rigid2d_8hpp_a6883dbf1c0018c962e890754e9d5f62f}{rigid2d\+::rad2deg}} (double rad)
+\begin{DoxyCompactList}\small\item\em convert radians to degrees \end{DoxyCompactList}\item 
+constexpr double \mbox{\hyperlink{rigid2d_8hpp_a0366e0678d25f256b74525151b28b1e0}{rigid2d\+::normalize\+\_\+angle}} (double rad)
+\begin{DoxyCompactList}\small\item\em turns any angle into the equivalent one between -\/PI and PI \end{DoxyCompactList}\item 
+Vector2D \& \mbox{\hyperlink{rigid2d_8hpp_aefd78acd3d7c544276ff4adb44195d69}{rigid2d\+::operator+}} (Vector2D v1, const Vector2D \&v2)
+\begin{DoxyCompactList}\small\item\em add this vector with another and store the result in this object \end{DoxyCompactList}\item 
+Vector2D \& \mbox{\hyperlink{rigid2d_8hpp_a1ccb2bde4af22f4d720de5888a9cde11}{rigid2d\+::operator-\/}} (Vector2D v1, const Vector2D \&v2)
+\begin{DoxyCompactList}\small\item\em subtract another vector from this vector and store the result in this object \end{DoxyCompactList}\item 
+Vector2D \& \mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{rigid2d\+::operator$\ast$}} (Vector2D v1, const double scalar)
+\begin{DoxyCompactList}\small\item\em multiply this vector with a scalar and store the result in this object \end{DoxyCompactList}\item 
+Vector2D \& \mbox{\hyperlink{rigid2d_8hpp_a69bd4d22cb34a3f68ffbd7cd20bca9f8}{rigid2d\+::operator$\ast$}} (const double scalar, Vector2D v1)
+\begin{DoxyCompactList}\small\item\em multiply a scalar with a vector and store the result in this object \end{DoxyCompactList}\item 
+std\+::ostream \& \mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{rigid2d\+::operator$<$$<$}} (std\+::ostream \&os, const Vector2D \&v)
+\begin{DoxyCompactList}\small\item\em output a 2 dimensional vector as \mbox{[}xcomponent ycomponent\mbox{]} \end{DoxyCompactList}\item 
+std\+::istream \& \mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{rigid2d\+::operator$>$$>$}} (std\+::istream \&is, Vector2D \&v)
+\begin{DoxyCompactList}\small\item\em input a 2 dimensional vector You should be able to read vectors entered as two numbers separated by a newline or a space, or entered as \mbox{[}xcomponent, ycomponent\mbox{]} \end{DoxyCompactList}\item 
+std\+::ostream \& \mbox{\hyperlink{rigid2d_8hpp_a6a0532303a0ddc5c06feaedaf68a74c6}{rigid2d\+::operator$<$$<$}} (std\+::ostream \&os, const Twist2D \&twist)
+\begin{DoxyCompactList}\small\item\em should print a human readable version of the twist\+: An example output\+: dtheta (degrees)\+: 90 dx\+: 3 dy\+: 5 \end{DoxyCompactList}\item 
+std\+::istream \& \mbox{\hyperlink{rigid2d_8hpp_ac7a0559628c11bc61ace25d22ada9eb8}{rigid2d\+::operator$>$$>$}} (std\+::istream \&is, Twist2D \&twist)
+\begin{DoxyCompactList}\small\item\em Read a twist from stdin Should be able to read input either as output by operator\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} or as 3 numbers (w, xdot, ydot) separated by spaces or newlines. \end{DoxyCompactList}\item 
+std\+::ostream \& \mbox{\hyperlink{rigid2d_8hpp_aa6e4ecc06706f3e94aaebb9ba4598d30}{rigid2d\+::operator$<$$<$}} (std\+::ostream \&os, const Transform2D \&tf)
+\begin{DoxyCompactList}\small\item\em should print a human readable version of the transform\+: An example output\+: dtheta (degrees)\+: 90 dx\+: 3 dy\+: 5 \end{DoxyCompactList}\item 
+std\+::istream \& \mbox{\hyperlink{rigid2d_8hpp_aa8a4c013498f57be323a74a4a39d7355}{rigid2d\+::operator$>$$>$}} (std\+::istream \&is, Transform2D \&tf)
+\begin{DoxyCompactList}\small\item\em Read a transformation from stdin Should be able to read input either as output by operator\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} or as 3 numbers (degrees, dx, dy) separated by spaces or newlines. \end{DoxyCompactList}\item 
+Transform2D \mbox{\hyperlink{rigid2d_8hpp_a193e435d7d7f317928d3a297d4c24172}{rigid2d\+::operator$\ast$}} (Transform2D lhs, const Transform2D \&rhs)
+\begin{DoxyCompactList}\small\item\em multiply two transforms together, returning their composition \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}\label{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}} 
+constexpr double {\bfseries rigid2d\+::\+PI} = 3.\+14159265358979323846
+\begin{DoxyCompactList}\small\item\em PI. Not in C++ standard until C++20. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Library for two-\/dimensional rigid body transformations. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{rigid2d_8hpp_aa56fa40a409082af8395dbd4e1a25b1b}\label{rigid2d_8hpp_aa56fa40a409082af8395dbd4e1a25b1b}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!almost\_equal@{almost\_equal}}
+\index{almost\_equal@{almost\_equal}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{almost\_equal()}{almost\_equal()}}
+{\footnotesize\ttfamily constexpr bool rigid2d\+::almost\+\_\+equal (\begin{DoxyParamCaption}\item[{double}]{d1,  }\item[{double}]{d2,  }\item[{double}]{epsilon = {\ttfamily 1.0e-\/12} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+approximately compare two floating-\/point numbers using an absolute comparison 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d1} & -\/ a number to compare \\
+\hline
+{\em d2} & -\/ a second number to compare \\
+\hline
+{\em epsilon} & -\/ absolute threshold required for equality \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if abs(d1 -\/ d2) \texorpdfstring{$<$}{<} epsilon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rigid2d_8hpp_a58a218146f51c0c2454e5fe1a83cb04c}\label{rigid2d_8hpp_a58a218146f51c0c2454e5fe1a83cb04c}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!deg2rad@{deg2rad}}
+\index{deg2rad@{deg2rad}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{deg2rad()}{deg2rad()}}
+{\footnotesize\ttfamily constexpr double rigid2d\+::deg2rad (\begin{DoxyParamCaption}\item[{double}]{deg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+convert degrees to radians 
+
+
+\begin{DoxyParams}{Parameters}
+{\em deg} & -\/ angle in degrees \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+radians 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rigid2d_8hpp_a0366e0678d25f256b74525151b28b1e0}\label{rigid2d_8hpp_a0366e0678d25f256b74525151b28b1e0}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!normalize\_angle@{normalize\_angle}}
+\index{normalize\_angle@{normalize\_angle}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{normalize\_angle()}{normalize\_angle()}}
+{\footnotesize\ttfamily constexpr double rigid2d\+::normalize\+\_\+angle (\begin{DoxyParamCaption}\item[{double}]{rad }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+turns any angle into the equivalent one between -\/PI and PI 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rad} & -\/ angle in radians \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the equivalent angle between -\/PI and PI 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rigid2d_8hpp_a69bd4d22cb34a3f68ffbd7cd20bca9f8}\label{rigid2d_8hpp_a69bd4d22cb34a3f68ffbd7cd20bca9f8}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Vector2D \& rigid2d\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{const double}]{scalar,  }\item[{\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}}}]{v1 }\end{DoxyParamCaption})}
+
+
+
+multiply a scalar with a vector and store the result in this object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scalar} & -\/ scalar to multiply \\
+\hline
+{\em v1} & -\/ vector vector to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to the newly transformed vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rigid2d_8hpp_a193e435d7d7f317928d3a297d4c24172}\label{rigid2d_8hpp_a193e435d7d7f317928d3a297d4c24172}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrigid2d_1_1Transform2D}{rigid2d\+::\+Transform2D}} rigid2d\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}}}]{lhs,  }\item[{const \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+multiply two transforms together, returning their composition 
+
+Multiply two transforms together, returning their composition.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & -\/ the left hand operand \\
+\hline
+{\em rhs} & -\/ the right hand operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the composition of the two transforms 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}\label{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Vector2D \& rigid2d\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}}}]{v1,  }\item[{const double}]{scalar }\end{DoxyParamCaption})}
+
+
+
+multiply this vector with a scalar and store the result in this object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & -\/ vector vector to multiply \\
+\hline
+{\em scalar} & -\/ scalar to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to the newly transformed vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rigid2d_8hpp_aefd78acd3d7c544276ff4adb44195d69}\label{rigid2d_8hpp_aefd78acd3d7c544276ff4adb44195d69}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator+@{operator+}}
+\index{operator+@{operator+}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily Vector2D \& rigid2d\+::operator+ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}}}]{v1,  }\item[{const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&}]{v2 }\end{DoxyParamCaption})}
+
+
+
+add this vector with another and store the result in this object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & -\/ vector \\
+\hline
+{\em v2} & -\/ vector to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to the newly transformed vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rigid2d_8hpp_a1ccb2bde4af22f4d720de5888a9cde11}\label{rigid2d_8hpp_a1ccb2bde4af22f4d720de5888a9cde11}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily Vector2D \& rigid2d\+::operator-\/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}}}]{v1,  }\item[{const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&}]{v2 }\end{DoxyParamCaption})}
+
+
+
+subtract another vector from this vector and store the result in this object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & -\/ vector \\
+\hline
+{\em v2} & -\/ vector to subtruct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to the newly transformed vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rigid2d_8hpp_aa6e4ecc06706f3e94aaebb9ba4598d30}\label{rigid2d_8hpp_aa6e4ecc06706f3e94aaebb9ba4598d30}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily std\+::ostream \& rigid2d\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&}]{tf }\end{DoxyParamCaption})}
+
+
+
+should print a human readable version of the transform\+: An example output\+: dtheta (degrees)\+: 90 dx\+: 3 dy\+: 5 
+
+Should print a human readable version of the transform.
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & -\/ an output stream \\
+\hline
+{\em tf} & -\/ the transform to print \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rigid2d_8hpp_a6a0532303a0ddc5c06feaedaf68a74c6}\label{rigid2d_8hpp_a6a0532303a0ddc5c06feaedaf68a74c6}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily std\+::ostream \& rigid2d\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&}]{twist }\end{DoxyParamCaption})}
+
+
+
+should print a human readable version of the twist\+: An example output\+: dtheta (degrees)\+: 90 dx\+: 3 dy\+: 5 
+
+Should print a human readable version of the twist.
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & -\/ an output stream \\
+\hline
+{\em twist} & -\/ the twist to print \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}\label{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily std\+::ostream \& rigid2d\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&}]{v }\end{DoxyParamCaption})}
+
+
+
+output a 2 dimensional vector as \mbox{[}xcomponent ycomponent\mbox{]} 
+
+Output a 2 dimensional vector as \mbox{[}x\+\_\+component, y\+\_\+component\mbox{]}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & -\/ stream to output to \\
+\hline
+{\em v} & -\/ the vector to print \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rigid2d_8hpp_aa8a4c013498f57be323a74a4a39d7355}\label{rigid2d_8hpp_aa8a4c013498f57be323a74a4a39d7355}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily std\+::istream \& rigid2d\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{is,  }\item[{\mbox{\hyperlink{classrigid2d_1_1Transform2D}{rigid2d\+::\+Transform2D}} \&}]{tf }\end{DoxyParamCaption})}
+
+
+
+Read a transformation from stdin Should be able to read input either as output by operator\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} or as 3 numbers (degrees, dx, dy) separated by spaces or newlines. 
+
+Read a transformation from stdin.
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & -\/ stream from which to read \\
+\hline
+{\em tf} & -\/ the transform to print \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rigid2d_8hpp_ac7a0559628c11bc61ace25d22ada9eb8}\label{rigid2d_8hpp_ac7a0559628c11bc61ace25d22ada9eb8}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily std\+::istream \& rigid2d\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{is,  }\item[{\mbox{\hyperlink{structrigid2d_1_1Twist2D}{rigid2d\+::\+Twist2D}} \&}]{twist }\end{DoxyParamCaption})}
+
+
+
+Read a twist from stdin Should be able to read input either as output by operator\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} or as 3 numbers (w, xdot, ydot) separated by spaces or newlines. 
+
+Read a twist from stdin.
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & -\/ stream from which to read \\
+\hline
+{\em twist} & -\/ the twist to print \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}\label{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily std\+::istream \& rigid2d\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{is,  }\item[{\mbox{\hyperlink{structrigid2d_1_1Vector2D}{rigid2d\+::\+Vector2D}} \&}]{v }\end{DoxyParamCaption})}
+
+
+
+input a 2 dimensional vector You should be able to read vectors entered as two numbers separated by a newline or a space, or entered as \mbox{[}xcomponent, ycomponent\mbox{]} 
+
+Input a 2 dimensional vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & -\/ stream from which to read \\
+\hline
+{\em v} & \mbox{[}out\mbox{]} -\/ output vector Hint\+: The following may be useful\+: \href{https://en.cppreference.com/w/cpp/io/basic_istream/peek}{\texttt{ https\+://en.\+cppreference.\+com/w/cpp/io/basic\+\_\+istream/peek}} \href{https://en.cppreference.com/w/cpp/io/basic_istream/get}{\texttt{ https\+://en.\+cppreference.\+com/w/cpp/io/basic\+\_\+istream/get}} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rigid2d_8hpp_a6883dbf1c0018c962e890754e9d5f62f}\label{rigid2d_8hpp_a6883dbf1c0018c962e890754e9d5f62f}} 
+\index{rigid2d.hpp@{rigid2d.hpp}!rad2deg@{rad2deg}}
+\index{rad2deg@{rad2deg}!rigid2d.hpp@{rigid2d.hpp}}
+\doxysubsubsection{\texorpdfstring{rad2deg()}{rad2deg()}}
+{\footnotesize\ttfamily constexpr double rigid2d\+::rad2deg (\begin{DoxyParamCaption}\item[{double}]{rad }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+convert radians to degrees 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rad} & -\/ angle in radians \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the angle in degrees 
+\end{DoxyReturn}

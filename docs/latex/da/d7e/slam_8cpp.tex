@@ -1,0 +1,70 @@
+\hypertarget{slam_8cpp}{}\doxysection{nuslam/src/slam.cpp File Reference}
+\label{slam_8cpp}\index{nuslam/src/slam.cpp@{nuslam/src/slam.cpp}}
+
+
+Implementation of the extended Kalman Filter SLAM.  
+
+
+{\ttfamily \#include \char`\"{}nuslam/nuslam.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rigid2d/diff\+\_\+drive.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rigid2d/rigid2d.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Quaternion.\+h$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Transform\+Stamped.\+h$>$}\newline
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Odometry.\+h$>$}\newline
+{\ttfamily \#include $<$sensor\+\_\+msgs/\+Joint\+State.\+h$>$}\newline
+{\ttfamily \#include $<$tf2/\+Linear\+Math/\+Quaternion.\+h$>$}\newline
+{\ttfamily \#include $<$tf2\+\_\+geometry\+\_\+msgs/tf2\+\_\+geometry\+\_\+msgs.\+h$>$}\newline
+{\ttfamily \#include $<$tf2\+\_\+ros/static\+\_\+transform\+\_\+broadcaster.\+h$>$}\newline
+{\ttfamily \#include $<$tf2\+\_\+ros/transform\+\_\+broadcaster.\+h$>$}\newline
+{\ttfamily \#include $<$visualization\+\_\+msgs/\+Marker\+Array.\+h$>$}\newline
+{\ttfamily \#include $<$rigid2d/\+Set\+Pose.\+h$>$}\newline
+{\ttfamily \#include $<$armadillo$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classKFSlam}{KFSlam}}
+\begin{DoxyCompactList}\small\item\em Class \mbox{\hyperlink{classKFSlam}{KFSlam}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{slam_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the extended Kalman Filter SLAM. 
+
+PARAMETERS\+: frequency (int)\+: control loop frequency reset\+\_\+flag (bool)\+: specifies when new pose is read wheel\+\_\+base (float)\+: The distance between the wheels wheel\+\_\+radius (float)\+: The radius of the wheels odom\+\_\+frame\+\_\+id (std\+::string)\+: The name of the odometry tf frame body\+\_\+frame\+\_\+id (std\+::string)\+: The name of the body tf frame left\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the left wheel joint right\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the right wheel joint
+
+joint\+\_\+msg (sensor\+\_\+msgs\+::\+Joint\+State)\+: message to publish wheel angle readings to /joint\+\_\+states topic static\+\_\+world\+\_\+broadcaster (Static\+Transform\+Broadcaster)\+: Broadcast the static transform between world\+\_\+frame\+\_\+id and the map\+\_\+frame\+\_\+id on /tf using a tf2 odom\+\_\+broadcaster (Transform\+Broadcaster)\+: Broadcast the transform between map\+\_\+frame\+\_\+id and the odom\+\_\+frame\+\_\+id on /tf using a tf2 map\+\_\+broadcaster (Transform\+Broadcaster)\+: Broadcast the transform between odom\+\_\+frame\+\_\+id and the body\+\_\+frame\+\_\+id on /tf using a tf2 static\+\_\+world\+\_\+tf(geometry\+\_\+msgs\+::\+Transform\+Stamped)\+: static world transform map\+\_\+tf(geometry\+\_\+msgs\+::\+Transform\+Stamped)\+: map transform odom\+\_\+tf(geometry\+\_\+msgs\+::\+Transform\+Stamped)\+: odometry transform odom(nav\+\_\+msgs\+::\+Odometry)\+: odometry message slam (nav\+\_\+msgs\+::\+Odometry)\+: slam message slam\+\_\+marker\+\_\+array (visualization\+\_\+msgs\+::\+Marker\+Array)\+: an array of obstacles publishing to the slam simulator.
+
+odom\+\_\+pose (\mbox{\hyperlink{structrigid2d_1_1Config2D}{rigid2d\+::\+Config2D}})\+: the robot\textquotesingle{}s position (based on the wheel angles) reset\+\_\+pose (\mbox{\hyperlink{structrigid2d_1_1Config2D}{rigid2d\+::\+Config2D}})\+: the robot\textquotesingle{}s reset position twist(rigid2d\+::\+Twist2\+D)\+: the robot\textquotesingle{}s twist twist\+\_\+del (\mbox{\hyperlink{structrigid2d_1_1Twist2D}{rigid2d\+::\+Twist2D}})\+: the delta between the robot\textquotesingle{}s new twist to the robot\textquotesingle{}s last twist diff\+\_\+drive (\mbox{\hyperlink{classrigid2d_1_1DiffDrive}{rigid2d\+::\+Diff\+Drive}})\+: an instance of the diff\+\_\+drive robot wheel\+\_\+vel (\mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{rigid2d\+::\+Wheel\+Velocity}})\+: the velocity of the robot\textquotesingle{}s wheels wheel\+\_\+angle (\mbox{\hyperlink{structrigid2d_1_1WheelAngle}{rigid2d\+::\+Wheel\+Angle}})\+: the angle of the robot\textquotesingle{}s wheels
+
+measurements (std\+::vector$<$nuslam\+::\+Measurement$>$)\+: a vector with components of type \mbox{\hyperlink{structnuslam_1_1Measurement}{nuslam\+::\+Measurement}}. m\+\_\+t (arma\+::mat)\+: the map matrix, as measured in the slam simulator. q\+\_\+t(arma\+::mat)\+: the state matrix, as measured in the slam simulator.
+
+PUBLISHES\+: odom (nav\+\_\+msgs/\+Odometry)\+: publishes Odometry message on the odom topic. landmarks\+\_\+pub (visualization\+\_\+msgs/\+Marker\+Array)\+: publishes real landmarks. slam\+\_\+landmarks\+\_\+pub (visualization\+\_\+msgs/\+Marker\+Array)\+: publishes landmark to be subscribed by the slam simulation.
+
+SUBSCRIBES\+: landmarks\+\_\+sub (visualization\+\_\+msgs/\+Marker)\+: Subscribes to the Marker\+Array that\textquotesingle{}s publish by the simulation.
+
+SERVICES\+: Set\+Pose (set\+\_\+pose)\+: Restarts the location of the odometry, so that the robot thinksit is at the requested configuration. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{slam_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{slam_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{slam.cpp@{slam.cpp}!main@{main}}
+\index{main@{main}!slam.cpp@{slam.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}

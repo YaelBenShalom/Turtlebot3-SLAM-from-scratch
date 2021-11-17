@@ -1,0 +1,156 @@
+\hypertarget{structrigid2d_1_1Twist2D}{}\doxysection{rigid2d\+::Twist2D Struct Reference}
+\label{structrigid2d_1_1Twist2D}\index{rigid2d::Twist2D@{rigid2d::Twist2D}}
+
+
+A 2-\/Dimensional twist.  
+
+
+
+
+{\ttfamily \#include $<$rigid2d.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structrigid2d_1_1Twist2D_a8a317315c9dc111b01e0f3c53af072b4}{Twist2D}} ()
+\begin{DoxyCompactList}\small\item\em create a zero-\/\+Twist \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrigid2d_1_1Twist2D_accb7bb0ce6520239a9360600fe251210}{Twist2D}} (double thetadot\+\_\+, double xdot\+\_\+, double ydot\+\_\+)
+\begin{DoxyCompactList}\small\item\em create a twist with x,y inputs \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{structrigid2d_1_1Twist2D_aa1f432478c2a11d5a229cc91db43dfde}{thetadot}}
+\item 
+double \mbox{\hyperlink{structrigid2d_1_1Twist2D_a664dadf4243d6a420a1afa0331538bb7}{xdot}}
+\item 
+double \mbox{\hyperlink{structrigid2d_1_1Twist2D_ae8c3b6a3f279958a3a0a5b82eb02a883}{ydot}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{structrigid2d_1_1Twist2D_a649db804570e2552b69cfb5dcb04737b}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist)
+\begin{DoxyCompactList}\small\item\em should print a human readable version of the twist\+: An example output\+: dtheta (degrees)\+: 90 dx\+: 3 dy\+: 5 \end{DoxyCompactList}\item 
+std\+::istream \& \mbox{\hyperlink{structrigid2d_1_1Twist2D_ab2c722171c0d655d99c0276170b8cca9}{operator$>$$>$}} (std\+::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist)
+\begin{DoxyCompactList}\small\item\em Read a twist from stdin Should be able to read input either as output by operator\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} or as 3 numbers (w, xdot, ydot) separated by spaces or newlines. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A 2-\/Dimensional twist. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structrigid2d_1_1Twist2D_a8a317315c9dc111b01e0f3c53af072b4}\label{structrigid2d_1_1Twist2D_a8a317315c9dc111b01e0f3c53af072b4}} 
+\index{rigid2d::Twist2D@{rigid2d::Twist2D}!Twist2D@{Twist2D}}
+\index{Twist2D@{Twist2D}!rigid2d::Twist2D@{rigid2d::Twist2D}}
+\doxysubsubsection{\texorpdfstring{Twist2D()}{Twist2D()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily rigid2d\+::\+Twist2\+D\+::\+Twist2D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+create a zero-\/\+Twist 
+
+Create a zero-\/\+Twist. \mbox{\Hypertarget{structrigid2d_1_1Twist2D_accb7bb0ce6520239a9360600fe251210}\label{structrigid2d_1_1Twist2D_accb7bb0ce6520239a9360600fe251210}} 
+\index{rigid2d::Twist2D@{rigid2d::Twist2D}!Twist2D@{Twist2D}}
+\index{Twist2D@{Twist2D}!rigid2d::Twist2D@{rigid2d::Twist2D}}
+\doxysubsubsection{\texorpdfstring{Twist2D()}{Twist2D()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily rigid2d\+::\+Twist2\+D\+::\+Twist2D (\begin{DoxyParamCaption}\item[{double}]{thetadot\+\_\+,  }\item[{double}]{xdot\+\_\+,  }\item[{double}]{ydot\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+create a twist with x,y inputs 
+
+Create a twist with x,y inputs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em thetadot\+\_\+} & -\/ thetadot input of the vector \\
+\hline
+{\em xdot\+\_\+} & -\/ xdot input of the vector \\
+\hline
+{\em ydot\+\_\+} & -\/ ydot input of the vector \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{structrigid2d_1_1Twist2D_a649db804570e2552b69cfb5dcb04737b}\label{structrigid2d_1_1Twist2D_a649db804570e2552b69cfb5dcb04737b}} 
+\index{rigid2d::Twist2D@{rigid2d::Twist2D}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!rigid2d::Twist2D@{rigid2d::Twist2D}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&}]{twist }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+should print a human readable version of the twist\+: An example output\+: dtheta (degrees)\+: 90 dx\+: 3 dy\+: 5 
+
+\begin{DoxySeeAlso}{See also}
+operator$<$$<$(...) (declared outside this class) for a description.
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em os} & -\/ an output stream \\
+\hline
+{\em twist} & -\/ the twist to print \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structrigid2d_1_1Twist2D_ab2c722171c0d655d99c0276170b8cca9}\label{structrigid2d_1_1Twist2D_ab2c722171c0d655d99c0276170b8cca9}} 
+\index{rigid2d::Twist2D@{rigid2d::Twist2D}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!rigid2d::Twist2D@{rigid2d::Twist2D}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$}{operator>>}}
+{\footnotesize\ttfamily std\+::istream \& operator$>$$>$ (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{is,  }\item[{\mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&}]{twist }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Read a twist from stdin Should be able to read input either as output by operator\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} or as 3 numbers (w, xdot, ydot) separated by spaces or newlines. 
+
+\begin{DoxySeeAlso}{See also}
+operator$>$$>$(...) (declared outside this class) for a description.
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em is} & -\/ stream from which to read \\
+\hline
+{\em twist} & -\/ the twist to print \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrigid2d_1_1Twist2D_aa1f432478c2a11d5a229cc91db43dfde}\label{structrigid2d_1_1Twist2D_aa1f432478c2a11d5a229cc91db43dfde}} 
+\index{rigid2d::Twist2D@{rigid2d::Twist2D}!thetadot@{thetadot}}
+\index{thetadot@{thetadot}!rigid2d::Twist2D@{rigid2d::Twist2D}}
+\doxysubsubsection{\texorpdfstring{thetadot}{thetadot}}
+{\footnotesize\ttfamily double rigid2d\+::\+Twist2\+D\+::thetadot}
+
+
+\begin{DoxyParams}{Parameters}
+{\em thetadot} & -\/ thetadot input of the vector \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structrigid2d_1_1Twist2D_a664dadf4243d6a420a1afa0331538bb7}\label{structrigid2d_1_1Twist2D_a664dadf4243d6a420a1afa0331538bb7}} 
+\index{rigid2d::Twist2D@{rigid2d::Twist2D}!xdot@{xdot}}
+\index{xdot@{xdot}!rigid2d::Twist2D@{rigid2d::Twist2D}}
+\doxysubsubsection{\texorpdfstring{xdot}{xdot}}
+{\footnotesize\ttfamily double rigid2d\+::\+Twist2\+D\+::xdot}
+
+
+\begin{DoxyParams}{Parameters}
+{\em xdot} & -\/ xdot input of the vector \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structrigid2d_1_1Twist2D_ae8c3b6a3f279958a3a0a5b82eb02a883}\label{structrigid2d_1_1Twist2D_ae8c3b6a3f279958a3a0a5b82eb02a883}} 
+\index{rigid2d::Twist2D@{rigid2d::Twist2D}!ydot@{ydot}}
+\index{ydot@{ydot}!rigid2d::Twist2D@{rigid2d::Twist2D}}
+\doxysubsubsection{\texorpdfstring{ydot}{ydot}}
+{\footnotesize\ttfamily double rigid2d\+::\+Twist2\+D\+::ydot}
+
+
+\begin{DoxyParams}{Parameters}
+{\em ydot} & -\/ ydot input of the vector \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+rigid2d/include/rigid2d/\mbox{\hyperlink{rigid2d_8hpp}{rigid2d.\+hpp}}\item 
+rigid2d/src/rigid2d.\+cpp\end{DoxyCompactItemize}

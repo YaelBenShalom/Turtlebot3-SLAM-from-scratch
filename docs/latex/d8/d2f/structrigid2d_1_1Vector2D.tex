@@ -1,0 +1,249 @@
+\hypertarget{structrigid2d_1_1Vector2D}{}\doxysection{rigid2d\+::Vector2D Struct Reference}
+\label{structrigid2d_1_1Vector2D}\index{rigid2d::Vector2D@{rigid2d::Vector2D}}
+
+
+static\+\_\+assertions test compile time assumptions.  
+
+
+
+
+{\ttfamily \#include $<$rigid2d.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structrigid2d_1_1Vector2D_aa268d230fdd3ddc7b5f89e6277ee60da}{Vector2D}} ()
+\begin{DoxyCompactList}\small\item\em create zero-\/vector \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrigid2d_1_1Vector2D_a7676be61234533fc4c569fc27fd78a9e}{Vector2D}} (double x\+\_\+, double y\+\_\+)
+\begin{DoxyCompactList}\small\item\em create a vector with x,y inputs \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structrigid2d_1_1Vector2D_a0be56967b3920a398291ea722c540114}{normalize}} ()
+\begin{DoxyCompactList}\small\item\em function to normalize vector \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structrigid2d_1_1Vector2D_ac9d05c60e546bfaa50cdd0b063182f06}{magnitude}} (const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v)
+\begin{DoxyCompactList}\small\item\em compute the magnitude of the vector \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structrigid2d_1_1Vector2D_a679fe66b27f8e2214ca7d96e5f8b1749}{angle}} (const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v)
+\begin{DoxyCompactList}\small\item\em compute the angle of the vector \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \& \mbox{\hyperlink{structrigid2d_1_1Vector2D_a7be7e2d9846a1f25b03fb7089db4b199}{operator+=}} (const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v)
+\begin{DoxyCompactList}\small\item\em add this vector with another and store the result in this object \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \& \mbox{\hyperlink{structrigid2d_1_1Vector2D_af94429ccb58da7d01cc1b8599f7f2a2e}{operator-\/=}} (const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v)
+\begin{DoxyCompactList}\small\item\em subtract another vector from this vector and store the result in this object \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \& \mbox{\hyperlink{structrigid2d_1_1Vector2D_a5c81dad34136afe2f6522fc69753476b}{operator$\ast$=}} (const double scalar)
+\begin{DoxyCompactList}\small\item\em multiply this vector with a scalar and store the result in this object \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{structrigid2d_1_1Vector2D_a1876d655fe2da548c4813777c450845c}{x}}
+\item 
+double \mbox{\hyperlink{structrigid2d_1_1Vector2D_aa814ea37ffe4a161b0020609580e4d17}{y}}
+\item 
+double \mbox{\hyperlink{structrigid2d_1_1Vector2D_a68bb2db6ccaabf084c871e02e9c79252}{x\+\_\+normalized}}
+\item 
+double \mbox{\hyperlink{structrigid2d_1_1Vector2D_a3c48c47db75b6d091ad65e6a9428378d}{y\+\_\+normalized}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+static\+\_\+assertions test compile time assumptions. 
+
+A 2-\/Dimensional Vector 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_aa268d230fdd3ddc7b5f89e6277ee60da}\label{structrigid2d_1_1Vector2D_aa268d230fdd3ddc7b5f89e6277ee60da}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!Vector2D@{Vector2D}}
+\index{Vector2D@{Vector2D}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{Vector2D()}{Vector2D()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily rigid2d\+::\+Vector2\+D\+::\+Vector2D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+create zero-\/vector 
+
+Create a 2-\/Dimensional Vector. \mbox{\Hypertarget{structrigid2d_1_1Vector2D_a7676be61234533fc4c569fc27fd78a9e}\label{structrigid2d_1_1Vector2D_a7676be61234533fc4c569fc27fd78a9e}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!Vector2D@{Vector2D}}
+\index{Vector2D@{Vector2D}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{Vector2D()}{Vector2D()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily rigid2d\+::\+Vector2\+D\+::\+Vector2D (\begin{DoxyParamCaption}\item[{double}]{x\+\_\+,  }\item[{double}]{y\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+create a vector with x,y inputs 
+
+Create a zero-\/vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+} & -\/ x input of the vector \\
+\hline
+{\em y\+\_\+} & -\/ y input of the vector \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_a679fe66b27f8e2214ca7d96e5f8b1749}\label{structrigid2d_1_1Vector2D_a679fe66b27f8e2214ca7d96e5f8b1749}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!angle@{angle}}
+\index{angle@{angle}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{angle()}{angle()}}
+{\footnotesize\ttfamily double rigid2d\+::\+Vector2\+D\+::angle (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&}]{v }\end{DoxyParamCaption})}
+
+
+
+compute the angle of the vector 
+
+Compute the angle of the vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & -\/ the vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the angle of the vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_ac9d05c60e546bfaa50cdd0b063182f06}\label{structrigid2d_1_1Vector2D_ac9d05c60e546bfaa50cdd0b063182f06}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!magnitude@{magnitude}}
+\index{magnitude@{magnitude}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{magnitude()}{magnitude()}}
+{\footnotesize\ttfamily double rigid2d\+::\+Vector2\+D\+::magnitude (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&}]{v }\end{DoxyParamCaption})}
+
+
+
+compute the magnitude of the vector 
+
+Compute the magnitude of the vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & -\/ the vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the magnitude of the vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_a0be56967b3920a398291ea722c540114}\label{structrigid2d_1_1Vector2D_a0be56967b3920a398291ea722c540114}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!normalize@{normalize}}
+\index{normalize@{normalize}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}}
+{\footnotesize\ttfamily void rigid2d\+::\+Vector2\+D\+::normalize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+function to normalize vector 
+
+Normalize a vector.
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_a5c81dad34136afe2f6522fc69753476b}\label{structrigid2d_1_1Vector2D_a5c81dad34136afe2f6522fc69753476b}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structrigid2d_1_1Vector2D}{rigid2d\+::\+Vector2D}} \& rigid2d\+::\+Vector2\+D\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{const double}]{scalar }\end{DoxyParamCaption})}
+
+
+
+multiply this vector with a scalar and store the result in this object 
+
+Multiply this vector with a scalar and store the result in this object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em scalar} & -\/ scalar to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to the newly transformed vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_a7be7e2d9846a1f25b03fb7089db4b199}\label{structrigid2d_1_1Vector2D_a7be7e2d9846a1f25b03fb7089db4b199}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structrigid2d_1_1Vector2D}{rigid2d\+::\+Vector2D}} \& rigid2d\+::\+Vector2\+D\+::operator+= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&}]{v }\end{DoxyParamCaption})}
+
+
+
+add this vector with another and store the result in this object 
+
+Add this vector with another and store the result in this object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & -\/ components to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to the newly transformed vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_af94429ccb58da7d01cc1b8599f7f2a2e}\label{structrigid2d_1_1Vector2D_af94429ccb58da7d01cc1b8599f7f2a2e}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structrigid2d_1_1Vector2D}{rigid2d\+::\+Vector2D}} \& rigid2d\+::\+Vector2\+D\+::operator-\/= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&}]{v }\end{DoxyParamCaption})}
+
+
+
+subtract another vector from this vector and store the result in this object 
+
+Subtract another vector from this vector and store the result in this object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & -\/ components to subtract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to the newly transformed vector 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_a1876d655fe2da548c4813777c450845c}\label{structrigid2d_1_1Vector2D_a1876d655fe2da548c4813777c450845c}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!x@{x}}
+\index{x@{x}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily double rigid2d\+::\+Vector2\+D\+::x}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ x input of the vector \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_a68bb2db6ccaabf084c871e02e9c79252}\label{structrigid2d_1_1Vector2D_a68bb2db6ccaabf084c871e02e9c79252}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!x\_normalized@{x\_normalized}}
+\index{x\_normalized@{x\_normalized}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{x\_normalized}{x\_normalized}}
+{\footnotesize\ttfamily double rigid2d\+::\+Vector2\+D\+::x\+\_\+normalized}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+normalized} & -\/ x input of the vector -\/ normalized \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_aa814ea37ffe4a161b0020609580e4d17}\label{structrigid2d_1_1Vector2D_aa814ea37ffe4a161b0020609580e4d17}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!y@{y}}
+\index{y@{y}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily double rigid2d\+::\+Vector2\+D\+::y}
+
+
+\begin{DoxyParams}{Parameters}
+{\em y} & -\/ y input of the vector \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structrigid2d_1_1Vector2D_a3c48c47db75b6d091ad65e6a9428378d}\label{structrigid2d_1_1Vector2D_a3c48c47db75b6d091ad65e6a9428378d}} 
+\index{rigid2d::Vector2D@{rigid2d::Vector2D}!y\_normalized@{y\_normalized}}
+\index{y\_normalized@{y\_normalized}!rigid2d::Vector2D@{rigid2d::Vector2D}}
+\doxysubsubsection{\texorpdfstring{y\_normalized}{y\_normalized}}
+{\footnotesize\ttfamily double rigid2d\+::\+Vector2\+D\+::y\+\_\+normalized}
+
+
+\begin{DoxyParams}{Parameters}
+{\em y\+\_\+normalized} & -\/ y input of the vector -\/ normalized \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+rigid2d/include/rigid2d/\mbox{\hyperlink{rigid2d_8hpp}{rigid2d.\+hpp}}\item 
+rigid2d/src/rigid2d.\+cpp\end{DoxyCompactItemize}

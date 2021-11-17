@@ -1,0 +1,45 @@
+\hypertarget{turtle__rect_8cpp}{}\doxysection{trect/src/turtle\+\_\+rect.cpp File Reference}
+\label{turtle__rect_8cpp}\index{trect/src/turtle\_rect.cpp@{trect/src/turtle\_rect.cpp}}
+
+
+Causes the turtlesim turtle to follow a rectangle path.  
+
+
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sensor\+\_\+msgs/\+Joint\+State.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Twist.\+h$>$}\newline
+{\ttfamily \#include $<$std\+\_\+srvs/\+Empty.\+h$>$}\newline
+{\ttfamily \#include $<$trect/\+Turtle\+Start.\+h$>$}\newline
+{\ttfamily \#include $<$turtlesim/\+Pose.\+h$>$}\newline
+{\ttfamily \#include $<$turtlesim/\+Set\+Pen.\+h$>$}\newline
+{\ttfamily \#include $<$turtlesim/\+Teleport\+Absolute.\+h$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classTurtleRect}{Turtle\+Rect}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{turtle__rect_8cpp_a5d74787dedbc4e11c1ab15bf487e61f8}\label{turtle__rect_8cpp_a5d74787dedbc4e11c1ab15bf487e61f8}} 
+enum class {\bfseries State} \{ {\bfseries STOP}
+, {\bfseries TURN}
+, {\bfseries FORWARD}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{turtle__rect_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{turtle__rect_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Causes the turtlesim turtle to follow a rectangle path. 
+
+PUBLISHES\+: cmd\+\_\+vel (Twist)\+: publishes the turtle\textquotesingle{}s linear and angular velocity as a twist massage. SUBSCRIBES\+: turtlesim/\+Pose (Pose)\+: Subs\+Criber to the turtle\textquotesingle{}s position. SERVICES\+: turtle\+\_\+start (Turtle\+Start)\+: Starts the turtle motion and restart it when called again. 

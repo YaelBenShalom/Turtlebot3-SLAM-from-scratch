@@ -1,11 +1,12 @@
-# Sensing, Navigation and Machine Learning For Robotics
+# Package: nurtlesim
 
-- ME-495, Winter 2021
+Author: Yael Ben Shalom
 
-# Nurtlesim Package
 
-- This package stores the simulator for the turtlebot and SLAM.<br>
-  The simulator simulates the robot kinematics and a sensor that detects the relative x, y positions of landmarks and a landmark id.
+## Package Summary
+
+This package stores the simulator for the turtlebot and SLAM.<br>
+The simulator simulates the robot kinematics and a sensor that detects the relative x, y positions of landmarks and a landmark id.
 
 ## Nodes and launchfiles
 

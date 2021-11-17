@@ -1,0 +1,62 @@
+Author\+: Yael Ben Shalom\hypertarget{md_nuturtle_robot_README_autotoc_md10}{}\doxysection{Package Summary}\label{md_nuturtle_robot_README_autotoc_md10}
+This package stores the code that interacts with the turtlebot hardware.
+
+
+\begin{DoxyItemize}
+\item Launch {\ttfamily roslaunch nuturtle\+\_\+robot basic\+\_\+remote.\+launch -\/-\/ros-\/args} to view any optional arguments and their instructions.
+\item Launch {\ttfamily roslaunch nuturtle\+\_\+robot basic\+\_\+remote.\+launch robot\+:=localhost} to run the node on the local machine.
+\end{DoxyItemize}\hypertarget{md_nuturtle_robot_README_autotoc_md11}{}\doxysection{Nodes and launchfiles}\label{md_nuturtle_robot_README_autotoc_md11}
+This library contains several nodes and launchfiles\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{turtle\+\_\+interface node}} -\/ A low-\/level control and sensor routines in ROS.
+\item {\bfseries{follow\+\_\+circle node}} -\/ A node that publishes commands that let the robot drive in a circle of a specified radius at a specified speed.
+\begin{DoxyItemize}
+\item This node contains a service Control, that causes the robot to travel either clockwise (1), counter clockwise (-\/1), or stop (0) -\/ {\ttfamily rosservice call /control}.
+\end{DoxyItemize}
+\item {\bfseries{basic\+\_\+remote launchfile}} -\/ Launch file for interaction with the turtlebot hardware.
+\begin{DoxyItemize}
+\item Launch {\ttfamily roslaunch nuturtle\+\_\+robot basic\+\_\+remote.\+launch -\/-\/ros-\/args} to view any optional arguments and their instructions.
+\item Launch {\ttfamily roslaunch nuturtle\+\_\+robot basic\+\_\+remote.\+launch robot\+:=localhost} to run the node on the local machine.
+\end{DoxyItemize}
+\item {\bfseries{odom\+\_\+teleop launchfile}} -\/ Launch file for making a turtle move in rviz in a circular path or using turtlebot3\+\_\+teleop. In order to make the real robot move, follow the {\ttfamily Real Turtle Instructions} section before launching.
+\begin{DoxyItemize}
+\item Launch {\ttfamily roslaunch nuturtle\+\_\+robot odom\+\_\+teleop.\+launch} to making a turtle move in a circulat path.
+
+
+\item Launch {\ttfamily roslaunch nuturtle\+\_\+robot odom\+\_\+teleop.\+launch circle\+:=False} to making a turtle move using turtlebot3\+\_\+teleop, and move it using the {\ttfamily w}, {\ttfamily d}, {\ttfamily x}, {\ttfamily a} letters on your keyboard.
+
+
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_nuturtle_robot_README_autotoc_md12}{}\doxysection{Real Turtle Instructions\+:}\label{md_nuturtle_robot_README_autotoc_md12}
+To activate the real turtle, please follow the following steps\+:
+
+
+\begin{DoxyEnumerate}
+\item SSH into the turtlebot -\/ {\ttfamily ssh ubuntu@\texorpdfstring{$<$}{<}turtle-\/name\texorpdfstring{$>$}{>}.local}.
+\item Launch the turtlebot3\+\_\+bringup launchfile -\/ {\ttfamily roslaunch turtlebot3\+\_\+bringup turtlebot3\+\_\+robot.\+launch}.
+\end{DoxyEnumerate}\hypertarget{md_nuturtle_robot_README_autotoc_md13}{}\doxysection{Physical Testing}\label{md_nuturtle_robot_README_autotoc_md13}
+\hypertarget{md_nuturtle_robot_README_autotoc_md14}{}\doxysubsection{Experiment I\+:}\label{md_nuturtle_robot_README_autotoc_md14}
+Driving the robot forward and backward in a straight line several times, and then stopping when the turtlebot is in its initial configuration.
+
+
+
+\hypertarget{md_nuturtle_robot_README_autotoc_md15}{}\doxysubsection{Experiment II\+:}\label{md_nuturtle_robot_README_autotoc_md15}
+Rotating the robot clockwise and counter clockwise several times, stopping when the turtlebot is in its initial configuration.
+
+
+
+
+
+We can see that in reality the robot slips on the floor, so we don\textquotesingle{}t get the same results as in the simulation.\hypertarget{md_nuturtle_robot_README_autotoc_md16}{}\doxysubsection{Experiment III\+:}\label{md_nuturtle_robot_README_autotoc_md16}
+Driving the robot in a circle, clockwise and counter clockwise several times, stopping when the turtlebot is its initial configuration.
+
+
+
+The robot\textquotesingle{}s final configuration was almost equal to the initial configuration, with $\sim$3 cm difference on the y axis.\hypertarget{md_nuturtle_robot_README_autotoc_md17}{}\doxysubsection{Experiment IV\+:}\label{md_nuturtle_robot_README_autotoc_md17}
+Try one of the previous experiments again, but try to get either a significantly better or significantly worse result.
+
+I repeated the first experiment, although this one, I didn\textquotesingle{}t reduce the turtlebot\textquotesingle{}s velocity fast enough before the finish point, so the robot crossed the initial position and stopped $\sim$10 cm after it.
+
+ 

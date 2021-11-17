@@ -1,0 +1,238 @@
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/src/fake_turtle.cpp:1: warning: the name 'fake_turtle_node.cpp' supplied as the argument in the \file statement is not an input file
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/src/odometer.cpp:1: warning: the name 'odometer_node.cpp' supplied as the argument in the \file statement is not an input file
+/home/yael/Documents/Sensing_Navigation_and_ML/trect/src/turtle_rect.cpp:30: warning: Compound TurtleRect is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:509: warning: parameters of member main are not (all) documented
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:220: warning: parameters of member main are not (all) documented
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:432: warning: parameters of member main are not (all) documented
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/visualization.cpp:131: warning: parameters of member main are not (all) documented
+/home/yael/Documents/Sensing_Navigation_and_ML/nuturtle_robot/src/follow_circle_node.cpp:121: warning: parameters of member main are not (all) documented
+/home/yael/Documents/Sensing_Navigation_and_ML/nuturtle_robot/src/turtle_interface_node.cpp:202: warning: parameters of member main are not (all) documented
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/include/rigid2d/rigid2d.hpp:284: warning: return type of member rigid2d::operator<< is not documented
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/include/rigid2d/rigid2d.hpp:270: warning: return type of member rigid2d::operator<< is not documented
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/include/rigid2d/rigid2d.hpp:253: warning: return type of member rigid2d::operator<< is not documented
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/include/rigid2d/rigid2d.hpp:291: warning: return type of member rigid2d::operator>> is not documented
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/include/rigid2d/rigid2d.hpp:277: warning: return type of member rigid2d::operator>> is not documented
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/include/rigid2d/rigid2d.hpp:263: warning: return type of member rigid2d::operator>> is not documented
+/home/yael/Documents/Sensing_Navigation_and_ML/trect/src/turtle_rect.cpp:28: warning: Member State (enumeration) of file turtle_rect.cpp is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/trect/src/turtle_rect.cpp:199: warning: Member main(int argc, char *argv[]) (function) of file turtle_rect.cpp is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:65: warning: Member points (variable) of struct Cluster is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:66: warning: Member x_center (variable) of struct Cluster is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:67: warning: Member y_center (variable) of struct Cluster is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:68: warning: Member radius (variable) of struct Cluster is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/src/fake_turtle.cpp:70: warning: documented empty return type of FakeTurtle::cmd_vel_callback
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/src/fake_turtle.cpp:58: warning: documented empty return type of FakeTurtle::load_parameter
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/src/fake_turtle.cpp:81: warning: documented empty return type of FakeTurtle::main_loop
+/home/yael/Documents/Sensing_Navigation_and_ML/nuturtle_robot/src/follow_circle_node.cpp:47: warning: documented empty return type of FollowCircle::load_parameter
+/home/yael/Documents/Sensing_Navigation_and_ML/nuturtle_robot/src/follow_circle_node.cpp:72: warning: documented empty return type of FollowCircle::main_loop
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:178: warning: documented empty return type of KFSlam::get_marker_from_map
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:132: warning: documented empty return type of KFSlam::joint_state_callback
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:141: warning: argument 'req' of command @param is not found in the argument list of KFSlam::landmarks_callback(const visualization_msgs::MarkerArray &markers)
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:141: warning: argument 'res' of command @param is not found in the argument list of KFSlam::landmarks_callback(const visualization_msgs::MarkerArray &markers)
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:144: warning: The following parameter of KFSlam::landmarks_callback(const visualization_msgs::MarkerArray &markers) is not documented:
+  parameter 'markers'
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:144: warning: documented empty return type of KFSlam::landmarks_callback
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:110: warning: documented empty return type of KFSlam::load_parameter
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:312: warning: documented empty return type of KFSlam::main_loop
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:227: warning: documented empty return type of KFSlam::map_odom_transform
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:261: warning: documented empty return type of KFSlam::odom_body_transform
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:293: warning: documented empty return type of KFSlam::publish_odometry
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:209: warning: documented empty return type of KFSlam::world_map_transform
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/slam.cpp:277: warning: documented empty return type of KFSlam::world_slam_transform
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:139: warning: Member publish_markers() (function) of class Landmarks is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:121: warning: documented empty return type of Landmarks::lidar_scan_callback
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:99: warning: documented empty return type of Landmarks::load_parameter
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:178: warning: documented empty return type of Landmarks::main_loop
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:73: warning: Member range_min (variable) of struct LaserData is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:74: warning: Member range_max (variable) of struct LaserData is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:75: warning: Member angle_min (variable) of struct LaserData is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:76: warning: Member angle_max (variable) of struct LaserData is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:77: warning: Member angle_increment (variable) of struct LaserData is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:78: warning: Member ranges (variable) of struct LaserData is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:59: warning: Member r (variable) of struct Measurement is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:60: warning: Member phi (variable) of struct Measurement is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/src/odometer.cpp:96: warning: documented empty return type of Odometer::joint_state_callback
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/src/odometer.cpp:79: warning: documented empty return type of Odometer::load_parameter
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/src/odometer.cpp:124: warning: documented empty return type of Odometer::main_loop
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:53: warning: Member x (variable) of struct Point is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/landmarks.cpp:54: warning: Member y (variable) of struct Point is not documented.
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:362: warning: documented empty return type of TubeWorld::check_collision
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:168: warning: documented empty return type of TubeWorld::cmd_vel_callback
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:113: warning: documented empty return type of TubeWorld::load_parameter
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:385: warning: documented empty return type of TubeWorld::main_loop
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:325: warning: documented empty return type of TubeWorld::publish_real_path
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:299: warning: documented empty return type of TubeWorld::publish_simulated_lidar
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:182: warning: documented empty return type of TubeWorld::set_marker_array
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:241: warning: documented empty return type of TubeWorld::set_real_marker_array
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:271: warning: documented empty return type of TubeWorld::set_robot_marker
+/home/yael/Documents/Sensing_Navigation_and_ML/nurtlesim/src/tube_world.cpp:345: warning: documented empty return type of TubeWorld::world_turtle_transform
+/home/yael/Documents/Sensing_Navigation_and_ML/nuturtle_robot/src/turtle_interface_node.cpp:87: warning: documented empty return type of TurtleInterface::cmd_vel_callback
+/home/yael/Documents/Sensing_Navigation_and_ML/nuturtle_robot/src/turtle_interface_node.cpp:67: warning: documented empty return type of TurtleInterface::load_parameter
+/home/yael/Documents/Sensing_Navigation_and_ML/nuturtle_robot/src/turtle_interface_node.cpp:135: warning: documented empty return type of TurtleInterface::main_loop
+/home/yael/Documents/Sensing_Navigation_and_ML/nuturtle_robot/src/turtle_interface_node.cpp:123: warning: documented empty return type of TurtleInterface::sensor_data_callback
+/home/yael/Documents/Sensing_Navigation_and_ML/trect/src/turtle_rect.cpp:56: warning: documented empty return type of TurtleRect::load_parameter
+/home/yael/Documents/Sensing_Navigation_and_ML/trect/src/turtle_rect.cpp:130: warning: documented empty return type of TurtleRect::main_loop
+/home/yael/Documents/Sensing_Navigation_and_ML/trect/src/turtle_rect.cpp:73: warning: documented empty return type of TurtleRect::pose_callback
+/home/yael/Documents/Sensing_Navigation_and_ML/trect/src/turtle_rect.cpp:80: warning: argument 'request' of command @param is not found in the argument list of TurtleRect::turtle_start(trect::TurtleStart::Request &req, trect::TurtleStart::Response &res)
+/home/yael/Documents/Sensing_Navigation_and_ML/trect/src/turtle_rect.cpp:80: warning: argument 'response' of command @param is not found in the argument list of TurtleRect::turtle_start(trect::TurtleStart::Request &req, trect::TurtleStart::Response &res)
+/home/yael/Documents/Sensing_Navigation_and_ML/trect/src/turtle_rect.cpp:83: warning: The following parameters of TurtleRect::turtle_start(trect::TurtleStart::Request &req, trect::TurtleStart::Response &res) are not documented:
+  parameter 'req'
+  parameter 'res'
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/src/visualization.cpp:85: warning: documented empty return type of Visualization::main_loop
+/home/yael/Documents/Sensing_Navigation_and_ML/nuslam/include/nuslam/nuslam.hpp:86: warning: return type of member nuslam::EKF::get_transition is not documented
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/include/rigid2d/diff_drive.hpp:107: warning: documented empty return type of rigid2d::DiffDrive::set_config
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/include/rigid2d/rigid2d.hpp:211: warning: parameters of member rigid2d::Transform2D::integrateTwist are not (all) documented
+/home/yael/Documents/Sensing_Navigation_and_ML/rigid2d/include/rigid2d/rigid2d.hpp:91: warning: documented empty return type of rigid2d::Vector2D::normalize
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d9/d5e/rigid2d_8hpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d9/d5e/rigid2d_8hpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d9/d5e/rigid2d_8hpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d9/d29/nuslam_8hpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d9/d29/nuslam_8hpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d9/d29/nuslam_8hpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/db/d28/turtle__interface__node_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/db/d28/turtle__interface__node_8cpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/db/d28/turtle__interface__node_8cpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d1/d1f/tube__world_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d1/d1f/tube__world_8cpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d1/d1f/tube__world_8cpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d1/d4c/follow__circle__node_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d1/d4c/follow__circle__node_8cpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d1/d4c/follow__circle__node_8cpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d2/d57/slam_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d2/d57/slam_8cpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d2/d57/slam_8cpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d7/df1/turtle__rect_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d7/df1/turtle__rect_8cpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d7/df1/turtle__rect_8cpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d6/d9f/nuslam_8hpp__dep__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d6/d9f/nuslam_8hpp__dep__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d6/d9f/nuslam_8hpp__dep__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d4/d0e/landmarks_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d4/d0e/landmarks_8cpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d4/d0e/landmarks_8cpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_164a69dd8d3077300d7f580dfcb26386_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_164a69dd8d3077300d7f580dfcb26386_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_164a69dd8d3077300d7f580dfcb26386_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_0ea33a0037152376b412e8829e0d6d02_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_0ea33a0037152376b412e8829e0d6d02_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_0ea33a0037152376b412e8829e0d6d02_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dc/ddb/rigid2d_8hpp__dep__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dc/ddb/rigid2d_8hpp__dep__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dc/ddb/rigid2d_8hpp__dep__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dd/d54/diff__drive_8hpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dd/d54/diff__drive_8hpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dd/d54/diff__drive_8hpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_095fccdb49d35efef9d35f8a0e5c15ca_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_095fccdb49d35efef9d35f8a0e5c15ca_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_095fccdb49d35efef9d35f8a0e5c15ca_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dc/d97/diff__drive_8hpp__dep__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dc/d97/diff__drive_8hpp__dep__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dc/d97/diff__drive_8hpp__dep__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/db/df2/visualization_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/db/df2/visualization_8cpp__incl.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/db/df2/visualization_8cpp__incl.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_b5c7f9e355b487c8e8aed38478d3eb4b_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_b5c7f9e355b487c8e8aed38478d3eb4b_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_b5c7f9e355b487c8e8aed38478d3eb4b_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_646f28d6560218ae8b3f45388d65d00f_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_646f28d6560218ae8b3f45388d65d00f_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_646f28d6560218ae8b3f45388d65d00f_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_7c3a3bdb2d3a6f3780c04dd27ce7578c_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_7c3a3bdb2d3a6f3780c04dd27ce7578c_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_7c3a3bdb2d3a6f3780c04dd27ce7578c_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_a45efba6f15c6b01c48486e646d38baf_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_a45efba6f15c6b01c48486e646d38baf_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_a45efba6f15c6b01c48486e646d38baf_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_768e7bff774e9521f6243e2b5add71bb_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_768e7bff774e9521f6243e2b5add71bb_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_768e7bff774e9521f6243e2b5add71bb_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_d09810d5115b48fcdca4443ac0f353e3_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_d09810d5115b48fcdca4443ac0f353e3_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_d09810d5115b48fcdca4443ac0f353e3_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_d65b6ece2c95b0325b72fe5a240ec408_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_d65b6ece2c95b0325b72fe5a240ec408_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_d65b6ece2c95b0325b72fe5a240ec408_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/graph_legend.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/graph_legend.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/graph_legend.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d4/d0e/landmarks_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d4/d0e/landmarks_8cpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d4/d0e/landmarks_8cpp__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d1/d1f/tube__world_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d1/d1f/tube__world_8cpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d1/d1f/tube__world_8cpp__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_f877b5aa28324f1fa4720ffc737b3433_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_f877b5aa28324f1fa4720ffc737b3433_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_f877b5aa28324f1fa4720ffc737b3433_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d1/d4c/follow__circle__node_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d1/d4c/follow__circle__node_8cpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d1/d4c/follow__circle__node_8cpp__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_527084958f359af5f63eae13e173b414_dep.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_527084958f359af5f63eae13e173b414_dep.dot" -Tpng -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_527084958f359af5f63eae13e173b414_dep.png"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d2/d57/slam_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d2/d57/slam_8cpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d2/d57/slam_8cpp__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d6/d9f/nuslam_8hpp__dep__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d6/d9f/nuslam_8hpp__dep__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d6/d9f/nuslam_8hpp__dep__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d7/df1/turtle__rect_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d7/df1/turtle__rect_8cpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d7/df1/turtle__rect_8cpp__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/dc/ddb/rigid2d_8hpp__dep__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/dc/ddb/rigid2d_8hpp__dep__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/dc/ddb/rigid2d_8hpp__dep__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d9/d5e/rigid2d_8hpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d9/d5e/rigid2d_8hpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d9/d5e/rigid2d_8hpp__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/db/d28/turtle__interface__node_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/db/d28/turtle__interface__node_8cpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/db/d28/turtle__interface__node_8cpp__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/db/df2/visualization_8cpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/db/df2/visualization_8cpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/db/df2/visualization_8cpp__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/dc/d97/diff__drive_8hpp__dep__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/dc/d97/diff__drive_8hpp__dep__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/dc/d97/diff__drive_8hpp__dep__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d9/d29/nuslam_8hpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d9/d29/nuslam_8hpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/d9/d29/nuslam_8hpp__incl.pdf"'
+
+/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/dd/d54/diff__drive_8hpp__incl.dot:1: error: Problems running dot: exit code=127, command='dot', arguments='"/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/dd/d54/diff__drive_8hpp__incl.dot" -Tpdf -o "/home/yael/Documents/Sensing_Navigation_and_ML/docs/latex/dd/d54/diff__drive_8hpp__incl.pdf"'
+
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d9/d5e/rigid2d_8hpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dc/ddb/rigid2d_8hpp__dep__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/db/df2/visualization_8cpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d1/d1f/tube__world_8cpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d9/d29/nuslam_8hpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d6/d9f/nuslam_8hpp__dep__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d1/d4c/follow__circle__node_8cpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d4/d0e/landmarks_8cpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dd/d54/diff__drive_8hpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dc/d97/diff__drive_8hpp__dep__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d7/df1/turtle__rect_8cpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/d2/d57/slam_8cpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/db/d28/turtle__interface__node_8cpp__incl.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_095fccdb49d35efef9d35f8a0e5c15ca_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_0ea33a0037152376b412e8829e0d6d02_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_164a69dd8d3077300d7f580dfcb26386_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_527084958f359af5f63eae13e173b414_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_646f28d6560218ae8b3f45388d65d00f_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_768e7bff774e9521f6243e2b5add71bb_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_7c3a3bdb2d3a6f3780c04dd27ce7578c_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_a45efba6f15c6b01c48486e646d38baf_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_b5c7f9e355b487c8e8aed38478d3eb4b_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_d09810d5115b48fcdca4443ac0f353e3_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_d65b6ece2c95b0325b72fe5a240ec408_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problems opening map file /home/yael/Documents/Sensing_Navigation_and_ML/docs/html/dir_f877b5aa28324f1fa4720ffc737b3433_dep.map for inclusion in the docs!
+If you installed Graphviz/dot after a previous failing run, 
+try deleting the output directory and rerun doxygen.
+error: problem writing FIG 0 figure!

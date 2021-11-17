@@ -1,0 +1,299 @@
+\hypertarget{classnuslam_1_1EKF}{}\doxysection{nuslam\+::EKF Class Reference}
+\label{classnuslam_1_1EKF}\index{nuslam::EKF@{nuslam::EKF}}
+
+
+initialize the guess of the robot\textquotesingle{}s state and covariance matrix. Start with a guess for the robot state (0, 0, 0) and zero covariance matrix.  
+
+
+
+
+{\ttfamily \#include $<$nuslam.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classnuslam_1_1EKF_a459ca7cecbb8457d805da0b916063d57}{EKF}} ()
+\begin{DoxyCompactList}\small\item\em initialize the combined state vector. Start with a guess for the robot state (0, 0, 0) and zero e map state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classnuslam_1_1EKF_ab205ec98a1555a103c9c66af0a7bf715}{add\+\_\+new\+\_\+measurement}} (const \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} \&meas)
+\begin{DoxyCompactList}\small\item\em updates the landmarks matrix and landmark covariance. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classnuslam_1_1EKF_a33f5f8f1e90121db6fc79f7eedbb6226}{check\+\_\+landmarks}} (const int landmark\+\_\+id)
+\begin{DoxyCompactList}\small\item\em check if the measured landmark exists in the landmark dictionary. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classnuslam_1_1EKF_aed246fe15fb7a397033df5aff51ac553}{update\+\_\+landmark}} (const \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} \&meas)
+\begin{DoxyCompactList}\small\item\em updates the landmarks matrix and landmark covariance. \end{DoxyCompactList}\item 
+arma\+::mat \mbox{\hyperlink{classnuslam_1_1EKF_a7edcd3148e32c04223bfad6eeae5b1d4}{get\+\_\+new\+\_\+state}} (const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist)
+\begin{DoxyCompactList}\small\item\em gets the state q\+\_\+t. \end{DoxyCompactList}\item 
+arma\+::mat \mbox{\hyperlink{classnuslam_1_1EKF_a82e19ad96cecc7cfbe05a16a19e5af20}{get\+\_\+transition}} (const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist)
+\begin{DoxyCompactList}\small\item\em gets derivative of g with respect to the state ξ. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classnuslam_1_1EKF_ad6eddda5abffd650b98ce947263d0ea8}{predict}} (const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist)
+\begin{DoxyCompactList}\small\item\em predicts the next step -\/ finds the estimated state and covariance. \end{DoxyCompactList}\item 
+arma\+::mat \mbox{\hyperlink{classnuslam_1_1EKF_ab862233b6f27c0b569e52be6ea2bf1de}{get\+\_\+h}} (int index)
+\begin{DoxyCompactList}\small\item\em compute the measurement h for range and bearing to landmark. \end{DoxyCompactList}\item 
+arma\+::mat \mbox{\hyperlink{classnuslam_1_1EKF_af50fc38834065c4c376123b1d41d041b}{get\+\_\+H}} (int index)
+\begin{DoxyCompactList}\small\item\em compute the derivative of h with respect to the state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classnuslam_1_1EKF_a61ec14bcd7c49a3740c11243b914ff6d}{update}} (std\+::vector$<$ \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} $>$ meas)
+\begin{DoxyCompactList}\small\item\em updates the next step. \end{DoxyCompactList}\item 
+arma\+::mat \mbox{\hyperlink{classnuslam_1_1EKF_a1c3a2075a8d7750ef298b8f9b14ce900}{update\+\_\+matrix\+\_\+size}} (arma\+::mat mat)
+\begin{DoxyCompactList}\small\item\em add a new zero row and column to a matrix (used when adding new landmark). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classnuslam_1_1EKF_a05582e9563420de2da7b017c621f4097}{run\+\_\+ekf}} (const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist, const std\+::vector$<$ \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} $>$ \&meas)
+\begin{DoxyCompactList}\small\item\em run the Extended Kalman Filter algorithm. \end{DoxyCompactList}\item 
+arma\+::mat \mbox{\hyperlink{classnuslam_1_1EKF_aaec07ca8c31d3bbca75480de24fbc0e3}{output\+\_\+state}} ()
+\begin{DoxyCompactList}\small\item\em output the robot state \end{DoxyCompactList}\item 
+arma\+::mat \mbox{\hyperlink{classnuslam_1_1EKF_aeb504f50827863590bdd310aee274bb4}{output\+\_\+map\+\_\+state}} ()
+\begin{DoxyCompactList}\small\item\em output the map state \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+initialize the guess of the robot\textquotesingle{}s state and covariance matrix. Start with a guess for the robot state (0, 0, 0) and zero covariance matrix. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classnuslam_1_1EKF_a459ca7cecbb8457d805da0b916063d57}\label{classnuslam_1_1EKF_a459ca7cecbb8457d805da0b916063d57}} 
+\index{nuslam::EKF@{nuslam::EKF}!EKF@{EKF}}
+\index{EKF@{EKF}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{EKF()}{EKF()}}
+{\footnotesize\ttfamily nuslam\+::\+EKF\+::\+EKF (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+initialize the combined state vector. Start with a guess for the robot state (0, 0, 0) and zero e map state. 
+
+Initialize the combined state vector. Start with a guess for the robot state (0, 0, 0) and zero e map state. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classnuslam_1_1EKF_ab205ec98a1555a103c9c66af0a7bf715}\label{classnuslam_1_1EKF_ab205ec98a1555a103c9c66af0a7bf715}} 
+\index{nuslam::EKF@{nuslam::EKF}!add\_new\_measurement@{add\_new\_measurement}}
+\index{add\_new\_measurement@{add\_new\_measurement}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{add\_new\_measurement()}{add\_new\_measurement()}}
+{\footnotesize\ttfamily void nuslam\+::\+EKF\+::add\+\_\+new\+\_\+measurement (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} \&}]{meas }\end{DoxyParamCaption})}
+
+
+
+updates the landmarks matrix and landmark covariance. 
+
+Update the landmarks matrix and landmark covariance.
+
+
+\begin{DoxyParams}{Parameters}
+{\em meas} & -\/ the measured landmark. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classnuslam_1_1EKF_a33f5f8f1e90121db6fc79f7eedbb6226}\label{classnuslam_1_1EKF_a33f5f8f1e90121db6fc79f7eedbb6226}} 
+\index{nuslam::EKF@{nuslam::EKF}!check\_landmarks@{check\_landmarks}}
+\index{check\_landmarks@{check\_landmarks}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{check\_landmarks()}{check\_landmarks()}}
+{\footnotesize\ttfamily bool nuslam\+::\+EKF\+::check\+\_\+landmarks (\begin{DoxyParamCaption}\item[{const int}]{landmark\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+check if the measured landmark exists in the landmark dictionary. 
+
+Check if the measured landmark exists in the landmark dictionary.
+
+
+\begin{DoxyParams}{Parameters}
+{\em landmark\+\_\+id} & -\/ the id of the measured landmark. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool -\/ is the measured exists? 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classnuslam_1_1EKF_ab862233b6f27c0b569e52be6ea2bf1de}\label{classnuslam_1_1EKF_ab862233b6f27c0b569e52be6ea2bf1de}} 
+\index{nuslam::EKF@{nuslam::EKF}!get\_h@{get\_h}}
+\index{get\_h@{get\_h}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{get\_h()}{get\_h()}}
+{\footnotesize\ttfamily arma\+::mat nuslam\+::\+EKF\+::get\+\_\+h (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+compute the measurement h for range and bearing to landmark. 
+
+Compute the measurement h for range and bearing to landmark.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ the index of the measured landmark in the landmark matrix. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the h matrix. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classnuslam_1_1EKF_af50fc38834065c4c376123b1d41d041b}\label{classnuslam_1_1EKF_af50fc38834065c4c376123b1d41d041b}} 
+\index{nuslam::EKF@{nuslam::EKF}!get\_H@{get\_H}}
+\index{get\_H@{get\_H}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{get\_H()}{get\_H()}}
+{\footnotesize\ttfamily arma\+::mat nuslam\+::\+EKF\+::get\+\_\+H (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+compute the derivative of h with respect to the state. 
+
+Compute the derivative of h with respect to the state.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ the index of the measured landmark in the landmark matrix. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the H matrix. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classnuslam_1_1EKF_a7edcd3148e32c04223bfad6eeae5b1d4}\label{classnuslam_1_1EKF_a7edcd3148e32c04223bfad6eeae5b1d4}} 
+\index{nuslam::EKF@{nuslam::EKF}!get\_new\_state@{get\_new\_state}}
+\index{get\_new\_state@{get\_new\_state}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{get\_new\_state()}{get\_new\_state()}}
+{\footnotesize\ttfamily arma\+::mat nuslam\+::\+EKF\+::get\+\_\+new\+\_\+state (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&}]{twist }\end{DoxyParamCaption})}
+
+
+
+gets the state q\+\_\+t. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em twist} & -\/ the twist of the robot. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the updated state q\+\_\+t
+\end{DoxyReturn}
+Get the state transition ξ\+\_\+t (q\+\_\+t, m\+\_\+t) and the map’s movement with respect to the state ξ. \mbox{\Hypertarget{classnuslam_1_1EKF_a82e19ad96cecc7cfbe05a16a19e5af20}\label{classnuslam_1_1EKF_a82e19ad96cecc7cfbe05a16a19e5af20}} 
+\index{nuslam::EKF@{nuslam::EKF}!get\_transition@{get\_transition}}
+\index{get\_transition@{get\_transition}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{get\_transition()}{get\_transition()}}
+{\footnotesize\ttfamily arma\+::mat nuslam\+::\+EKF\+::get\+\_\+transition (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&}]{twist }\end{DoxyParamCaption})}
+
+
+
+gets derivative of g with respect to the state ξ. 
+
+Get derivative of g with respect to the state ξ.
+
+
+\begin{DoxyParams}{Parameters}
+{\em twist} & -\/ the twist of the robot. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classnuslam_1_1EKF_aeb504f50827863590bdd310aee274bb4}\label{classnuslam_1_1EKF_aeb504f50827863590bdd310aee274bb4}} 
+\index{nuslam::EKF@{nuslam::EKF}!output\_map\_state@{output\_map\_state}}
+\index{output\_map\_state@{output\_map\_state}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{output\_map\_state()}{output\_map\_state()}}
+{\footnotesize\ttfamily arma\+::mat nuslam\+::\+EKF\+::output\+\_\+map\+\_\+state (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+output the map state 
+
+Output the map state.
+
+\begin{DoxyReturn}{Returns}
+the map state 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classnuslam_1_1EKF_aaec07ca8c31d3bbca75480de24fbc0e3}\label{classnuslam_1_1EKF_aaec07ca8c31d3bbca75480de24fbc0e3}} 
+\index{nuslam::EKF@{nuslam::EKF}!output\_state@{output\_state}}
+\index{output\_state@{output\_state}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{output\_state()}{output\_state()}}
+{\footnotesize\ttfamily arma\+::mat nuslam\+::\+EKF\+::output\+\_\+state (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+output the robot state 
+
+Output the robot state.
+
+\begin{DoxyReturn}{Returns}
+the robot state 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classnuslam_1_1EKF_ad6eddda5abffd650b98ce947263d0ea8}\label{classnuslam_1_1EKF_ad6eddda5abffd650b98ce947263d0ea8}} 
+\index{nuslam::EKF@{nuslam::EKF}!predict@{predict}}
+\index{predict@{predict}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{predict()}{predict()}}
+{\footnotesize\ttfamily void nuslam\+::\+EKF\+::predict (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&}]{twist }\end{DoxyParamCaption})}
+
+
+
+predicts the next step -\/ finds the estimated state and covariance. 
+
+Predict the next step -\/ finds the estimated state and covariance.
+
+
+\begin{DoxyParams}{Parameters}
+{\em twist} & -\/ the twist of the robot. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classnuslam_1_1EKF_a05582e9563420de2da7b017c621f4097}\label{classnuslam_1_1EKF_a05582e9563420de2da7b017c621f4097}} 
+\index{nuslam::EKF@{nuslam::EKF}!run\_ekf@{run\_ekf}}
+\index{run\_ekf@{run\_ekf}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{run\_ekf()}{run\_ekf()}}
+{\footnotesize\ttfamily void nuslam\+::\+EKF\+::run\+\_\+ekf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&}]{twist,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} $>$ \&}]{meas }\end{DoxyParamCaption})}
+
+
+
+run the Extended Kalman Filter algorithm. 
+
+Run the Extended Kalman Filter algorithm.
+
+
+\begin{DoxyParams}{Parameters}
+{\em twist} & -\/ the twist of the robot. \\
+\hline
+{\em meas} & -\/ the current measurement. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classnuslam_1_1EKF_a61ec14bcd7c49a3740c11243b914ff6d}\label{classnuslam_1_1EKF_a61ec14bcd7c49a3740c11243b914ff6d}} 
+\index{nuslam::EKF@{nuslam::EKF}!update@{update}}
+\index{update@{update}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void nuslam\+::\+EKF\+::update (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} $>$}]{meas }\end{DoxyParamCaption})}
+
+
+
+updates the next step. 
+
+Update the next step.
+
+
+\begin{DoxyParams}{Parameters}
+{\em meas} & -\/ the measured landmark. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classnuslam_1_1EKF_aed246fe15fb7a397033df5aff51ac553}\label{classnuslam_1_1EKF_aed246fe15fb7a397033df5aff51ac553}} 
+\index{nuslam::EKF@{nuslam::EKF}!update\_landmark@{update\_landmark}}
+\index{update\_landmark@{update\_landmark}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{update\_landmark()}{update\_landmark()}}
+{\footnotesize\ttfamily void nuslam\+::\+EKF\+::update\+\_\+landmark (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} \&}]{meas }\end{DoxyParamCaption})}
+
+
+
+updates the landmarks matrix and landmark covariance. 
+
+Update the landmarks matrix and landmark covariance.
+
+
+\begin{DoxyParams}{Parameters}
+{\em meas} & -\/ the measured landmark. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classnuslam_1_1EKF_a1c3a2075a8d7750ef298b8f9b14ce900}\label{classnuslam_1_1EKF_a1c3a2075a8d7750ef298b8f9b14ce900}} 
+\index{nuslam::EKF@{nuslam::EKF}!update\_matrix\_size@{update\_matrix\_size}}
+\index{update\_matrix\_size@{update\_matrix\_size}!nuslam::EKF@{nuslam::EKF}}
+\doxysubsubsection{\texorpdfstring{update\_matrix\_size()}{update\_matrix\_size()}}
+{\footnotesize\ttfamily arma\+::mat nuslam\+::\+EKF\+::update\+\_\+matrix\+\_\+size (\begin{DoxyParamCaption}\item[{arma\+::mat}]{mat }\end{DoxyParamCaption})}
+
+
+
+add a new zero row and column to a matrix (used when adding new landmark). 
+
+Add a new zero row and column to a matrix (used when adding new landmark).
+
+
+\begin{DoxyParams}{Parameters}
+{\em mat} & -\/ the current matrix. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the updated matrix. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+nuslam/include/nuslam/\mbox{\hyperlink{nuslam_8hpp}{nuslam.\+hpp}}\item 
+nuslam/src/nuslam.\+cpp\end{DoxyCompactItemize}

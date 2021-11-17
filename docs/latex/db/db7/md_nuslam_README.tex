@@ -1,0 +1,27 @@
+Author\+: Yael Ben Shalom\hypertarget{md_nuslam_README_autotoc_md4}{}\doxysection{Package Summary}\label{md_nuslam_README_autotoc_md4}
+This package contains the implementation for the Feature-\/\+Based Kalman Filter SLAM. The package stores the simulation visualization and the SLAM implementation in a controlled environment.~\newline
+
+
+\hypertarget{md_nuslam_README_autotoc_md5}{}\doxysection{Nodes, Library and launchfiles}\label{md_nuslam_README_autotoc_md5}
+This library contains several nodes and launchfiles\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{visualization node}} -\/ The simulation visualization.
+\item {\bfseries{slam node}} -\/ Implementation of the extended Kalman Filter SLAM
+\item {\bfseries{landmarks node}} -\/ A package to detect landmarks and publish their relative locations.
+\item {\bfseries{nuslam library}} -\/ library for implementation of the extended Kalman Filter SLAM algorithm.
+\item {\bfseries{slam launchfile}} -\/ Launch file for running the visualization for the turtlebot.
+\begin{DoxyItemize}
+\item Launch {\ttfamily roslaunch nuslam slam.\+launch robot\+:=localhost} to run the robot in the simulator. Slam will use relative x, y positions and landmark ids as sensor information.
+\item Launch {\ttfamily roslaunch nuslam slam.\+launch robot\+:=fasturtle.\+local} to run the code on the turtlebot.
+\end{DoxyItemize}
+\item {\bfseries{landmark\+\_\+detect launchfile}} -\/ Launch file for the feature detection node. The launchfile takes a simulate argument.
+\begin{DoxyItemize}
+\item If the simulate is true, it should launch your simulator and the landmarks node and display everything in rviz.
+\item If the simulate is false, it should launch the landmark detection node on the turtlebot and display everything in rviz.
+\item Launch {\ttfamily roslaunch nuturtle\+\_\+robot landmarks.\+launch} to launch the feature detection node.
+\end{DoxyItemize}
+
+ 
+\end{DoxyItemize}

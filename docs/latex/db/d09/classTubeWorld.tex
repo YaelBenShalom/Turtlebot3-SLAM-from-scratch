@@ -1,0 +1,176 @@
+\hypertarget{classTubeWorld}{}\doxysection{Tube\+World Class Reference}
+\label{classTubeWorld}\index{TubeWorld@{TubeWorld}}
+
+
+Class \mbox{\hyperlink{classTubeWorld}{Tube\+World}}.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classTubeWorld_aaf646d76c77e42f330b44f6d55b91313}{load\+\_\+parameter}} ()
+\begin{DoxyCompactList}\small\item\em Load the parameters from the parameter server. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTubeWorld_ab7a9921262a444f6c3ec4a1b92c85d40}{cmd\+\_\+vel\+\_\+callback}} (const geometry\+\_\+msgs\+::\+Twist \&tw)
+\begin{DoxyCompactList}\small\item\em Subscribes to the robot\textquotesingle{}s velocity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTubeWorld_adb5cbbc4dfdaa9965a609e12e74fa3b8}{set\+\_\+marker\+\_\+array}} ()
+\begin{DoxyCompactList}\small\item\em Sets marker array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTubeWorld_aeae1dcc8ffeecc6f95e76bd13891f022}{set\+\_\+real\+\_\+marker\+\_\+array}} ()
+\begin{DoxyCompactList}\small\item\em Sets real marker array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTubeWorld_a1177cd38992ce8ee57e4afffdd6a79d6}{set\+\_\+robot\+\_\+marker}} ()
+\begin{DoxyCompactList}\small\item\em Sets real robot marker. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTubeWorld_a0576ca8f106af3c39c7d9f6a491f04a6}{publish\+\_\+simulated\+\_\+lidar}} ()
+\begin{DoxyCompactList}\small\item\em simulation node should publish a sensor\+\_\+msgs/\+Laser\+Scan message with simulated lidar data at 5Hz \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTubeWorld_a61818df071fbfd8c4f10e4b00f946485}{publish\+\_\+real\+\_\+path}} ()
+\begin{DoxyCompactList}\small\item\em Publish real path. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTubeWorld_a1cdb52e4eaaba750217f652e975ce832}{world\+\_\+turtle\+\_\+transform}} ()
+\begin{DoxyCompactList}\small\item\em Broadcast the \char`\"{}world\char`\"{} to \char`\"{}turtle\char`\"{} transform. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTubeWorld_af98a60ebf2f844615ed88fed47bd8b46}{check\+\_\+collision}} ()
+\begin{DoxyCompactList}\small\item\em Checking for collisions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTubeWorld_a2cb9ecd81b3345c7569cb0444504f125}{main\+\_\+loop}} ()
+\begin{DoxyCompactList}\small\item\em Main loop for the turtle\textquotesingle{}s motion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class \mbox{\hyperlink{classTubeWorld}{Tube\+World}}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTubeWorld_af98a60ebf2f844615ed88fed47bd8b46}\label{classTubeWorld_af98a60ebf2f844615ed88fed47bd8b46}} 
+\index{TubeWorld@{TubeWorld}!check\_collision@{check\_collision}}
+\index{check\_collision@{check\_collision}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{check\_collision()}{check\_collision()}}
+{\footnotesize\ttfamily void Tube\+World\+::check\+\_\+collision (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checking for collisions. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTubeWorld_ab7a9921262a444f6c3ec4a1b92c85d40}\label{classTubeWorld_ab7a9921262a444f6c3ec4a1b92c85d40}} 
+\index{TubeWorld@{TubeWorld}!cmd\_vel\_callback@{cmd\_vel\_callback}}
+\index{cmd\_vel\_callback@{cmd\_vel\_callback}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{cmd\_vel\_callback()}{cmd\_vel\_callback()}}
+{\footnotesize\ttfamily void Tube\+World\+::cmd\+\_\+vel\+\_\+callback (\begin{DoxyParamCaption}\item[{const geometry\+\_\+msgs\+::\+Twist \&}]{tw }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Subscribes to the robot\textquotesingle{}s velocity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tw} & -\/ constant pointer to twist \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTubeWorld_aaf646d76c77e42f330b44f6d55b91313}\label{classTubeWorld_aaf646d76c77e42f330b44f6d55b91313}} 
+\index{TubeWorld@{TubeWorld}!load\_parameter@{load\_parameter}}
+\index{load\_parameter@{load\_parameter}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{load\_parameter()}{load\_parameter()}}
+{\footnotesize\ttfamily void Tube\+World\+::load\+\_\+parameter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Load the parameters from the parameter server. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTubeWorld_a2cb9ecd81b3345c7569cb0444504f125}\label{classTubeWorld_a2cb9ecd81b3345c7569cb0444504f125}} 
+\index{TubeWorld@{TubeWorld}!main\_loop@{main\_loop}}
+\index{main\_loop@{main\_loop}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{main\_loop()}{main\_loop()}}
+{\footnotesize\ttfamily void Tube\+World\+::main\+\_\+loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Main loop for the turtle\textquotesingle{}s motion. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTubeWorld_a61818df071fbfd8c4f10e4b00f946485}\label{classTubeWorld_a61818df071fbfd8c4f10e4b00f946485}} 
+\index{TubeWorld@{TubeWorld}!publish\_real\_path@{publish\_real\_path}}
+\index{publish\_real\_path@{publish\_real\_path}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{publish\_real\_path()}{publish\_real\_path()}}
+{\footnotesize\ttfamily void Tube\+World\+::publish\+\_\+real\+\_\+path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Publish real path. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTubeWorld_a0576ca8f106af3c39c7d9f6a491f04a6}\label{classTubeWorld_a0576ca8f106af3c39c7d9f6a491f04a6}} 
+\index{TubeWorld@{TubeWorld}!publish\_simulated\_lidar@{publish\_simulated\_lidar}}
+\index{publish\_simulated\_lidar@{publish\_simulated\_lidar}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{publish\_simulated\_lidar()}{publish\_simulated\_lidar()}}
+{\footnotesize\ttfamily void Tube\+World\+::publish\+\_\+simulated\+\_\+lidar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+simulation node should publish a sensor\+\_\+msgs/\+Laser\+Scan message with simulated lidar data at 5Hz 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTubeWorld_adb5cbbc4dfdaa9965a609e12e74fa3b8}\label{classTubeWorld_adb5cbbc4dfdaa9965a609e12e74fa3b8}} 
+\index{TubeWorld@{TubeWorld}!set\_marker\_array@{set\_marker\_array}}
+\index{set\_marker\_array@{set\_marker\_array}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{set\_marker\_array()}{set\_marker\_array()}}
+{\footnotesize\ttfamily void Tube\+World\+::set\+\_\+marker\+\_\+array (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets marker array. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTubeWorld_aeae1dcc8ffeecc6f95e76bd13891f022}\label{classTubeWorld_aeae1dcc8ffeecc6f95e76bd13891f022}} 
+\index{TubeWorld@{TubeWorld}!set\_real\_marker\_array@{set\_real\_marker\_array}}
+\index{set\_real\_marker\_array@{set\_real\_marker\_array}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{set\_real\_marker\_array()}{set\_real\_marker\_array()}}
+{\footnotesize\ttfamily void Tube\+World\+::set\+\_\+real\+\_\+marker\+\_\+array (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets real marker array. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTubeWorld_a1177cd38992ce8ee57e4afffdd6a79d6}\label{classTubeWorld_a1177cd38992ce8ee57e4afffdd6a79d6}} 
+\index{TubeWorld@{TubeWorld}!set\_robot\_marker@{set\_robot\_marker}}
+\index{set\_robot\_marker@{set\_robot\_marker}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{set\_robot\_marker()}{set\_robot\_marker()}}
+{\footnotesize\ttfamily void Tube\+World\+::set\+\_\+robot\+\_\+marker (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets real robot marker. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTubeWorld_a1cdb52e4eaaba750217f652e975ce832}\label{classTubeWorld_a1cdb52e4eaaba750217f652e975ce832}} 
+\index{TubeWorld@{TubeWorld}!world\_turtle\_transform@{world\_turtle\_transform}}
+\index{world\_turtle\_transform@{world\_turtle\_transform}!TubeWorld@{TubeWorld}}
+\doxysubsubsection{\texorpdfstring{world\_turtle\_transform()}{world\_turtle\_transform()}}
+{\footnotesize\ttfamily void Tube\+World\+::world\+\_\+turtle\+\_\+transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Broadcast the \char`\"{}world\char`\"{} to \char`\"{}turtle\char`\"{} transform. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+nurtlesim/src/\mbox{\hyperlink{tube__world_8cpp}{tube\+\_\+world.\+cpp}}\end{DoxyCompactItemize}

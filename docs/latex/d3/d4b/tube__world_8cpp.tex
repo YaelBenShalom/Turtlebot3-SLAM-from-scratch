@@ -1,0 +1,62 @@
+\hypertarget{tube__world_8cpp}{}\doxysection{nurtlesim/src/tube\+\_\+world.cpp File Reference}
+\label{tube__world_8cpp}\index{nurtlesim/src/tube\_world.cpp@{nurtlesim/src/tube\_world.cpp}}
+
+
+A kinematic simulation of a differential drive robot using the Diff\+Drive class.  
+
+
+{\ttfamily \#include \char`\"{}rigid2d/diff\+\_\+drive.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rigid2d/rigid2d.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Twist.\+h$>$}\newline
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Path.\+h$>$}\newline
+{\ttfamily \#include $<$sensor\+\_\+msgs/\+Joint\+State.\+h$>$}\newline
+{\ttfamily \#include $<$sensor\+\_\+msgs/\+Laser\+Scan.\+h$>$}\newline
+{\ttfamily \#include $<$tf2/\+Linear\+Math/\+Quaternion.\+h$>$}\newline
+{\ttfamily \#include $<$tf2\+\_\+geometry\+\_\+msgs/tf2\+\_\+geometry\+\_\+msgs.\+h$>$}\newline
+{\ttfamily \#include $<$tf2\+\_\+ros/transform\+\_\+broadcaster.\+h$>$}\newline
+{\ttfamily \#include $<$visualization\+\_\+msgs/\+Marker\+Array.\+h$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classTubeWorld}{Tube\+World}}
+\begin{DoxyCompactList}\small\item\em Class \mbox{\hyperlink{classTubeWorld}{Tube\+World}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{tube__world_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A kinematic simulation of a differential drive robot using the Diff\+Drive class. 
+
+PARAMETERS\+: frequency (int)\+: control loop frequency cmd\+\_\+vel\+\_\+flag (bool)\+: specifies when new cmd\+\_\+vel is read collision\+\_\+flag (bool)\+: specifies when the robot collides with an obstacle wheel\+\_\+base (float)\+: The distance between the wheels wheel\+\_\+radius (float)\+: The radius of the wheels left\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the left wheel joint right\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the right wheel joint world\+\_\+frame\+\_\+id (std\+::string)\+: The name of the world tf frame odom\+\_\+frame\+\_\+id (std\+::string)\+: The name of the odom tf frame body\+\_\+frame\+\_\+id (std\+::string)\+: The name of the body tf frame stddev\+\_\+linear (float)\+: The standard deviation of the linear twist noise stddev\+\_\+angular (float)\+: The standard deviation of the angular twist noise slip\+\_\+min (float)\+: The minimum wheel slip for the slip noise slip\+\_\+max (float)\+: The maximum wheel slip for the slip noise obstacles\+\_\+coordinate\+\_\+x (std\+::vector$<$double$>$)\+: The x coordinate of the obstacles obstacles\+\_\+coordinate\+\_\+y (std\+::vector$<$double$>$)\+: The y coordinate of the obstacles obstacles\+\_\+radius (float)\+: The radius of the cardboard tubes \mbox{[}m\mbox{]} max\+\_\+visable\+\_\+dist (float)\+: The maximum distance beyond which tubes are not visible \mbox{[}m\mbox{]}
+
+joint\+\_\+state (sensor\+\_\+msgs\+::\+Joint\+State)\+: message to publish joint\+\_\+state readings to /joint\+\_\+states topic marker\+\_\+array (visualization\+\_\+msgs\+::\+Marker\+Array)\+: the array of the configuration real\+\_\+marker\+\_\+array (visualization\+\_\+msgs\+::\+Marker\+Array)\+: the obstacles\textquotesingle{} array of the real obstacles\textquotesingle{} configuration world\+\_\+broadcaster (Transform\+Broadcaster)\+: Broadcast the transform between world\+\_\+frame\+\_\+id and the body\+\_\+frame\+\_\+id on /tf using a tf2 world\+\_\+tf (geometry\+\_\+msgs\+::\+Transform\+Stamped)\+: world transform real\+\_\+pose\+\_\+stamped(geometry\+\_\+msgs\+::\+Pose\+Stamped)\+: the real position of the robot real\+\_\+path(nav\+\_\+msgs\+::\+Path)\+: the real path of the robot
+
+pose (\mbox{\hyperlink{structrigid2d_1_1Config2D}{rigid2d\+::\+Config2D}})\+: the robot\textquotesingle{}s position (based on the wheel angles) real\+\_\+pose (\mbox{\hyperlink{structrigid2d_1_1Config2D}{rigid2d\+::\+Config2D}})\+: the robot\textquotesingle{}s real position twist (\mbox{\hyperlink{structrigid2d_1_1Twist2D}{rigid2d\+::\+Twist2D}})\+: the robot\textquotesingle{}s twist twist\+\_\+noised (\mbox{\hyperlink{structrigid2d_1_1Twist2D}{rigid2d\+::\+Twist2D}})\+: the robot\textquotesingle{}s twist (plus noise) diff\+\_\+drive (\mbox{\hyperlink{classrigid2d_1_1DiffDrive}{rigid2d\+::\+Diff\+Drive}})\+: an instance of the diff\+\_\+drive robot real\+\_\+diff\+\_\+drive (\mbox{\hyperlink{classrigid2d_1_1DiffDrive}{rigid2d\+::\+Diff\+Drive}})\+: an instance of the real diff\+\_\+drive robot wheel\+\_\+vel (\mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{rigid2d\+::\+Wheel\+Velocity}})\+: the velocity of the robot\textquotesingle{}s wheels real\+\_\+wheel\+\_\+vel (\mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{rigid2d\+::\+Wheel\+Velocity}})\+: the real velocity of the robot\textquotesingle{}s wheels wheel\+\_\+angle (\mbox{\hyperlink{structrigid2d_1_1WheelAngle}{rigid2d\+::\+Wheel\+Angle}})\+: the angles of the Robot\textquotesingle{}s wheels real\+\_\+wheel\+\_\+angle (\mbox{\hyperlink{structrigid2d_1_1WheelAngle}{rigid2d\+::\+Wheel\+Angle}})\+: the real angles of the robot\textquotesingle{}s wheels
+
+PUBLISHES\+: joint\+\_\+states\+\_\+pub (sensor\+\_\+msgs/\+Joint\+State)\+: publishes Joint\+State message on the joint\+\_\+states topic. marker\+\_\+pub (visualization\+\_\+msgs\+::\+Marker\+Array)\+: publishes Marker\+Array message on the fake\+\_\+sensor topic. real\+\_\+marker\+\_\+pub (visualization\+\_\+msgs\+::\+Marker\+Array)\+: publishes Marker\+Array message on the real\+\_\+landmarks topic. robot\+\_\+path\+\_\+pub (nav\+\_\+msgs\+::\+Path)\+: publishes Joint\+State message on the real\+\_\+path topic.
+
+SUBSCRIBES\+: vel\+\_\+sub (geometry\+\_\+msgs/\+Twist)\+: Subscribes to the robot\textquotesingle{}s velocity. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tube__world_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{tube__world_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{tube\_world.cpp@{tube\_world.cpp}!main@{main}}
+\index{main@{main}!tube\_world.cpp@{tube\_world.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}

@@ -1,10 +1,11 @@
-# Sensing, Navigation and Machine Learning For Robotics
+# Package: trect
 
-- ME-495, Winter 2021
+Author: Yael Ben Shalom
 
-# Turtle Rect
 
-- A package that causes the turtlesim turtle to follow a rectangle path.
+## Package Summary
+
+A package that causes the turtlesim turtle to follow a rectangle path.
 
 ## Nodes, Library and launchfiles
 

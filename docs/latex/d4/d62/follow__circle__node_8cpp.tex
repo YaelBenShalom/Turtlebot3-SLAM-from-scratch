@@ -1,0 +1,47 @@
+\hypertarget{follow__circle__node_8cpp}{}\doxysection{nuturtle\+\_\+robot/src/follow\+\_\+circle\+\_\+node.cpp File Reference}
+\label{follow__circle__node_8cpp}\index{nuturtle\_robot/src/follow\_circle\_node.cpp@{nuturtle\_robot/src/follow\_circle\_node.cpp}}
+
+
+A node that publishes commands that let the robot drive in a circle of a specified radius at a specified speed.  
+
+
+{\ttfamily \#include \char`\"{}rigid2d/diff\+\_\+drive.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rigid2d/rigid2d.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Twist.\+h$>$}\newline
+{\ttfamily \#include $<$nuturtle\+\_\+robot/\+Control.\+h$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classFollowCircle}{Follow\+Circle}}
+\begin{DoxyCompactList}\small\item\em Class \mbox{\hyperlink{classFollowCircle}{Follow\+Circle}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{follow__circle__node_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A node that publishes commands that let the robot drive in a circle of a specified radius at a specified speed. 
+
+PARAMETERS\+: frequency (int)\+: control loop frequency control\+\_\+flag (bool)\+: specifies when new /control message is read turtle\+\_\+speed (float)\+: The linear speed of the robot turtle\+\_\+controlled\+\_\+speed (float)\+: The linear speed of the robot, when taking into account the control service circle\+\_\+radius (float)\+: The radius of the circle twist (geometry\+\_\+msgs\+::\+Twist)\+: the robot\textquotesingle{}s twist PUBLISHES\+: cmd\+\_\+vel (geometry\+\_\+msgs/\+Twist)\+: Publishes to the robot\textquotesingle{}s velocity. SERVICES\+: Control (control)\+: Causes the robot to travel either clockwise, counter clockwise, or stop. 1 -\/ clockwise, -\/1 -\/ counter clockwise, 0 -\/ stop. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{follow__circle__node_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{follow__circle__node_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{follow\_circle\_node.cpp@{follow\_circle\_node.cpp}!main@{main}}
+\index{main@{main}!follow\_circle\_node.cpp@{follow\_circle\_node.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}

@@ -1,0 +1,13 @@
+digraph "nuslam/include/nuslam"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_768e7bff774e9521f6243e2b5add71bb {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", style="filled,dashed,", label="include", fontname="Helvetica", fontsize="10", URL="dir_768e7bff774e9521f6243e2b5add71bb.html"]
+  dir_164a69dd8d3077300d7f580dfcb26386 [shape=box, label="nuslam", style="filled,bold,", fillcolor="#edf0f7", color="grey25", URL="dir_164a69dd8d3077300d7f580dfcb26386.html"];
+  }
+  dir_d09810d5115b48fcdca4443ac0f353e3 [shape=box, label="rigid2d", style="", fillcolor="#edf0f7", color="red", URL="dir_d09810d5115b48fcdca4443ac0f353e3.html"];
+  dir_164a69dd8d3077300d7f580dfcb26386->dir_d09810d5115b48fcdca4443ac0f353e3 [headlabel="2", labeldistance=1.5 headhref="dir_000004_000007.html"];
+}

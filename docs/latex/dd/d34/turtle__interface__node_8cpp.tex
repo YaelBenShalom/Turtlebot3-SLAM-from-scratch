@@ -1,0 +1,53 @@
+\hypertarget{turtle__interface__node_8cpp}{}\doxysection{nuturtle\+\_\+robot/src/turtle\+\_\+interface\+\_\+node.cpp File Reference}
+\label{turtle__interface__node_8cpp}\index{nuturtle\_robot/src/turtle\_interface\_node.cpp@{nuturtle\_robot/src/turtle\_interface\_node.cpp}}
+
+
+A low-\/level control and sensor routines in ROS.  
+
+
+{\ttfamily \#include \char`\"{}rigid2d/diff\+\_\+drive.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rigid2d/rigid2d.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Twist.\+h$>$}\newline
+{\ttfamily \#include $<$nuturtlebot/\+Sensor\+Data.\+h$>$}\newline
+{\ttfamily \#include $<$nuturtlebot/\+Wheel\+Commands.\+h$>$}\newline
+{\ttfamily \#include $<$sensor\+\_\+msgs/\+Joint\+State.\+h$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classTurtleInterface}{Turtle\+Interface}}
+\begin{DoxyCompactList}\small\item\em Class \mbox{\hyperlink{classTurtleInterface}{Turtle\+Interface}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{turtle__interface__node_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A low-\/level control and sensor routines in ROS. 
+
+PARAMETERS\+: frequency (int)\+: control loop frequency cmd\+\_\+vel\+\_\+flag (bool)\+: specifies when new cmd\+\_\+vel is read sensor\+\_\+data\+\_\+flag (bool)\+: specifies when new sensor\+\_\+data is read wheel\+\_\+base (float)\+: The distance between the wheels wheel\+\_\+radius (float)\+: The radius of the wheels left\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the left wheel joint right\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the right wheel joint
+
+joint\+\_\+state (sensor\+\_\+msgs\+::\+Joint\+State)\+: message to publish joint\+\_\+state readings to /joint\+\_\+states topic
+
+twist (\mbox{\hyperlink{structrigid2d_1_1Twist2D}{rigid2d\+::\+Twist2D}})\+: the robot\textquotesingle{}s twist diff\+\_\+drive (\mbox{\hyperlink{classrigid2d_1_1DiffDrive}{rigid2d\+::\+Diff\+Drive}})\+: an instance of the diff\+\_\+drive robot wheel\+\_\+vel (\mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{rigid2d\+::\+Wheel\+Velocity}})\+: the velocity of the robot\textquotesingle{}s wheels wheel\+\_\+angle (\mbox{\hyperlink{structrigid2d_1_1WheelAngle}{rigid2d\+::\+Wheel\+Angle}})\+: the angles of the robot\textquotesingle{}s wheels PUBLISHES\+: wheel\+\_\+cmd (nuturtlebot/\+Wheel\+Commands)\+: publishes Wheel\+Commands message on the wheel\+\_\+cmd topic. Make the turtlebot3 follow the specified twist joint\+\_\+states (sensor\+\_\+msgs/\+Joint\+State)\+: publishes Joint\+State message on the joint\+\_\+states topic. Reflect the current joint angles of each wheel SUBSCRIBES\+: cmd\+\_\+vel (geometry\+\_\+msgs/\+Twist)\+: Subscribes to the robot\textquotesingle{}s velocity. sensor\+\_\+data\+\_\+sub (nuturtlebot/\+Sensor\+Data)\+: Subscribes to the robot\textquotesingle{}s sensor data. Provide the angle (in radians) and velocity (in rad/sec) of the wheels, based on encoder data. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{turtle__interface__node_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{turtle__interface__node_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{turtle\_interface\_node.cpp@{turtle\_interface\_node.cpp}!main@{main}}
+\index{main@{main}!turtle\_interface\_node.cpp@{turtle\_interface\_node.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}

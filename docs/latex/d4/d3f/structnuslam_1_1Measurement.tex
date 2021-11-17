@@ -1,0 +1,126 @@
+\hypertarget{structnuslam_1_1Measurement}{}\doxysection{nuslam\+::Measurement Struct Reference}
+\label{structnuslam_1_1Measurement}\index{nuslam::Measurement@{nuslam::Measurement}}
+
+
+A Mesurement vector Vector.  
+
+
+
+
+{\ttfamily \#include $<$nuslam.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structnuslam_1_1Measurement_a80b305f40c6b3a713e39770de9753666}{Measurement}} ()
+\begin{DoxyCompactList}\small\item\em create zero-\/measurement \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structnuslam_1_1Measurement_ae9b01898494bf563186877ec56d9672d}{Measurement}} (double x\+\_\+, double y\+\_\+, int id\+\_\+)
+\begin{DoxyCompactList}\small\item\em create a measurement with r,phi inputs \end{DoxyCompactList}\item 
+arma\+::mat \mbox{\hyperlink{structnuslam_1_1Measurement_a9e99dda21d7262fe2693399f070fda0c}{compute\+\_\+z}} ()
+\begin{DoxyCompactList}\small\item\em create a measurement vector \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{structnuslam_1_1Measurement_aadeb42ffc3b8bb35940b822cdf1a7999}{r}}
+\item 
+double \mbox{\hyperlink{structnuslam_1_1Measurement_aaecd22a47385efb56627f7546f788014}{phi}}
+\item 
+int \mbox{\hyperlink{structnuslam_1_1Measurement_abee85b05aafbb6a7eb3300524268cf21}{id}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A Mesurement vector Vector. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structnuslam_1_1Measurement_a80b305f40c6b3a713e39770de9753666}\label{structnuslam_1_1Measurement_a80b305f40c6b3a713e39770de9753666}} 
+\index{nuslam::Measurement@{nuslam::Measurement}!Measurement@{Measurement}}
+\index{Measurement@{Measurement}!nuslam::Measurement@{nuslam::Measurement}}
+\doxysubsubsection{\texorpdfstring{Measurement()}{Measurement()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Measurement\+::\+Measurement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+create zero-\/measurement 
+
+Create zero-\/measurement. \mbox{\Hypertarget{structnuslam_1_1Measurement_ae9b01898494bf563186877ec56d9672d}\label{structnuslam_1_1Measurement_ae9b01898494bf563186877ec56d9672d}} 
+\index{nuslam::Measurement@{nuslam::Measurement}!Measurement@{Measurement}}
+\index{Measurement@{Measurement}!nuslam::Measurement@{nuslam::Measurement}}
+\doxysubsubsection{\texorpdfstring{Measurement()}{Measurement()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Measurement\+::\+Measurement (\begin{DoxyParamCaption}\item[{double}]{x\+\_\+,  }\item[{double}]{y\+\_\+,  }\item[{int}]{id\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+create a measurement with r,phi inputs 
+
+Create a measurement with r,phi inputs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+} & -\/ x input of the measurement \\
+\hline
+{\em y\+\_\+} & -\/ y input of the measurement \\
+\hline
+{\em id\+\_\+} & -\/ the measured landmark id \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structnuslam_1_1Measurement_a9e99dda21d7262fe2693399f070fda0c}\label{structnuslam_1_1Measurement_a9e99dda21d7262fe2693399f070fda0c}} 
+\index{nuslam::Measurement@{nuslam::Measurement}!compute\_z@{compute\_z}}
+\index{compute\_z@{compute\_z}!nuslam::Measurement@{nuslam::Measurement}}
+\doxysubsubsection{\texorpdfstring{compute\_z()}{compute\_z()}}
+{\footnotesize\ttfamily arma\+::mat Measurement\+::compute\+\_\+z (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+create a measurement vector 
+
+Create a measurement vector.
+
+\begin{DoxyReturn}{Returns}
+the measurement vector 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structnuslam_1_1Measurement_abee85b05aafbb6a7eb3300524268cf21}\label{structnuslam_1_1Measurement_abee85b05aafbb6a7eb3300524268cf21}} 
+\index{nuslam::Measurement@{nuslam::Measurement}!id@{id}}
+\index{id@{id}!nuslam::Measurement@{nuslam::Measurement}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily int nuslam\+::\+Measurement\+::id}
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & -\/ the measured landmark id \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structnuslam_1_1Measurement_aaecd22a47385efb56627f7546f788014}\label{structnuslam_1_1Measurement_aaecd22a47385efb56627f7546f788014}} 
+\index{nuslam::Measurement@{nuslam::Measurement}!phi@{phi}}
+\index{phi@{phi}!nuslam::Measurement@{nuslam::Measurement}}
+\doxysubsubsection{\texorpdfstring{phi}{phi}}
+{\footnotesize\ttfamily double nuslam\+::\+Measurement\+::phi}
+
+
+\begin{DoxyParams}{Parameters}
+{\em phi} & -\/ the relative bearing of landmark \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structnuslam_1_1Measurement_aadeb42ffc3b8bb35940b822cdf1a7999}\label{structnuslam_1_1Measurement_aadeb42ffc3b8bb35940b822cdf1a7999}} 
+\index{nuslam::Measurement@{nuslam::Measurement}!r@{r}}
+\index{r@{r}!nuslam::Measurement@{nuslam::Measurement}}
+\doxysubsubsection{\texorpdfstring{r}{r}}
+{\footnotesize\ttfamily double nuslam\+::\+Measurement\+::r}
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & -\/ the distance to landmark \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+nuslam/include/nuslam/\mbox{\hyperlink{nuslam_8hpp}{nuslam.\+hpp}}\item 
+nuslam/src/nuslam.\+cpp\end{DoxyCompactItemize}

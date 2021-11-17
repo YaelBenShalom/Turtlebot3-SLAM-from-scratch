@@ -1,0 +1,152 @@
+\hypertarget{rigid2d_8hpp_source}{}\doxysection{rigid2d.\+hpp}
+\label{rigid2d_8hpp_source}\index{rigid2d/include/rigid2d/rigid2d.hpp@{rigid2d/include/rigid2d/rigid2d.hpp}}
+\mbox{\hyperlink{rigid2d_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef RIGID2D\_INCLUDE\_GUARD\_HPP}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define RIGID2D\_INCLUDE\_GUARD\_HPP}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <cmath>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <iosfwd>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{namespace }rigid2d \{}
+\DoxyCodeLine{11 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}{PI}} = 3.14159265358979323846;}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{19 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{rigid2d_8hpp_aa56fa40a409082af8395dbd4e1a25b1b}{almost\_equal}}(\textcolor{keywordtype}{double} d1, \textcolor{keywordtype}{double} d2, \textcolor{keywordtype}{double} epsilon = 1.0e-\/12) \{}
+\DoxyCodeLine{20   \textcolor{keywordflow}{if} (fabs(d1 -\/ d2) < epsilon) \{}
+\DoxyCodeLine{21     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{22   \}}
+\DoxyCodeLine{23   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{24 \}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{29 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{rigid2d_8hpp_a58a218146f51c0c2454e5fe1a83cb04c}{deg2rad}}(\textcolor{keywordtype}{double} deg) \{}
+\DoxyCodeLine{30   \textcolor{keywordtype}{double} rad = (deg / 360.0) * 2 * \mbox{\hyperlink{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}{PI}};}
+\DoxyCodeLine{31   \textcolor{keywordflow}{return} rad;}
+\DoxyCodeLine{32 \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{37 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{rigid2d_8hpp_a6883dbf1c0018c962e890754e9d5f62f}{rad2deg}}(\textcolor{keywordtype}{double} rad) \{}
+\DoxyCodeLine{38   \textcolor{keywordtype}{double} deg = (rad / (2 * \mbox{\hyperlink{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}{PI}})) * 360.0;}
+\DoxyCodeLine{39   \textcolor{keywordflow}{return} deg;}
+\DoxyCodeLine{40 \}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{45 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{rigid2d_8hpp_a0366e0678d25f256b74525151b28b1e0}{normalize\_angle}}(\textcolor{keywordtype}{double} rad) \{}
+\DoxyCodeLine{46   \textcolor{keywordtype}{double} deree = fmod(rad, 2 * \mbox{\hyperlink{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}{PI}});}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{keywordflow}{if} (deree > \mbox{\hyperlink{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}{PI}}) \{}
+\DoxyCodeLine{49     deree -\/= 2 * \mbox{\hyperlink{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}{PI}};}
+\DoxyCodeLine{50   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (deree < -\/\mbox{\hyperlink{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}{PI}}) \{}
+\DoxyCodeLine{51     deree += 2 * \mbox{\hyperlink{rigid2d_8hpp_af68d2597a40a3021e2c66d1c23019952}{PI}};}
+\DoxyCodeLine{52   \}}
+\DoxyCodeLine{53   \textcolor{keywordflow}{return} deree;}
+\DoxyCodeLine{54 \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{57 \textcolor{keyword}{static\_assert}(almost\_equal(0, 0), \textcolor{stringliteral}{"{}almost\_equal failed"{}});}
+\DoxyCodeLine{58 \textcolor{keyword}{static\_assert}(almost\_equal(0.001, 0.005, 1.0e-\/2), \textcolor{stringliteral}{"{}almost\_equal failed"{}});}
+\DoxyCodeLine{59 \textcolor{keyword}{static\_assert}(almost\_equal(0.1, 0.5, 1.0), \textcolor{stringliteral}{"{}almost\_equal failed"{}});}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{static\_assert}(almost\_equal(deg2rad(0.0), 0.0), \textcolor{stringliteral}{"{}deg2rad failed"{}});}
+\DoxyCodeLine{62 \textcolor{keyword}{static\_assert}(almost\_equal(deg2rad(180.0), PI), \textcolor{stringliteral}{"{}deg2rad failed"{}});}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{keyword}{static\_assert}(almost\_equal(rad2deg(0.0), 0.0), \textcolor{stringliteral}{"{}rad2deg failed"{}});}
+\DoxyCodeLine{65 \textcolor{keyword}{static\_assert}(almost\_equal(rad2deg(PI), 180.0), \textcolor{stringliteral}{"{}rad2deg failed"{}});}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{keyword}{static\_assert}(almost\_equal(deg2rad(rad2deg(0.0)), 0.0), \textcolor{stringliteral}{"{}deg2rad failed"{}});}
+\DoxyCodeLine{68 \textcolor{keyword}{static\_assert}(almost\_equal(deg2rad(rad2deg(2.1)), 2.1), \textcolor{stringliteral}{"{}deg2rad failed"{}});}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{71 \textcolor{keyword}{struct }\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \{}
+\DoxyCodeLine{73   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Vector2D_a1876d655fe2da548c4813777c450845c}{x}};}
+\DoxyCodeLine{75   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Vector2D_aa814ea37ffe4a161b0020609580e4d17}{y}};}
+\DoxyCodeLine{77   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Vector2D_a68bb2db6ccaabf084c871e02e9c79252}{x\_normalized}};}
+\DoxyCodeLine{79   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Vector2D_a3c48c47db75b6d091ad65e6a9428378d}{y\_normalized}};}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{82   \mbox{\hyperlink{structrigid2d_1_1Vector2D_aa268d230fdd3ddc7b5f89e6277ee60da}{Vector2D}}();}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{87   \textcolor{keyword}{explicit} \mbox{\hyperlink{structrigid2d_1_1Vector2D_aa268d230fdd3ddc7b5f89e6277ee60da}{Vector2D}}(\textcolor{keywordtype}{double} x\_, \textcolor{keywordtype}{double} y\_);}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{91   \textcolor{keywordtype}{void} \mbox{\hyperlink{structrigid2d_1_1Vector2D_a0be56967b3920a398291ea722c540114}{normalize}}();}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{96   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Vector2D_ac9d05c60e546bfaa50cdd0b063182f06}{magnitude}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{101   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Vector2D_a679fe66b27f8e2214ca7d96e5f8b1749}{angle}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{107   \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{structrigid2d_1_1Vector2D_a7be7e2d9846a1f25b03fb7089db4b199}{operator+=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{113   \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{structrigid2d_1_1Vector2D_af94429ccb58da7d01cc1b8599f7f2a2e}{operator-\/=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{119   \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{structrigid2d_1_1Vector2D_a5c81dad34136afe2f6522fc69753476b}{operator*=}}(\textcolor{keyword}{const} \textcolor{keywordtype}{double} scalar);}
+\DoxyCodeLine{120 \};}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{123 \textcolor{keyword}{struct }\mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \{}
+\DoxyCodeLine{125   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Twist2D_aa1f432478c2a11d5a229cc91db43dfde}{thetadot}};}
+\DoxyCodeLine{127   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Twist2D_a664dadf4243d6a420a1afa0331538bb7}{xdot}};}
+\DoxyCodeLine{129   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Twist2D_ae8c3b6a3f279958a3a0a5b82eb02a883}{ydot}};}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{132   \mbox{\hyperlink{structrigid2d_1_1Twist2D_a8a317315c9dc111b01e0f3c53af072b4}{Twist2D}}();}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{138   \textcolor{keyword}{explicit} \mbox{\hyperlink{structrigid2d_1_1Twist2D_a8a317315c9dc111b01e0f3c53af072b4}{Twist2D}}(\textcolor{keywordtype}{double} thetadot\_, \textcolor{keywordtype}{double} xdot\_, \textcolor{keywordtype}{double} ydot\_);}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{142   \textcolor{keyword}{friend} std::ostream \&\mbox{\hyperlink{structrigid2d_1_1Twist2D_a649db804570e2552b69cfb5dcb04737b}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{146   \textcolor{keyword}{friend} std::istream \&\mbox{\hyperlink{structrigid2d_1_1Twist2D_ab2c722171c0d655d99c0276170b8cca9}{operator>>}}(std::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{147 \};}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{150 \textcolor{keyword}{class }\mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \{}
+\DoxyCodeLine{151 \textcolor{keyword}{private}:}
+\DoxyCodeLine{153   \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} trans\_vector;}
+\DoxyCodeLine{155   \textcolor{keywordtype}{double} trans\_angle;}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157 \textcolor{keyword}{public}:}
+\DoxyCodeLine{159   \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}();}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{163   \textcolor{keyword}{explicit} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&trans);}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{167   \textcolor{keyword}{explicit} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}(\textcolor{keywordtype}{double} radians);}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{173   \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&trans, \textcolor{keywordtype}{double} radians);}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{178   \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a80fbe5f0ea600b82812749d3c9e0f219}{operator()}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v) \textcolor{keyword}{const};}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{183   \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a80fbe5f0ea600b82812749d3c9e0f219}{operator()}}(\mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} twist) \textcolor{keyword}{const};}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{187   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a2d324a150b852834b68629159e1b723b}{inv}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{193   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&\mbox{\hyperlink{classrigid2d_1_1Transform2D_a39a7a37c3be80717b8d2fe6cf00c1fbf}{operator*=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&rhs);}
+\DoxyCodeLine{194 }
+\DoxyCodeLine{197   \textcolor{keywordtype}{double} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a2bd267660a3c53af155239a7c55215de}{x}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{198 }
+\DoxyCodeLine{201   \textcolor{keywordtype}{double} \mbox{\hyperlink{classrigid2d_1_1Transform2D_afd0b328fb1212e51cd49c52eef3fc0b1}{y}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{205   \textcolor{keywordtype}{double} \mbox{\hyperlink{classrigid2d_1_1Transform2D_ad919f51efffc53784a6e285832c776c6}{theta}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{211   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a6a2799cc88d36c05cc9d21cfd1fce7ac}{integrateTwist}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist) \textcolor{keyword}{const};}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{215   \textcolor{keyword}{friend} std::ostream \&\mbox{\hyperlink{classrigid2d_1_1Transform2D_a2596ea9bfb8217d375966195ebaf2709}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{219   \textcolor{keyword}{friend} std::istream \&\mbox{\hyperlink{classrigid2d_1_1Transform2D_a72711c5efc6c25bb683eb2f2bce6bafa}{operator>>}}(std::istream \&is, \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
+\DoxyCodeLine{220 \};}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{227 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_aefd78acd3d7c544276ff4adb44195d69}{operator+}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v2);}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{234 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_a1ccb2bde4af22f4d720de5888a9cde11}{operator-\/}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v2);}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{241 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{operator*}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1, \textcolor{keyword}{const} \textcolor{keywordtype}{double} scalar);}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{248 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{operator*}}(\textcolor{keyword}{const} \textcolor{keywordtype}{double} scalar, \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1);}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{253 std::ostream \&\mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
+\DoxyCodeLine{254 }
+\DoxyCodeLine{263 std::istream \&\mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{operator>>}}(std::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
+\DoxyCodeLine{264 }
+\DoxyCodeLine{270 std::ostream \&\mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{277 std::istream \&\mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{operator>>}}(std::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{278 }
+\DoxyCodeLine{284 std::ostream \&\mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
+\DoxyCodeLine{285 }
+\DoxyCodeLine{291 std::istream \&\mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{operator>>}}(std::istream \&is, \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{297 \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{operator*}}(\mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} lhs, \textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&rhs);}
+\DoxyCodeLine{298 \} \textcolor{comment}{// namespace rigid2d}}
+\DoxyCodeLine{299 }
+\DoxyCodeLine{300 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

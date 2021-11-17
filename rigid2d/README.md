@@ -1,8 +1,9 @@
-# Sensing, Navigation and Machine Learning For Robotics
+# Package: rigid2d
 
-- ME-495, Winter 2021
+Author: Yael Ben Shalom
 
-# Rigid 2D transformation Library
+
+## Package Summary
 
 A library for handling transformations in SE(2).
 
