@@ -8,7 +8,6 @@ Author: Yael Ben Shalom
 - [Description](#description)
 - [Package List](#package-list)
 - [Getting Started](#getting-started)
-- [Results](#results)
 
 # Project Description
 
@@ -53,10 +52,3 @@ cd ..
 catkin_make
 source devel/setup.bash 
 ```
-
-# Results
-
-A demo of the EKF-SLAM in action:
-<p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/EKF_SLAM_demo.gif">
-</p>
