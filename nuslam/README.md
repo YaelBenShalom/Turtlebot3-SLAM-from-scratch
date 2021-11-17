@@ -6,8 +6,8 @@ Author: Yael Ben Shalom
 ## Package Summary
 
 This package contains the implementation for the Feature-Based Kalman Filter SLAM. The package stores the simulation visualization and the SLAM implementation in a controlled environment.<br>
+Please visit [my website](https://yaelbenshalom.github.io/EKF_SLAM/index.html) for more information about this package.<br>
 
-![Simulation](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/slam2.gif)
 
 ## Nodes, Library and launchfiles
 
@@ -32,4 +32,10 @@ This library contains several nodes and launchfiles:
 
   * Launch `roslaunch nuturtle_robot landmarks.launch` to launch the feature detection node.
 
-  ![Simulation](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/simulation.png)
+<p align="center">
+  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/slam2.gif">
+</p>
+
+<p align="center">
+  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/simulation.png">
+</p>

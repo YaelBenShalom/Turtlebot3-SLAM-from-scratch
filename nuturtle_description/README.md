@@ -5,7 +5,8 @@ Author: Yael Ben Shalom
 
 ## Package Summary
 
-URDF files for my_turtlebot3 - a differential drive robot, based on the tutlebot3_burger model.
+URDF files for my_turtlebot3 - a differential drive robot, based on the tutlebot3_burger model.<br>
+Please visit [my website](https://yaelbenshalom.github.io/EKF_SLAM/index.html) for more information about this package.
 
 ## Nodes, Library and launchfiles
 

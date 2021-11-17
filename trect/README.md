@@ -5,7 +5,8 @@ Author: Yael Ben Shalom
 
 ## Package Summary
 
-A package that causes the turtlesim turtle to follow a rectangle path.
+A package that causes the turtlesim turtle to follow a rectangle path.<br>
+Please visit [my website](https://yaelbenshalom.github.io/EKF_SLAM/index.html) for more information about this package.
 
 ## Nodes, Library and launchfiles
 
@@ -26,4 +27,6 @@ width: 4.0
 height: 5.0"
 ```
 
-![Demonstration](https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/trect/videos/Task_C.gif)
+<p align="center">
+  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/trect/videos/Task_C.gif">
+</p>

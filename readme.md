@@ -16,7 +16,6 @@ Please visit [my website](https://yaelbenshalom.github.io/EKF_SLAM/index.html) f
 For further information about the packages, classes, and methods used in this project, please visit [package documentation](https://yaelbenshalom.github.io/Sensing_Navigation_and_ML/html/index.html).
 
 
-
 # Package List
 
 This repository consists of several ROS packages:
