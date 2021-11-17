@@ -37,5 +37,5 @@ This library contains several nodes and launchfiles:
 </p>
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/simulation.png">
+  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/simulation.png" width="50%">
 </p>
