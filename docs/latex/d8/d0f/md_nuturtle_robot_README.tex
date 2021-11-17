@@ -5,7 +5,9 @@ This package stores the code that interacts with the turtlebot hardware.
 \begin{DoxyItemize}
 \item Launch {\ttfamily roslaunch nuturtle\+\_\+robot basic\+\_\+remote.\+launch -\/-\/ros-\/args} to view any optional arguments and their instructions.
 \item Launch {\ttfamily roslaunch nuturtle\+\_\+robot basic\+\_\+remote.\+launch robot\+:=localhost} to run the node on the local machine.
-\end{DoxyItemize}\hypertarget{md_nuturtle_robot_README_autotoc_md11}{}\doxysection{Nodes and launchfiles}\label{md_nuturtle_robot_README_autotoc_md11}
+\end{DoxyItemize}
+
+Please visit \href{https://yaelbenshalom.github.io/EKF_SLAM/index.html}{\texttt{ my website}} for more information about this package.\hypertarget{md_nuturtle_robot_README_autotoc_md11}{}\doxysection{Nodes and launchfiles}\label{md_nuturtle_robot_README_autotoc_md11}
 This library contains several nodes and launchfiles\+:
 
 
@@ -24,10 +26,10 @@ This library contains several nodes and launchfiles\+:
 \begin{DoxyItemize}
 \item Launch {\ttfamily roslaunch nuturtle\+\_\+robot odom\+\_\+teleop.\+launch} to making a turtle move in a circulat path.
 
-
+ 
 \item Launch {\ttfamily roslaunch nuturtle\+\_\+robot odom\+\_\+teleop.\+launch circle\+:=False} to making a turtle move using turtlebot3\+\_\+teleop, and move it using the {\ttfamily w}, {\ttfamily d}, {\ttfamily x}, {\ttfamily a} letters on your keyboard.
 
-
+ 
 \end{DoxyItemize}
 \end{DoxyItemize}\hypertarget{md_nuturtle_robot_README_autotoc_md12}{}\doxysection{Real Turtle Instructions\+:}\label{md_nuturtle_robot_README_autotoc_md12}
 To activate the real turtle, please follow the following steps\+:
@@ -40,19 +42,19 @@ To activate the real turtle, please follow the following steps\+:
 \hypertarget{md_nuturtle_robot_README_autotoc_md14}{}\doxysubsection{Experiment I\+:}\label{md_nuturtle_robot_README_autotoc_md14}
 Driving the robot forward and backward in a straight line several times, and then stopping when the turtlebot is in its initial configuration.
 
+ 
 
-
-\hypertarget{md_nuturtle_robot_README_autotoc_md15}{}\doxysubsection{Experiment II\+:}\label{md_nuturtle_robot_README_autotoc_md15}
+ \hypertarget{md_nuturtle_robot_README_autotoc_md15}{}\doxysubsection{Experiment II\+:}\label{md_nuturtle_robot_README_autotoc_md15}
 Rotating the robot clockwise and counter clockwise several times, stopping when the turtlebot is in its initial configuration.
 
+ 
 
-
-
+ 
 
 We can see that in reality the robot slips on the floor, so we don\textquotesingle{}t get the same results as in the simulation.\hypertarget{md_nuturtle_robot_README_autotoc_md16}{}\doxysubsection{Experiment III\+:}\label{md_nuturtle_robot_README_autotoc_md16}
 Driving the robot in a circle, clockwise and counter clockwise several times, stopping when the turtlebot is its initial configuration.
 
-
+ 
 
 The robot\textquotesingle{}s final configuration was almost equal to the initial configuration, with $\sim$3 cm difference on the y axis.\hypertarget{md_nuturtle_robot_README_autotoc_md17}{}\doxysubsection{Experiment IV\+:}\label{md_nuturtle_robot_README_autotoc_md17}
 Try one of the previous experiments again, but try to get either a significantly better or significantly worse result.
