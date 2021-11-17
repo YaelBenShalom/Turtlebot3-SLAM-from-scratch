@@ -66,44 +66,19 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p >Author: Yael Ben Shalom</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Package Summary</h1>
 <p >A library for handling transformations in SE(2).</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 Nodes and launchfiles</h1>
 <p >This library contains several nodes and launchfiles:</p>
 <ul>
 <li><b>odometer node</b> - Publishes Odometry messages for differential drive robot based on wheel joint states.</li>
 <li><b>fake_turtle node</b> - A kinematic simulation of a differential drive robot using the DiffDrive class.</li>
 <li><p class="startli"><b>fake_turtle_odom launchfile</b> - Launch file for making a turtle move in Rviz using turtlebot3_teleop. Run <code>roslaunch rigid2d fake_turtle_odom.launch</code> to launch the turtle in Rviz, and move it using the <code>w</code>, <code>d</code>, <code>x</code>, <code>a</code> letters on your keyboard.</p>
-<p class="startli"><img src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/rigid2d/videos/Task_E.gif" alt="Demonstration" class="inline"/></p>
+<p class="startli"><img src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/rigid2d/videos/Task_E.gif" alt="Demonstration" class="inline"/> </p>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md27"></a>
-Conceptual Questions</h1>
-<ol type="1">
-<li><p class="startli">What is the difference between a class and a struct in C++?</p>
-<p class="startli">The difference between a class and struct in C++ is the default accessibility of member variables and methods. In a struct they are public, and in a class they are private.</p>
-</li>
-<li><p class="startli">Why is Vector2D a struct and Transform2D Class (refer to at least 2 specific C++ core guidelines in your answer)?</p>
-<p class="startli">In a struct, the members can vary independently, and they are public. For example, the variables x and y in the Vector2D are independent and public, so we can define and refer to them from outside the struct, and we can change them independently of each other. On the other hand, the members in Transform2D are private, so we can't refer or change them from outside the class. in order to refer them, I defined x, y, and theta function to output the variables values.</p>
-</li>
-<li><p class="startli">Why are some of the constructors in Transform2D explicit (refer to a specific C++ core guideline in your answer)?</p>
-<p class="startli">Some constructors in Transform2D are explicit To avoid unintended conversions. In our case, it converts to Transform2D explicitly.</p>
-</li>
-<li><p class="startli">We need to be able to normalize Vector2D objects (i.e., find the unit vector in the direction of a given Vector2D):</p><ul>
-<li>Propose three different designs for implementing the ~normalize~ functionality</li>
-<li>Discuss the pros and cons of each proposed method, in light of the C++ Core Guidelines.</li>
-<li>Which of the methods would you implement and why?</li>
-</ul>
-<p class="startli">One implementation of the normalize is to implement the function inside the Vector2D struct (Vector2D::normalize()). Second method is to define another struct for normalized vectors, and define the function normalize as part of this struct (NormalVector2D::normalize()). Third method is to define the function outside of any class or struct. I would implement the function normalize as part of the Vector2D struct (Vector2D::normalize()), because it is only used on Vector2D type variables, and as part of a struct it is a public function and can be used outside of the struct.</p>
-</li>
-<li><p class="startli">Why is Transform2D::inv() declared const while Transform2D::operator*=() is not (Refer to C++ core guidelines in your answer)?</p><ul>
-<li>Refer to [[<a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#con-constants-and-immutability">https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#con-constants-and-immutability</a>][C++ Core Guidelines (Constants and Immutability)]] in your answer.</li>
-</ul>
-<p class="startli">By default, it is better to make member functions const, unless it changes the object’s observable state. This gives a more precise statement of design intent, better readability, more errors caught by the compiler, and sometimes more optimization opportunities. In the Transform2D::inv() function, we do not change object’s observable state and we return a new internal variable, therefore it is const. On the other hand, in the Transform2D::operator*=() function, we do change the object’s observable state and return the new state, and therefore it is non-const. </p>
-</li>
-</ol>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
