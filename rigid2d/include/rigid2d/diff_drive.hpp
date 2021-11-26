@@ -155,7 +155,8 @@ public:
   WheelAngle updateOdometryWithTwist(const Twist2D &tw);
 
   /// \brief rotating the wheels with twist input (without updating the
-  /// odometry) \param tw - the twist of the robot \return the wheel angles of
+  /// odometry)
+  /// \param tw - the twist of the robot \return the wheel angles of
   /// the robot
   WheelAngle rotatingWheelsWithTwist(const Twist2D &tw);
 };
