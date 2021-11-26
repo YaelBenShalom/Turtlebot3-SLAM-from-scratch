@@ -1,4 +1,4 @@
-# Sensing, Navigation and Machine Learning For Robotics
+# Turtlebot3 SLAM from Scratch
 
 Author: Yael Ben Shalom
 
