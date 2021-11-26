@@ -19,5 +19,5 @@ This library contains several nodes and launchfiles:
   - Launch `roslaunch nurtlesim tube_world.launch` to run the simulator.
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nurtlesim/videos/Task_G.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nurtlesim/videos/Task_G.gif">
 </p>

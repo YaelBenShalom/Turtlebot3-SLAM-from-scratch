@@ -28,5 +28,5 @@ height: 5.0"
 ```
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/trect/videos/Task_C.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/trect/videos/Task_C.gif">
 </p>

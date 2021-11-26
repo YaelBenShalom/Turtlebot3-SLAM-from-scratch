@@ -33,9 +33,9 @@ This library contains several nodes and launchfiles:
   * Launch `roslaunch nuturtle_robot landmarks.launch` to launch the feature detection node.
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/slam2.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuslam/images/slam2.gif">
 </p>
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuslam/images/simulation.png" width="50%">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuslam/images/simulation.png" width="50%">
 </p>

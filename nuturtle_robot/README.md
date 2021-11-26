@@ -32,13 +32,13 @@ This library contains several nodes and launchfiles:
   - Launch `roslaunch nuturtle_robot odom_teleop.launch` to making a turtle move in a circulat path.
 
     <p align="center">
-      <img align="center" src="(https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuturtle_robot/videos/Task_Fa.gif">
+      <img align="center" src="(https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuturtle_robot/videos/Task_Fa.gif">
     </p>
 
   - Launch `roslaunch nuturtle_robot odom_teleop.launch circle:=False` to making a turtle move using turtlebot3_teleop, and move it using the `w`, `d`, `x`, `a` letters on your keyboard.
 
     <p align="center">
-      <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuturtle_robot/videos/Task_Fb.gif">
+      <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuturtle_robot/videos/Task_Fb.gif">
     </p>
 
 ## Real Turtle Instructions:
@@ -55,11 +55,11 @@ To activate the real turtle, please follow the following steps:
 Driving the robot forward and backward in a straight line several times, and then stopping when the turtlebot is in its initial configuration.
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuturtle_robot/videos/Task_F8-3a.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuturtle_robot/videos/Task_F8-3a.gif">
 </p>
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuturtle_robot/videos/Task_F8-3b.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuturtle_robot/videos/Task_F8-3b.gif">
 </p>
 
 ### Experiment II:
@@ -67,11 +67,11 @@ Driving the robot forward and backward in a straight line several times, and the
 Rotating the robot clockwise and counter clockwise several times, stopping when the turtlebot is in its initial configuration.
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuturtle_robot/videos/Task_F8-4a.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuturtle_robot/videos/Task_F8-4a.gif">
 </p>
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuturtle_robot/videos/Task_F8-4b.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuturtle_robot/videos/Task_F8-4b.gif">
 </p>
 
 We can see that in reality the robot slips on the floor, so we don't get the same results as in the simulation.
@@ -81,7 +81,7 @@ We can see that in reality the robot slips on the floor, so we don't get the sam
 Driving the robot in a circle, clockwise and counter clockwise several times, stopping when the turtlebot is its initial configuration.
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuturtle_robot/videos/Task_Fa.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuturtle_robot/videos/Task_Fa.gif">
 </p>
 
 The robot's final configuration was almost equal to the initial configuration, with ~3 cm difference on the y axis.
@@ -93,5 +93,5 @@ Try one of the previous experiments again, but try to get either a significantly
 I repeated the first experiment, although this one, I didn't reduce the turtlebot's velocity fast enough before the finish point, so the robot crossed the initial position and stopped ~10 cm after it.
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/nuturtle_robot/videos/Task_F8-6a.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/nuturtle_robot/videos/Task_F8-6a.gif">
 </p>

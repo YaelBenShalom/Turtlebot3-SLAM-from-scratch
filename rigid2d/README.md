@@ -18,5 +18,5 @@ This library contains several nodes and launchfiles:
 - **fake_turtle_odom launchfile** - Launch file for making a turtle move in Rviz using turtlebot3_teleop. Run `roslaunch rigid2d fake_turtle_odom.launch` to launch the turtle in Rviz, and move it using the `w`, `d`, `x`, `a` letters on your keyboard.
 
 <p align="center">
-  <img align="center" src="https://github.com/YaelBenShalom/Sensing_Navigation_and_ML/blob/master/rigid2d/videos/Task_E.gif">
+  <img align="center" src="https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch/blob/master/rigid2d/videos/Task_E.gif">
 </p>
