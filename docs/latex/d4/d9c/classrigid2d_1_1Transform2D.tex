@@ -114,6 +114,11 @@ Create a transformation with a translational and rotational component.
 
 compute the transformation corresponding to a rigid body following a constant twist (in its original body frame) for one time unit 
 
+
+\begin{DoxyParams}{Parameters}
+{\em twist} & -\/ the twist to transform \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 transformation correspond to a twist for one time step
 \end{DoxyReturn}
@@ -250,9 +255,6 @@ the y displacement
 
 should print a human readable version of the transform\+: An example output\+: dtheta (degrees)\+: 90 dx\+: 3 dy\+: 5 
 
-\begin{DoxySeeAlso}{See also}
-operator$<$$<$(...) (declared outside this class) for a description
-\end{DoxySeeAlso}
 
 \begin{DoxyParams}{Parameters}
 {\em os} & -\/ an output stream \\
@@ -260,6 +262,9 @@ operator$<$$<$(...) (declared outside this class) for a description
 {\em tf} & -\/ the transform to print \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ostream 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classrigid2d_1_1Transform2D_a72711c5efc6c25bb683eb2f2bce6bafa}\label{classrigid2d_1_1Transform2D_a72711c5efc6c25bb683eb2f2bce6bafa}} 
 \index{rigid2d::Transform2D@{rigid2d::Transform2D}!operator$>$$>$@{operator$>$$>$}}
 \index{operator$>$$>$@{operator$>$$>$}!rigid2d::Transform2D@{rigid2d::Transform2D}}
@@ -270,9 +275,6 @@ operator$<$$<$(...) (declared outside this class) for a description
 
 Read a transformation from stdin Should be able to read input either as output by operator\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} or as 3 numbers (degrees, dx, dy) separated by spaces or newlines. 
 
-\begin{DoxySeeAlso}{See also}
-operator$>$$>$(...) (declared outside this class) for a description.
-\end{DoxySeeAlso}
 
 \begin{DoxyParams}{Parameters}
 {\em is} & -\/ stream from which to read \\
@@ -280,6 +282,9 @@ operator$>$$>$(...) (declared outside this class) for a description.
 {\em tf} & -\/ the transform to print \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+istream 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

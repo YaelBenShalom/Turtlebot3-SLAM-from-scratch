@@ -138,8 +138,7 @@ public:
   }
 
   /// \brief Subscribes to the map's landmarks.
-  /// \param req - SetPose request.
-  /// \param res - SetPose response.
+  /// \param markers - markers visualization msgs.
   /// \returns void
   void landmarks_callback(const visualization_msgs::MarkerArray &markers) {
     // ROS_INFO("Subscribing to landmarks");
@@ -428,6 +427,8 @@ private:
 };
 
 /// \brief Main function
+/// \param argc - input int argument
+/// \param argv - input array argument
 /// \returns int
 int main(int argc, char *argv[]) {
   ros::init(argc, argv, "slam");

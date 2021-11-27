@@ -50,21 +50,29 @@
 
 /// \brief A struct of points
 struct Point {
+  /// \param x - the x coordinate of the point
   double x = 0;
+  /// \param y - the x coordinate of the point
   double y = 0;
 };
 
 /// \brief A struct of measurements
 struct Measurement {
+  /// \param r - the distance of the measurement
   double r = 0;
+  /// \param phi - the angle of the measurement
   double phi = 0;
 };
 
 /// \brief A struct of clusters
 struct Cluster {
+  /// \param points - the vector of measurements
   std::vector<Measurement> points;
+  /// \param x_center - the x coordinate of the cluster center
   double x_center = 0;
+  /// \param y_center - the y coordinate of the cluster center
   double y_center = 0;
+  /// \param radius - the radius of the cluster
   double radius = 0;
 };
 
@@ -216,6 +224,8 @@ private:
 };
 
 /// \brief Main function
+/// \param argc - input int argument
+/// \param argv - input array argument
 /// \returns int
 int main(int argc, char *argv[]) {
   ros::init(argc, argv, "landmarks");

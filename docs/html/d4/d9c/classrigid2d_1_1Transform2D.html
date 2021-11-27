@@ -256,6 +256,12 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>compute the transformation corresponding to a rigid body following a constant twist (in its original body frame) for one time unit </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">twist</td><td>- the twist to transform </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>transformation correspond to a twist for one time step</dd></dl>
 <p>Compute the transformation corresponding to a rigid body following a constant twist (in its original body frame) for one time unit </p>
 
@@ -465,7 +471,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>should print a human readable version of the transform: An example output: dtheta (degrees): 90 dx: 3 dy: 5 </p>
-<dl class="section see"><dt>See also</dt><dd>operator&lt;&lt;(...) (declared outside this class) for a description</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">os</td><td>- an output stream </td></tr>
@@ -473,6 +478,7 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>ostream </dd></dl>
 
 </div>
 </div>
@@ -511,7 +517,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read a transformation from stdin Should be able to read input either as output by operator&lt;&lt; or as 3 numbers (degrees, dx, dy) separated by spaces or newlines. </p>
-<dl class="section see"><dt>See also</dt><dd>operator&gt;&gt;(...) (declared outside this class) for a description.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">is</td><td>- stream from which to read </td></tr>
@@ -519,6 +524,7 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>istream </dd></dl>
 
 </div>
 </div>

@@ -1,0 +1,58 @@
+\hypertarget{fake__turtle_8cpp}{}\doxysection{rigid2d/src/fake\+\_\+turtle.cpp File Reference}
+\label{fake__turtle_8cpp}\index{rigid2d/src/fake\_turtle.cpp@{rigid2d/src/fake\_turtle.cpp}}
+
+
+A kinematic simulation of a differential drive robot using the Diff\+Drive class.  
+
+
+{\ttfamily \#include \char`\"{}rigid2d/diff\+\_\+drive.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rigid2d/rigid2d.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Twist.\+h$>$}\newline
+{\ttfamily \#include $<$sensor\+\_\+msgs/\+Joint\+State.\+h$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classFakeTurtle}{Fake\+Turtle}}
+\begin{DoxyCompactList}\small\item\em Class \mbox{\hyperlink{classFakeTurtle}{Fake\+Turtle}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{fake__turtle_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A kinematic simulation of a differential drive robot using the Diff\+Drive class. 
+
+PARAMETERS\+: frequency (int)\+: control loop frequency cmd\+\_\+vel\+\_\+flag (bool)\+: specifies when new cmd\+\_\+vel is read wheel\+\_\+base (float)\+: The distance between the wheels wheel\+\_\+radius (float)\+: The radius of the wheels left\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the left wheel joint right\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the right wheel joint
+
+joint\+\_\+state (sensor\+\_\+msgs\+::\+Joint\+State)\+: message to publish joint\+\_\+state readings to /joint\+\_\+states topic
+
+pose (\mbox{\hyperlink{structrigid2d_1_1Config2D}{rigid2d\+::\+Config2D}})\+: the robot\textquotesingle{}s position (based on the wheel angles) twist (\mbox{\hyperlink{structrigid2d_1_1Twist2D}{rigid2d\+::\+Twist2D}})\+: the robot\textquotesingle{}s twist diff\+\_\+drive (\mbox{\hyperlink{classrigid2d_1_1DiffDrive}{rigid2d\+::\+Diff\+Drive}})\+: an instance of the diff\+\_\+drive robot wheel\+\_\+vel (\mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{rigid2d\+::\+Wheel\+Velocity}})\+: the velocity of the robot\textquotesingle{}s wheels wheel\+\_\+angle (\mbox{\hyperlink{structrigid2d_1_1WheelAngle}{rigid2d\+::\+Wheel\+Angle}})\+: the angles of the robot\textquotesingle{}s wheels PUBLISHES\+: joint\+\_\+states (sensor\+\_\+msgs/\+Joint\+State)\+: publishes Joint\+State message on the joint\+\_\+states topic. Reflect the current joint angles of each wheel SUBSCRIBES\+: cmd\+\_\+vel (geometry\+\_\+msgs/\+Twist)\+: Subscribes to the robot\textquotesingle{}s velocity. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{fake__turtle_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{fake__turtle_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{fake\_turtle.cpp@{fake\_turtle.cpp}!main@{main}}
+\index{main@{main}!fake\_turtle.cpp@{fake\_turtle.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & -\/ input int argument \\
+\hline
+{\em argv} & -\/ input array argument \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}

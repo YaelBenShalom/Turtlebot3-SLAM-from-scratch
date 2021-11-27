@@ -84,69 +84,69 @@
 \DoxyCodeLine{133 }
 \DoxyCodeLine{138   \textcolor{keyword}{explicit} \mbox{\hyperlink{structrigid2d_1_1Twist2D_a8a317315c9dc111b01e0f3c53af072b4}{Twist2D}}(\textcolor{keywordtype}{double} thetadot\_, \textcolor{keywordtype}{double} xdot\_, \textcolor{keywordtype}{double} ydot\_);}
 \DoxyCodeLine{139 }
-\DoxyCodeLine{142   \textcolor{keyword}{friend} std::ostream \&\mbox{\hyperlink{structrigid2d_1_1Twist2D_a649db804570e2552b69cfb5dcb04737b}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
-\DoxyCodeLine{143 }
-\DoxyCodeLine{146   \textcolor{keyword}{friend} std::istream \&\mbox{\hyperlink{structrigid2d_1_1Twist2D_ab2c722171c0d655d99c0276170b8cca9}{operator>>}}(std::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
-\DoxyCodeLine{147 \};}
-\DoxyCodeLine{148 }
-\DoxyCodeLine{150 \textcolor{keyword}{class }\mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \{}
-\DoxyCodeLine{151 \textcolor{keyword}{private}:}
-\DoxyCodeLine{153   \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} trans\_vector;}
-\DoxyCodeLine{155   \textcolor{keywordtype}{double} trans\_angle;}
-\DoxyCodeLine{156 }
-\DoxyCodeLine{157 \textcolor{keyword}{public}:}
-\DoxyCodeLine{159   \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}();}
-\DoxyCodeLine{160 }
-\DoxyCodeLine{163   \textcolor{keyword}{explicit} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&trans);}
-\DoxyCodeLine{164 }
-\DoxyCodeLine{167   \textcolor{keyword}{explicit} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}(\textcolor{keywordtype}{double} radians);}
-\DoxyCodeLine{168 }
-\DoxyCodeLine{173   \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&trans, \textcolor{keywordtype}{double} radians);}
-\DoxyCodeLine{174 }
-\DoxyCodeLine{178   \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a80fbe5f0ea600b82812749d3c9e0f219}{operator()}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v) \textcolor{keyword}{const};}
-\DoxyCodeLine{179 }
-\DoxyCodeLine{183   \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a80fbe5f0ea600b82812749d3c9e0f219}{operator()}}(\mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} twist) \textcolor{keyword}{const};}
-\DoxyCodeLine{184 }
-\DoxyCodeLine{187   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a2d324a150b852834b68629159e1b723b}{inv}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{188 }
-\DoxyCodeLine{193   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&\mbox{\hyperlink{classrigid2d_1_1Transform2D_a39a7a37c3be80717b8d2fe6cf00c1fbf}{operator*=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&rhs);}
-\DoxyCodeLine{194 }
-\DoxyCodeLine{197   \textcolor{keywordtype}{double} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a2bd267660a3c53af155239a7c55215de}{x}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{198 }
-\DoxyCodeLine{201   \textcolor{keywordtype}{double} \mbox{\hyperlink{classrigid2d_1_1Transform2D_afd0b328fb1212e51cd49c52eef3fc0b1}{y}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{202 }
-\DoxyCodeLine{205   \textcolor{keywordtype}{double} \mbox{\hyperlink{classrigid2d_1_1Transform2D_ad919f51efffc53784a6e285832c776c6}{theta}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{206 }
-\DoxyCodeLine{211   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a6a2799cc88d36c05cc9d21cfd1fce7ac}{integrateTwist}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist) \textcolor{keyword}{const};}
-\DoxyCodeLine{212 }
-\DoxyCodeLine{215   \textcolor{keyword}{friend} std::ostream \&\mbox{\hyperlink{classrigid2d_1_1Transform2D_a2596ea9bfb8217d375966195ebaf2709}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
+\DoxyCodeLine{145   \textcolor{keyword}{friend} std::ostream \&\mbox{\hyperlink{structrigid2d_1_1Twist2D_a649db804570e2552b69cfb5dcb04737b}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{149   \textcolor{keyword}{friend} std::istream \&\mbox{\hyperlink{structrigid2d_1_1Twist2D_ab2c722171c0d655d99c0276170b8cca9}{operator>>}}(std::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{150 \};}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{153 \textcolor{keyword}{class }\mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \{}
+\DoxyCodeLine{154 \textcolor{keyword}{private}:}
+\DoxyCodeLine{156   \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} trans\_vector;}
+\DoxyCodeLine{158   \textcolor{keywordtype}{double} trans\_angle;}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160 \textcolor{keyword}{public}:}
+\DoxyCodeLine{162   \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}();}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{166   \textcolor{keyword}{explicit} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&trans);}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{170   \textcolor{keyword}{explicit} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}(\textcolor{keywordtype}{double} radians);}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{176   \mbox{\hyperlink{classrigid2d_1_1Transform2D_a455fbd07f86d3aeaaeca954a0904397a}{Transform2D}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&trans, \textcolor{keywordtype}{double} radians);}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{181   \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a80fbe5f0ea600b82812749d3c9e0f219}{operator()}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v) \textcolor{keyword}{const};}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{186   \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a80fbe5f0ea600b82812749d3c9e0f219}{operator()}}(\mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} twist) \textcolor{keyword}{const};}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{190   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a2d324a150b852834b68629159e1b723b}{inv}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{191 }
+\DoxyCodeLine{196   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&\mbox{\hyperlink{classrigid2d_1_1Transform2D_a39a7a37c3be80717b8d2fe6cf00c1fbf}{operator*=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&rhs);}
+\DoxyCodeLine{197 }
+\DoxyCodeLine{200   \textcolor{keywordtype}{double} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a2bd267660a3c53af155239a7c55215de}{x}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{201 }
+\DoxyCodeLine{204   \textcolor{keywordtype}{double} \mbox{\hyperlink{classrigid2d_1_1Transform2D_afd0b328fb1212e51cd49c52eef3fc0b1}{y}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{208   \textcolor{keywordtype}{double} \mbox{\hyperlink{classrigid2d_1_1Transform2D_ad919f51efffc53784a6e285832c776c6}{theta}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{215   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{classrigid2d_1_1Transform2D_a6a2799cc88d36c05cc9d21cfd1fce7ac}{integrateTwist}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist) \textcolor{keyword}{const};}
 \DoxyCodeLine{216 }
-\DoxyCodeLine{219   \textcolor{keyword}{friend} std::istream \&\mbox{\hyperlink{classrigid2d_1_1Transform2D_a72711c5efc6c25bb683eb2f2bce6bafa}{operator>>}}(std::istream \&is, \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
-\DoxyCodeLine{220 \};}
-\DoxyCodeLine{221 }
-\DoxyCodeLine{227 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_aefd78acd3d7c544276ff4adb44195d69}{operator+}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v2);}
-\DoxyCodeLine{228 }
-\DoxyCodeLine{234 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_a1ccb2bde4af22f4d720de5888a9cde11}{operator-\/}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v2);}
-\DoxyCodeLine{235 }
-\DoxyCodeLine{241 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{operator*}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1, \textcolor{keyword}{const} \textcolor{keywordtype}{double} scalar);}
-\DoxyCodeLine{242 }
-\DoxyCodeLine{248 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{operator*}}(\textcolor{keyword}{const} \textcolor{keywordtype}{double} scalar, \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1);}
-\DoxyCodeLine{249 }
-\DoxyCodeLine{253 std::ostream \&\mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
+\DoxyCodeLine{223   \textcolor{keyword}{friend} std::ostream \&\mbox{\hyperlink{classrigid2d_1_1Transform2D_a2596ea9bfb8217d375966195ebaf2709}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{231   \textcolor{keyword}{friend} std::istream \&\mbox{\hyperlink{classrigid2d_1_1Transform2D_a72711c5efc6c25bb683eb2f2bce6bafa}{operator>>}}(std::istream \&is, \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
+\DoxyCodeLine{232 \};}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{239 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_aefd78acd3d7c544276ff4adb44195d69}{operator+}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v2);}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{246 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_a1ccb2bde4af22f4d720de5888a9cde11}{operator-\/}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v2);}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{253 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{operator*}}(\mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1, \textcolor{keyword}{const} \textcolor{keywordtype}{double} scalar);}
 \DoxyCodeLine{254 }
-\DoxyCodeLine{263 std::istream \&\mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{operator>>}}(std::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
-\DoxyCodeLine{264 }
-\DoxyCodeLine{270 std::ostream \&\mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
-\DoxyCodeLine{271 }
-\DoxyCodeLine{277 std::istream \&\mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{operator>>}}(std::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
-\DoxyCodeLine{278 }
-\DoxyCodeLine{284 std::ostream \&\mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
-\DoxyCodeLine{285 }
-\DoxyCodeLine{291 std::istream \&\mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{operator>>}}(std::istream \&is, \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
-\DoxyCodeLine{292 }
-\DoxyCodeLine{297 \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{operator*}}(\mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} lhs, \textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&rhs);}
-\DoxyCodeLine{298 \} \textcolor{comment}{// namespace rigid2d}}
+\DoxyCodeLine{260 \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&\mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{operator*}}(\textcolor{keyword}{const} \textcolor{keywordtype}{double} scalar, \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} v1);}
+\DoxyCodeLine{261 }
+\DoxyCodeLine{266 std::ostream \&\mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{274 std::istream \&\mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{operator>>}}(std::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Vector2D}{Vector2D}} \&v);}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{282 std::ostream \&\mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{283 }
+\DoxyCodeLine{290 std::istream \&\mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{operator>>}}(std::istream \&is, \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{291 }
+\DoxyCodeLine{298 std::ostream \&\mbox{\hyperlink{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}{operator<<}}(std::ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
 \DoxyCodeLine{299 }
-\DoxyCodeLine{300 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{306 std::istream \&\mbox{\hyperlink{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}{operator>>}}(std::istream \&is, \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&tf);}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{312 \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{rigid2d_8hpp_a9770d3a15cf92bc72823f58654362bc7}{operator*}}(\mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} lhs, \textcolor{keyword}{const} \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \&rhs);}
+\DoxyCodeLine{313 \} \textcolor{comment}{// namespace rigid2d}}
+\DoxyCodeLine{314 }
+\DoxyCodeLine{315 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

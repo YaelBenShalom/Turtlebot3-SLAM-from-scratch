@@ -25,8 +25,10 @@
 #include <string>
 #include <vector>
 
+/// \brief Class State
 enum class State { STOP, TURN, FORWARD };
 
+/// \brief Class TurtleRect
 class TurtleRect {
 public:
   TurtleRect() {
@@ -196,9 +198,12 @@ private:
   State state;
 };
 
+/// \brief Main function
+/// \param argc - input int argument
+/// \param argv - input array argument
+/// \returns int
 int main(int argc, char *argv[]) {
   ros::init(argc, argv, "turtle_rect");
-
   TurtleRect node;
   node.main_loop();
   ros::spin();

@@ -127,6 +127,8 @@ private:
 };
 
 /// \brief Main function
+/// \param argc - input int argument
+/// \param argv - input array argument
 /// \returns int
 int main(int argc, char *argv[]) {
   ros::init(argc, argv, "visualization");

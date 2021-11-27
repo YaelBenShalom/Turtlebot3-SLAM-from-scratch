@@ -137,8 +137,11 @@ struct Twist2D {
   /// \param ydot_ - ydot input of the vector
   explicit Twist2D(double thetadot_, double xdot_, double ydot_);
 
-  /// \brief \see operator<<(...) (declared outside this class)
-  /// for a description.
+/// \brief should print a human readable version of the twist:
+/// An example output:
+/// dtheta (degrees): 90 dx: 3 dy: 5
+/// \param os - an output stream
+/// \param twist - the twist to print
   friend std::ostream &operator<<(std::ostream &os, const Twist2D &twist);
 
   /// \brief \see operator>>(...) (declared outside this class)
@@ -207,15 +210,24 @@ public:
   /// \brief compute the transformation corresponding to a rigid body
   /// following a constant twist (in its original body frame) for one
   /// time unit
+/// \param twist - the twist to transform
   /// \return transformation correspond to a twist for one time step
   Transform2D integrateTwist(const Twist2D &twist) const;
 
-  /// \brief \see operator<<(...) (declared outside this class)
-  /// for a description
+/// \brief should print a human readable version of the transform:
+/// An example output:
+/// dtheta (degrees): 90 dx: 3 dy: 5
+/// \param os - an output stream
+/// \param tf - the transform to print
+/// \returns ostream
   friend std::ostream &operator<<(std::ostream &os, const Transform2D &tf);
 
-  /// \brief \see operator>>(...) (declared outside this class)
-  /// for a description.
+/// \brief Read a transformation from stdin
+/// Should be able to read input either as output by operator<< or
+/// as 3 numbers (degrees, dx, dy) separated by spaces or newlines
+/// \param is - stream from which to read
+/// \param tf - the transform to print
+/// \returns istream
   friend std::istream &operator>>(std::istream &is, Transform2D &tf);
 };
 
@@ -250,6 +262,7 @@ Vector2D &operator*(const double scalar, Vector2D v1);
 /// \brief output a 2 dimensional vector as [xcomponent ycomponent]
 /// \param os - stream to output to
 /// \param v - the vector to print
+/// \returns ostream
 std::ostream &operator<<(std::ostream &os, const Vector2D &v);
 
 /// \brief input a 2 dimensional vector
@@ -257,9 +270,7 @@ std::ostream &operator<<(std::ostream &os, const Vector2D &v);
 ///   separated by a newline or a space, or entered as [xcomponent, ycomponent]
 /// \param is - stream from which to read
 /// \param v [out] - output vector
-/// Hint: The following may be useful:
-/// https://en.cppreference.com/w/cpp/io/basic_istream/peek
-/// https://en.cppreference.com/w/cpp/io/basic_istream/get
+/// \returns istream
 std::istream &operator>>(std::istream &is, Vector2D &v);
 
 /// \brief should print a human readable version of the twist:
@@ -267,6 +278,7 @@ std::istream &operator>>(std::istream &is, Vector2D &v);
 /// dtheta (degrees): 90 dx: 3 dy: 5
 /// \param os - an output stream
 /// \param twist - the twist to print
+/// \returns ostream
 std::ostream &operator<<(std::ostream &os, const Twist2D &twist);
 
 /// \brief Read a twist from stdin
@@ -274,6 +286,7 @@ std::ostream &operator<<(std::ostream &os, const Twist2D &twist);
 /// as 3 numbers (w, xdot, ydot) separated by spaces or newlines
 /// \param is - stream from which to read
 /// \param twist - the twist to print
+/// \returns istream
 std::istream &operator>>(std::istream &is, Twist2D &twist);
 
 /// \brief should print a human readable version of the transform:
@@ -281,6 +294,7 @@ std::istream &operator>>(std::istream &is, Twist2D &twist);
 /// dtheta (degrees): 90 dx: 3 dy: 5
 /// \param os - an output stream
 /// \param tf - the transform to print
+/// \returns ostream
 std::ostream &operator<<(std::ostream &os, const Transform2D &tf);
 
 /// \brief Read a transformation from stdin
@@ -288,6 +302,7 @@ std::ostream &operator<<(std::ostream &os, const Transform2D &tf);
 /// as 3 numbers (degrees, dx, dy) separated by spaces or newlines
 /// \param is - stream from which to read
 /// \param tf - the transform to print
+/// \returns istream
 std::istream &operator>>(std::istream &is, Transform2D &tf);
 
 /// \brief multiply two transforms together, returning their composition

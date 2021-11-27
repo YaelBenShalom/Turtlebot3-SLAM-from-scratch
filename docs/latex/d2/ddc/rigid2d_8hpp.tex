@@ -242,6 +242,9 @@ Should print a human readable version of the transform.
 {\em tf} & -\/ the transform to print \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ostream 
+\end{DoxyReturn}
 \mbox{\Hypertarget{rigid2d_8hpp_a6a0532303a0ddc5c06feaedaf68a74c6}\label{rigid2d_8hpp_a6a0532303a0ddc5c06feaedaf68a74c6}} 
 \index{rigid2d.hpp@{rigid2d.hpp}!operator$<$$<$@{operator$<$$<$}}
 \index{operator$<$$<$@{operator$<$$<$}!rigid2d.hpp@{rigid2d.hpp}}
@@ -261,6 +264,9 @@ Should print a human readable version of the twist.
 {\em twist} & -\/ the twist to print \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ostream 
+\end{DoxyReturn}
 \mbox{\Hypertarget{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}\label{rigid2d_8hpp_ad6225047f92d9b508ea8169ac629a33d}} 
 \index{rigid2d.hpp@{rigid2d.hpp}!operator$<$$<$@{operator$<$$<$}}
 \index{operator$<$$<$@{operator$<$$<$}!rigid2d.hpp@{rigid2d.hpp}}
@@ -280,6 +286,9 @@ Output a 2 dimensional vector as \mbox{[}x\+\_\+component, y\+\_\+component\mbox
 {\em v} & -\/ the vector to print \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ostream 
+\end{DoxyReturn}
 \mbox{\Hypertarget{rigid2d_8hpp_aa8a4c013498f57be323a74a4a39d7355}\label{rigid2d_8hpp_aa8a4c013498f57be323a74a4a39d7355}} 
 \index{rigid2d.hpp@{rigid2d.hpp}!operator$>$$>$@{operator$>$$>$}}
 \index{operator$>$$>$@{operator$>$$>$}!rigid2d.hpp@{rigid2d.hpp}}
@@ -299,6 +308,9 @@ Read a transformation from stdin.
 {\em tf} & -\/ the transform to print \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+istream 
+\end{DoxyReturn}
 \mbox{\Hypertarget{rigid2d_8hpp_ac7a0559628c11bc61ace25d22ada9eb8}\label{rigid2d_8hpp_ac7a0559628c11bc61ace25d22ada9eb8}} 
 \index{rigid2d.hpp@{rigid2d.hpp}!operator$>$$>$@{operator$>$$>$}}
 \index{operator$>$$>$@{operator$>$$>$}!rigid2d.hpp@{rigid2d.hpp}}
@@ -318,6 +330,9 @@ Read a twist from stdin.
 {\em twist} & -\/ the twist to print \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+istream 
+\end{DoxyReturn}
 \mbox{\Hypertarget{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}\label{rigid2d_8hpp_a6be2725ac611fb926359452705a2a78b}} 
 \index{rigid2d.hpp@{rigid2d.hpp}!operator$>$$>$@{operator$>$$>$}}
 \index{operator$>$$>$@{operator$>$$>$}!rigid2d.hpp@{rigid2d.hpp}}
@@ -334,9 +349,12 @@ Input a 2 dimensional vector.
 \begin{DoxyParams}{Parameters}
 {\em is} & -\/ stream from which to read \\
 \hline
-{\em v} & \mbox{[}out\mbox{]} -\/ output vector Hint\+: The following may be useful\+: \href{https://en.cppreference.com/w/cpp/io/basic_istream/peek}{\texttt{ https\+://en.\+cppreference.\+com/w/cpp/io/basic\+\_\+istream/peek}} \href{https://en.cppreference.com/w/cpp/io/basic_istream/get}{\texttt{ https\+://en.\+cppreference.\+com/w/cpp/io/basic\+\_\+istream/get}} \\
+{\em v} & \mbox{[}out\mbox{]} -\/ output vector \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+istream 
+\end{DoxyReturn}
 \mbox{\Hypertarget{rigid2d_8hpp_a6883dbf1c0018c962e890754e9d5f62f}\label{rigid2d_8hpp_a6883dbf1c0018c962e890754e9d5f62f}} 
 \index{rigid2d.hpp@{rigid2d.hpp}!rad2deg@{rad2deg}}
 \index{rad2deg@{rad2deg}!rigid2d.hpp@{rigid2d.hpp}}

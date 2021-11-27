@@ -6,12 +6,13 @@ var searchData=
   ['package_3a_20nuturtle_5frobot_3',['Package: nuturtle_robot',['../d8/d0f/md_nuturtle_robot_README.html',1,'']]],
   ['package_3a_20rigid2d_4',['Package: rigid2d',['../dc/d13/md_rigid2d_README.html',1,'']]],
   ['package_3a_20trect_5',['Package: trect',['../da/d48/md_trect_README.html',1,'']]],
-  ['phi_6',['phi',['../d4/d3f/structnuslam_1_1Measurement.html#aaecd22a47385efb56627f7546f788014',1,'nuslam::Measurement']]],
+  ['phi_6',['phi',['../d4/d3f/structnuslam_1_1Measurement.html#aaecd22a47385efb56627f7546f788014',1,'nuslam::Measurement::phi()'],['../d1/ded/structMeasurement.html#ac7fd6d5b4dded625cb4bbe9f6908c675',1,'Measurement::phi()']]],
   ['pi_7',['PI',['../d2/ddc/rigid2d_8hpp.html#af68d2597a40a3021e2c66d1c23019952',1,'rigid2d']]],
   ['point_8',['Point',['../d8/d43/structPoint.html',1,'']]],
-  ['pose_5fcallback_9',['pose_callback',['../df/d1e/classTurtleRect.html#a3ef4a93af0a0166dec0adcbe041b60fc',1,'TurtleRect']]],
-  ['predict_10',['predict',['../d8/d86/classnuslam_1_1EKF.html#ad6eddda5abffd650b98ce947263d0ea8',1,'nuslam::EKF']]],
-  ['publish_5fodometry_11',['publish_odometry',['../d2/de0/classKFSlam.html#a086c84518270888d9c7dc2b55a35d7c5',1,'KFSlam']]],
-  ['publish_5freal_5fpath_12',['publish_real_path',['../db/d09/classTubeWorld.html#a61818df071fbfd8c4f10e4b00f946485',1,'TubeWorld']]],
-  ['publish_5fsimulated_5flidar_13',['publish_simulated_lidar',['../db/d09/classTubeWorld.html#a0576ca8f106af3c39c7d9f6a491f04a6',1,'TubeWorld']]]
+  ['points_9',['points',['../d8/d51/structCluster.html#a5c517f885525438caa1b2e9e18dd623b',1,'Cluster']]],
+  ['pose_5fcallback_10',['pose_callback',['../df/d1e/classTurtleRect.html#a3ef4a93af0a0166dec0adcbe041b60fc',1,'TurtleRect']]],
+  ['predict_11',['predict',['../d8/d86/classnuslam_1_1EKF.html#ad6eddda5abffd650b98ce947263d0ea8',1,'nuslam::EKF']]],
+  ['publish_5fodometry_12',['publish_odometry',['../d2/de0/classKFSlam.html#a086c84518270888d9c7dc2b55a35d7c5',1,'KFSlam']]],
+  ['publish_5freal_5fpath_13',['publish_real_path',['../db/d09/classTubeWorld.html#a61818df071fbfd8c4f10e4b00f946485',1,'TubeWorld']]],
+  ['publish_5fsimulated_5flidar_14',['publish_simulated_lidar',['../db/d09/classTubeWorld.html#a0576ca8f106af3c39c7d9f6a491f04a6',1,'TubeWorld']]]
 ];

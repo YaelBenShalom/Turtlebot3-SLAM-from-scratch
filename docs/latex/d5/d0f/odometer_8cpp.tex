@@ -1,0 +1,70 @@
+\hypertarget{odometer_8cpp}{}\doxysection{rigid2d/src/odometer.cpp File Reference}
+\label{odometer_8cpp}\index{rigid2d/src/odometer.cpp@{rigid2d/src/odometer.cpp}}
+
+
+Publishes Odometry messages for differential drive robot based on wheel joint states.  
+
+
+{\ttfamily \#include \char`\"{}rigid2d/diff\+\_\+drive.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rigid2d/rigid2d.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Quaternion.\+h$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Transform\+Stamped.\+h$>$}\newline
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Odometry.\+h$>$}\newline
+{\ttfamily \#include $<$sensor\+\_\+msgs/\+Joint\+State.\+h$>$}\newline
+{\ttfamily \#include $<$tf2/\+Linear\+Math/\+Quaternion.\+h$>$}\newline
+{\ttfamily \#include $<$tf2\+\_\+geometry\+\_\+msgs/tf2\+\_\+geometry\+\_\+msgs.\+h$>$}\newline
+{\ttfamily \#include $<$tf2\+\_\+ros/transform\+\_\+broadcaster.\+h$>$}\newline
+{\ttfamily \#include $<$rigid2d/\+Set\+Pose.\+h$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classOdometer}{Odometer}}
+\begin{DoxyCompactList}\small\item\em Class \mbox{\hyperlink{classOdometer}{Odometer}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{odometer_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Publishes Odometry messages for differential drive robot based on wheel joint states. 
+
+PARAMETERS\+: frequency (int)\+: control loop frequency reset\+\_\+flag (bool)\+: specifies when new pose is read wheel\+\_\+base (float)\+: The distance between the wheels wheel\+\_\+radius (float)\+: The radius of the wheels odom\+\_\+frame\+\_\+id (std\+::string)\+: The name of the odometry tf frame body\+\_\+frame\+\_\+id (std\+::string)\+: The name of the body tf frame left\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the left wheel joint right\+\_\+wheel\+\_\+joint (std\+::string)\+: The name of the right wheel joint
+
+joint\+\_\+msg (sensor\+\_\+msgs\+::\+Joint\+State)\+: message to publish wheel angle readings to /joint\+\_\+states topic odom\+\_\+broadcaster (Transform\+Broadcaster)\+: Broadcast the transform between /tf using a tf2 odom\+\_\+tf (geometry\+\_\+msgs\+::\+Transform\+Stamped)\+: odometry odom\+\_\+frame\+\_\+id and the body\+\_\+frame\+\_\+id on transform odom (nav\+\_\+msgs\+::\+Odometry)\+: odometry message
+
+pose (\mbox{\hyperlink{structrigid2d_1_1Config2D}{rigid2d\+::\+Config2D}})\+: the robot\textquotesingle{}s position (based on the wheel angles) reset\+\_\+pose (\mbox{\hyperlink{structrigid2d_1_1Config2D}{rigid2d\+::\+Config2D}})\+: the robot\textquotesingle{}s reset position twist(rigid2d\+::\+Twist2\+D)\+: the robot\textquotesingle{}s twist diff\+\_\+drive (\mbox{\hyperlink{classrigid2d_1_1DiffDrive}{rigid2d\+::\+Diff\+Drive}})\+: an instance of the diff\+\_\+drive robot wheel\+\_\+vel (\mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{rigid2d\+::\+Wheel\+Velocity}})\+: the velocity of the robot\textquotesingle{}s wheels
+
+PUBLISHES\+: odom (nav\+\_\+msgs/\+Odometry)\+: publishes Odometry message on the odom topic.
+
+SUBSCRIBES\+: joint\+\_\+states (sensor\+\_\+msgs/\+Joint\+State)\+: Subscribes to the robot\textquotesingle{}s joint\+\_\+states.
+
+SERVICES\+: Set\+Pose (set\+\_\+pose)\+: Restarts the location of the odometry, so that the robot thinks it is at the requested configuration. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{odometer_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{odometer_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{odometer.cpp@{odometer.cpp}!main@{main}}
+\index{main@{main}!odometer.cpp@{odometer.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & -\/ input int argument \\
+\hline
+{\em argv} & -\/ input array argument \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}

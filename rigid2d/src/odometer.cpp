@@ -1,4 +1,4 @@
-/// \file   odometer_node.cpp
+/// \file   odometer.cpp
 /// \brief  Publishes Odometry messages for differential drive robot based on
 ///         wheel joint states
 ///
@@ -202,6 +202,8 @@ private:
 };
 
 /// \brief Main function
+/// \param argc - input int argument
+/// \param argv - input array argument
 /// \returns int
 int main(int argc, char *argv[]) {
   ros::init(argc, argv, "odometer_node");
