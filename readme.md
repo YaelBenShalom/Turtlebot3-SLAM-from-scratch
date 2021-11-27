@@ -33,21 +33,22 @@ This repository uses external package:
 
 # Getting Started
 
-Create a workspace and clone the repo:
-```
-mkdir -p ws/src && cd ws/src
-git clone https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch.git
-```
+1. Create a workspace and clone the repo:
+    ```
+    mkdir -p ws/src && cd ws/src
+    git clone https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch.git
+    ```
 
-Download and install the `turtle.rosinstall` file to get the necessary packages:
-```
-cd ..
-vcs import src <PATH_TO_ROSINSTALL_FILE>.rosinstall
-```
+2. Download and install the `turtle.rosinstall` file to get the necessary packages:
+    ```
+    cd ..
+    vcs import src <PATH_TO_ROSINSTALL_FILE>.rosinstall
+    ```
+    Alternativly, clone [this repository](https://github.com/ME495-Navigation/nuturtlebot) into the source space `ws/src`.
 
-Then build and source the workspace:
-```
-cd ..
-catkin_make
-source devel/setup.bash 
-```
+3. Build and source the workspace:
+    ```
+    cd ..
+    catkin_make
+    source devel/setup.bash 
+    ```
