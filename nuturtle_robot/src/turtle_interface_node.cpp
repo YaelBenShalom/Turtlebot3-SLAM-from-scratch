@@ -45,9 +45,11 @@
 #include <vector>
 
 /// \brief Class TurtleInterface
-class TurtleInterface {
+class TurtleInterface
+{
 public:
-  TurtleInterface() {
+  TurtleInterface()
+  {
     ROS_INFO("Initialize the variables");
     // Init Parameters
     load_parameter();
@@ -64,8 +66,9 @@ public:
 
   /// \brief Load the parameters from the parameter server
   /// \returns void
-  void load_parameter() {
-    nh.getParam("wheel_base", wheel_base); // The distance between the wheels
+  void load_parameter()
+  {
+    nh.getParam("wheel_base", wheel_base);     // The distance between the wheels
     nh.getParam("wheel_radius", wheel_radius); // The radius of the wheels
     nh.getParam(
         "max_trans_speed",
@@ -73,7 +76,7 @@ public:
     nh.getParam("max_rot_speed",
                 max_rot_speed); // The maximum rotational speed of the motor
     nh.getParam("max_motor_rot",
-                max_motor_rot); // The maximum rotational speed of the motor
+                max_motor_rot);            // The maximum rotational speed of the motor
     nh.getParam("resolution", resolution); // The resolution of the motor
     nh.getParam("left_wheel_joint",
                 left_wheel_joint); // The name of the left wheel joint
@@ -84,33 +87,50 @@ public:
   /// \brief Subscribes to the robot's velocity.
   /// \param tw - constant pointer to twist
   /// \returns void
-  void cmd_vel_callback(const geometry_msgs::Twist &tw) {
-    if (tw.linear.x > max_trans_speed) {
+  void cmd_vel_callback(const geometry_msgs::Twist &tw)
+  {
+    if (tw.linear.x > max_trans_speed)
+    {
       twist.xdot = max_trans_speed / frequency;
-    } else if (tw.linear.x < -max_trans_speed) {
+    }
+    else if (tw.linear.x < -max_trans_speed)
+    {
       twist.xdot = -max_trans_speed / frequency;
-    } else {
+    }
+    else
+    {
       twist.xdot = tw.linear.x / frequency;
     }
     twist.ydot = tw.linear.y;
-    if (tw.angular.z > max_rot_speed) {
+    if (tw.angular.z > max_rot_speed)
+    {
       twist.thetadot = max_rot_speed / frequency;
-    } else if (tw.angular.z < -max_rot_speed) {
+    }
+    else if (tw.angular.z < -max_rot_speed)
+    {
       twist.thetadot = -max_rot_speed / frequency;
-    } else {
+    }
+    else
+    {
       twist.thetadot = tw.angular.z / frequency;
     }
 
     wheel_vel = diff_drive.twist2Wheels(twist);
 
-    if (wheel_vel.right_wheel_vel > max_motor_rot) {
+    if (wheel_vel.right_wheel_vel > max_motor_rot)
+    {
       wheel_vel.right_wheel_vel = max_motor_rot;
-    } else if (wheel_vel.right_wheel_vel < -max_motor_rot) {
+    }
+    else if (wheel_vel.right_wheel_vel < -max_motor_rot)
+    {
       wheel_vel.right_wheel_vel = -max_motor_rot;
     }
-    if (wheel_vel.left_wheel_vel > max_motor_rot) {
+    if (wheel_vel.left_wheel_vel > max_motor_rot)
+    {
       wheel_vel.left_wheel_vel = max_motor_rot;
-    } else if (wheel_vel.left_wheel_vel < -max_motor_rot) {
+    }
+    else if (wheel_vel.left_wheel_vel < -max_motor_rot)
+    {
       wheel_vel.left_wheel_vel = -max_motor_rot;
     }
     // flag
@@ -120,7 +140,8 @@ public:
   /// \brief Subscribes to the robot's sensor data.
   /// \param data - constant pointer to sensor data
   /// \returns void
-  void sensor_data_callback(const nuturtlebot::SensorData &data) {
+  void sensor_data_callback(const nuturtlebot::SensorData &data)
+  {
     right_angle = rigid2d::normalize_angle(
         (2 * data.right_encoder * rigid2d::PI) / resolution);
     left_angle = rigid2d::normalize_angle(
@@ -132,14 +153,17 @@ public:
 
   /// \brief Main loop for the turtle's motion
   /// \returns void
-  void main_loop() {
+  void main_loop()
+  {
     ROS_INFO("Entering the loop");
     ros::Rate loop_rate(frequency);
-    while (ros::ok()) {
+    while (ros::ok())
+    {
       current_time = ros::Time::now();
 
       // If the cmd_vel_callback was called
-      if (cmd_vel_flag) {
+      if (cmd_vel_flag)
+      {
         power_rot_ratio = 256 / (max_motor_rot);
         wheel_command.right_velocity =
             std::round(wheel_vel.right_wheel_vel * power_rot_ratio);
@@ -201,7 +225,8 @@ private:
 /// \param argc - input int argument
 /// \param argv - input array argument
 /// \returns int
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   ros::init(argc, argv, "turtle_interface_node");
   TurtleInterface node;
   node.main_loop();

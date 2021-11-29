@@ -17,69 +17,72 @@
 \DoxyCodeLine{14 \textcolor{preprocessor}{\#include <utility>}}
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#include <vector>}}
 \DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }nuslam \{}
-\DoxyCodeLine{18 \textcolor{keyword}{using} \mbox{\hyperlink{structrigid2d_1_1Config2D}{rigid2d::Config2D}};}
-\DoxyCodeLine{19 \textcolor{keyword}{using} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{rigid2d::Twist2D}};}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} \{}
-\DoxyCodeLine{24   \textcolor{keywordtype}{double} \mbox{\hyperlink{structnuslam_1_1Measurement_aadeb42ffc3b8bb35940b822cdf1a7999}{r}};}
-\DoxyCodeLine{26   \textcolor{keywordtype}{double} \mbox{\hyperlink{structnuslam_1_1Measurement_aaecd22a47385efb56627f7546f788014}{phi}};}
-\DoxyCodeLine{28   \textcolor{keywordtype}{int} \mbox{\hyperlink{structnuslam_1_1Measurement_abee85b05aafbb6a7eb3300524268cf21}{id}};}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{31   \mbox{\hyperlink{structnuslam_1_1Measurement_a80b305f40c6b3a713e39770de9753666}{Measurement}}();}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{37   \textcolor{keyword}{explicit} \mbox{\hyperlink{structnuslam_1_1Measurement_a80b305f40c6b3a713e39770de9753666}{Measurement}}(\textcolor{keywordtype}{double} x\_, \textcolor{keywordtype}{double} y\_, \textcolor{keywordtype}{int} id\_);}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{41   arma::mat \mbox{\hyperlink{structnuslam_1_1Measurement_a9e99dda21d7262fe2693399f070fda0c}{compute\_z}}();}
-\DoxyCodeLine{42 \};}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{46 \textcolor{keyword}{class }\mbox{\hyperlink{classnuslam_1_1EKF}{EKF}} \{}
-\DoxyCodeLine{47 \textcolor{keyword}{private}:}
-\DoxyCodeLine{48   arma::mat q\_t = arma::mat(3, 1);}
-\DoxyCodeLine{49   arma::mat m\_t;}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{51   \textcolor{comment}{// arma::mat xi = arma::mat(3, 1);}}
-\DoxyCodeLine{52   \textcolor{comment}{// arma::mat cov = arma::mat(3, 3);}}
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }nuslam}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{keyword}{using} \mbox{\hyperlink{structrigid2d_1_1Config2D}{rigid2d::Config2D}};}
+\DoxyCodeLine{20   \textcolor{keyword}{using} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{rigid2d::Twist2D}};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{23   \textcolor{keyword}{struct }\mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}}}
+\DoxyCodeLine{24   \{}
+\DoxyCodeLine{26     \textcolor{keywordtype}{double} \mbox{\hyperlink{structnuslam_1_1Measurement_aadeb42ffc3b8bb35940b822cdf1a7999}{r}};}
+\DoxyCodeLine{28     \textcolor{keywordtype}{double} \mbox{\hyperlink{structnuslam_1_1Measurement_aaecd22a47385efb56627f7546f788014}{phi}};}
+\DoxyCodeLine{30     \textcolor{keywordtype}{int} \mbox{\hyperlink{structnuslam_1_1Measurement_abee85b05aafbb6a7eb3300524268cf21}{id}};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{33     \mbox{\hyperlink{structnuslam_1_1Measurement_a80b305f40c6b3a713e39770de9753666}{Measurement}}();}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{39     \textcolor{keyword}{explicit} \mbox{\hyperlink{structnuslam_1_1Measurement_a80b305f40c6b3a713e39770de9753666}{Measurement}}(\textcolor{keywordtype}{double} x\_, \textcolor{keywordtype}{double} y\_, \textcolor{keywordtype}{int} id\_);}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{43     arma::mat \mbox{\hyperlink{structnuslam_1_1Measurement_a9e99dda21d7262fe2693399f070fda0c}{compute\_z}}();}
+\DoxyCodeLine{44   \};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{48   \textcolor{keyword}{class }\mbox{\hyperlink{classnuslam_1_1EKF}{EKF}}}
+\DoxyCodeLine{49   \{}
+\DoxyCodeLine{50   \textcolor{keyword}{private}:}
+\DoxyCodeLine{51     arma::mat q\_t = arma::mat(3, 1);}
+\DoxyCodeLine{52     arma::mat m\_t;}
 \DoxyCodeLine{53 }
-\DoxyCodeLine{54   arma::mat Q\_mat = arma::mat(3, 3);}
-\DoxyCodeLine{55   arma::mat R\_mat = arma::mat(2, 2);}
+\DoxyCodeLine{54     \textcolor{comment}{// arma::mat xi = arma::mat(3, 1);}}
+\DoxyCodeLine{55     \textcolor{comment}{// arma::mat cov = arma::mat(3, 3);}}
 \DoxyCodeLine{56 }
-\DoxyCodeLine{57   arma::mat xi\_predict = arma::mat(3, 1);}
-\DoxyCodeLine{58   arma::mat cov\_predict = arma::mat(3, 3);}
+\DoxyCodeLine{57     arma::mat Q\_mat = arma::mat(3, 3);}
+\DoxyCodeLine{58     arma::mat R\_mat = arma::mat(2, 2);}
 \DoxyCodeLine{59 }
-\DoxyCodeLine{60   std::map<int, int> id2landmark;}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62 \textcolor{keyword}{public}:}
-\DoxyCodeLine{65   \mbox{\hyperlink{classnuslam_1_1EKF_a459ca7cecbb8457d805da0b916063d57}{EKF}}();}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{69   \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_ab205ec98a1555a103c9c66af0a7bf715}{add\_new\_measurement}}(\textcolor{keyword}{const} \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} \&meas);}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{74   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classnuslam_1_1EKF_a33f5f8f1e90121db6fc79f7eedbb6226}{check\_landmarks}}(\textcolor{keyword}{const} \textcolor{keywordtype}{int} landmark\_id);}
-\DoxyCodeLine{75 }
-\DoxyCodeLine{78   \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_aed246fe15fb7a397033df5aff51ac553}{update\_landmark}}(\textcolor{keyword}{const} \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} \&meas);}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{83   arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_a7edcd3148e32c04223bfad6eeae5b1d4}{get\_new\_state}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{87   arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_a82e19ad96cecc7cfbe05a16a19e5af20}{get\_transition}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{91   \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_ad6eddda5abffd650b98ce947263d0ea8}{predict}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{96   arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_ab862233b6f27c0b569e52be6ea2bf1de}{get\_h}}(\textcolor{keywordtype}{int} index);}
-\DoxyCodeLine{97 }
-\DoxyCodeLine{101   arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_af50fc38834065c4c376123b1d41d041b}{get\_H}}(\textcolor{keywordtype}{int} index);}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{105   \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_a61ec14bcd7c49a3740c11243b914ff6d}{update}}(std::vector<Measurement> meas);}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{109   arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_a1c3a2075a8d7750ef298b8f9b14ce900}{update\_matrix\_size}}(arma::mat mat);}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{114   \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_a05582e9563420de2da7b017c621f4097}{run\_ekf}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist, \textcolor{keyword}{const} std::vector<Measurement> \&meas);}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{118   arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_aaec07ca8c31d3bbca75480de24fbc0e3}{output\_state}}();}
-\DoxyCodeLine{119 }
-\DoxyCodeLine{122   arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_aeb504f50827863590bdd310aee274bb4}{output\_map\_state}}();}
-\DoxyCodeLine{123 \};}
-\DoxyCodeLine{124 \} \textcolor{comment}{// namespace nuslam}}
-\DoxyCodeLine{125 }
-\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{60     arma::mat xi\_predict = arma::mat(3, 1);}
+\DoxyCodeLine{61     arma::mat cov\_predict = arma::mat(3, 3);}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     std::map<int, int> id2landmark;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{keyword}{public}:}
+\DoxyCodeLine{68     \mbox{\hyperlink{classnuslam_1_1EKF_a459ca7cecbb8457d805da0b916063d57}{EKF}}();}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{72     \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_ab205ec98a1555a103c9c66af0a7bf715}{add\_new\_measurement}}(\textcolor{keyword}{const} \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} \&meas);}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{77     \textcolor{keywordtype}{bool} \mbox{\hyperlink{classnuslam_1_1EKF_a33f5f8f1e90121db6fc79f7eedbb6226}{check\_landmarks}}(\textcolor{keyword}{const} \textcolor{keywordtype}{int} landmark\_id);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{81     \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_aed246fe15fb7a397033df5aff51ac553}{update\_landmark}}(\textcolor{keyword}{const} \mbox{\hyperlink{structnuslam_1_1Measurement}{Measurement}} \&meas);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{86     arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_a7edcd3148e32c04223bfad6eeae5b1d4}{get\_new\_state}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{90     arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_a82e19ad96cecc7cfbe05a16a19e5af20}{get\_transition}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{94     \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_ad6eddda5abffd650b98ce947263d0ea8}{predict}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{99     arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_ab862233b6f27c0b569e52be6ea2bf1de}{get\_h}}(\textcolor{keywordtype}{int} index);}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{104     arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_af50fc38834065c4c376123b1d41d041b}{get\_H}}(\textcolor{keywordtype}{int} index);}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{108     \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_a61ec14bcd7c49a3740c11243b914ff6d}{update}}(std::vector<Measurement> meas);}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{112     arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_a1c3a2075a8d7750ef298b8f9b14ce900}{update\_matrix\_size}}(arma::mat mat);}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{117     \textcolor{keywordtype}{void} \mbox{\hyperlink{classnuslam_1_1EKF_a05582e9563420de2da7b017c621f4097}{run\_ekf}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist, \textcolor{keyword}{const} std::vector<Measurement> \&meas);}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{121     arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_aaec07ca8c31d3bbca75480de24fbc0e3}{output\_state}}();}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{125     arma::mat \mbox{\hyperlink{classnuslam_1_1EKF_aeb504f50827863590bdd310aee274bb4}{output\_map\_state}}();}
+\DoxyCodeLine{126   \};}
+\DoxyCodeLine{127 \} \textcolor{comment}{// namespace nuslam}}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

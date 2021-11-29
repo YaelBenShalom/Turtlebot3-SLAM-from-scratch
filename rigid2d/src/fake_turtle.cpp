@@ -40,9 +40,11 @@
 #include <vector>
 
 /// \brief Class FakeTurtle
-class FakeTurtle {
+class FakeTurtle
+{
 public:
-  FakeTurtle() {
+  FakeTurtle()
+  {
     ROS_INFO("Initialize the variables");
     // Init Parameters
     load_parameter();
@@ -55,8 +57,9 @@ public:
 
   /// \brief Load the parameters from the parameter server
   /// \returns void
-  void load_parameter() {
-    nh.getParam("wheel_base", wheel_base); // The distance between the wheels
+  void load_parameter()
+  {
+    nh.getParam("wheel_base", wheel_base);     // The distance between the wheels
     nh.getParam("wheel_radius", wheel_radius); // The radius of the wheels
     nh.getParam("left_wheel_joint",
                 left_wheel_joint); // The name of the left wheel joint
@@ -67,7 +70,8 @@ public:
   /// \brief Subscribes to the robot's velocity.
   /// \param tw - constant pointer to twist
   /// \returns void
-  void cmd_vel_callback(const geometry_msgs::Twist &tw) {
+  void cmd_vel_callback(const geometry_msgs::Twist &tw)
+  {
     twist.thetadot = tw.angular.z / frequency;
     twist.xdot = tw.linear.x / frequency;
     twist.ydot = tw.linear.y / frequency;
@@ -78,15 +82,18 @@ public:
 
   /// \brief Main loop for the turtle's motion
   /// \returns void
-  void main_loop() {
+  void main_loop()
+  {
     ROS_INFO("Entering the loop");
     ros::Rate loop_rate(frequency);
-    while (ros::ok()) {
+    while (ros::ok())
+    {
       // ROS_INFO("Looping");
       current_time = ros::Time::now();
 
       // If the cmd_vel_callback was called
-      if (cmd_vel_flag) {
+      if (cmd_vel_flag)
+      {
         sensor_msgs::JointState joint_state;
 
         wheel_angle = diff_drive.updateOdometryWithTwist(twist);
@@ -129,7 +136,8 @@ private:
 /// \param argc - input int argument
 /// \param argv - input array argument
 /// \returns int
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   ros::init(argc, argv, "fake_turtle_node");
   FakeTurtle node;
   node.main_loop();

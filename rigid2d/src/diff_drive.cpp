@@ -12,14 +12,16 @@
 /********** Config2D struct member functions **********/
 
 /// Constructor for zero configuration
-rigid2d::Config2D::Config2D() {
+rigid2d::Config2D::Config2D()
+{
   x = 0.0;
   y = 0.0;
   theta = 0.0;
 }
 
 /// Constructor for non-zero configuration
-rigid2d::Config2D::Config2D(double x_, double y_, double theta_) {
+rigid2d::Config2D::Config2D(double x_, double y_, double theta_)
+{
   x = x_;
   y = y_;
   theta = theta_;
@@ -28,14 +30,16 @@ rigid2d::Config2D::Config2D(double x_, double y_, double theta_) {
 /********** WheelVelocity struct member functions **********/
 
 /// Constructor for zero configuration
-rigid2d::WheelVelocity::WheelVelocity() {
+rigid2d::WheelVelocity::WheelVelocity()
+{
   right_wheel_vel = 0.0;
   left_wheel_vel = 0.0;
 }
 
 /// Constructor for non-zero configuration
 rigid2d::WheelVelocity::WheelVelocity(double right_wheel_vel_,
-                                      double left_wheel_vel_) {
+                                      double left_wheel_vel_)
+{
   right_wheel_vel = right_wheel_vel_;
   left_wheel_vel = left_wheel_vel_;
 }
@@ -43,14 +47,16 @@ rigid2d::WheelVelocity::WheelVelocity(double right_wheel_vel_,
 /********** WheelAngle struct member functions **********/
 
 /// Constructor for zero angle
-rigid2d::WheelAngle::WheelAngle() {
+rigid2d::WheelAngle::WheelAngle()
+{
   right_wheel_angle = 0.0;
   left_wheel_angle = 0.0;
 }
 
 /// Constructor for non-zero angle
 rigid2d::WheelAngle::WheelAngle(double right_wheel_angle_,
-                                double left_wheel_angle_) {
+                                double left_wheel_angle_)
+{
   right_wheel_angle = right_wheel_angle_;
   left_wheel_angle = left_wheel_angle_;
 }
@@ -58,14 +64,16 @@ rigid2d::WheelAngle::WheelAngle(double right_wheel_angle_,
 /********** DiffDrive class member functions **********/
 
 /// Defines the robot configuration as (0,0,0)
-rigid2d::DiffDrive::DiffDrive() {
+rigid2d::DiffDrive::DiffDrive()
+{
   Config2D config();
   wheel_base = 0.16;
   wheel_radius = 0.033;
 }
 
 /// Defines the robot configuration as (0,0,0)
-rigid2d::DiffDrive::DiffDrive(double wheel_base_, double wheel_radius_) {
+rigid2d::DiffDrive::DiffDrive(double wheel_base_, double wheel_radius_)
+{
   rigid2d::Config2D config();
   wheel_base = wheel_base_;
   wheel_radius = wheel_radius_;
@@ -73,7 +81,8 @@ rigid2d::DiffDrive::DiffDrive(double wheel_base_, double wheel_radius_) {
 
 /// Defines the robot configuration
 rigid2d::DiffDrive::DiffDrive(const Config2D &config_, double wheel_base_,
-                              double wheel_radius_) {
+                              double wheel_radius_)
+{
   config = config_;
   wheel_base = wheel_base_;
   wheel_radius = wheel_radius_;
@@ -83,12 +92,14 @@ rigid2d::DiffDrive::DiffDrive(const Config2D &config_, double wheel_base_,
 rigid2d::Config2D rigid2d::DiffDrive::get_config() { return config; }
 
 /// ReResetturns the configuration of the robot
-void rigid2d::DiffDrive::set_config(const rigid2d::Config2D &config_) {
+void rigid2d::DiffDrive::set_config(const rigid2d::Config2D &config_)
+{
   config = config_;
 }
 
 /// Returns the transformation of the robot
-rigid2d::Transform2D rigid2d::DiffDrive::get_transform() {
+rigid2d::Transform2D rigid2d::DiffDrive::get_transform()
+{
   rigid2d::Transform2D T_b;
   rigid2d::Vector2D v;
   double angle;
@@ -102,7 +113,8 @@ rigid2d::Transform2D rigid2d::DiffDrive::get_transform() {
 }
 
 /// Returns the wheel angle of the robot
-rigid2d::WheelAngle rigid2d::DiffDrive::get_wheel_angle() {
+rigid2d::WheelAngle rigid2d::DiffDrive::get_wheel_angle()
+{
   return wheel_angle;
 }
 
@@ -112,7 +124,8 @@ rigid2d::WheelVelocity rigid2d::DiffDrive::get_wheel_vel() { return wheel_vel; }
 /// Convert a desired twist to the equivalent wheel velocities
 /// required to achieve that twist
 rigid2d::WheelVelocity
-rigid2d::DiffDrive::twist2Wheels(const rigid2d::Twist2D &twist) {
+rigid2d::DiffDrive::twist2Wheels(const rigid2d::Twist2D &twist)
+{
   WheelVelocity vel;
   // Calculating velocity
   vel.right_wheel_vel =
@@ -126,7 +139,8 @@ rigid2d::DiffDrive::twist2Wheels(const rigid2d::Twist2D &twist) {
 /// Convert a desired wheel velocities to the equivalent twist
 /// required to achieve those wheel velocities
 rigid2d::Twist2D
-rigid2d::DiffDrive::wheels2Twist(const rigid2d::WheelVelocity &vel) {
+rigid2d::DiffDrive::wheels2Twist(const rigid2d::WheelVelocity &vel)
+{
   rigid2d::Twist2D twist;
 
   // Calculating twist
@@ -140,7 +154,8 @@ rigid2d::DiffDrive::wheels2Twist(const rigid2d::WheelVelocity &vel) {
 
 /// Convert a wheels angles to the equivalent wheel velocities
 rigid2d::WheelVelocity
-rigid2d::DiffDrive::wheelAngle2WheelVel(double right_angle, double left_angle) {
+rigid2d::DiffDrive::wheelAngle2WheelVel(double right_angle, double left_angle)
+{
   WheelVelocity vel;
   int del_t = 1; // All velocity calculation are for one time unit
 
@@ -159,7 +174,8 @@ rigid2d::DiffDrive::wheelAngle2WheelVel(double right_angle, double left_angle) {
 
 /// Convert wheel velocities to the equivalent wheel angles
 rigid2d::WheelAngle
-rigid2d::DiffDrive::wheelVel2WheelAngle(const rigid2d::WheelVelocity &vel) {
+rigid2d::DiffDrive::wheelVel2WheelAngle(const rigid2d::WheelVelocity &vel)
+{
   int del_t = 1; // All velocity calculation are for one time unit
 
   wheel_angle.right_wheel_angle = normalize_angle(
@@ -173,7 +189,8 @@ rigid2d::DiffDrive::wheelVel2WheelAngle(const rigid2d::WheelVelocity &vel) {
 /// Updates the odometry with wheel angles
 rigid2d::WheelVelocity
 rigid2d::DiffDrive::updateOdometryWithAngles(double right_angle,
-                                             double left_angle) {
+                                             double left_angle)
+{
   rigid2d::Transform2D T_b, T_bbp, T_wbp;
   rigid2d::Twist2D twist;
   rigid2d::Vector2D v;
@@ -205,7 +222,8 @@ rigid2d::DiffDrive::updateOdometryWithAngles(double right_angle,
 
 /// Updates the odometry with twist input
 rigid2d::WheelAngle
-rigid2d::DiffDrive::updateOdometryWithTwist(const rigid2d::Twist2D &tw) {
+rigid2d::DiffDrive::updateOdometryWithTwist(const rigid2d::Twist2D &tw)
+{
   rigid2d::Transform2D T_b, T_bbp, T_wbp;
   rigid2d::Vector2D v;
   double angle;
@@ -236,7 +254,8 @@ rigid2d::DiffDrive::updateOdometryWithTwist(const rigid2d::Twist2D &tw) {
 
 /// Rotating the wheels with twist input (without updating the odometry)
 rigid2d::WheelAngle
-rigid2d::DiffDrive::rotatingWheelsWithTwist(const rigid2d::Twist2D &tw) {
+rigid2d::DiffDrive::rotatingWheelsWithTwist(const rigid2d::Twist2D &tw)
+{
 
   // Calculating wheel velocity from the robot twist
   wheel_vel = rigid2d::DiffDrive::twist2Wheels(tw);

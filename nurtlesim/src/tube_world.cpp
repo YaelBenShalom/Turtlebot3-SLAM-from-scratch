@@ -86,9 +86,11 @@
 #include <vector>
 
 /// \brief Class TubeWorld
-class TubeWorld {
+class TubeWorld
+{
 public:
-  TubeWorld() {
+  TubeWorld()
+  {
     ROS_INFO("Initialize the variables");
     // Init Parameters
     load_parameter();
@@ -110,8 +112,9 @@ public:
 
   /// \brief Load the parameters from the parameter server
   /// \returns void
-  void load_parameter() {
-    nh.getParam("wheel_base", wheel_base); // The distance between the wheels
+  void load_parameter()
+  {
+    nh.getParam("wheel_base", wheel_base);     // The distance between the wheels
     nh.getParam("wheel_radius", wheel_radius); // The radius of the wheels
     nh.getParam("left_wheel_joint",
                 left_wheel_joint); // The name of the left wheel joint
@@ -153,7 +156,7 @@ public:
                 mean_scanner_noise); // The mean of the scanner noise
     nh.getParam(
         "stddev_scanner_noise",
-        stddev_scanner_noise); // The standard deviation of the scanner noise
+        stddev_scanner_noise);                         // The standard deviation of the scanner noise
     nh.getParam("scan_resolution", scan_resolution);   // The scan resolution
     nh.getParam("min_angle", min_angle);               // The angle increment
     nh.getParam("max_angle", max_angle);               // The angle increment
@@ -165,7 +168,8 @@ public:
   /// \brief Subscribes to the robot's velocity.
   /// \param tw - constant pointer to twist
   /// \returns void
-  void cmd_vel_callback(const geometry_msgs::Twist &tw) {
+  void cmd_vel_callback(const geometry_msgs::Twist &tw)
+  {
     // ROS_INFO("Subscribing to Twist");
 
     // Calculate the twist without noise factor
@@ -179,7 +183,8 @@ public:
 
   /// \brief Sets marker array
   /// \returns void
-  void set_marker_array() {
+  void set_marker_array()
+  {
     static std::default_random_engine generator;
     static std::uniform_real_distribution<double> distribution(slip_min,
                                                                slip_max);
@@ -193,7 +198,8 @@ public:
 
     rigid2d::Transform2D T_wt(v_wt, angle_wt);
 
-    for (unsigned int i = 0; i < obstacles_coordinate_x.size(); i++) {
+    for (unsigned int i = 0; i < obstacles_coordinate_x.size(); i++)
+    {
       v_w.x = obstacles_coordinate_x[i];
       v_w.y = obstacles_coordinate_y[i];
       landmarks_world.push_back(v_w);
@@ -210,9 +216,12 @@ public:
       markers_dist = sqrt(
           pow(real_marker_array.markers[i].pose.position.x - real_pose.x, 2) +
           pow(real_marker_array.markers[i].pose.position.y - real_pose.y, 2));
-      if (markers_dist > max_visable_dist) {
+      if (markers_dist > max_visable_dist)
+      {
         marker_array.markers[i].action = visualization_msgs::Marker::DELETE;
-      } else {
+      }
+      else
+      {
         marker_array.markers[i].action = visualization_msgs::Marker::ADD;
       }
       marker_array.markers[i].pose.position.x = v_t.x + distribution(generator);
@@ -238,9 +247,11 @@ public:
 
   /// \brief Sets real marker array
   /// \returns void
-  void set_real_marker_array() {
+  void set_real_marker_array()
+  {
     real_marker_array.markers.resize(obstacles_coordinate_x.size());
-    for (unsigned int i = 0; i < obstacles_coordinate_x.size(); i++) {
+    for (unsigned int i = 0; i < obstacles_coordinate_x.size(); i++)
+    {
       real_marker_array.markers[i].header.frame_id = world_frame_id;
       real_marker_array.markers[i].header.stamp = ros::Time();
       real_marker_array.markers[i].ns = "real";
@@ -268,7 +279,8 @@ public:
 
   /// \brief Sets real robot marker
   /// \returns void
-  void set_robot_marker() {
+  void set_robot_marker()
+  {
     robot_marker.header.frame_id = world_frame_id;
     robot_marker.header.stamp = ros::Time::now();
     robot_marker.ns = "marker";
@@ -296,7 +308,8 @@ public:
   /// \brief simulation node should publish a sensor_msgs/LaserScan
   /// message with simulated lidar data at 5Hz
   /// \returns void
-  void publish_simulated_lidar() {
+  void publish_simulated_lidar()
+  {
     lidar_data.header.frame_id = scanner_frame_id;
     lidar_data.header.stamp = ros::Time::now();
     lidar_data.angle_min = min_angle;
@@ -306,13 +319,15 @@ public:
     lidar_data.range_max = max_range;
     lidar_data.ranges.resize(num_of_samples);
 
-    for (int i = 0; i < num_of_samples; i++) {
+    for (int i = 0; i < num_of_samples; i++)
+    {
       lidar_data.ranges[i] = max_range - 1;
     }
 
     // calculate landmark positions in turtlebot frame
     std::vector<rigid2d::Vector2D> landmarks;
-    for (int j = 0; j < int(landmarks_world.size()); j++) {
+    for (int j = 0; j < int(landmarks_world.size()); j++)
+    {
       landmarks.push_back(
           (diff_drive.get_transform().inv())(landmarks_world[j]));
     }
@@ -322,7 +337,8 @@ public:
 
   /// \brief Publish real path
   /// \returns void
-  void publish_real_path() {
+  void publish_real_path()
+  {
     real_pose = real_diff_drive.get_config();
 
     real_pose_stamped.header.stamp = ros::Time::now();
@@ -342,7 +358,8 @@ public:
 
   /// \brief Broadcast the "world" to "turtle" transform
   /// \returns void
-  void world_turtle_transform() {
+  void world_turtle_transform()
+  {
     // Transform from "world" to "turtle" frame
     world_tf.header.stamp = current_time;
     world_tf.header.frame_id = world_frame_id;
@@ -359,8 +376,10 @@ public:
 
   /// \brief Checking for collisions
   /// \returns void
-  void check_collision() {
-    for (unsigned int i = 0; i < obstacles_coordinate_x.size(); i++) {
+  void check_collision()
+  {
+    for (unsigned int i = 0; i < obstacles_coordinate_x.size(); i++)
+    {
 
       collision_dist =
           sqrt(pow(real_marker_array.markers[i].pose.position.x - real_pose.x,
@@ -369,7 +388,8 @@ public:
                    2)) -
           obstacles_radius - wheel_base;
 
-      if (collision_dist <= 0) {
+      if (collision_dist <= 0)
+      {
         ROS_INFO("Collosion!!\n\r");
         wheel_angle = diff_drive.rotatingWheelsWithTwist(twist_noised);
         real_wheel_angle = real_diff_drive.rotatingWheelsWithTwist(twist);
@@ -382,7 +402,8 @@ public:
 
   /// \brief Main loop for the turtle's motion
   /// \returns void
-  void main_loop() {
+  void main_loop()
+  {
     ROS_INFO("Entering the loop\n\r");
     ros::Rate loop_rate(frequency);
     static std::default_random_engine generator;
@@ -392,7 +413,8 @@ public:
     // Publish real markers
     set_real_marker_array();
 
-    while (ros::ok()) {
+    while (ros::ok())
+    {
       // ROS_INFO("Looping");
       ros::spinOnce();
       current_time = ros::Time::now();
@@ -412,7 +434,8 @@ public:
       publish_simulated_lidar();
 
       // If the cmd_vel_callback was called
-      if (cmd_vel_flag) {
+      if (cmd_vel_flag)
+      {
         // Calculate the twist with noise factor
         static std::default_random_engine generator;
         static std::normal_distribution<double> dist_linear(0, stddev_linear);
@@ -427,7 +450,8 @@ public:
         // Collision detection
         check_collision();
 
-        if (!collision_flag) {
+        if (!collision_flag)
+        {
           // ROS_INFO("twist_noised = %f, %f\n\r", twist_noised.xdot,
           // twist.thetadot);
           wheel_angle = diff_drive.updateOdometryWithTwist(twist_noised);
@@ -508,7 +532,8 @@ private:
 /// \param argc - input int argument
 /// \param argv - input array argument
 /// \returns int
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   ros::init(argc, argv, "tube_world");
   TubeWorld node;
   node.main_loop();

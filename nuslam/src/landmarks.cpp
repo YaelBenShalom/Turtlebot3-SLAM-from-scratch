@@ -49,7 +49,8 @@
 #include <vector>
 
 /// \brief A struct of points
-struct Point {
+struct Point
+{
   /// \param x - the x coordinate of the point
   double x = 0;
   /// \param y - the x coordinate of the point
@@ -57,7 +58,8 @@ struct Point {
 };
 
 /// \brief A struct of measurements
-struct Measurement {
+struct Measurement
+{
   /// \param r - the distance of the measurement
   double r = 0;
   /// \param phi - the angle of the measurement
@@ -65,7 +67,8 @@ struct Measurement {
 };
 
 /// \brief A struct of clusters
-struct Cluster {
+struct Cluster
+{
   /// \param points - the vector of measurements
   std::vector<Measurement> points;
   /// \param x_center - the x coordinate of the cluster center
@@ -79,7 +82,8 @@ struct Cluster {
 /// \brief A struct of laser data properties
 /// \param x_center - the x coordinate of the cluster center
 
-struct LaserData {
+struct LaserData
+{
   /// \param range_min - the minimum range of distance for a measurment
   double range_min = 0;
   /// \param range_max - the maximum range of distance for a measurment
@@ -95,9 +99,11 @@ struct LaserData {
 };
 
 /// \brief Class Landmarks
-class Landmarks {
+class Landmarks
+{
 public:
-  Landmarks() {
+  Landmarks()
+  {
     ROS_INFO("Initialize the variables");
     // Init Parameters
     load_parameter();
@@ -112,7 +118,8 @@ public:
 
   /// \brief Load the parameters from the parameter server
   /// \returns void
-  void load_parameter() {
+  void load_parameter()
+  {
     nh.getParam("max_range",
                 max_range); // The maximum range of the laser scanner
     nh.getParam("min_range",
@@ -121,7 +128,7 @@ public:
                 mean_scanner_noise); // The mean of the scanner noise
     nh.getParam(
         "stddev_scanner_noise",
-        stddev_scanner_noise); // The standard deviation of the scanner noise
+        stddev_scanner_noise);                         // The standard deviation of the scanner noise
     nh.getParam("scan_resolution", scan_resolution);   // The scan resolution
     nh.getParam("min_angle", min_angle);               // The angle increment
     nh.getParam("max_angle", max_angle);               // The angle increment
@@ -135,7 +142,8 @@ public:
   /// message with simulated lidar data at 5Hz \param data - constant pointer to
   /// twist
   /// \returns void
-  void lidar_scan_callback(const sensor_msgs::LaserScan::ConstPtr &data) {
+  void lidar_scan_callback(const sensor_msgs::LaserScan::ConstPtr &data)
+  {
     // ROS_INFO("Subscribing to LaserScan");
 
     scan.range_min = data->range_min;
@@ -145,7 +153,8 @@ public:
     scan.angle_increment = data->angle_increment;
     scan.ranges.clear();
 
-    for (auto meas : data->ranges) {
+    for (auto meas : data->ranges)
+    {
       scan.ranges.push_back(meas);
     }
 
@@ -155,12 +164,14 @@ public:
 
   /// \brief Publishes the markers
   /// \returns void
-  void publish_markers() {
+  void publish_markers()
+  {
     visualization_msgs::MarkerArray marker_array;
     marker_array.markers.resize(clusters.size());
     int i = 0;
 
-    for (auto cluster : clusters) {
+    for (auto cluster : clusters)
+    {
       marker_array.markers[i].header.frame_id = "base_link";
       marker_array.markers[i].header.stamp = ros::Time::now();
       marker_array.markers[i].ns = "clusters";
@@ -193,16 +204,19 @@ public:
 
   /// \brief Main loop for the turtle's motion
   /// \returns void
-  void main_loop() {
+  void main_loop()
+  {
     ROS_INFO("Entering the loop\n\r");
     ros::Rate loop_rate(frequency);
 
-    while (ros::ok()) {
+    while (ros::ok())
+    {
       // ROS_INFO("Looping");
       ros::spinOnce();
       current_time = ros::Time::now();
 
-      if (scan_flag) {
+      if (scan_flag)
+      {
         clusters.clear();
         // Cluster
         // Fit
@@ -237,7 +251,8 @@ private:
 /// \param argc - input int argument
 /// \param argv - input array argument
 /// \returns int
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   ros::init(argc, argv, "landmarks");
   Landmarks node;
   node.main_loop();

@@ -36,9 +36,11 @@
 #include <vector>
 
 /// \brief Class Visualization
-class Visualization {
+class Visualization
+{
 public:
-  Visualization() {
+  Visualization()
+  {
     ROS_INFO("Initialize the variables");
     // Init publishers, subscribers, and services
     odom_path_pub = nh.advertise<nav_msgs::Path>("/odom_path", 1);
@@ -50,7 +52,8 @@ public:
 
   /// \brief Subscribes to the robot's odom position data from Odometry msg
   /// \param odom - the trajectory of the robot according only to wheel odometry
-  void odom_callback(const nav_msgs::Odometry &odom) {
+  void odom_callback(const nav_msgs::Odometry &odom)
+  {
     geometry_msgs::PoseStamped pose;
 
     pose.header.stamp = ros::Time::now();
@@ -66,7 +69,8 @@ public:
 
   /// \brief Subscribes to the robot's slam position data from Odometry msg
   /// \param slam - the trajectory of the robot according to the SLAM algorithm
-  void slam_callback(const nav_msgs::Odometry &slam) {
+  void slam_callback(const nav_msgs::Odometry &slam)
+  {
     geometry_msgs::PoseStamped pose;
 
     pose.header.stamp = ros::Time::now();
@@ -82,15 +86,18 @@ public:
 
   /// \brief Main loop for the turtle's motion
   /// \returns void
-  void main_loop() {
+  void main_loop()
+  {
     ROS_INFO("Entering the loop");
     ros::Rate loop_rate(frequency);
-    while (ros::ok()) {
+    while (ros::ok())
+    {
       // // ROS_INFO("Looping");
       current_time = ros::Time::now();
 
       // If the odom_callback was called
-      if (odom_callback_flag) {
+      if (odom_callback_flag)
+      {
         odom_path_pub.publish(odom_path);
 
         // Remove the odom flag
@@ -98,7 +105,8 @@ public:
       }
 
       // If the slam_callback was called
-      if (slam_callback_flag) {
+      if (slam_callback_flag)
+      {
         slam_path_pub.publish(slam_path);
 
         // Remove the slam flag
@@ -130,7 +138,8 @@ private:
 /// \param argc - input int argument
 /// \param argv - input array argument
 /// \returns int
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   ros::init(argc, argv, "visualization");
   Visualization node;
   node.main_loop();

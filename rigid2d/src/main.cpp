@@ -9,7 +9,8 @@
 #include <vector>
 
 /// \brief A main function for transformation testing.
-int main() {
+int main()
+{
   char frame;
   rigid2d::Vector2D v, v_a, v_b, v_c;
   rigid2d::Twist2D twist, twist_a, twist_b, twist_c;
@@ -44,7 +45,8 @@ int main() {
   std::cin >> frame;
 
   // Compute and output the vector in frames a, b, and c:
-  if (frame == 'a') {
+  if (frame == 'a')
+  {
     std::cout << "The Vector in frame a: " << v << std::endl;
     v_b = Tba(v);
     std::cout << "The Vector in frame b: " << v_b << std::endl;
@@ -58,7 +60,8 @@ int main() {
     std::cout << "The Twist in frame c: " << twist_c << std::endl;
   }
 
-  else if (frame == 'b') {
+  else if (frame == 'b')
+  {
     v_a = Tab(v);
     std::cout << "The Vector in frame a: " << v_a << std::endl;
     std::cout << "The Vector in frame b: " << v << std::endl;
@@ -72,7 +75,8 @@ int main() {
     std::cout << "The Twist in frame c: " << twist_c << std::endl;
   }
 
-  else {
+  else
+  {
     v_a = Tac(v);
     std::cout << "The Vector in frame a: " << v_a << std::endl;
     v_b = Tbc(v);

@@ -29,9 +29,11 @@
 #include <vector>
 
 /// \brief Class FollowCircle
-class FollowCircle {
+class FollowCircle
+{
 public:
-  FollowCircle() {
+  FollowCircle()
+  {
     ROS_INFO("Initialize the variables");
     // Init Parameters
     load_parameter();
@@ -44,9 +46,10 @@ public:
 
   /// \brief Load the parameters from the parameter server
   /// \returns void
-  void load_parameter() {
+  void load_parameter()
+  {
     nh.getParam("turtle_speed",
-                turtle_speed); // The distance between the wheels
+                turtle_speed);                   // The distance between the wheels
     nh.getParam("circle_radius", circle_radius); // The radius of the wheels
   }
 
@@ -56,7 +59,8 @@ public:
   /// \param res - SetPose response.
   /// \returns bool
   bool control_callback(nuturtle_robot::Control::Request &req,
-                        nuturtle_robot::Control::Response &res) {
+                        nuturtle_robot::Control::Response &res)
+  {
     ROS_INFO("Setting control");
     control = req.dir;
     res.result = true;
@@ -69,20 +73,28 @@ public:
 
   /// \brief Main loop for the turtle's motion
   /// \returns void
-  void main_loop() {
+  void main_loop()
+  {
     ROS_INFO("Entering the loop");
     ros::Rate loop_rate(frequency);
     turtle_controlled_speed = turtle_speed;
 
-    while (ros::ok()) {
+    while (ros::ok())
+    {
       // // ROS_INFO("Looping");
 
-      if (control_flag) {
-        if (control == 1) {
+      if (control_flag)
+      {
+        if (control == 1)
+        {
           turtle_controlled_speed = turtle_speed;
-        } else if (control == -1) {
+        }
+        else if (control == -1)
+        {
           turtle_controlled_speed = -turtle_speed;
-        } else if (control == 0) {
+        }
+        else if (control == 0)
+        {
           turtle_controlled_speed = 0;
         }
 
@@ -120,7 +132,8 @@ private:
 /// \param argc - input int argument
 /// \param argv - input array argument
 /// \returns int
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   ros::init(argc, argv, "follow_circle_node");
   FollowCircle node;
   node.main_loop();

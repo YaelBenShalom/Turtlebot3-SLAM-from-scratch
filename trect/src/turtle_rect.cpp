@@ -26,12 +26,19 @@
 #include <vector>
 
 /// \brief Class State
-enum class State { STOP, TURN, FORWARD };
+enum class State
+{
+  STOP,
+  TURN,
+  FORWARD
+};
 
 /// \brief Class TurtleRect
-class TurtleRect {
+class TurtleRect
+{
 public:
-  TurtleRect() {
+  TurtleRect()
+  {
     ROS_INFO("Initialize the variables");
 
     state = State::STOP;
@@ -55,7 +62,8 @@ public:
 
   /// \brief Load the parameters from the parameter server
   /// \returns void
-  void load_parameter() {
+  void load_parameter()
+  {
     // The maximum translational velocity of the robot
     nh.getParam("max_xdot", max_xdot);
     // The maximum rotational velocity of the robot
@@ -72,7 +80,8 @@ public:
   /// \brief Subscribes to the turtle position
   /// \param msg - constant pointer to turtle Pose
   /// \returns void
-  void pose_callback(const turtlesim::PoseConstPtr &msg) {
+  void pose_callback(const turtlesim::PoseConstPtr &msg)
+  {
     pose_x = msg->x;
     pose_y = msg->y;
     pose_theta = msg->theta;
@@ -83,7 +92,8 @@ public:
   /// \param res - TurtleStart response.
   /// \returns bool
   bool turtle_start(trect::TurtleStart::Request &req,
-                    trect::TurtleStart::Response &res) {
+                    trect::TurtleStart::Response &res)
+  {
     ROS_INFO("start turtle");
     res.my_msg = "Lets start!";
 
@@ -129,11 +139,14 @@ public:
 
   /// \brief Main loop for the turtle's motion
   /// \returns void
-  void main_loop() {
+  void main_loop()
+  {
     ROS_INFO("Entering the loop");
     ros::Rate loop_rate(frequency);
-    while (ros::ok()) {
-      switch (state) {
+    while (ros::ok())
+    {
+      switch (state)
+      {
       case State::STOP:
         twist.linear.x = 0;
         twist.angular.z = 0;
@@ -145,7 +158,8 @@ public:
         twist.angular.z = max_wdot / 2;
         vel_pub.publish(twist);
         ROS_INFO("dTheta is: %f", fabs(pose_theta - current_angle));
-        if (fabs(pose_theta - current_angle) >= PI / 2) {
+        if (fabs(pose_theta - current_angle) >= PI / 2)
+        {
           state = State::FORWARD;
         }
         break;
@@ -159,9 +173,11 @@ public:
         if (((point_num == 1) && (pose_x >= x_0 + width)) ||
             ((point_num == 2) && (pose_y >= y_0 + height)) ||
             ((point_num == 3) && (pose_x <= x_0)) ||
-            ((point_num == 0) && (pose_y <= y_0))) {
+            ((point_num == 0) && (pose_y <= y_0)))
+        {
           point_num += 1;
-          if (point_num == 4) {
+          if (point_num == 4)
+          {
             point_num = 0;
           }
           current_angle = pose_theta;
@@ -202,7 +218,8 @@ private:
 /// \param argc - input int argument
 /// \param argv - input array argument
 /// \returns int
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   ros::init(argc, argv, "turtle_rect");
   TurtleRect node;
   node.main_loop();

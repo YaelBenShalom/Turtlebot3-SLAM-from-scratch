@@ -59,9 +59,11 @@
 #include <vector>
 
 /// \brief Class Odometer
-class Odometer {
+class Odometer
+{
 public:
-  Odometer() {
+  Odometer()
+  {
     ROS_INFO("Initialize the variables");
     // Init Parameters
     load_parameter();
@@ -76,8 +78,9 @@ public:
 
   /// \brief Load the parameters from the parameter server
   /// \returns void
-  void load_parameter() {
-    nh.getParam("wheel_base", wheel_base); // The distance between the wheels
+  void load_parameter()
+  {
+    nh.getParam("wheel_base", wheel_base);     // The distance between the wheels
     nh.getParam("wheel_radius", wheel_radius); // The radius of the wheels
     nh.getParam("odom_frame_id",
                 odom_frame_id); // The name of the odometry tf frame
@@ -93,7 +96,8 @@ public:
   /// \param joint_state - constant pointer to joint_states
   /// \returns void
   void
-  joint_state_callback(const sensor_msgs::JointState::ConstPtr &joint_state) {
+  joint_state_callback(const sensor_msgs::JointState::ConstPtr &joint_state)
+  {
     right_angle = joint_state->position.at(0);
     left_angle = joint_state->position.at(1);
 
@@ -106,7 +110,8 @@ public:
   /// \param res - SetPose response.
   /// \returns bool
   bool set_pose_callback(rigid2d::SetPose::Request &req,
-                         rigid2d::SetPose::Response &res) {
+                         rigid2d::SetPose::Response &res)
+  {
     ROS_INFO("Setting pose");
     reset_pose.x = req.x;
     reset_pose.y = req.y;
@@ -121,14 +126,17 @@ public:
 
   /// \brief Main loop for the turtle's motion
   /// \returns void
-  void main_loop() {
+  void main_loop()
+  {
     ROS_INFO("Entering the loop");
     ros::Rate loop_rate(frequency);
-    while (ros::ok()) {
+    while (ros::ok())
+    {
       current_time = ros::Time::now();
 
       // If the set_pose_callback was called
-      if (reset_flag) {
+      if (reset_flag)
+      {
         diff_drive.set_config(reset_pose);
         // diff_drive.WheelVelocity();
 
@@ -205,7 +213,8 @@ private:
 /// \param argc - input int argument
 /// \param argv - input array argument
 /// \returns int
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   ros::init(argc, argv, "odometer_node");
   Odometer node;
   node.main_loop();
