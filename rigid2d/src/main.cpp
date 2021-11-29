@@ -1,3 +1,6 @@
+/// \file   main.cpp
+/// \brief  A main file for transformation testing.
+
 #include "rigid2d/rigid2d.hpp"
 
 #include <cmath>
@@ -5,6 +8,7 @@
 #include <string>
 #include <vector>
 
+/// \brief A main function for transformation testing.
 int main() {
   char frame;
   rigid2d::Vector2D v, v_a, v_b, v_c;

@@ -71,7 +71,15 @@ var menudata={children:[
 {text:"w",url:"functions_func.html#index_w"},
 {text:"x",url:"functions_func.html#index_x"},
 {text:"y",url:"functions_func.html#index_y"}]},
-{text:"Variables",url:"functions_vars.html"},
+{text:"Variables",url:"functions_vars.html",children:[
+{text:"a",url:"functions_vars.html#index_a"},
+{text:"i",url:"functions_vars.html#index_i"},
+{text:"l",url:"functions_vars.html#index_l"},
+{text:"p",url:"functions_vars.html#index_p"},
+{text:"r",url:"functions_vars.html#index_r"},
+{text:"t",url:"functions_vars.html#index_t"},
+{text:"x",url:"functions_vars.html#index_x"},
+{text:"y",url:"functions_vars.html#index_y"}]},
 {text:"Related Functions",url:"functions_rela.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},

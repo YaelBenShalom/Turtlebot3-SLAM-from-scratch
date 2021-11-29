@@ -96,14 +96,19 @@ Package List</h1>
 </ul>
 <h1><a class="anchor" id="autotoc_md22"></a>
 Getting Started</h1>
-<p >Create a workspace and clone the repo: </p><div class="fragment"><div class="line">mkdir -p ws/src &amp;&amp; cd ws/src</div>
+<ol type="1">
+<li>Create a workspace and clone the repo: <div class="fragment"><div class="line">mkdir -p ws/src &amp;&amp; cd ws/src</div>
 <div class="line">git clone https://github.com/YaelBenShalom/Turtlebot3-SLAM-from-scratch.git</div>
-</div><!-- fragment --><p >Download and install the <code>turtle.rosinstall</code> file to get the necessary packages: </p><div class="fragment"><div class="line">cd ..</div>
+</div><!-- fragment --></li>
+<li>Download and install the <code>turtle.rosinstall</code> file to get the necessary packages: <div class="fragment"><div class="line">cd ..</div>
 <div class="line">vcs import src &lt;PATH_TO_ROSINSTALL_FILE&gt;.rosinstall</div>
-</div><!-- fragment --><p >Then build and source the workspace: </p><div class="fragment"><div class="line">cd ..</div>
+</div><!-- fragment --> Alternativly, clone <a href="https://github.com/ME495-Navigation/nuturtlebot">this repository</a> into the source space <code>ws/src</code>.</li>
+<li>Build and source the workspace: <div class="fragment"><div class="line">cd ..</div>
 <div class="line">catkin_make</div>
 <div class="line">source devel/setup.bash </div>
-</div><!-- fragment --> </div></div><!-- PageDoc -->
+</div><!-- fragment --> </li>
+</ol>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

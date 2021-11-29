@@ -1,7 +1,8 @@
+/// \file nuslam.hpp
+/// \brief A package for Extended Kalman Filter Slam implementation.
+
 #ifndef NUSLAM_INCLUDE_GUARD_HPP
 #define NUSLAM_INCLUDE_GUARD_HPP
-/// \file
-/// \brief Library for Extended Kalman Filter Slam implementation.
 
 #include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"

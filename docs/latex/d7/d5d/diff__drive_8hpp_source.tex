@@ -2,87 +2,89 @@
 \label{diff__drive_8hpp_source}\index{rigid2d/include/rigid2d/diff\_drive.hpp@{rigid2d/include/rigid2d/diff\_drive.hpp}}
 \mbox{\hyperlink{diff__drive_8hpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DIFFDRIVE\_INCLUDE\_GUARD\_HPP}}
-\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DIFFDRIVE\_INCLUDE\_GUARD\_HPP}}
-\DoxyCodeLine{6 }
-\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rigid2d_8hpp}{rigid2d/rigid2d.hpp}}"{}}}
-\DoxyCodeLine{8 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <cmath>}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <iosfwd>}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{keyword}{namespace }rigid2d \{}
-\DoxyCodeLine{14 \textcolor{keyword}{struct }\mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} \{}
-\DoxyCodeLine{16   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Config2D_a01981df587efe66d75479b5a9ae3aa43}{x}};}
-\DoxyCodeLine{18   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Config2D_adf24ddee300d23531e73fdbc76c9f4d4}{y}};}
-\DoxyCodeLine{20   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Config2D_a20843b282c589b31828ad789c031afe4}{theta}};}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{23   \mbox{\hyperlink{structrigid2d_1_1Config2D_ae6e1e06f408536813aaeb88027d985ed}{Config2D}}();}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{29   \mbox{\hyperlink{structrigid2d_1_1Config2D_ae6e1e06f408536813aaeb88027d985ed}{Config2D}}(\textcolor{keywordtype}{double} x\_, \textcolor{keywordtype}{double} y\_, \textcolor{keywordtype}{double} theta\_);}
-\DoxyCodeLine{30 \};}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{33 \textcolor{keyword}{struct }\mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \{}
-\DoxyCodeLine{35   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1WheelVelocity_a4ea5e0f8435ff22c35ef468c0f3a57f6}{right\_wheel\_vel}};}
-\DoxyCodeLine{37   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1WheelVelocity_a7942b5742e4ecba7050631cbcebefd54}{left\_wheel\_vel}};}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{40   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity_adb4d15f683c97069ffda883545154112}{WheelVelocity}}();}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{45   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity_adb4d15f683c97069ffda883545154112}{WheelVelocity}}(\textcolor{keywordtype}{double} right\_wheel\_vel\_, \textcolor{keywordtype}{double} left\_wheel\_vel\_);}
-\DoxyCodeLine{46 \};}
-\DoxyCodeLine{47 }
-\DoxyCodeLine{49 \textcolor{keyword}{struct }\mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \{}
-\DoxyCodeLine{51   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1WheelAngle_a11efecaf7296a699f55cc0f656078539}{right\_wheel\_angle}};}
-\DoxyCodeLine{53   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1WheelAngle_a5babf39ed746aefde0e11f9df85e9ff2}{left\_wheel\_angle}};}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{56   \mbox{\hyperlink{structrigid2d_1_1WheelAngle_abe64e44b938d56dd0f2d2fcd11569ce1}{WheelAngle}}();}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{61   \mbox{\hyperlink{structrigid2d_1_1WheelAngle_abe64e44b938d56dd0f2d2fcd11569ce1}{WheelAngle}}(\textcolor{keywordtype}{double} right\_wheel\_angle\_, \textcolor{keywordtype}{double} left\_wheel\_angle\_);}
-\DoxyCodeLine{62 \};}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{71 \textcolor{keyword}{class }\mbox{\hyperlink{classrigid2d_1_1DiffDrive}{DiffDrive}} \{}
-\DoxyCodeLine{72 \textcolor{keyword}{private}:}
-\DoxyCodeLine{74   \textcolor{keywordtype}{double} wheel\_base;}
-\DoxyCodeLine{76   \textcolor{keywordtype}{double} wheel\_radius;}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{79   \mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} config;}
-\DoxyCodeLine{81   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} wheel\_vel;}
-\DoxyCodeLine{83   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} wheel\_angle;}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85 \textcolor{keyword}{public}:}
-\DoxyCodeLine{87   \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a2d646290b7a03d391a59e8a296fea30d}{DiffDrive}}();}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{92   \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a2d646290b7a03d391a59e8a296fea30d}{DiffDrive}}(\textcolor{keywordtype}{double} wheel\_base\_, \textcolor{keywordtype}{double} wheel\_radius\_);}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{98   \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a2d646290b7a03d391a59e8a296fea30d}{DiffDrive}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} \&config\_, \textcolor{keywordtype}{double} wheel\_base\_, \textcolor{keywordtype}{double} wheel\_radius\_);}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{102   \mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a804c85df62c19784116d7a669da17d7f}{get\_config}}();}
-\DoxyCodeLine{103 }
-\DoxyCodeLine{107   \textcolor{keywordtype}{void} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a6ddad5665f5d1427e407fa27fece0bcb}{set\_config}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} \&config\_);}
-\DoxyCodeLine{108 }
-\DoxyCodeLine{111   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_aff9b7a79321d78f734e240c283cc40d6}{get\_transform}}();}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{115   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a9836b67c8bba82be229db70be3d7587e}{get\_wheel\_angle}}();}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{119   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a937e2b7aebb3a9be0c7261d5316ad53e}{get\_wheel\_vel}}();}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{125   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a8d3fdde093618c98eee2b71b3e3415fc}{twist2Wheels}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
-\DoxyCodeLine{126 }
-\DoxyCodeLine{131   \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a708bf3b47366d2ca4ce42fee72ee9147}{wheels2Twist}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \&vel);}
-\DoxyCodeLine{132 }
-\DoxyCodeLine{137   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_af6162edbd96df16fdfc4154b6a9280f9}{wheelAngle2WheelVel}}(\textcolor{keywordtype}{double} right\_wheel\_angle\_,}
-\DoxyCodeLine{138                                     \textcolor{keywordtype}{double} left\_wheel\_angle\_);}
-\DoxyCodeLine{139 }
-\DoxyCodeLine{143   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a01e492feeeb5bfb3f246df8ae5a3ace5}{wheelVel2WheelAngle}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \&vel);}
-\DoxyCodeLine{144 }
-\DoxyCodeLine{149   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_acd3e306036e2ac1660d90cdab3719bc3}{updateOdometryWithAngles}}(\textcolor{keywordtype}{double} right\_wheel\_angle\_,}
-\DoxyCodeLine{150                                          \textcolor{keywordtype}{double} left\_wheel\_angle\_);}
-\DoxyCodeLine{151 }
-\DoxyCodeLine{155   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_ab792957623613c8dc548fe857d7915e9}{updateOdometryWithTwist}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&tw);}
-\DoxyCodeLine{156 }
-\DoxyCodeLine{161   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_ac715ad8fbb7aaf81ced2896c42fcb163}{rotatingWheelsWithTwist}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&tw);}
-\DoxyCodeLine{162 \};}
-\DoxyCodeLine{163 \} \textcolor{comment}{// namespace rigid2d}}
-\DoxyCodeLine{164 }
-\DoxyCodeLine{165 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef DIFFDRIVE\_INCLUDE\_GUARD\_HPP}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define DIFFDRIVE\_INCLUDE\_GUARD\_HPP}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rigid2d_8hpp}{rigid2d/rigid2d.hpp}}"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <cmath>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <iosfwd>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }rigid2d \{}
+\DoxyCodeLine{15 \textcolor{keyword}{struct }\mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} \{}
+\DoxyCodeLine{17   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Config2D_a01981df587efe66d75479b5a9ae3aa43}{x}};}
+\DoxyCodeLine{19   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Config2D_adf24ddee300d23531e73fdbc76c9f4d4}{y}};}
+\DoxyCodeLine{21   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1Config2D_a20843b282c589b31828ad789c031afe4}{theta}};}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{24   \mbox{\hyperlink{structrigid2d_1_1Config2D_ae6e1e06f408536813aaeb88027d985ed}{Config2D}}();}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{30   \mbox{\hyperlink{structrigid2d_1_1Config2D_ae6e1e06f408536813aaeb88027d985ed}{Config2D}}(\textcolor{keywordtype}{double} x\_, \textcolor{keywordtype}{double} y\_, \textcolor{keywordtype}{double} theta\_);}
+\DoxyCodeLine{31 \};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \{}
+\DoxyCodeLine{36   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1WheelVelocity_a4ea5e0f8435ff22c35ef468c0f3a57f6}{right\_wheel\_vel}};}
+\DoxyCodeLine{38   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1WheelVelocity_a7942b5742e4ecba7050631cbcebefd54}{left\_wheel\_vel}};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{41   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity_adb4d15f683c97069ffda883545154112}{WheelVelocity}}();}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{46   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity_adb4d15f683c97069ffda883545154112}{WheelVelocity}}(\textcolor{keywordtype}{double} right\_wheel\_vel\_, \textcolor{keywordtype}{double} left\_wheel\_vel\_);}
+\DoxyCodeLine{47 \};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{50 \textcolor{keyword}{struct }\mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \{}
+\DoxyCodeLine{52   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1WheelAngle_a11efecaf7296a699f55cc0f656078539}{right\_wheel\_angle}};}
+\DoxyCodeLine{54   \textcolor{keywordtype}{double} \mbox{\hyperlink{structrigid2d_1_1WheelAngle_a5babf39ed746aefde0e11f9df85e9ff2}{left\_wheel\_angle}};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{57   \mbox{\hyperlink{structrigid2d_1_1WheelAngle_abe64e44b938d56dd0f2d2fcd11569ce1}{WheelAngle}}();}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{62   \mbox{\hyperlink{structrigid2d_1_1WheelAngle_abe64e44b938d56dd0f2d2fcd11569ce1}{WheelAngle}}(\textcolor{keywordtype}{double} right\_wheel\_angle\_, \textcolor{keywordtype}{double} left\_wheel\_angle\_);}
+\DoxyCodeLine{63 \};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{72 \textcolor{keyword}{class }\mbox{\hyperlink{classrigid2d_1_1DiffDrive}{DiffDrive}} \{}
+\DoxyCodeLine{73 \textcolor{keyword}{private}:}
+\DoxyCodeLine{75   \textcolor{keywordtype}{double} wheel\_base;}
+\DoxyCodeLine{77   \textcolor{keywordtype}{double} wheel\_radius;}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{80   \mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} config;}
+\DoxyCodeLine{82   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} wheel\_vel;}
+\DoxyCodeLine{84   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} wheel\_angle;}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{keyword}{public}:}
+\DoxyCodeLine{88   \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a2d646290b7a03d391a59e8a296fea30d}{DiffDrive}}();}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{93   \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a2d646290b7a03d391a59e8a296fea30d}{DiffDrive}}(\textcolor{keywordtype}{double} wheel\_base\_, \textcolor{keywordtype}{double} wheel\_radius\_);}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{99   \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a2d646290b7a03d391a59e8a296fea30d}{DiffDrive}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} \&config\_, \textcolor{keywordtype}{double} wheel\_base\_, \textcolor{keywordtype}{double} wheel\_radius\_);}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{103   \mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a804c85df62c19784116d7a669da17d7f}{get\_config}}();}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{108   \textcolor{keywordtype}{void} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a6ddad5665f5d1427e407fa27fece0bcb}{set\_config}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Config2D}{Config2D}} \&config\_);}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{112   \mbox{\hyperlink{classrigid2d_1_1Transform2D}{Transform2D}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_aff9b7a79321d78f734e240c283cc40d6}{get\_transform}}();}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{116   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a9836b67c8bba82be229db70be3d7587e}{get\_wheel\_angle}}();}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{120   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a937e2b7aebb3a9be0c7261d5316ad53e}{get\_wheel\_vel}}();}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{126   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a8d3fdde093618c98eee2b71b3e3415fc}{twist2Wheels}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&twist);}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{132   \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a708bf3b47366d2ca4ce42fee72ee9147}{wheels2Twist}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \&vel);}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{138   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_af6162edbd96df16fdfc4154b6a9280f9}{wheelAngle2WheelVel}}(\textcolor{keywordtype}{double} right\_wheel\_angle\_,}
+\DoxyCodeLine{139                                     \textcolor{keywordtype}{double} left\_wheel\_angle\_);}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{144   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_a01e492feeeb5bfb3f246df8ae5a3ace5}{wheelVel2WheelAngle}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \&vel);}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{150   \mbox{\hyperlink{structrigid2d_1_1WheelVelocity}{WheelVelocity}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_acd3e306036e2ac1660d90cdab3719bc3}{updateOdometryWithAngles}}(\textcolor{keywordtype}{double} right\_wheel\_angle\_,}
+\DoxyCodeLine{151                                          \textcolor{keywordtype}{double} left\_wheel\_angle\_);}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{156   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_ab792957623613c8dc548fe857d7915e9}{updateOdometryWithTwist}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&tw);}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{162   \mbox{\hyperlink{structrigid2d_1_1WheelAngle}{WheelAngle}} \mbox{\hyperlink{classrigid2d_1_1DiffDrive_ac715ad8fbb7aaf81ced2896c42fcb163}{rotatingWheelsWithTwist}}(\textcolor{keyword}{const} \mbox{\hyperlink{structrigid2d_1_1Twist2D}{Twist2D}} \&tw);}
+\DoxyCodeLine{163 \};}
+\DoxyCodeLine{164 \} \textcolor{comment}{// namespace rigid2d}}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

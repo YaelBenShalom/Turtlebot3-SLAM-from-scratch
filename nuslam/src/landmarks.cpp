@@ -77,12 +77,20 @@ struct Cluster {
 };
 
 /// \brief A struct of laser data properties
+/// \param x_center - the x coordinate of the cluster center
+
 struct LaserData {
+  /// \param range_min - the minimum range of distance for a measurment
   double range_min = 0;
+  /// \param range_max - the maximum range of distance for a measurment
   double range_max = 0;
+  /// \param angle_min - the minimum range of angle for a measurment
   double angle_min = 0;
+  /// \param angle_max - the maximum range of angle for a measurment
   double angle_max = 0;
+  /// \param angle_max - the increment of angles
   double angle_increment = 0;
+  /// \param angle_max - a vector of ranges
   std::vector<double> ranges;
 };
 
@@ -125,7 +133,8 @@ public:
 
   /// \brief Subscribe to /scan topic and publish a sensor_msgs/LaserScan
   /// message with simulated lidar data at 5Hz \param data - constant pointer to
-  /// twist \returns void
+  /// twist
+  /// \returns void
   void lidar_scan_callback(const sensor_msgs::LaserScan::ConstPtr &data) {
     // ROS_INFO("Subscribing to LaserScan");
 
@@ -144,8 +153,9 @@ public:
     scan_flag = true;
   }
 
+  /// \brief Publishes the markers
+  /// \returns void
   void publish_markers() {
-
     visualization_msgs::MarkerArray marker_array;
     marker_array.markers.resize(clusters.size());
     int i = 0;

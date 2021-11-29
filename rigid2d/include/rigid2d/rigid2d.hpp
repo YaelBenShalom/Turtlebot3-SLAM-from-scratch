@@ -1,7 +1,8 @@
+/// \file rigid2d.hpp
+/// \brief Library for two-dimensional rigid body transformations.
+
 #ifndef RIGID2D_INCLUDE_GUARD_HPP
 #define RIGID2D_INCLUDE_GUARD_HPP
-/// \file
-/// \brief Library for two-dimensional rigid body transformations.
 
 #include <cmath>
 #include <iosfwd>
@@ -137,11 +138,8 @@ struct Twist2D {
   /// \param ydot_ - ydot input of the vector
   explicit Twist2D(double thetadot_, double xdot_, double ydot_);
 
-/// \brief should print a human readable version of the twist:
-/// An example output:
-/// dtheta (degrees): 90 dx: 3 dy: 5
-/// \param os - an output stream
-/// \param twist - the twist to print
+  /// \brief \see operator>>(...) (declared outside this class)
+  /// for a description.
   friend std::ostream &operator<<(std::ostream &os, const Twist2D &twist);
 
   /// \brief \see operator>>(...) (declared outside this class)

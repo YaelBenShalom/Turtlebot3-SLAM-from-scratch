@@ -1,8 +1,9 @@
-#ifndef DIFFDRIVE_INCLUDE_GUARD_HPP
-#define DIFFDRIVE_INCLUDE_GUARD_HPP
-/// \file
+/// \file diff_drive.hpp
 /// \brief Library for the kinematics of a differential drive robot with a given
 ///     wheel base and wheel radius.
+
+#ifndef DIFFDRIVE_INCLUDE_GUARD_HPP
+#define DIFFDRIVE_INCLUDE_GUARD_HPP
 
 #include "rigid2d/rigid2d.hpp"
 

@@ -1,3 +1,7 @@
+/// \file diff_drive.cpp
+/// \brief Library for the kinematics of a differential drive robot with a given
+///     wheel base and wheel radius.
+
 #include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"
 

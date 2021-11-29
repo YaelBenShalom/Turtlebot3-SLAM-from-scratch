@@ -1,3 +1,6 @@
+/// \file   nuslam.cpp
+/// \brief  A package for Extended Kalman Filter Slam implementation.
+
 #include "nuslam/nuslam.hpp"
 #include "rigid2d/diff_drive.hpp"
 #include "rigid2d/rigid2d.hpp"

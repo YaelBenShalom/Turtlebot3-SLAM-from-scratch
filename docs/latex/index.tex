@@ -29,23 +29,23 @@ This repository uses external package\+:
 \begin{DoxyItemize}
 \item {\bfseries{nuturtlebot}} -\/ Additional package to help us work with the lower-\/level hardware on the turtlebot. In order to run this project, please download the {\ttfamily turtle.\+rosinstall} file.
 \end{DoxyItemize}\hypertarget{index_autotoc_md22}{}\doxysection{Getting Started}\label{index_autotoc_md22}
-Create a workspace and clone the repo\+: 
+
+\begin{DoxyEnumerate}
+\item Create a workspace and clone the repo\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{mkdir -\/p ws/src \&\& cd ws/src}
 \DoxyCodeLine{git clone https://github.com/YaelBenShalom/Turtlebot3-\/SLAM-\/from-\/scratch.git}
 
 \end{DoxyCode}
 
-
-Download and install the {\ttfamily turtle.\+rosinstall} file to get the necessary packages\+: 
+\item Download and install the {\ttfamily turtle.\+rosinstall} file to get the necessary packages\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{cd ..}
 \DoxyCodeLine{vcs import src <PATH\_TO\_ROSINSTALL\_FILE>.rosinstall}
 
 \end{DoxyCode}
-
-
-Then build and source the workspace\+: 
+ Alternativly, clone \href{https://github.com/ME495-Navigation/nuturtlebot}{\texttt{ this repository}} into the source space {\ttfamily ws/src}.
+\item Build and source the workspace\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{cd ..}
 \DoxyCodeLine{catkin\_make}
@@ -53,3 +53,4 @@ Then build and source the workspace\+:
 
 \end{DoxyCode}
  
+\end{DoxyEnumerate}

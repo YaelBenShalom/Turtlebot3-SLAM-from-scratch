@@ -79,8 +79,8 @@ public:
   }
 
   /// \brief Clear the screen, draw a rectangle and starts the turtle motion.
-  /// \param request - TurtleStart request.
-  /// \param response - TurtleStart response.
+  /// \param req - TurtleStart request.
+  /// \param res - TurtleStart response.
   /// \returns bool
   bool turtle_start(trect::TurtleStart::Request &req,
                     trect::TurtleStart::Response &res) {

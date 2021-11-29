@@ -1,3 +1,7 @@
+/// \file rigid2d.cpp
+/// \brief Library for two-dimensional rigid body transformations.
+
+
 #include "rigid2d/rigid2d.hpp"
 
 #include <cmath>
