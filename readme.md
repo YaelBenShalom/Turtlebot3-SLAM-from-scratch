@@ -9,14 +9,14 @@ Author: Yael Ben Shalom
 - [Package List](#package-list)
 - [Getting Started](#getting-started)
 
-# Project Description
+## Project Description
 
 This repository contains my implementation of feature-based EKF SLAM with unsupervised learning. I implemented all the packages from Scratch using ROS in C++.<br><br>
 Please visit [my website](https://yaelbenshalom.github.io/EKF_SLAM/index.html) for more information about this project.<br>
 For further information about the packages, classes, and methods used in this project, please visit [package documentation](https://yaelbenshalom.github.io/Turtlebot3-SLAM-from-scratch/html/index.html).
 
 
-# Package List
+## Package List
 
 This repository consists of several ROS packages:
 
@@ -31,7 +31,7 @@ This repository uses external package:
 
 - **nuturtlebot** - Additional package to help us work with the lower-level hardware on the turtlebot. In order to run this project, please download the `turtle.rosinstall` file.
 
-# Getting Started
+## Getting Started
 
 1. Create a workspace and clone the repo:
     ```
